@@ -40,10 +40,10 @@ public class AchievementManager : MonoBehaviour
                 achievementObjects[i].GetComponent<AchievementObject>().setDescription(achievementsTotal[i].description);
             }
         }
-        checkUnlockStatus();
+        updateUnlockedStatus();
     }
 
-    private void checkUnlockStatus()
+    private void updateUnlockedStatus()
     {
         for(int i = 0; i < achievementsTotal.Count; i++)
         {
@@ -59,5 +59,56 @@ public class AchievementManager : MonoBehaviour
                 achievementObjects[i].UnlockAchievement();
             }
         }
+    }
+
+    public void CheckEmptyRequirement(int achievementID)
+    {
+        for(int i = 0; i < achievementsTotal.Count; i++)
+        {
+            if(achievementID == achievementsTotal[i].achievementID)
+            {
+                if (!achievementsTotal[i].unlocked)
+                {
+                    UnlockAchievement(i);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void CheckIntRequirement(int achievementID, int value)
+    {
+        for (int i = 0; i < achievementsTotal.Count; i++)
+        {
+            if (achievementID == achievementsTotal[i].achievementID)
+            {
+                if (value == achievementsTotal[i].intGoalAmount)
+                {
+                    UnlockAchievement(i);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void CheckFloatRequirement(int achievementID, float value)
+    {
+        for(int i = 0; i < achievementsTotal.Count; i++)
+        {
+            if(achievementID == achievementsTotal[i].achievementID)
+            {
+                if (value == achievementsTotal[i].floatGoalAmount)
+                {
+                    UnlockAchievement(i);
+                    return;
+                }
+            }            
+        }
+    }
+
+    private void UnlockAchievement(int achievementID)
+    {
+        achievementsTotal[achievementID].unlocked = true;
+        updateUnlockedStatus();
     }
 }

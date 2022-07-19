@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2dc274fc7fb31043b43a3bc2aa34471, type: 3}
-  m_Name: Game Event Empty
+  m_Script: {fileID: 11500000, guid: 5e01e09929c05d5419c7a73a6eebb91e, type: 3}
+  m_Name: Hidden Achievement Event
   m_EditorClassIdentifier: 
+  achievementToUnlock: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}

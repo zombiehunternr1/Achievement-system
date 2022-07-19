@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
   m_Name: Quitter achievement
   m_EditorClassIdentifier: 
+  achievementID: 2
   title: Quitter!
   description: Quitting is for losers!
   icon: {fileID: 21300000, guid: 1c2d62c6ebcc6324dbb1b0fce2666b5e, type: 3}
@@ -19,4 +20,4 @@ MonoBehaviour:
   intGoalAmount: 10
   floatGoalAmount: 0
   isHidden: 0
-  unlocked: 0
+  unlocked: 1

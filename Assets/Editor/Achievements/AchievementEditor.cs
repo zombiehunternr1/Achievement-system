@@ -5,6 +5,7 @@ using UnityEngine;
 public class AchievementEditor : Editor
 {
     public SerializedProperty
+        idValueProp,
         titleValueProp,
         desciptionValueProp,
         iconValueProp,
@@ -16,6 +17,7 @@ public class AchievementEditor : Editor
 
     private void OnEnable()
     {
+        idValueProp = serializedObject.FindProperty("achievementID");
         titleValueProp = serializedObject.FindProperty("title");
         desciptionValueProp = serializedObject.FindProperty("description");
         iconValueProp = serializedObject.FindProperty("icon");
@@ -29,10 +31,11 @@ public class AchievementEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        EditorGUILayout.PropertyField(idValueProp, new GUILayoutOption[] {GUILayout.Width(275)});
         EditorGUILayout.PropertyField(titleValueProp, new GUILayoutOption[] { GUILayout.Width(500)});
         EditorGUILayout.PropertyField(desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
         EditorGUILayout.PropertyField(iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
-        EditorGUILayout.PropertyField(completionTypeProp, new GUILayoutOption[] { GUILayout.Width(400)});
+        EditorGUILayout.PropertyField(completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
         AchievementInfo.completionType type = (AchievementInfo.completionType)completionTypeProp.enumValueIndex;
 
         switch (type)

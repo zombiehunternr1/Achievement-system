@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
   m_Name: What could go wrong achievement
   m_EditorClassIdentifier: 
+  achievementID: 3
   title: What could go wrong?
   description: If you could just go ahead and not do that. That'd be great
   icon: {fileID: 21300000, guid: 080bf216f899353468069974ff1e934b, type: 3}
@@ -19,4 +20,4 @@ MonoBehaviour:
   intGoalAmount: 0
   floatGoalAmount: 305326.1
   isHidden: 0
-  unlocked: 0
+  unlocked: 1

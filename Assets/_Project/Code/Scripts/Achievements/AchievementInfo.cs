@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
 public class AchievementInfo : ScriptableObject
 {
+    public int achievementID;
     public string title;
     public string description;
     public Sprite icon;

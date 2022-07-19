@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
   m_Name: Hidden achievement baby Yoda
   m_EditorClassIdentifier: 
+  achievementID: 0
   title: You were looking for me?
   description: You found the hidden baby Yoda!
   icon: {fileID: 21300000, guid: 7c7d3b986298ba5478f02395c484953c, type: 3}
-  valueCompletionType: 1
+  valueCompletionType: 0
   intGoalAmount: 88
   floatGoalAmount: 0
   isHidden: 1
-  unlocked: 0
+  unlocked: 1
