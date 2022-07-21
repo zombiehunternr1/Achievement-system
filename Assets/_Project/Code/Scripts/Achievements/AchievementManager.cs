@@ -8,15 +8,18 @@ public class AchievementManager : MonoBehaviour
 {
     [SerializeField] private Sprite hiddenAchievement;
     [SerializeField] private RectTransform achievementContainer;
-    [SerializeField] private AchievementObject achievementPrefab;
+    [SerializeField] private AchievementObject achievementPrefabContainer;
+    [SerializeField] private AchievementObject achievementPrefabPopup;
     [SerializeField] private List<AchievementInfo> achievementsTotal;
 
     private List<AchievementObject> achievementObjects;
+    private List<int> QueuedAchievements;
     private string hiddenText = "??????????????";
 
     private void OnEnable()
     {
         achievementObjects = new List<AchievementObject>();
+        QueuedAchievements = new List<int>();
         SetupAchievementDisplay();
     }
 
@@ -24,7 +27,7 @@ public class AchievementManager : MonoBehaviour
     {
         for (int i = 0; i < achievementsTotal.Count; i++)
         {
-            AchievementObject achievementObject = Instantiate(achievementPrefab, achievementContainer);
+            AchievementObject achievementObject = Instantiate(achievementPrefabContainer, achievementContainer);
             achievementObjects.Add(achievementObject);
             if (achievementsTotal[i].isHidden)
             {
@@ -65,7 +68,7 @@ public class AchievementManager : MonoBehaviour
     {
         for(int i = 0; i < achievementsTotal.Count; i++)
         {
-            if(achievementID == achievementsTotal[i].achievementID)
+            if(achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
             {
                 if (!achievementsTotal[i].unlocked)
                 {
@@ -80,7 +83,7 @@ public class AchievementManager : MonoBehaviour
     {
         for (int i = 0; i < achievementsTotal.Count; i++)
         {
-            if (achievementID == achievementsTotal[i].achievementID)
+            if (achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
             {
                 if (value == achievementsTotal[i].intGoalAmount)
                 {
@@ -95,7 +98,7 @@ public class AchievementManager : MonoBehaviour
     {
         for(int i = 0; i < achievementsTotal.Count; i++)
         {
-            if(achievementID == achievementsTotal[i].achievementID)
+            if(achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
             {
                 if (value == achievementsTotal[i].floatGoalAmount)
                 {
@@ -110,5 +113,57 @@ public class AchievementManager : MonoBehaviour
     {
         achievementsTotal[achievementID].unlocked = true;
         updateUnlockedStatus();
+        AddToQueue(achievementID);
+    }
+
+    private void AddToQueue(int achievementID)
+    {
+        if(QueuedAchievements.Count == 0)
+        {
+            QueuedAchievements.Add(achievementID);
+            DisplayPopUpAchievement(achievementID);
+        }
+        else
+        {
+            QueuedAchievements.Add(achievementID);
+        }
+    }
+
+    private void DisplayNextinQueue()
+    {
+        QueuedAchievements.RemoveAt(0);
+        if(QueuedAchievements.Count != 0)
+        {
+            DisplayPopUpAchievement(QueuedAchievements[0]);
+        }
+    }
+
+    private void DisplayPopUpAchievement(int achievementID)
+    {
+        achievementPrefabPopup.UnlockAchievement();
+        achievementPrefabPopup.setIcon(achievementsTotal[achievementID].icon);
+        achievementPrefabPopup.setTitle(achievementsTotal[achievementID].title);
+        achievementPrefabPopup.setDescription(achievementsTotal[achievementID].description);
+        achievementPrefabPopup.PlayDisplayAnim();
+    }
+
+    public void StartPopupCooldown()
+    {
+        StartCoroutine(PopupCooldown());
+    }
+
+    private IEnumerator PopupCooldown()
+    {
+        yield return new WaitForSeconds(5);
+        achievementPrefabPopup.PlayHideAnim();
+        yield return new WaitForSeconds(1.5f);
+        if(QueuedAchievements.Count != 0)
+        {
+            DisplayNextinQueue();
+        }
+        else
+        {
+            StopAllCoroutines();
+        }
     }
 }

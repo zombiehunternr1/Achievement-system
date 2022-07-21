@@ -10,6 +10,7 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private Image locked;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private Animator popupAnimation;
     public void setIcon(Sprite iconInfo)
     {
         icon.sprite = iconInfo;
@@ -40,5 +41,15 @@ public class AchievementObject : MonoBehaviour
     public void RemoveLockIcon()
     {
         locked.enabled = false;
+    }
+
+    public void PlayDisplayAnim()
+    {
+        popupAnimation.Play("Displaying");
+    }
+
+    public void PlayHideAnim()
+    {
+        popupAnimation.Play("Hiding");
     }
 }

@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 769070b9d2e4f6c4e835028245e5681e, type: 3}
-  m_Name: Game Event Int
+  m_Script: {fileID: 11500000, guid: a2dc274fc7fb31043b43a3bc2aa34471, type: 3}
+  m_Name: StartAchievementPopupCooldown
   m_EditorClassIdentifier: 
