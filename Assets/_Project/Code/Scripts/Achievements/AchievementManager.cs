@@ -70,11 +70,8 @@ public class AchievementManager : MonoBehaviour
         {
             if(achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
             {
-                if (!achievementsTotal[i].unlocked)
-                {
-                    UnlockAchievement(i);
-                    return;
-                }
+                UnlockAchievement(i);
+                return;
             }
         }
     }
