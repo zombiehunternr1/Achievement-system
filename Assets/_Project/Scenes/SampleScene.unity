@@ -1619,11 +1619,11 @@ GameObject:
   m_Component:
   - component: {fileID: 869330440}
   - component: {fileID: 869330439}
+  - component: {fileID: 869330445}
   - component: {fileID: 869330441}
   - component: {fileID: 869330442}
   - component: {fileID: 869330443}
   - component: {fileID: 869330444}
-  - component: {fileID: 869330445}
   m_Layer: 0
   m_Name: Achievement Manager
   m_TagString: Untagged
@@ -1647,12 +1647,12 @@ MonoBehaviour:
   achievementContainer: {fileID: 1756146404}
   achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
   achievementPrefabPopup: {fileID: 8934868422544505267}
+  displayPopupTime: 5
   achievementsTotal:
   - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
   - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
   - {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
   - {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
-  QueuedAchievements: 
 --- !u!4 &869330440
 Transform:
   m_ObjectHideFlags: 0

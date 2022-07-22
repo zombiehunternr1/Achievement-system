@@ -10,6 +10,7 @@ public class AchievementManager : MonoBehaviour
     [SerializeField] private RectTransform achievementContainer;
     [SerializeField] private AchievementObject achievementPrefabContainer;
     [SerializeField] private AchievementObject achievementPrefabPopup;
+    [SerializeField] private int displayPopupTime = 5;
     [SerializeField] private List<AchievementInfo> achievementsTotal;
 
     private List<AchievementObject> achievementObjects;
@@ -151,7 +152,7 @@ public class AchievementManager : MonoBehaviour
 
     private IEnumerator PopupCooldown()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(displayPopupTime);
         achievementPrefabPopup.PlayHideAnim();
         yield return new WaitForSeconds(1.5f);
         if(QueuedAchievements.Count != 0)
