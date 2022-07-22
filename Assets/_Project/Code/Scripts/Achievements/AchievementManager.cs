@@ -139,10 +139,8 @@ public class AchievementManager : MonoBehaviour
 
     private void DisplayPopUpAchievement(int achievementID)
     {
-        achievementPrefabPopup.UnlockAchievement();
         achievementPrefabPopup.setIcon(achievementsTotal[achievementID].icon);
         achievementPrefabPopup.setTitle(achievementsTotal[achievementID].title);
-        achievementPrefabPopup.setDescription(achievementsTotal[achievementID].description);
         achievementPrefabPopup.PlayDisplayAnim();
     }
 
