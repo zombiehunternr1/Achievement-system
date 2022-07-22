@@ -77,33 +77,34 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
-    public void CheckIntRequirement(int achievementID, int value)
+    public void CheckValueRequirement(int achievementID, int? intValue, float? floatValue)
     {
         for (int i = 0; i < achievementsTotal.Count; i++)
         {
             if (achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
             {
-                if (value == achievementsTotal[i].intGoalAmount)
+                if (intValue != null)
+                {
+                    if (intValue == achievementsTotal[i].intGoalAmount)
+                    {
+                        UnlockAchievement(i);
+                        return;
+                    }
+                }
+                else if (floatValue != null)
+                {
+                    if (floatValue == achievementsTotal[i].floatGoalAmount)
+                    {
+                        UnlockAchievement(i);
+                        return;
+                    }
+                }
+                else
                 {
                     UnlockAchievement(i);
                     return;
                 }
             }
-        }
-    }
-
-    public void CheckFloatRequirement(int achievementID, float value)
-    {
-        for(int i = 0; i < achievementsTotal.Count; i++)
-        {
-            if(achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
-            {
-                if (value == achievementsTotal[i].floatGoalAmount)
-                {
-                    UnlockAchievement(i);
-                    return;
-                }
-            }            
         }
     }
 

@@ -1621,9 +1621,9 @@ GameObject:
   - component: {fileID: 869330439}
   - component: {fileID: 869330445}
   - component: {fileID: 869330441}
-  - component: {fileID: 869330442}
-  - component: {fileID: 869330443}
   - component: {fileID: 869330444}
+  - component: {fileID: 869330447}
+  - component: {fileID: 869330446}
   m_Layer: 0
   m_Name: Achievement Manager
   m_TagString: Untagged
@@ -1696,62 +1696,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &869330442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551577a9238efd54d990a944d5dd6eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatEvent: {fileID: 11400000, guid: 61ac35a0499a47d4087f098e1477df8b, type: 2}
-  respondse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckFloatRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 351a0cbe996d0f94699e76e1e7e3bccc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intEvent: {fileID: 11400000, guid: 95eb5cad551ed884e869ae3a949854af, type: 2}
-  respondse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckIntRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &869330444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,6 +1744,62 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
         m_MethodName: StartPopupCooldown
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &869330446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueEvent: {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
+  respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 869330439}
+        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
+        m_MethodName: CheckValueRequirement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &869330447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valueEvent: {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
+  respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 869330439}
+        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
+        m_MethodName: CheckValueRequirement
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2119,6 +2119,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 0c106085f89276a459a17b45b9a52c1f, type: 2}
+        m_TargetAssemblyTypeName: AchievementEventEmpty, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3070,8 +3082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4b26d01fc485c40815839a3184d688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatAchievement: {fileID: 11400000, guid: 61ac35a0499a47d4087f098e1477df8b, type: 2}
-  intAchievement: {fileID: 11400000, guid: 95eb5cad551ed884e869ae3a949854af, type: 2}
+  floatAchievement: {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
+  intAchievement: {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
   floatInputText: {fileID: 672545898}
   integerInputText: {fileID: 1850466131}
 --- !u!1 &1756146403

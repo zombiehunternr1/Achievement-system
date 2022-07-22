@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45617be3ad5a1b340a9612aba80d7d6c, type: 3}
-  m_Name: Funny number Achievement Event Int
+  m_Script: {fileID: 11500000, guid: b9e6bc2c2ee36a74c8454eb48ef9312d, type: 3}
+  m_Name: Funny Number Achievement Event
   m_EditorClassIdentifier: 
   achievementToUnlock: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}

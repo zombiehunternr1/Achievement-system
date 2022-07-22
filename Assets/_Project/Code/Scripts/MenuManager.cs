@@ -5,20 +5,20 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] AchievementEventFloat floatAchievement;
-    [SerializeField] AchievementEventInt intAchievement;
+    [SerializeField] AchievementEventValue floatAchievement;
+    [SerializeField] AchievementEventValue intAchievement;
     [SerializeField] TMP_InputField floatInputText;
     [SerializeField] TMP_InputField integerInputText;
 
     public void SubmitFloatValue()
     {
         float floatValue = float.Parse(floatInputText.text);
-        floatAchievement.RaiseFloatEvent(floatValue);
+        floatAchievement.RaiseValueEvent(null, floatValue);
     }
 
     public void SubmitIntValue()
     {
         int intValue = int.Parse(integerInputText.text);
-        intAchievement.RaiseIntEvent(intValue);
+        intAchievement.RaiseValueEvent(intValue, null);
     }
 }
