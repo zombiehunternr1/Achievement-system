@@ -100,10 +100,10 @@ public class AchievementManager : MonoBehaviour
     {
         achievementsTotal[achievementID].unlocked = true;
         updateUnlockedStatus();
-        AddToQueue(achievementID);
+        AddToQueueDisplay(achievementID);
     }
 
-    private void AddToQueue(int achievementID)
+    private void AddToQueueDisplay(int achievementID)
     {
         if(QueuedAchievements.Count == 0)
         {
