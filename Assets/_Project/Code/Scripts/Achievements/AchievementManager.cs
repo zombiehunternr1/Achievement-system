@@ -65,18 +65,6 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
-    public void CheckEmptyRequirement(int achievementID)
-    {
-        for(int i = 0; i < achievementsTotal.Count; i++)
-        {
-            if(achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
-            {
-                UnlockAchievement(i);
-                return;
-            }
-        }
-    }
-
     public void CheckValueRequirement(int achievementID, int? intValue, float? floatValue)
     {
         for (int i = 0; i < achievementsTotal.Count; i++)

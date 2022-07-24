@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AchievementEventListenerValue : MonoBehaviour
+public class AchievementEventListener : MonoBehaviour
 {
-    [SerializeField] private AchievementEventValue valueEvent;
+    [SerializeField] private AchievementEvent achievementEvent;
     [SerializeField] private UnityEvent<int, int?, float?> respondse;
 
     private void OnEnable()
     {
-        valueEvent.RegisterListener(this);
+        achievementEvent.RegisterListener(this);
     }
 
     private void OnDisable()
     {
-        valueEvent.UnregisterListener(this);
+        achievementEvent.UnregisterListener(this);
     }
 
     public void OnEventRaised(int achievementID, int? intValue, float? floatValue)

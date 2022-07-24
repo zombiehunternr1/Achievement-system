@@ -20,4 +20,4 @@ MonoBehaviour:
   intGoalAmount: 69
   floatGoalAmount: 0
   isHidden: 0
-  unlocked: 1
+  unlocked: 0

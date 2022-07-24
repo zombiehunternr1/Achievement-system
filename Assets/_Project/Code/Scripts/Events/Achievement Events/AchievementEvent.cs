@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Achievement Event Value", menuName = "Scriptable Objects/Events/Achievement Event/Value")]
-public class AchievementEventValue : ScriptableObject
+[CreateAssetMenu(fileName = "Achievement Event", menuName = "Scriptable Objects/Events/Achievement Event")]
+public class AchievementEvent : ScriptableObject
 {
     [SerializeField] private AchievementInfo achievementToUnlock;
-    private List<AchievementEventListenerValue> listeners = new List<AchievementEventListenerValue>();
+    private List<AchievementEventListener> listeners = new List<AchievementEventListener>();
 
     public void RaiseValueEvent(int? intValue, float? floatValue)
     {
@@ -15,12 +15,12 @@ public class AchievementEventValue : ScriptableObject
         }
     }
 
-    public void RegisterListener(AchievementEventListenerValue listener)
+    public void RegisterListener(AchievementEventListener listener)
     {
         listeners.Add(listener);
     }
 
-    public void UnregisterListener(AchievementEventListenerValue listener)
+    public void UnregisterListener(AchievementEventListener listener)
     {
         listeners.Remove(listener);
     }
