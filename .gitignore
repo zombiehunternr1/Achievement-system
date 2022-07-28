@@ -74,8 +74,8 @@ crashlytics-build.properties
 !/[Aa]ssets/Plugins/FMOD/**/lib/*
 
 # Don't ignore images and gizmos used by FMOD in the Unity Editor.
-!/[Aa]ssets/Plugins/Gizmos/FMOD/*
-!/[Aa]ssets/Plugins/Editor Default Resources/FMOD/*
+/[Aa]ssets/Plugins/Gizmos/FMOD/*
+/[Aa]ssets/Plugins/Editor Default Resources/FMOD/*
                     
 # Ignore the Cache folder since it is updated locally.
 /[Aa]ssets/Plugins/FMOD/Cache/*
