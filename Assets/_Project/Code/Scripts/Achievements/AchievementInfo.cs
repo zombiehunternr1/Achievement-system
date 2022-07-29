@@ -6,18 +6,66 @@ using FMODUnity;
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
 public class AchievementInfo : ScriptableObject
 {
-    public int achievementID;
-    public string title;
-    public string description;
-    public Sprite icon;
-    public enum completionType { noRequirements, integerRequirement, floatRequirement};
+    [SerializeField] private int achievementID;
+    [SerializeField] private string title;
+    [SerializeField] private string description;
+    [SerializeField] private Sprite icon;
+    public enum completionType { noRequirements, integerRequirement, floatRequirement };
     public completionType valueCompletionType;
 
-    public int intGoalAmount;
-    public float floatGoalAmount;
+    [SerializeField] private int intGoalAmount;
+    [SerializeField] private float floatGoalAmount;
+    [SerializeField] private bool isHidden;
+    [SerializeField] private bool unlocked;
+    [SerializeField] private EventReference soundEffect;
 
-    public bool isHidden;
-    public bool unlocked;
+    public int GetAchievementID()
+    {
+        return achievementID;
+    }
 
-    public EventReference soundEffect;
+    public string GetTitle()
+    {
+        return title;
+    }
+
+    public string GetDescription()
+    {
+        return description;
+    }
+
+    public Sprite GetIcon()
+    {
+        return icon;
+    }
+
+    public int GetIntGoal()
+    {
+        return intGoalAmount;
+    }
+
+    public float GetFloatGoal()
+    {
+        return floatGoalAmount;
+    }
+
+    public bool CheckIfHidden()
+    {
+        return isHidden;
+    }
+
+    public bool CheckIfUnlocked()
+    {
+        return unlocked;
+    }
+
+    public bool UnlockAchievement()
+    {
+        return unlocked = true;
+    }
+
+    public EventReference GetSoundEffect()
+    {
+        return soundEffect;
+    }
 }

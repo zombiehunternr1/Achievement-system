@@ -34,7 +34,7 @@ public class AchievementManager : MonoBehaviour
         {
             AchievementObject achievementObject = Instantiate(achievementPrefabContainer, achievementContainer);
             achievementObjects.Add(achievementObject);
-            if (achievementsTotal[i].isHidden)
+            if (achievementsTotal[i].CheckIfHidden())
             {
                 achievementObjects[i].setIcon(hiddenAchievement);
                 achievementObjects[i].setTitle(hiddenText);
@@ -43,9 +43,9 @@ public class AchievementManager : MonoBehaviour
             }
             else
             {
-                achievementObjects[i].GetComponent<AchievementObject>().setIcon(achievementsTotal[i].icon);
-                achievementObjects[i].GetComponent<AchievementObject>().setTitle(achievementsTotal[i].title);
-                achievementObjects[i].GetComponent<AchievementObject>().setDescription(achievementsTotal[i].description);
+                achievementObjects[i].GetComponent<AchievementObject>().setIcon(achievementsTotal[i].GetIcon());
+                achievementObjects[i].GetComponent<AchievementObject>().setTitle(achievementsTotal[i].GetTitle());
+                achievementObjects[i].GetComponent<AchievementObject>().setDescription(achievementsTotal[i].GetDescription());
             }
         }
         updateUnlockedStatus();
@@ -55,15 +55,15 @@ public class AchievementManager : MonoBehaviour
     {
         for(int i = 0; i < achievementsTotal.Count; i++)
         {
-            if (achievementsTotal[i].unlocked && !achievementsTotal[i].isHidden)
+            if (achievementsTotal[i].CheckIfUnlocked() && !achievementsTotal[i].CheckIfHidden())
             {
                 achievementObjects[i].UnlockAchievement();
             }
-            else if (achievementsTotal[i].unlocked && achievementsTotal[i].isHidden)
+            else if (achievementsTotal[i].CheckIfUnlocked() && achievementsTotal[i].CheckIfHidden())
             {
-                achievementObjects[i].setIcon(achievementsTotal[i].icon);
-                achievementObjects[i].setTitle(achievementsTotal[i].title);
-                achievementObjects[i].setDescription(achievementsTotal[i].description);
+                achievementObjects[i].setIcon(achievementsTotal[i].GetIcon());
+                achievementObjects[i].setTitle(achievementsTotal[i].GetTitle());
+                achievementObjects[i].setDescription(achievementsTotal[i].GetDescription());
                 achievementObjects[i].UnlockAchievement();
             }
         }
@@ -73,11 +73,11 @@ public class AchievementManager : MonoBehaviour
     {
         for (int i = 0; i < achievementsTotal.Count; i++)
         {
-            if (achievementID == achievementsTotal[i].achievementID && !achievementsTotal[i].unlocked)
+            if (achievementID == achievementsTotal[i].GetAchievementID() && !achievementsTotal[i].CheckIfUnlocked())
             {
                 if (intValue != null)
                 {
-                    if (intValue == achievementsTotal[i].intGoalAmount)
+                    if (intValue == achievementsTotal[i].GetIntGoal())
                     {
                         UnlockAchievement(i);
                         return;
@@ -85,7 +85,7 @@ public class AchievementManager : MonoBehaviour
                 }
                 else if (floatValue != null)
                 {
-                    if (floatValue == achievementsTotal[i].floatGoalAmount)
+                    if (floatValue == achievementsTotal[i].GetFloatGoal())
                     {
                         UnlockAchievement(i);
                         return;
@@ -102,7 +102,7 @@ public class AchievementManager : MonoBehaviour
 
     private void UnlockAchievement(int achievementID)
     {
-        achievementsTotal[achievementID].unlocked = true;
+        achievementsTotal[achievementID].UnlockAchievement();
         updateUnlockedStatus();
         AddToQueueDisplay(achievementID);
     }
@@ -131,10 +131,10 @@ public class AchievementManager : MonoBehaviour
 
     private void DisplayPopUpAchievement(int achievementID)
     {
-        achievementPrefabPopup.setIcon(achievementsTotal[achievementID].icon);
-        achievementPrefabPopup.setTitle(achievementsTotal[achievementID].title);
+        achievementPrefabPopup.setIcon(achievementsTotal[achievementID].GetIcon());
+        achievementPrefabPopup.setTitle(achievementsTotal[achievementID].GetTitle());
         achievementPrefabPopup.PlayDisplayAnim();
-        soundEffect = RuntimeManager.CreateInstance(achievementsTotal[achievementID].soundEffect);
+        soundEffect = RuntimeManager.CreateInstance(achievementsTotal[achievementID].GetSoundEffect());
         RuntimeManager.AttachInstanceToGameObject(soundEffect, transform);
         soundEffect.start();
         soundEffect.release();
