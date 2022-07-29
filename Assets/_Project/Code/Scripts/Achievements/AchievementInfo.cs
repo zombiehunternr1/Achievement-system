@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
 public class AchievementInfo : ScriptableObject
@@ -17,4 +18,6 @@ public class AchievementInfo : ScriptableObject
 
     public bool isHidden;
     public bool unlocked;
+
+    public EventReference soundEffect;
 }

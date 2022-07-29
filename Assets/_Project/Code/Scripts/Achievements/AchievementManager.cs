@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using FMOD.Studio;
+using FMODUnity;
 
 public class AchievementManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class AchievementManager : MonoBehaviour
     private List<AchievementObject> achievementObjects;
     private List<int> QueuedAchievements;
     private string hiddenText = "??????????????";
+
+    private EventInstance soundEffect;
 
     private void OnEnable()
     {
@@ -130,6 +134,9 @@ public class AchievementManager : MonoBehaviour
         achievementPrefabPopup.setIcon(achievementsTotal[achievementID].icon);
         achievementPrefabPopup.setTitle(achievementsTotal[achievementID].title);
         achievementPrefabPopup.PlayDisplayAnim();
+        soundEffect = RuntimeManager.CreateInstance(achievementsTotal[achievementID].soundEffect);
+        RuntimeManager.AttachInstanceToGameObject(soundEffect, transform);
+        soundEffect.start();
     }
 
     public void StartPopupCooldown()

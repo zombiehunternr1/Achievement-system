@@ -13,7 +13,8 @@ public class AchievementEditor : Editor
         intValueProp,
         floatValueProp,
         isHiddenValueProp,
-        unlockedValueProp;
+        unlockedValueProp,
+        soundEffectValueProp;
 
     private void OnEnable()
     {
@@ -26,6 +27,7 @@ public class AchievementEditor : Editor
         floatValueProp = serializedObject.FindProperty("floatGoalAmount");
         isHiddenValueProp = serializedObject.FindProperty("isHidden");
         unlockedValueProp = serializedObject.FindProperty("unlocked");
+        soundEffectValueProp = serializedObject.FindProperty("soundEffect");
     }
 
     public override void OnInspectorGUI()
@@ -51,6 +53,7 @@ public class AchievementEditor : Editor
         }
         EditorGUILayout.PropertyField(isHiddenValueProp);
         EditorGUILayout.PropertyField(unlockedValueProp);
+        EditorGUILayout.PropertyField(soundEffectValueProp);
         serializedObject.ApplyModifiedProperties();
     }
 }

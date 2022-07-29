@@ -21,3 +21,10 @@ MonoBehaviour:
   floatGoalAmount: 0
   isHidden: 0
   unlocked: 0
+  soundEffect:
+    Guid:
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal
