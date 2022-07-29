@@ -11,7 +11,8 @@ public class AchievementInfo : ScriptableObject
     [SerializeField] private string description;
     [SerializeField] private Sprite icon;
     public enum completionType { noRequirements, integerRequirement, floatRequirement };
-    public completionType valueCompletionType;
+    [SerializeField]
+    private completionType valueCompletionType;
 
     [SerializeField] private int intGoalAmount;
     [SerializeField] private float floatGoalAmount;
