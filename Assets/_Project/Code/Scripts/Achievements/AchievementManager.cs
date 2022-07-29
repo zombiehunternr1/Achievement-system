@@ -137,6 +137,7 @@ public class AchievementManager : MonoBehaviour
         soundEffect = RuntimeManager.CreateInstance(achievementsTotal[achievementID].soundEffect);
         RuntimeManager.AttachInstanceToGameObject(soundEffect, transform);
         soundEffect.start();
+        soundEffect.release();
     }
 
     public void StartPopupCooldown()
