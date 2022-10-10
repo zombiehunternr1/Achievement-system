@@ -61,6 +61,11 @@ public class AchievementManager : MonoBehaviour
     }
     private void SetupAchievementDisplay()
     {
+        if(_totalAchievementsToUnlock == null || _totalAchievementsToUnlock.Count == 0)
+        {
+            Debug.LogWarning("The list of achievements to unlock is empty!");
+            return;
+        }
         for (int i = 0; i < _totalAchievementsToUnlock.Count; i++)
         {
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainer);
