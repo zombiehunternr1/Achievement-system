@@ -1619,11 +1619,8 @@ GameObject:
   m_Component:
   - component: {fileID: 869330440}
   - component: {fileID: 869330439}
-  - component: {fileID: 869330445}
   - component: {fileID: 869330447}
-  - component: {fileID: 869330446}
-  - component: {fileID: 869330449}
-  - component: {fileID: 869330448}
+  - component: {fileID: 869330445}
   m_Layer: 0
   m_Name: Achievement Manager
   m_TagString: Untagged
@@ -1696,34 +1693,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &869330446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  achievementEvent: {fileID: 11400000, guid: f551c6ef3234e2c45b1afeaa4bea0ea7, type: 2}
-  respondse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckValueRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &869330447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,64 +1705,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  achievementEvent: {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
-  respondse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckValueRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  achievementEvent: {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
-  respondse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckValueRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  achievementEvent: {fileID: 11400000, guid: 37dff6cf7b2d4af4b9aa2733c637bae5, type: 2}
-  respondse:
+  _achievementEvents:
+  - {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
+  - {fileID: 11400000, guid: f551c6ef3234e2c45b1afeaa4bea0ea7, type: 2}
+  - {fileID: 11400000, guid: 37dff6cf7b2d4af4b9aa2733c637bae5, type: 2}
+  - {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
+  _respondse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 869330439}
