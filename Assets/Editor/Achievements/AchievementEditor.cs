@@ -4,56 +4,68 @@ using UnityEngine;
 [CustomEditor(typeof(AchievementInfo)), CanEditMultipleObjects]
 public class AchievementEditor : Editor
 {
-    public SerializedProperty
-        idValueProp,
-        titleValueProp,
-        desciptionValueProp,
-        iconValueProp,
-        completionTypeProp,
-        intValueProp,
-        floatValueProp,
-        isHiddenValueProp,
-        unlockedValueProp,
-        soundEffectValueProp;
+    private SerializedProperty
+        _idValueProp,
+        _titleValueProp,
+        _desciptionValueProp,
+        _iconValueProp,
+        _completionTypeProp,
+        _intValueProp,
+        _floatValueProp,
+        _isHiddenValueProp,
+        _unlockedValueProp,
+        _soundEffectValueProp;
+    private MonoScript _monoScript;
 
     private void OnEnable()
     {
-        idValueProp = serializedObject.FindProperty("achievementID");
-        titleValueProp = serializedObject.FindProperty("title");
-        desciptionValueProp = serializedObject.FindProperty("description");
-        iconValueProp = serializedObject.FindProperty("icon");
-        completionTypeProp = serializedObject.FindProperty("valueCompletionType");
-        intValueProp = serializedObject.FindProperty("intGoalAmount");
-        floatValueProp = serializedObject.FindProperty("floatGoalAmount");
-        isHiddenValueProp = serializedObject.FindProperty("isHidden");
-        unlockedValueProp = serializedObject.FindProperty("unlocked");
-        soundEffectValueProp = serializedObject.FindProperty("soundEffect");
+        _idValueProp = serializedObject.FindProperty("achievementID");
+        _titleValueProp = serializedObject.FindProperty("title");
+        _desciptionValueProp = serializedObject.FindProperty("description");
+        _iconValueProp = serializedObject.FindProperty("icon");
+        _completionTypeProp = serializedObject.FindProperty("valueCompletionType");
+        _intValueProp = serializedObject.FindProperty("intGoalAmount");
+        _floatValueProp = serializedObject.FindProperty("floatGoalAmount");
+        _isHiddenValueProp = serializedObject.FindProperty("isHidden");
+        _unlockedValueProp = serializedObject.FindProperty("unlocked");
+        _soundEffectValueProp = serializedObject.FindProperty("soundEffect");
     }
 
     public override void OnInspectorGUI()
     {
+        EditorGUI.BeginDisabledGroup(true);
+        if(target as MonoBehaviour != null)
+        {
+            _monoScript = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
+        }
+        else
+        {
+            _monoScript = MonoScript.FromScriptableObject((ScriptableObject)target);
+        }
+        EditorGUILayout.ObjectField("Script", _monoScript, GetType(), false);
+        EditorGUI.EndDisabledGroup();
         serializedObject.Update();
-        EditorGUILayout.PropertyField(idValueProp, new GUILayoutOption[] {GUILayout.Width(275)});
-        EditorGUILayout.PropertyField(titleValueProp, new GUILayoutOption[] { GUILayout.Width(500)});
-        EditorGUILayout.PropertyField(desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
-        EditorGUILayout.PropertyField(iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
-        EditorGUILayout.PropertyField(completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
-        AchievementInfo.completionType type = (AchievementInfo.completionType)completionTypeProp.enumValueIndex;
+        EditorGUILayout.PropertyField(_idValueProp, new GUILayoutOption[] {GUILayout.Width(275)});
+        EditorGUILayout.PropertyField(_titleValueProp, new GUILayoutOption[] { GUILayout.Width(500)});
+        EditorGUILayout.PropertyField(_desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
+        EditorGUILayout.PropertyField(_iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
+        EditorGUILayout.PropertyField(_completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
+        AchievementInfo.completionType type = (AchievementInfo.completionType)_completionTypeProp.enumValueIndex;
 
         switch (type)
         {
             case AchievementInfo.completionType.noRequirements:
                 break;
             case AchievementInfo.completionType.integerRequirement:
-                EditorGUILayout.PropertyField(intValueProp, new GUILayoutOption[] {GUILayout.Width(300)});
+                EditorGUILayout.PropertyField(_intValueProp, new GUILayoutOption[] {GUILayout.Width(300)});
                 break;
             case AchievementInfo.completionType.floatRequirement:
-                EditorGUILayout.PropertyField(floatValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
+                EditorGUILayout.PropertyField(_floatValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;
         }
-        EditorGUILayout.PropertyField(isHiddenValueProp);
-        EditorGUILayout.PropertyField(unlockedValueProp);
-        EditorGUILayout.PropertyField(soundEffectValueProp);
+        EditorGUILayout.PropertyField(_isHiddenValueProp);
+        EditorGUILayout.PropertyField(_unlockedValueProp);
+        EditorGUILayout.PropertyField(_soundEffectValueProp);
         serializedObject.ApplyModifiedProperties();
     }
 }

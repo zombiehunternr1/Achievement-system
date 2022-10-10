@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
@@ -24,47 +22,38 @@ public class AchievementInfo : ScriptableObject
     {
         return achievementID;
     }
-
     public string GetTitle()
     {
         return title;
     }
-
     public string GetDescription()
     {
         return description;
     }
-
     public Sprite GetIcon()
     {
         return icon;
     }
-
     public int GetIntGoal()
     {
         return intGoalAmount;
     }
-
     public float GetFloatGoal()
     {
         return floatGoalAmount;
     }
-
     public bool CheckIfHidden()
     {
         return isHidden;
     }
-
     public bool CheckIfUnlocked()
     {
         return unlocked;
     }
-
     public bool UnlockAchievement()
     {
         return unlocked = true;
     }
-
     public EventReference GetSoundEffect()
     {
         return soundEffect;
