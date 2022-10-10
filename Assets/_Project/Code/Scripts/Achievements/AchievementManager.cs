@@ -61,13 +61,18 @@ public class AchievementManager : MonoBehaviour
     }
     private void SetupAchievementDisplay()
     {
-        if(_totalAchievementsToUnlock == null || _totalAchievementsToUnlock.Count == 0)
+        if(_totalAchievementsToUnlock.Count == 0)
         {
             Debug.LogWarning("The list of achievements to unlock is empty!");
             return;
         }
         for (int i = 0; i < _totalAchievementsToUnlock.Count; i++)
         {
+            if (_totalAchievementsToUnlock[i] == null)
+            {
+                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
+                continue;
+            }
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainer);
             _achievementObjects.Add(achievementObject);
             if (_totalAchievementsToUnlock[i].IsHidden)
@@ -91,6 +96,10 @@ public class AchievementManager : MonoBehaviour
     {
         for(int i = 0; i < _totalAchievementsToUnlock.Count; i++)
         {
+            if (_totalAchievementsToUnlock[i] == null)
+            {
+                continue;
+            }
             if (_totalAchievementsToUnlock[i].IsUnlocked && !_totalAchievementsToUnlock[i].IsHidden)
             {
                 _achievementObjects[i].UnlockAchievement();
