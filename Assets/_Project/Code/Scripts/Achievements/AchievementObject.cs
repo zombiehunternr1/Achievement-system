@@ -4,50 +4,50 @@ using TMPro;
 
 public class AchievementObject : MonoBehaviour
 {
-    [SerializeField] private Image icon;
-    [SerializeField] private Image locked;
-    [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private Animator popupAnimation;
+    [SerializeField] private Image _icon;
+    [SerializeField] private Image _locked;
+    [SerializeField] private TextMeshProUGUI _titleText;
+    [SerializeField] private TextMeshProUGUI _descriptionText;
+    [SerializeField] private Animator _popupAnimation;
     public void setIcon(Sprite iconInfo)
     {
-        icon.sprite = iconInfo;
+        _icon.sprite = iconInfo;
     }
 
     public void setTitle(string titleinfo)
     {
-        titleText.text = titleinfo;
+        _titleText.text = titleinfo;
     }
 
     public void setDescription(string descriptionInfo)
     {
-        descriptionText.text = descriptionInfo;
+        _descriptionText.text = descriptionInfo;
     }
 
     public void lockRegularAchievement()
     {
-        locked.enabled = true;
-        icon.color = new Color(125, 125, 125);
+        _locked.enabled = true;
+        _icon.color = new Color(125, 125, 125);
     }
 
     public void UnlockAchievement()
     {
-        locked.enabled = false;
-        icon.color = new Color(255, 255, 255);
+        _locked.enabled = false;
+        _icon.color = new Color(255, 255, 255);
     }
 
     public void RemoveLockIcon()
     {
-        locked.enabled = false;
+        _locked.enabled = false;
     }
 
     public void PlayDisplayAnim()
     {
-        popupAnimation.Play("Displaying");
+        _popupAnimation.Play("Displaying");
     }
 
     public void PlayHideAnim()
     {
-        popupAnimation.Play("Hiding");
+        _popupAnimation.Play("Hiding");
     }
 }

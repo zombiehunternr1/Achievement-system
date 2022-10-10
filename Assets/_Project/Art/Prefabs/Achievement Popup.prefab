@@ -303,11 +303,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e3072869af2a84aae4d7e073fb4d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 5318891797268004850}
-  locked: {fileID: 0}
-  titleText: {fileID: 5318891797408509699}
-  descriptionText: {fileID: 0}
-  popupAnimation: {fileID: 5279507891626187957}
+  _icon: {fileID: 5318891797268004850}
+  _locked: {fileID: 0}
+  _titleText: {fileID: 5318891797408509699}
+  _descriptionText: {fileID: 0}
+  _popupAnimation: {fileID: 5279507891626187957}
 --- !u!95 &5279507891626187957
 Animator:
   serializedVersion: 4

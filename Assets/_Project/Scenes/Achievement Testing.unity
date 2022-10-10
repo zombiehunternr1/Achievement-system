@@ -3688,11 +3688,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e3072869af2a84aae4d7e073fb4d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 5026759235730460199}
-  locked: {fileID: 0}
-  titleText: {fileID: 5026759235317325526}
-  descriptionText: {fileID: 0}
-  popupAnimation: {fileID: 4996261618011942240}
+  _icon: {fileID: 5026759235730460199}
+  _locked: {fileID: 0}
+  _titleText: {fileID: 5026759235317325526}
+  _descriptionText: {fileID: 0}
+  _popupAnimation: {fileID: 4996261618011942240}
 --- !u!222 &5026759234846229986
 CanvasRenderer:
   m_ObjectHideFlags: 0

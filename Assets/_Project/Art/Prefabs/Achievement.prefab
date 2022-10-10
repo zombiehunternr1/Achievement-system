@@ -380,10 +380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e3072869af2a84aae4d7e073fb4d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 6327427208152939151}
-  locked: {fileID: 8544135770306773092}
-  titleText: {fileID: 6327427208314415742}
-  descriptionText: {fileID: 6327427209884805135}
+  _icon: {fileID: 6327427208152939151}
+  _locked: {fileID: 8544135770306773092}
+  _titleText: {fileID: 6327427208314415742}
+  _descriptionText: {fileID: 6327427209884805135}
+  _popupAnimation: {fileID: 0}
 --- !u!1 &6327427209884805121
 GameObject:
   m_ObjectHideFlags: 0
