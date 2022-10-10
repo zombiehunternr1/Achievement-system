@@ -3,32 +3,32 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] AchievementEvent floatAchievement;
-    [SerializeField] AchievementEvent intAchievement;
-    [SerializeField] AchievementEvent quitAchievement;
-    [SerializeField] AchievementEvent hiddenAchievement;
-    [SerializeField] TMP_InputField floatInputText;
-    [SerializeField] TMP_InputField integerInputText;
+    [SerializeField] AchievementEvent _floatAchievement;
+    [SerializeField] AchievementEvent _intAchievement;
+    [SerializeField] AchievementEvent _quitAchievement;
+    [SerializeField] AchievementEvent _hiddenAchievement;
+    [SerializeField] TMP_InputField _floatInputText;
+    [SerializeField] TMP_InputField _integerInputText;
 
     public void SubmitFloatValue()
     {
-        float floatValue = float.Parse(floatInputText.text);
-        floatAchievement.RaiseValueEvent(null, floatValue);
+        float floatValue = float.Parse(_floatInputText.text);
+        _floatAchievement.RaiseValueEvent(null, floatValue);
     }
 
     public void SubmitIntValue()
     {
-        int intValue = int.Parse(integerInputText.text);
-        intAchievement.RaiseValueEvent(intValue, null);
+        int intValue = int.Parse(_integerInputText.text);
+        _intAchievement.RaiseValueEvent(intValue, null);
     }
 
     public void QuitButton()
     {
-        quitAchievement.RaiseValueEvent(null, null);
+        _quitAchievement.RaiseValueEvent(null, null);
     }
 
     public void HiddenButton()
     {
-        hiddenAchievement.RaiseValueEvent(null, null);
+        _hiddenAchievement.RaiseValueEvent(null, null);
     }
 }

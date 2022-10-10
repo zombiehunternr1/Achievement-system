@@ -1640,16 +1640,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
-  achievementContainer: {fileID: 1756146404}
-  achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
-  achievementPrefabPopup: {fileID: 4996261618011942247}
-  displayPopupTime: 5
-  achievementsTotal:
-  - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
-  - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
+  _hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
+  _achievementContainer: {fileID: 1756146404}
+  _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
+  _achievementPrefabPopup: {fileID: 4996261618011942247}
+  _displayPopupTime: 5
+  _totalAchievementsToUnlock:
   - {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
   - {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
+  - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
+  - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
 --- !u!4 &869330440
 Transform:
   m_ObjectHideFlags: 0
@@ -1677,8 +1677,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066bc700b022542408fc50ad4e296e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyevent: {fileID: 11400000, guid: 9f4985a837d64be43a3260b0c2977d2e, type: 2}
-  respondse:
+  _emptyEvent: {fileID: 11400000, guid: 9f4985a837d64be43a3260b0c2977d2e, type: 2}
+  _respondse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 869330439}
@@ -2992,12 +2992,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4b26d01fc485c40815839a3184d688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatAchievement: {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
-  intAchievement: {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
-  quitAchievement: {fileID: 11400000, guid: 37dff6cf7b2d4af4b9aa2733c637bae5, type: 2}
-  hiddenAchievement: {fileID: 11400000, guid: f551c6ef3234e2c45b1afeaa4bea0ea7, type: 2}
-  floatInputText: {fileID: 672545898}
-  integerInputText: {fileID: 1850466131}
+  _floatAchievement: {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
+  _intAchievement: {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
+  _quitAchievement: {fileID: 11400000, guid: 37dff6cf7b2d4af4b9aa2733c637bae5, type: 2}
+  _hiddenAchievement: {fileID: 11400000, guid: f551c6ef3234e2c45b1afeaa4bea0ea7, type: 2}
+  _floatInputText: {fileID: 672545898}
+  _integerInputText: {fileID: 1850466131}
 --- !u!1 &1756146403
 GameObject:
   m_ObjectHideFlags: 0

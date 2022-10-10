@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
   m_Name: Immature achievement
   m_EditorClassIdentifier: 
-  achievementID: 1
-  title: Very funny....
-  description: Are you that immature?
-  icon: {fileID: 21300000, guid: a11d1929046e1654e8c086fb5c7f79f1, type: 3}
-  valueCompletionType: 1
-  intGoalAmount: 69
-  floatGoalAmount: 0
-  isHidden: 0
-  unlocked: 0
-  soundEffect:
+  _achievementId: 1
+  _title: Very funny....
+  _description: Are you that immature?
+  _icon: {fileID: 21300000, guid: a11d1929046e1654e8c086fb5c7f79f1, type: 3}
+  _valueCompletionType: 1
+  _intGoalAmount: 69
+  _floatGoalAmount: 0
+  _isHidden: 0
+  _unlocked: 0
+  _soundEffect:
     Guid:
       Data1: -117677675
       Data2: 1195134965

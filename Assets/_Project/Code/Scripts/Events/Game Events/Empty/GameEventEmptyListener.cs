@@ -3,21 +3,21 @@ using UnityEngine.Events;
 
 public class GameEventEmptyListener : MonoBehaviour
 {
-    [SerializeField] private GameEventEmpty emptyevent;
-    [SerializeField] private UnityEvent respondse;
+    [SerializeField] private GameEventEmpty _emptyEvent;
+    [SerializeField] private UnityEvent _respondse;
 
     private void OnEnable()
     {
-        emptyevent.RegisterListener(this);
+        _emptyEvent.RegisterListener(this);
     }
 
     private void OnDisable()
     {
-        emptyevent.UnregisterListener(this);
+        _emptyEvent.UnregisterListener(this);
     }
 
     public void OnEventRaised()
     {
-        respondse.Invoke();
+        _respondse.Invoke();
     }
 }

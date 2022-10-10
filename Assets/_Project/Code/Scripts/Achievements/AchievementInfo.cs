@@ -4,58 +4,92 @@ using FMODUnity;
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
 public class AchievementInfo : ScriptableObject
 {
-    [SerializeField] private int achievementID;
-    [SerializeField] private string title;
-    [SerializeField] private string description;
-    [SerializeField] private Sprite icon;
+    [SerializeField] private int _achievementId;
+    [SerializeField] private string _title;
+    [SerializeField] private string _description;
+    [SerializeField] private Sprite _icon;
     public enum completionType { noRequirements, integerRequirement, floatRequirement };
     [SerializeField]
-    private completionType valueCompletionType;
+    private completionType _valueCompletionType;
 
-    [SerializeField] private int intGoalAmount;
-    [SerializeField] private float floatGoalAmount;
-    [SerializeField] private bool isHidden;
-    [SerializeField] private bool unlocked;
-    [SerializeField] private EventReference soundEffect;
+    [SerializeField] private int _intGoalAmount;
+    [SerializeField] private float _floatGoalAmount;
+    [SerializeField] private bool _isHidden;
+    [SerializeField] private bool _unlocked;
+    [SerializeField] private EventReference _soundEffect;
 
-    public int GetAchievementID()
+    public int AchievementId
     {
-        return achievementID;
+        get
+        {
+            return _achievementId;
+        }
     }
-    public string GetTitle()
+    public string Title
     {
-        return title;
+        get
+        {
+            return _title;
+        }
     }
-    public string GetDescription()
+    public string Description
     {
-        return description;
+        get
+        {
+            return _description;
+        }
     }
-    public Sprite GetIcon()
+    public Sprite Icon
     {
-        return icon;
+        get
+        {
+            return _icon;
+        }
     }
-    public int GetIntGoal()
+    public int IntGoal
     {
-        return intGoalAmount;
+        get
+        {
+            return _intGoalAmount;
+        }
     }
-    public float GetFloatGoal()
+    public float FloatGoal
     {
-        return floatGoalAmount;
+        get
+        {
+            return _floatGoalAmount;
+        }
     }
-    public bool CheckIfHidden()
+    public bool IsHidden
     {
-        return isHidden;
+        get
+        {
+            return _isHidden;
+        }
     }
-    public bool CheckIfUnlocked()
+    public bool IsUnlocked
     {
-        return unlocked;
+        get
+        {
+            return _unlocked;
+        }
     }
-    public bool UnlockAchievement()
+    public bool AchievementUnlocked
     {
-        return unlocked = true;
+        get
+        {
+            return _unlocked = true;
+        }
+        set
+        {
+            _unlocked = value;
+        }
     }
-    public EventReference GetSoundEffect()
+    public EventReference SoundEffect
     {
-        return soundEffect;
+        get
+        {
+            return _soundEffect;
+        }
     }
 }

@@ -19,16 +19,16 @@ public class AchievementEditor : Editor
 
     private void OnEnable()
     {
-        _idValueProp = serializedObject.FindProperty("achievementID");
-        _titleValueProp = serializedObject.FindProperty("title");
-        _desciptionValueProp = serializedObject.FindProperty("description");
-        _iconValueProp = serializedObject.FindProperty("icon");
-        _completionTypeProp = serializedObject.FindProperty("valueCompletionType");
-        _intValueProp = serializedObject.FindProperty("intGoalAmount");
-        _floatValueProp = serializedObject.FindProperty("floatGoalAmount");
-        _isHiddenValueProp = serializedObject.FindProperty("isHidden");
-        _unlockedValueProp = serializedObject.FindProperty("unlocked");
-        _soundEffectValueProp = serializedObject.FindProperty("soundEffect");
+        _idValueProp = serializedObject.FindProperty("_achievementId");
+        _titleValueProp = serializedObject.FindProperty("_title");
+        _desciptionValueProp = serializedObject.FindProperty("_description");
+        _iconValueProp = serializedObject.FindProperty("_icon");
+        _completionTypeProp = serializedObject.FindProperty("_valueCompletionType");
+        _intValueProp = serializedObject.FindProperty("_intGoalAmount");
+        _floatValueProp = serializedObject.FindProperty("_floatGoalAmount");
+        _isHiddenValueProp = serializedObject.FindProperty("_isHidden");
+        _unlockedValueProp = serializedObject.FindProperty("_unlocked");
+        _soundEffectValueProp = serializedObject.FindProperty("_soundEffect");
     }
 
     public override void OnInspectorGUI()

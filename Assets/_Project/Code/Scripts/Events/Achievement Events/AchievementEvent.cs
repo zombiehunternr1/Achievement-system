@@ -4,14 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Achievement Event", menuName = "Scriptable Objects/Events/Achievement Event")]
 public class AchievementEvent : ScriptableObject
 {
-    [SerializeField] private AchievementInfo achievementToUnlock;
+    [SerializeField] private AchievementInfo _achievementToUnlock;
     private List<AchievementEventListener> listeners = new List<AchievementEventListener>();
 
     public void RaiseValueEvent(int? intValue, float? floatValue)
     {
         for (int i = listeners.Count - 1; i >= 0; i--)
         {
-            listeners[i].OnEventRaised(achievementToUnlock.GetAchievementID(), intValue, floatValue);
+            listeners[i].OnEventRaised(_achievementToUnlock.AchievementId, intValue, floatValue);
         }
     }
 
