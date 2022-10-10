@@ -6,7 +6,6 @@ public class AchievementEventListener : MonoBehaviour
 {
     [SerializeField] private List<AchievementEvent> _achievementEvents;
     [SerializeField] private UnityEvent<int, int?, float?> _respondse;
-
     private void OnEnable()
     {
         foreach(AchievementEvent achievementEvent in _achievementEvents)

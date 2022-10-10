@@ -5,23 +5,20 @@ using UnityEngine;
 public class AchievementEvent : ScriptableObject
 {
     [SerializeField] private AchievementInfo _achievementToUnlock;
-    private List<AchievementEventListener> listeners = new List<AchievementEventListener>();
-
+    private List<AchievementEventListener> _listeners = new List<AchievementEventListener>();
     public void RaiseValueEvent(int? intValue, float? floatValue)
     {
-        for (int i = listeners.Count - 1; i >= 0; i--)
+        for (int i = _listeners.Count - 1; i >= 0; i--)
         {
-            listeners[i].OnEventRaised(_achievementToUnlock.AchievementId, intValue, floatValue);
+            _listeners[i].OnEventRaised(_achievementToUnlock.AchievementId, intValue, floatValue);
         }
     }
-
     public void RegisterListener(AchievementEventListener listener)
     {
-        listeners.Add(listener);
+        _listeners.Add(listener);
     }
-
     public void UnregisterListener(AchievementEventListener listener)
     {
-        listeners.Remove(listener);
+        _listeners.Remove(listener);
     }
 }

@@ -13,39 +13,32 @@ public class AchievementObject : MonoBehaviour
     {
         _icon.sprite = iconInfo;
     }
-
     public void setTitle(string titleinfo)
     {
         _titleText.text = titleinfo;
     }
-
     public void setDescription(string descriptionInfo)
     {
         _descriptionText.text = descriptionInfo;
     }
-
     public void lockRegularAchievement()
     {
         _locked.enabled = true;
         _icon.color = new Color(125, 125, 125);
     }
-
     public void UnlockAchievement()
     {
         _locked.enabled = false;
         _icon.color = new Color(255, 255, 255);
     }
-
     public void RemoveLockIcon()
     {
         _locked.enabled = false;
     }
-
     public void PlayDisplayAnim()
     {
         _popupAnimation.Play("Displaying");
     }
-
     public void PlayHideAnim()
     {
         _popupAnimation.Play("Hiding");

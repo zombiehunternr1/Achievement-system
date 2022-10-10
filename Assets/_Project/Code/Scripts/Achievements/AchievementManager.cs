@@ -12,13 +12,10 @@ public class AchievementManager : MonoBehaviour
     [SerializeField] private AchievementObject _achievementPrefabPopup;
     [SerializeField] private int _displayPopupTime = 5;
     [SerializeField] private List<AchievementInfo> _totalAchievementsToUnlock;
-
     private List<AchievementObject> _achievementObjects;
     private List<int> _QueuedAchievements;
     private string _hiddenText = "??????????????";
-
     private EventInstance _soundEffect;
-
     private void OnEnable()
     {
         _achievementObjects = new List<AchievementObject>();
@@ -91,7 +88,6 @@ public class AchievementManager : MonoBehaviour
         }
         UpdateUnlockedStatus();
     }
-
     private void UpdateUnlockedStatus()
     {
         for(int i = 0; i < _totalAchievementsToUnlock.Count; i++)
