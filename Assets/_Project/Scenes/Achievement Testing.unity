@@ -1645,7 +1645,7 @@ MonoBehaviour:
   _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
   _achievementPrefabPopup: {fileID: 4996261618011942247}
   _displayPopupTime: 5
-  _achievementList: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
+  _achievementManager: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
 --- !u!4 &869330440
 Transform:
   m_ObjectHideFlags: 0
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _achievementlist: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
+  _achievementManager: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _respondse:
     m_PersistentCalls:
       m_Calls:
