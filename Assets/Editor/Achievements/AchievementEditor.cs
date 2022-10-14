@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AchievementInfo)), CanEditMultipleObjects]
+[CustomEditor(typeof(AchievementInfoSO)), CanEditMultipleObjects]
 public class AchievementEditor : Editor
 {
     private SerializedProperty
@@ -50,16 +50,16 @@ public class AchievementEditor : Editor
         EditorGUILayout.PropertyField(_desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
         EditorGUILayout.PropertyField(_iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
         EditorGUILayout.PropertyField(_completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
-        AchievementInfo.completionType type = (AchievementInfo.completionType)_completionTypeProp.enumValueIndex;
+        AchievementInfoSO.completionType type = (AchievementInfoSO.completionType)_completionTypeProp.enumValueIndex;
 
         switch (type)
         {
-            case AchievementInfo.completionType.noRequirements:
+            case AchievementInfoSO.completionType.noRequirements:
                 break;
-            case AchievementInfo.completionType.integerRequirement:
+            case AchievementInfoSO.completionType.integerRequirement:
                 EditorGUILayout.PropertyField(_intValueProp, new GUILayoutOption[] {GUILayout.Width(300)});
                 break;
-            case AchievementInfo.completionType.floatRequirement:
+            case AchievementInfoSO.completionType.floatRequirement:
                 EditorGUILayout.PropertyField(_floatValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;
         }

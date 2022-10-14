@@ -2,7 +2,7 @@ using UnityEngine;
 using FMODUnity;
 
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
-public class AchievementInfo : ScriptableObject
+public class AchievementInfoSO : ScriptableObject
 {
     [SerializeField] private int _achievementId;
     [SerializeField] private string _title;

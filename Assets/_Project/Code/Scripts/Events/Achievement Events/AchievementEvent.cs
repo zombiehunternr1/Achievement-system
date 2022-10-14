@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Achievement Event", menuName = "Scriptable Objects/Events/Achievement Event")]
 public class AchievementEvent : ScriptableObject
 {
-    [SerializeField] private AchievementInfo _achievementToUnlock;
+    [SerializeField] private AchievementInfoSO _achievementToUnlock;
     private List<AchievementEventListener> _listeners = new List<AchievementEventListener>();
     public void RaiseValueEvent(int? intValue, float? floatValue)
     {

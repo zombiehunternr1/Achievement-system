@@ -1645,11 +1645,7 @@ MonoBehaviour:
   _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
   _achievementPrefabPopup: {fileID: 4996261618011942247}
   _displayPopupTime: 5
-  _totalAchievementsToUnlock:
-  - {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
-  - {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
-  - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
-  - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
+  _achievementList: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
 --- !u!4 &869330440
 Transform:
   m_ObjectHideFlags: 0
@@ -1705,11 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a10a095eddd354494b2f315eb69b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _achievementEvents:
-  - {fileID: 11400000, guid: ebd1eef58bb2b0f448c551e5da1b5b55, type: 2}
-  - {fileID: 11400000, guid: f551c6ef3234e2c45b1afeaa4bea0ea7, type: 2}
-  - {fileID: 11400000, guid: 37dff6cf7b2d4af4b9aa2733c637bae5, type: 2}
-  - {fileID: 11400000, guid: 634d2e5ca46aa1544b58c8c72ba178cd, type: 2}
+  _achievementlist: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _respondse:
     m_PersistentCalls:
       m_Calls:
