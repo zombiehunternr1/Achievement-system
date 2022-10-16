@@ -6,12 +6,12 @@ using FMODUnity;
 
 public class AchievementManager : MonoBehaviour
 {
+    [SerializeField] private AchievementManagerSO _achievementManager;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainer;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
     [SerializeField] private AchievementObject _achievementPrefabPopup;
     [SerializeField] private int _displayPopupTime = 5;
-    [SerializeField] private AchievementManagerSO _achievementManager;
     private List<AchievementObject> _achievementObjects;
     private List<int> _QueuedAchievements;
     private string _hiddenText = "??????????????";
@@ -30,30 +30,33 @@ public class AchievementManager : MonoBehaviour
     {
         for (int i = 0; i < _achievementManager.AchievementList.Count; i++)
         {
-            if (achievementID == _achievementManager.AchievementList[i].AchievementId && !_achievementManager.AchievementList[i].IsUnlocked)
+            if (_achievementManager.AchievementList[i] != null)
             {
-                if (intValue != null)
+                if (achievementID == _achievementManager.AchievementList[i].AchievementId && !_achievementManager.AchievementList[i].IsUnlocked)
                 {
-                    if (intValue == _achievementManager.AchievementList[i].IntGoal)
+                    if (intValue != null)
+                    {
+                        if (intValue == _achievementManager.AchievementList[i].IntGoal)
+                        {
+                            UnlockAchievement(i);
+                            return;
+                        }
+                    }
+                    else if (floatValue != null)
+                    {
+                        if (floatValue == _achievementManager.AchievementList[i].FloatGoal)
+                        {
+                            UnlockAchievement(i);
+                            return;
+                        }
+                    }
+                    else
                     {
                         UnlockAchievement(i);
                         return;
                     }
                 }
-                else if (floatValue != null)
-                {
-                    if (floatValue == _achievementManager.AchievementList[i].FloatGoal)
-                    {
-                        UnlockAchievement(i);
-                        return;
-                    }
-                }
-                else
-                {
-                    UnlockAchievement(i);
-                    return;
-                }
-            }
+            }         
         }
     }
     private void SetupAchievementDisplay()
@@ -65,47 +68,50 @@ public class AchievementManager : MonoBehaviour
         }
         for (int i = 0; i < _achievementManager.AchievementList.Count; i++)
         {
-            if (_achievementManager.AchievementList[i] == null)
+            if (_achievementManager.AchievementList[i] != null)
             {
-                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
-                continue;
-            }
-            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainer);
-            _achievementObjects.Add(achievementObject);
-            if (_achievementManager.AchievementList[i].IsHidden)
-            {
-                _achievementObjects[i].setIcon(_hiddenAchievement);
-                _achievementObjects[i].setTitle(_hiddenText);
-                _achievementObjects[i].setDescription(_hiddenText);
-                _achievementObjects[i].RemoveLockIcon();
+                AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainer);
+                _achievementObjects.Add(achievementObject);
+                if (_achievementManager.AchievementList[i].IsHidden)
+                {
+                    achievementObject.setIcon(_hiddenAchievement);
+                    achievementObject.setTitle(_hiddenText);
+                    achievementObject.setDescription(_hiddenText);
+                    achievementObject.RemoveLockIcon();
+                }
+                else
+                {
+                    achievementObject.GetComponent<AchievementObject>().setIcon(_achievementManager.AchievementList[i].Icon);
+                    achievementObject.GetComponent<AchievementObject>().setTitle(_achievementManager.AchievementList[i].Title);
+                    achievementObject.GetComponent<AchievementObject>().setDescription(_achievementManager.AchievementList[i].Description);
+                }
             }
             else
             {
-                _achievementObjects[i].GetComponent<AchievementObject>().setIcon(_achievementManager.AchievementList[i].Icon);
-                _achievementObjects[i].GetComponent<AchievementObject>().setTitle(_achievementManager.AchievementList[i].Title);
-                _achievementObjects[i].GetComponent<AchievementObject>().setDescription(_achievementManager.AchievementList[i].Description);
+                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
             }
         }
         UpdateUnlockedStatus();
     }
     private void UpdateUnlockedStatus()
     {
-        for(int i = 0; i < _achievementManager.AchievementList.Count; i++)
+        int objectIndex = 0;
+        for (int i = 0; i < _achievementManager.AchievementList.Count; i++)
         {
-            if (_achievementManager.AchievementList[i] == null)
+            if (_achievementManager.AchievementList[i] != null)
             {
-                continue;
-            }
-            if (_achievementManager.AchievementList[i].IsUnlocked && !_achievementManager.AchievementList[i].IsHidden)
-            {
-                _achievementObjects[i].UnlockAchievement();
-            }
-            else if (_achievementManager.AchievementList[i].IsUnlocked && _achievementManager.AchievementList[i].IsHidden)
-            {
-                _achievementObjects[i].setIcon(_achievementManager.AchievementList[i].Icon);
-                _achievementObjects[i].setTitle(_achievementManager.AchievementList[i].Title);
-                _achievementObjects[i].setDescription(_achievementManager.AchievementList[i].Description);
-                _achievementObjects[i].UnlockAchievement();
+                if (_achievementManager.AchievementList[i].IsUnlocked && !_achievementManager.AchievementList[i].IsHidden)
+                {
+                    _achievementObjects[objectIndex].UnlockAchievement();
+                }
+                else if (_achievementManager.AchievementList[i].IsUnlocked && _achievementManager.AchievementList[i].IsHidden)
+                {
+                    _achievementObjects[objectIndex].setIcon(_achievementManager.AchievementList[i].Icon);
+                    _achievementObjects[objectIndex].setTitle(_achievementManager.AchievementList[i].Title);
+                    _achievementObjects[objectIndex].setDescription(_achievementManager.AchievementList[i].Description);
+                    _achievementObjects[objectIndex].UnlockAchievement();
+                }
+                objectIndex++;
             }
         }
     }
