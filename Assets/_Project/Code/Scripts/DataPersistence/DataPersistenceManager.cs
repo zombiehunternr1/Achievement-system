@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataPersistanceManager : MonoBehaviour
+public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private SaveAndLoadEvent _updateStorageDataEvent;
     [Header("Debugging")]
@@ -15,14 +15,7 @@ public class DataPersistanceManager : MonoBehaviour
     private GameData _gameData;
     private FileDataHandler _dataHandler;
     private string _selectedProfileId = "";
-    private static DataPersistanceManager _instance;
-    public DataPersistanceManager dataManager
-    {
-        get
-        {
-            return _instance;
-        }
-    }
+    private static DataPersistenceManager _instance;
     public bool HasGameData
     {
         get
