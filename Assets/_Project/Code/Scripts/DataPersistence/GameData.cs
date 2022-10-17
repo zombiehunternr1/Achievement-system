@@ -6,7 +6,6 @@ public class GameData
 {
     [SerializeField] private long _lastUpdated;
     [SerializeField] private SerializableDictionary<int, bool> _totalAchievementsData;
-    //[SerializeField] private AttributesData _totalAchievementsAttributesData;
 
     public long LastUpdated
     {
@@ -30,23 +29,9 @@ public class GameData
             _totalAchievementsData = value;
         }
     }
-    /*
-    public AttributesData TotalAchievmentsAtributesData
-    {
-        get
-        {
-            return _totalAchievementsAttributesData;
-        }
-        set
-        {
-            _totalAchievementsAttributesData = value;
-        }
-    }
-    */
     public GameData()
     {
         _totalAchievementsData = new SerializableDictionary<int, bool>();
-        //_totalAchievementsAttributesData = new AttributesData();
     }
     public int PercentageComplete
     {
