@@ -4,9 +4,10 @@ using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
 
-public class AchievementManager : MonoBehaviour
+public class AchievementManager : MonoBehaviour, IdataPersistence
 {
     [SerializeField] private AchievementManagerSO _achievementManager;
+    [SerializeField] private GameEventEmpty _saveGame;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainer;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
@@ -118,7 +119,7 @@ public class AchievementManager : MonoBehaviour
     private void UnlockAchievement(int achievementID)
     {
         _achievementManager.AchievementList[achievementID].AchievementUnlocked = true;
-        //Save to JSON!!
+        _saveGame.RaiseEmptyEvent();
         UpdateUnlockedStatus();
         AddToQueueDisplay(achievementID);
     }
@@ -164,6 +165,25 @@ public class AchievementManager : MonoBehaviour
         else
         {
             StopAllCoroutines();
+        }
+    }
+    public void LoadData(GameData data)
+    {
+        foreach (AchievementInfoSO achievement in _achievementManager.AchievementList)
+        {
+            data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
+            achievement.AchievementUnlocked = isUnlocked;
+        }
+    }
+    public void SaveData(GameData data)
+    {
+        foreach(AchievementInfoSO achievement in _achievementManager.AchievementList)
+        {
+            if (data.TotalAchievementsData.ContainsKey(achievement.AchievementId))
+            {
+                data.TotalAchievementsData.Remove(achievement.AchievementId);
+            }
+            data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
         }
     }
 }

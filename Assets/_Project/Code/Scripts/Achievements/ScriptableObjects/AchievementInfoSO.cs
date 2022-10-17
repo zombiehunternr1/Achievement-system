@@ -76,10 +76,6 @@ public class AchievementInfoSO : ScriptableObject
     }
     public bool AchievementUnlocked
     {
-        get
-        {
-            return _unlocked = true;
-        }
         set
         {
             _unlocked = value;
