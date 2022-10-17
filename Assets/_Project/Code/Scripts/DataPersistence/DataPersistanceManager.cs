@@ -1,10 +1,9 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
 
 public class DataPersistanceManager : MonoBehaviour
 {
+    [SerializeField] private SaveAndLoadEvent _updateStorageDataEvent;
     [Header("Debugging")]
     [SerializeField] private bool _disableDataPersistence = false;
     [SerializeField] private bool _initializeDataIfNull = false;
@@ -14,11 +13,9 @@ public class DataPersistanceManager : MonoBehaviour
     [SerializeField] private string _fileName;
     [SerializeField] private bool _useEncryption;
     private GameData _gameData;
-    private List<IdataPersistence> _dataPersistanceObjects;
     private FileDataHandler _dataHandler;
     private string _selectedProfileId = "";
     private static DataPersistanceManager _instance;
-
     public DataPersistanceManager dataManager
     {
         get
@@ -68,7 +65,6 @@ public class DataPersistanceManager : MonoBehaviour
         {
             return;
         }
-        _dataPersistanceObjects = FindAllDataPersistenceObjects();
         _gameData = _dataHandler.Load(_selectedProfileId);
         if(_gameData == null && _initializeDataIfNull)
         {
@@ -78,10 +74,7 @@ public class DataPersistanceManager : MonoBehaviour
         {
             return;
         }
-        foreach(IdataPersistence datapersistenceObject in _dataPersistanceObjects)
-        {
-            datapersistenceObject.LoadData(_gameData);
-        }
+        _updateStorageDataEvent.RaiseSaveLoadEvent(_gameData, true);
     }
     public void SaveGame()
     {
@@ -93,13 +86,7 @@ public class DataPersistanceManager : MonoBehaviour
         {
             Debug.LogWarning("No data was found! A new game needs to be started before data can be saved!");
         }
-        if(_dataPersistanceObjects != null)
-        {
-            foreach(IdataPersistence dataPersistenceObject in _dataPersistanceObjects)
-            {
-                dataPersistenceObject.SaveData(_gameData);
-            }
-        }
+        _updateStorageDataEvent.RaiseSaveLoadEvent(_gameData, false);
         _gameData.LastUpdated = System.DateTime.Now.ToBinary();
         _dataHandler.Save(_gameData, _selectedProfileId);
     }
@@ -111,11 +98,6 @@ public class DataPersistanceManager : MonoBehaviour
             _selectedProfileId = _testSelectedProfileId;
             Debug.LogWarning("Overrode selected profile ID with test ID: " + _testSelectedProfileId);
         }
-    }
-    private List<IdataPersistence> FindAllDataPersistenceObjects()
-    {
-        IEnumerable<IdataPersistence> dataPersistanceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IdataPersistence>();
-        return new List<IdataPersistence>(dataPersistanceObjects);
     }
     private void OnApplicationQuit()
     {

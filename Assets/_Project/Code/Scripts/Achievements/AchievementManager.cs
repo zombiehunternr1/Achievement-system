@@ -4,7 +4,7 @@ using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
 
-public class AchievementManager : MonoBehaviour, IdataPersistence
+public class AchievementManager : MonoBehaviour
 {
     [SerializeField] private AchievementManagerSO _achievementManager;
     [SerializeField] private GameEventEmpty _saveGame;
@@ -167,23 +167,26 @@ public class AchievementManager : MonoBehaviour, IdataPersistence
             StopAllCoroutines();
         }
     }
-    public void LoadData(GameData data)
+    public void UpdateData(GameData data, bool isLoading)
     {
-        foreach (AchievementInfoSO achievement in _achievementManager.AchievementList)
+        if (isLoading)
         {
-            data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
-            achievement.AchievementUnlocked = isUnlocked;
-        }
-    }
-    public void SaveData(GameData data)
-    {
-        foreach(AchievementInfoSO achievement in _achievementManager.AchievementList)
-        {
-            if (data.TotalAchievementsData.ContainsKey(achievement.AchievementId))
+            foreach (AchievementInfoSO achievement in _achievementManager.AchievementList)
             {
-                data.TotalAchievementsData.Remove(achievement.AchievementId);
+                data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
+                achievement.AchievementUnlocked = isUnlocked;
             }
-            data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
+        }
+        else
+        {
+            foreach (AchievementInfoSO achievement in _achievementManager.AchievementList)
+            {
+                if (data.TotalAchievementsData.ContainsKey(achievement.AchievementId))
+                {
+                    data.TotalAchievementsData.Remove(achievement.AchievementId);
+                }
+                data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
+            }
         }
     }
 }
