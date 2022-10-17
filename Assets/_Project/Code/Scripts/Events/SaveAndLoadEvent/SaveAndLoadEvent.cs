@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Save&Load Event", menuName = "Scriptable Objects/Events/Save&Load")]
+[CreateAssetMenu(fileName = "Save&Load Data Event", menuName = "Scriptable Objects/Events/Save and Load Data Event")]
 public class SaveAndLoadEvent : ScriptableObject
 {
     private List<SaveAndLoadEventListener> _listeners = new List<SaveAndLoadEventListener>();
