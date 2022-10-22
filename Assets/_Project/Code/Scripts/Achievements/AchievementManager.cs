@@ -7,7 +7,7 @@ using FMODUnity;
 public class AchievementManager : MonoBehaviour
 {
     [SerializeField] private AchievementManagerSO _achievementManager;
-    [SerializeField] private GameEventEmpty _saveGame;
+    [SerializeField] private GenericEmptyEvent _saveGame;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainer;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
@@ -119,7 +119,7 @@ public class AchievementManager : MonoBehaviour
     private void UnlockAchievement(int achievementID)
     {
         _achievementManager.AchievementList[achievementID].AchievementUnlocked = true;
-        _saveGame.RaiseEmptyEvent();
+        _saveGame.Invoke();
         UpdateUnlockedStatus();
         AddToQueueDisplay(achievementID);
     }

@@ -67,7 +67,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             return;
         }
-        _updateStorageDataEvent.RaiseSaveLoadEvent(_gameData, true);
+        _updateStorageDataEvent.Invoke(_gameData, true);
     }
     public void SaveGame()
     {
@@ -79,7 +79,8 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.LogWarning("No data was found! A new game needs to be started before data can be saved!");
         }
-        _updateStorageDataEvent.RaiseSaveLoadEvent(_gameData, false);
+        _updateStorageDataEvent.Invoke(_gameData, false);
+        //_updateStorageDataEvent.RaiseSaveLoadEvent(_gameData, false);
         _gameData.LastUpdated = System.DateTime.Now.ToBinary();
         _dataHandler.Save(_gameData, _selectedProfileId);
     }
