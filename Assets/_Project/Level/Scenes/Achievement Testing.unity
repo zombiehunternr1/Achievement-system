@@ -2262,10 +2262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _achievementManager: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
+  _achievementContainerSO: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _saveGame: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
-  _achievementContainer: {fileID: 1756146404}
+  _achievementContainerRect: {fileID: 1756146404}
   _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
   _achievementPrefabPopup: {fileID: 4996261618011942247}
   _displayPopupTime: 5
