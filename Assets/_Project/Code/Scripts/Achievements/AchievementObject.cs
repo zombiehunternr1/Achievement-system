@@ -9,29 +9,29 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private Animator _popupAnimation;
-    public void setIcon(Sprite iconInfo)
+    public void SetIcon(Sprite iconInfo)
     {
         _icon.sprite = iconInfo;
     }
-    public void setTitle(string titleinfo)
+    public void SetTitle(string titleinfo)
     {
         _titleText.text = titleinfo;
     }
-    public void setDescription(string descriptionInfo)
+    public void SetDescription(string descriptionInfo)
     {
         _descriptionText.text = descriptionInfo;
-    }
-    public void lockRegularAchievement()
-    {
-        _locked.enabled = true;
-        _icon.color = new Color(125, 125, 125);
     }
     public void UnlockAchievement()
     {
         _locked.enabled = false;
-        _icon.color = new Color(255, 255, 255);
+        _icon.color = new Color32(255, 255, 255, 255);
     }
-    public void RemoveLockIcon()
+    public void EnableLock()
+    {
+        _locked.enabled = true;
+        _icon.color = new Color32(125,125,125, 255);
+    }
+    public void DisableLock()
     {
         _locked.enabled = false;
     }
