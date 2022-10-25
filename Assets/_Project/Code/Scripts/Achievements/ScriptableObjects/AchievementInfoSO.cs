@@ -14,6 +14,7 @@ public class AchievementInfoSO : ScriptableObject
 
     [SerializeField] private int _intGoalAmount;
     [SerializeField] private float _floatGoalAmount;
+    [SerializeField] private bool _showProgression;
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _unlocked;
     [SerializeField] private EventReference _soundEffect;
@@ -58,6 +59,13 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             return _floatGoalAmount;
+        }
+    }
+    public bool ShowProgression
+    {
+        get
+        {
+            return _showProgression;
         }
     }
     public bool IsHidden

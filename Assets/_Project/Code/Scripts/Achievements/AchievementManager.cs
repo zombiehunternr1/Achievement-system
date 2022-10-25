@@ -128,12 +128,21 @@ public class AchievementManager : MonoBehaviour
             _achievementObjects[objectIndex].SetIcon(_hiddenAchievement);
             _achievementObjects[objectIndex].SetTitle(_hiddenText);
             _achievementObjects[objectIndex].SetDescription(_hiddenText);
+            _achievementObjects[objectIndex].ProgressDisplay(false);
         }
         else
         {
             _achievementObjects[objectIndex].SetIcon(_achievementContainerSO.AchievementList[achievementIndex].Icon);
             _achievementObjects[objectIndex].SetTitle(_achievementContainerSO.AchievementList[achievementIndex].Title);
             _achievementObjects[objectIndex].SetDescription(_achievementContainerSO.AchievementList[achievementIndex].Description);
+            if (_achievementContainerSO.AchievementList[achievementIndex].ShowProgression)
+            {
+                _achievementObjects[objectIndex].ProgressDisplay(true);
+            }
+            else
+            {
+                _achievementObjects[objectIndex].ProgressDisplay(false);
+            }
         }
     }
     private void UnlockAchievement(int achievementID)

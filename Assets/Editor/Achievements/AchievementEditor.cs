@@ -12,6 +12,7 @@ public class AchievementEditor : Editor
         _completionTypeProp,
         _intValueProp,
         _floatValueProp,
+        _showProgresssionProp,
         _isHiddenValueProp,
         _unlockedValueProp,
         _soundEffectValueProp;
@@ -26,6 +27,7 @@ public class AchievementEditor : Editor
         _completionTypeProp = serializedObject.FindProperty("_valueCompletionType");
         _intValueProp = serializedObject.FindProperty("_intGoalAmount");
         _floatValueProp = serializedObject.FindProperty("_floatGoalAmount");
+        _showProgresssionProp = serializedObject.FindProperty("_showProgression");
         _isHiddenValueProp = serializedObject.FindProperty("_isHidden");
         _unlockedValueProp = serializedObject.FindProperty("_unlocked");
         _soundEffectValueProp = serializedObject.FindProperty("_soundEffect");
@@ -63,6 +65,7 @@ public class AchievementEditor : Editor
                 EditorGUILayout.PropertyField(_floatValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;
         }
+        EditorGUILayout.PropertyField(_showProgresssionProp);
         EditorGUILayout.PropertyField(_isHiddenValueProp);
         EditorGUILayout.PropertyField(_unlockedValueProp);
         EditorGUILayout.PropertyField(_soundEffectValueProp);

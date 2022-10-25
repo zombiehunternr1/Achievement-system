@@ -19,6 +19,7 @@ MonoBehaviour:
   _valueCompletionType: 1
   _intGoalAmount: 69
   _floatGoalAmount: 0
+  _showProgression: 0
   _isHidden: 0
   _unlocked: 0
   _soundEffect:

@@ -8,6 +8,7 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private Image _locked;
     [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
+    [SerializeField] private RectTransform _progressBarRect;
     [SerializeField] private Animator _popupAnimation;
     public void SetIcon(Sprite iconInfo)
     {
@@ -34,6 +35,17 @@ public class AchievementObject : MonoBehaviour
     public void DisableLock()
     {
         _locked.enabled = false;
+    }
+    public void ProgressDisplay(bool display)
+    {
+        if (display)
+        {
+            _progressBarRect.gameObject.SetActive(true);
+        }
+        else
+        {
+            _progressBarRect.gameObject.SetActive(false);
+        }
     }
     public void PlayDisplayAnim()
     {
