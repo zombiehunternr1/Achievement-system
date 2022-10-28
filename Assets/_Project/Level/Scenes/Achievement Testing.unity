@@ -3705,8 +3705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
-  _gemCollectedEvent: {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
-  _allGemsCollectedEvent: {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
+  _updateCollectablesEvent: {fileID: 11400000, guid: 8bdf3a2f7f05fce46afa932ecb043417, type: 2}
+  _gemCollectedAchievementEvent: {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
+  _allGemsCollectedAchievementEvent: {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   _AllItemCollectableLists:
   - {fileID: 11400000, guid: 9809d59512a5c0143b94e2ada4fdb344, type: 2}
 --- !u!114 &1364405327

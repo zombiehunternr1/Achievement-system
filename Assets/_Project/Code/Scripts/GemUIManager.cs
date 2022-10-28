@@ -25,6 +25,11 @@ public class GemUIManager : MonoBehaviour
                     gemsprite.GetComponent<Button>().enabled = false;
                     gemsprite.color = new Color32(255, 255, 255, 255);
                 }
+                else
+                {
+                    gemsprite.GetComponent<Button>().enabled = true;
+                    gemsprite.color = new Color32(255, 255, 255, 125);
+                }
             }
         }
     }

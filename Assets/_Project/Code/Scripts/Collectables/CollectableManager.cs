@@ -4,8 +4,9 @@ using UnityEngine;
 public class CollectableManager : MonoBehaviour
 {
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
-    [SerializeField] private AchievementEvent _gemCollectedEvent;
-    [SerializeField] private AchievementEvent _allGemsCollectedEvent;
+    [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
+    [SerializeField] private AchievementEvent _gemCollectedAchievementEvent;
+    [SerializeField] private AchievementEvent _allGemsCollectedAchievementEvent;
     [SerializeField] private List<CollectableTypeList> _AllItemCollectableLists;
     public void UpdateCollectableStatus()
     {
@@ -17,8 +18,8 @@ public class CollectableManager : MonoBehaviour
                 if (collectableType.Collected)
                 {
                     collecteditems++;
-                    _gemCollectedEvent.Invoke(_gemCollectedEvent.AchievementID, collecteditems, null);
-                    _allGemsCollectedEvent.Invoke(_allGemsCollectedEvent.AchievementID, collecteditems, null);
+                    _gemCollectedAchievementEvent.Invoke(_gemCollectedAchievementEvent.AchievementID, collecteditems, null);
+                    _allGemsCollectedAchievementEvent.Invoke(_allGemsCollectedAchievementEvent.AchievementID, collecteditems, null);
                     _saveGameEvent.Invoke();
                 }
             }
@@ -36,6 +37,7 @@ public class CollectableManager : MonoBehaviour
                     collectableType.Collected = isCollected;
                 }
             }
+            _updateCollectablesEvent.Invoke();
         }
         else
         {
