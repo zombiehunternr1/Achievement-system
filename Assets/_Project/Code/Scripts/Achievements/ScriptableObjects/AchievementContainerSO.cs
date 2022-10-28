@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AchievementContainer", menuName = "Scriptable Objects/Achievement container")]
+[CreateAssetMenu(fileName = "AchievementContainer", menuName = "Scriptable Objects/Achievements/Achievement Container")]
 public class AchievementContainerSO : ScriptableObject
 {
     [SerializeField] private List<AchievementInfoSO> _totalAchievements;

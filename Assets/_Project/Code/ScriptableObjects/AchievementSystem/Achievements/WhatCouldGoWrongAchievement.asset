@@ -10,15 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
-  m_Name: Quitter achievement
+  m_Name: WhatCouldGoWrongAchievement
   m_EditorClassIdentifier: 
-  _achievementId: 2
-  _title: Quitter!
-  _description: Quitting is for losers!
-  _icon: {fileID: 21300000, guid: 1c2d62c6ebcc6324dbb1b0fce2666b5e, type: 3}
-  _valueCompletionType: 0
+  _achievementId: 3
+  _title: What could go wrong?
+  _description: If you could just go ahead and not do that. That'd be great
+  _icon: {fileID: 21300000, guid: 080bf216f899353468069974ff1e934b, type: 3}
+  _CompletionType: 2
+  _CollectableType: 0
+  _intCurrentAmount: 0
   _intGoalAmount: 0
-  _floatGoalAmount: 0
+  _floatCurrentAmount: 0
+  _floatGoalAmount: 305326.1
+  _collectable: {fileID: 0}
+  _showProgression: 0
   _isHidden: 0
   _unlocked: 0
   _soundEffect:

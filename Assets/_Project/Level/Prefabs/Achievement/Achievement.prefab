@@ -762,6 +762,8 @@ MonoBehaviour:
   _titleText: {fileID: 6327427208314415742}
   _descriptionText: {fileID: 6327427209884805135}
   _progressBarRect: {fileID: 216452195271163709}
+  _progressText: {fileID: 2532356550875762227}
+  _progressSlider: {fileID: 5186063385177774518}
   _popupAnimation: {fileID: 0}
 --- !u!1 &6327427209884805121
 GameObject:
@@ -798,8 +800,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 125, y: -125}
-  m_SizeDelta: {x: 750, y: 100}
+  m_AnchoredPosition: {x: 135, y: -125}
+  m_SizeDelta: {x: 730, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6327427209884805134
 CanvasRenderer:

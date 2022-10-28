@@ -9,6 +9,8 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private RectTransform _progressBarRect;
+    [SerializeField] private TextMeshProUGUI _progressText;
+    [SerializeField] private Slider _progressSlider;
     [SerializeField] private Animator _popupAnimation;
     public void SetIcon(Sprite iconInfo)
     {
@@ -36,11 +38,23 @@ public class AchievementObject : MonoBehaviour
     {
         _locked.enabled = false;
     }
-    public void ProgressDisplay(bool display)
+    public void ProgressDisplay(bool display, int? currentIntValue, int? goalIntValue, float? currentfloatValue, float? goalFloatValue)
     {
         if (display)
         {
             _progressBarRect.gameObject.SetActive(true);
+            if(goalIntValue != 0)
+            {
+                _progressText.text = currentIntValue + " / " + goalIntValue;
+                _progressSlider.maxValue = (float)goalIntValue;
+                _progressSlider.value = (float)currentIntValue;
+            }
+            if(goalFloatValue != 0)
+            {
+                _progressText.text = currentfloatValue + " / " + goalFloatValue;
+                _progressSlider.maxValue = (float)goalFloatValue;
+                _progressSlider.value = (float)currentfloatValue;
+            }
         }
         else
         {

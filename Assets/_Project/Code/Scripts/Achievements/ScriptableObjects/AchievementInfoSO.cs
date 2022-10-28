@@ -1,7 +1,7 @@
 using UnityEngine;
 using FMODUnity;
 
-[CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievement")]
+[CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievements/Achievement")]
 public class AchievementInfoSO : ScriptableObject
 {
     [SerializeField] private int _achievementId;
@@ -9,11 +9,15 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
     public enum completionType { noRequirements, integerRequirement, floatRequirement };
-    [SerializeField]
-    private completionType _valueCompletionType;
+    [SerializeField] private completionType _CompletionType;
+    public enum CollectableType { None, Collectable };
+    [SerializeField] private CollectableType _CollectableType;
 
+    [SerializeField] private int _intCurrentAmount;
     [SerializeField] private int _intGoalAmount;
+    [SerializeField] private float _floatCurrentAmount;
     [SerializeField] private float _floatGoalAmount;
+    [SerializeField] private CollectableTypeList _collectable;
     [SerializeField] private bool _showProgression;
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _unlocked;
@@ -47,11 +51,47 @@ public class AchievementInfoSO : ScriptableObject
             return _icon;
         }
     }
+    public CollectableType collectableType
+    {
+        get
+        {
+            return _CollectableType;
+        }
+    }
+    public CollectableTypeList Collectable
+    {
+        get
+        {
+            return _collectable;
+        }
+    }
+    public int CurrentIntAmount
+    {
+        get
+        {
+            return _intCurrentAmount;
+        }
+        set
+        {
+            _intCurrentAmount = value;
+        }
+    }
     public int IntGoal
     {
         get
         {
             return _intGoalAmount;
+        }
+    }
+    public float CurrentFloatAmount
+    {
+        get
+        {
+            return _floatCurrentAmount;
+        }
+        set
+        {
+            _floatCurrentAmount = value;
         }
     }
     public float FloatGoal

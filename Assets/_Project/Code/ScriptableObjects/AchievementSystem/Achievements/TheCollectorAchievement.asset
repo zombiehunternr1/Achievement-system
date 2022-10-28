@@ -10,15 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
-  m_Name: What could go wrong achievement
+  m_Name: TheCollectorAchievement
   m_EditorClassIdentifier: 
-  _achievementId: 3
-  _title: What could go wrong?
-  _description: If you could just go ahead and not do that. That'd be great
-  _icon: {fileID: 21300000, guid: 080bf216f899353468069974ff1e934b, type: 3}
-  _valueCompletionType: 2
-  _intGoalAmount: 0
-  _floatGoalAmount: 305326.1
+  _achievementId: 5
+  _title: The collector
+  _description: Collect all the gems
+  _icon: {fileID: 21300000, guid: dfe5601eea97fe048bb46b2452ad1310, type: 3}
+  _CompletionType: 1
+  _CollectableType: 1
+  _intCurrentAmount: 0
+  _intGoalAmount: 7
+  _floatCurrentAmount: 0
+  _floatGoalAmount: 0
+  _collectable: {fileID: 11400000, guid: 9809d59512a5c0143b94e2ada4fdb344, type: 2}
+  _showProgression: 1
   _isHidden: 0
   _unlocked: 0
   _soundEffect:

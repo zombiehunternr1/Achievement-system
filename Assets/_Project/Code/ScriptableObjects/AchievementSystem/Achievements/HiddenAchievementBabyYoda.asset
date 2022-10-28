@@ -10,15 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
-  m_Name: Hidden achievement baby Yoda
+  m_Name: HiddenAchievementBabyYoda
   m_EditorClassIdentifier: 
   _achievementId: 0
   _title: You were looking for me?
   _description: You found the hidden baby Yoda!
   _icon: {fileID: 21300000, guid: 7c7d3b986298ba5478f02395c484953c, type: 3}
-  _valueCompletionType: 0
+  _CompletionType: 0
+  _CollectableType: 0
+  _intCurrentAmount: 0
   _intGoalAmount: 0
+  _floatCurrentAmount: 0
   _floatGoalAmount: 0
+  _collectable: {fileID: 0}
+  _showProgression: 0
   _isHidden: 1
   _unlocked: 0
   _soundEffect:
