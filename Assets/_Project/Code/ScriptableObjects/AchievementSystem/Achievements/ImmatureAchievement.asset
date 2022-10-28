@@ -18,7 +18,7 @@ MonoBehaviour:
   _icon: {fileID: 21300000, guid: a11d1929046e1654e8c086fb5c7f79f1, type: 3}
   _CompletionType: 1
   _CollectableType: 0
-  _intCurrentAmount: 0
+  _intCurrentAmount: 69
   _intGoalAmount: 69
   _floatCurrentAmount: 0
   _floatGoalAmount: 0

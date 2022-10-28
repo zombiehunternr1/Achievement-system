@@ -4,6 +4,7 @@ using UnityEngine;
 public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private SaveAndLoadEvent _updateStorageDataEvent;
+    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [Header("Debugging")]
     [SerializeField] private bool _disableDataPersistence = false;
     [SerializeField] private bool _initializeDataIfNull = false;
@@ -68,6 +69,7 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
         _updateStorageDataEvent.Invoke(_gameData, true);
+        _updateProgressionEvent.Invoke(_gameData);
     }
     public void SaveGame()
     {

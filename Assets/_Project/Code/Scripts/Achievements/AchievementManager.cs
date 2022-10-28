@@ -8,6 +8,7 @@ public class AchievementManager : MonoBehaviour
 {
     [SerializeField] private AchievementContainerSO _achievementContainerSO;
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
+    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
@@ -257,5 +258,6 @@ public class AchievementManager : MonoBehaviour
                 data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
             }
         }
+        _updateProgressionEvent.Invoke(data);
     }
 }

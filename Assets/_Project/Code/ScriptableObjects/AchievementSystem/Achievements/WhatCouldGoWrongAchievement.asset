@@ -20,7 +20,7 @@ MonoBehaviour:
   _CollectableType: 0
   _intCurrentAmount: 0
   _intGoalAmount: 0
-  _floatCurrentAmount: 0
+  _floatCurrentAmount: 305326.1
   _floatGoalAmount: 305326.1
   _collectable: {fileID: 0}
   _showProgression: 0

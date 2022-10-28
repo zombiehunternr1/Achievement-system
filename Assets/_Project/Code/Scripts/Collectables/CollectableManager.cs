@@ -5,6 +5,7 @@ public class CollectableManager : MonoBehaviour
 {
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
+    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private AchievementEvent _gemCollectedAchievementEvent;
     [SerializeField] private AchievementEvent _allGemsCollectedAchievementEvent;
     [SerializeField] private List<CollectableTypeList> _AllItemCollectableLists;
@@ -20,10 +21,10 @@ public class CollectableManager : MonoBehaviour
                     collecteditems++;
                     _gemCollectedAchievementEvent.Invoke(_gemCollectedAchievementEvent.AchievementID, collecteditems, null);
                     _allGemsCollectedAchievementEvent.Invoke(_allGemsCollectedAchievementEvent.AchievementID, collecteditems, null);
-                    _saveGameEvent.Invoke();
                 }
             }
         }
+        _saveGameEvent.Invoke();
     }
     public void UpdateData(GameData data, bool isLoading)
     {
@@ -52,6 +53,7 @@ public class CollectableManager : MonoBehaviour
                     data.TotalCollectablesData.Add(collectableType.CollectableID, collectableType.Collected);
                 }
             }
+            _updateProgressionEvent.Invoke(data);
         }
     }
 }
