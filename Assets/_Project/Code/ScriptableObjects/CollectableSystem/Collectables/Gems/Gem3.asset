@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
   m_Name: Gem3
   m_EditorClassIdentifier: 
-  _collectableID: 2
+  _collectableID: 7f913c989d0be6b4ea8e6a40e4a8207e
   _collected: 0

@@ -29,7 +29,7 @@ public class AchievementManager : MonoBehaviour
     {
         StartCoroutine(PopupCooldown());
     }
-    public void CheckValueRequirement(int achievementID, int? intValue, float? floatValue)
+    public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
         for (int i = 0; i < _achievementContainerSO.AchievementList.Count; i++)
         {

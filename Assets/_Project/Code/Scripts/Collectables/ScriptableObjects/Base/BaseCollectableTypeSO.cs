@@ -4,9 +4,10 @@ using UnityEngine;
 public abstract class BaseCollectableTypeSO : ScriptableObject
 {
     [SerializeField] private Type _collectableType;
-    [SerializeField] private int _collectableID;
+    [UniqueIdentifier]
+    [SerializeField] private string _collectableID;
     [SerializeField] private bool _collected;
-    public int CollectableID
+    public string CollectableID
     {
         get
         {

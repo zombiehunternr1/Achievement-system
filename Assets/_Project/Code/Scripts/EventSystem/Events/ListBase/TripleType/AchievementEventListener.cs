@@ -1,3 +1,3 @@
-public class AchievementEventListener : BaseEventListTripleGenericTypeListener<int, int?, float?>
+public class AchievementEventListener : BaseEventListTripleGenericTypeListener<string, int?, float?>
 {
 }

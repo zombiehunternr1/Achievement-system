@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameData
 {
     [SerializeField] private long _lastUpdated;
-    [SerializeField] private SerializableDictionary<int, bool> _totalAchievementsData;
-    [SerializeField] private SerializableDictionary<int, bool> _totalCollectablesData;
-    private List<SerializableDictionary<int, bool>> _AllData = new List<SerializableDictionary<int, bool>>();
+    [SerializeField] private SerializableDictionary<string, bool> _totalAchievementsData;
+    [SerializeField] private SerializableDictionary<string, bool> _totalCollectablesData;
+    private List<SerializableDictionary<string, bool>> _AllData = new List<SerializableDictionary<string, bool>>();
 
     public long LastUpdated
     {
@@ -21,7 +21,7 @@ public class GameData
             _lastUpdated = value;
         }
     }
-    public SerializableDictionary<int, bool> TotalAchievementsData
+    public SerializableDictionary<string, bool> TotalAchievementsData
     {
         get
         {
@@ -32,7 +32,7 @@ public class GameData
             _totalAchievementsData = value;
         }
     }
-    public SerializableDictionary<int, bool> TotalCollectablesData
+    public SerializableDictionary<string, bool> TotalCollectablesData
     {
         get
         {
@@ -45,8 +45,8 @@ public class GameData
     }
     public GameData()
     {
-        _totalAchievementsData = new SerializableDictionary<int, bool>();
-        _totalCollectablesData = new SerializableDictionary<int, bool>();
+        _totalAchievementsData = new SerializableDictionary<string, bool>();
+        _totalCollectablesData = new SerializableDictionary<string, bool>();
         _AllData.Add(_totalAchievementsData);
         _AllData.Add(_totalCollectablesData);
     }

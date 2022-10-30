@@ -1,10 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AchievementEvent", menuName = "Scriptable Objects/Events/Type/Achievement")]
-public class AchievementEvent : BaseEventListTripleGenericType<int, int?, float?>
+public class AchievementEvent : BaseEventListTripleGenericType<string, int?, float?>
 {
     [SerializeField] private AchievementInfoSO _AchievementToUnlock;
-    public int AchievementID
+    public string AchievementID
     {
         get
         {

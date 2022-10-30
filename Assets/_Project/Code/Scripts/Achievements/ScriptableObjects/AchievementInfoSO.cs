@@ -4,7 +4,8 @@ using FMODUnity;
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievements/Achievement")]
 public class AchievementInfoSO : ScriptableObject
 {
-    [SerializeField] private int _achievementId;
+    [UniqueIdentifier]
+    [SerializeField] private string _achievementId;
     [SerializeField] private string _title;
     [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
@@ -23,7 +24,7 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private bool _unlocked;
     [SerializeField] private EventReference _soundEffect;
 
-    public int AchievementId
+    public string AchievementId
     {
         get
         {

@@ -56,7 +56,7 @@ public class AchievementEditor : Editor
         EditorGUILayout.ObjectField("Script", _monoScript, GetType(), false);
         EditorGUI.EndDisabledGroup();
         serializedObject.Update();
-        EditorGUILayout.PropertyField(_idValueProp, new GUILayoutOption[] {GUILayout.Width(275)});
+        EditorGUILayout.PropertyField(_idValueProp, new GUILayoutOption[] {GUILayout.Width(750)});
         EditorGUILayout.PropertyField(_titleValueProp, new GUILayoutOption[] { GUILayout.Width(500)});
         EditorGUILayout.PropertyField(_desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
         EditorGUILayout.PropertyField(_iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
