@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -7,6 +8,7 @@ public class GameData
     [SerializeField] private long _lastUpdated;
     [SerializeField] private SerializableDictionary<int, bool> _totalAchievementsData;
     [SerializeField] private SerializableDictionary<int, bool> _totalCollectablesData;
+    private List<SerializableDictionary<int, bool>> _AllData = new List<SerializableDictionary<int, bool>>();
 
     public long LastUpdated
     {
@@ -45,6 +47,8 @@ public class GameData
     {
         _totalAchievementsData = new SerializableDictionary<int, bool>();
         _totalCollectablesData = new SerializableDictionary<int, bool>();
+        _AllData.Add(_totalAchievementsData);
+        _AllData.Add(_totalCollectablesData);
     }
     public int PercentageAchievementsComplete
     {
@@ -90,27 +94,30 @@ public class GameData
     {
         get
         {
-            int totalComplete = 0;
             int percentageCompleted = -1;
-            foreach(bool unlocked in _totalAchievementsData.Values)
-            {
-                if (unlocked)
-                {
-                    totalComplete++;
-                }
-            }
-            foreach(bool collected in _totalCollectablesData.Values)
-            {
-                if (collected)
-                {
-                    totalComplete++;
-                }
-            }
             if(_totalAchievementsData.Count != 0 && _totalCollectablesData.Count != 0)
             {
-                percentageCompleted = (totalComplete * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));
+                percentageCompleted = (TotalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));
             }
             return percentageCompleted;
+        }
+    }
+    private int TotalDataCompletion
+    {
+        get
+        {
+            int totalCount = 0;
+            for (int i = 0; i < _AllData.Count; i++)
+            {
+                foreach (var value in _AllData[i].Values)
+                {
+                    if (value)
+                    {
+                        totalCount++;
+                    }
+                }
+            }
+            return totalCount;
         }
     }
 }

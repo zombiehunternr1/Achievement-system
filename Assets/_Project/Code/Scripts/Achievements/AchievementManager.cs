@@ -56,7 +56,7 @@ public class AchievementManager : MonoBehaviour
                                 if (collectable.Collected)
                                 {
                                     _intAmount++;
-                                    if(_intAmount == _achievementContainerSO.AchievementList[i].IntGoal)
+                                    if (_intAmount == _achievementContainerSO.AchievementList[i].IntGoal)
                                     {
                                         UnlockAchievement(i);
                                     }
@@ -80,12 +80,12 @@ public class AchievementManager : MonoBehaviour
                         UnlockAchievement(i);
                     }
                 }
-            }         
+            }
         }
     }
     private void SetupAchievementDisplay()
     {
-        if(_achievementContainerSO.AchievementList.Count == 0)
+        if (_achievementContainerSO.AchievementList.Count == 0)
         {
             Debug.LogWarning("The list of achievements to unlock is empty!");
             return;
@@ -165,7 +165,7 @@ public class AchievementManager : MonoBehaviour
             _achievementObjects[objectIndex].SetIcon(_hiddenAchievement);
             _achievementObjects[objectIndex].SetTitle(_hiddenText);
             _achievementObjects[objectIndex].SetDescription(_hiddenText);
-            _achievementObjects[objectIndex].ProgressDisplay(false, _achievementContainerSO.AchievementList[achievementIndex].CurrentIntAmount, _achievementContainerSO.AchievementList[achievementIndex].IntGoal, 
+            _achievementObjects[objectIndex].ProgressDisplay(false, _achievementContainerSO.AchievementList[achievementIndex].CurrentIntAmount, _achievementContainerSO.AchievementList[achievementIndex].IntGoal,
             _achievementContainerSO.AchievementList[achievementIndex].CurrentFloatAmount, _achievementContainerSO.AchievementList[achievementIndex].FloatGoal);
         }
         else
@@ -194,7 +194,7 @@ public class AchievementManager : MonoBehaviour
     }
     private void AddToQueueDisplay(int achievementID)
     {
-        if(_QueuedAchievements.Count == 0)
+        if (_QueuedAchievements.Count == 0)
         {
             _QueuedAchievements.Add(achievementID);
             DisplayPopUpAchievement(achievementID);
@@ -207,7 +207,7 @@ public class AchievementManager : MonoBehaviour
     private void DisplayNextinQueue()
     {
         _QueuedAchievements.RemoveAt(0);
-        if(_QueuedAchievements.Count != 0)
+        if (_QueuedAchievements.Count != 0)
         {
             DisplayPopUpAchievement(_QueuedAchievements[0]);
         }
@@ -227,7 +227,7 @@ public class AchievementManager : MonoBehaviour
         yield return new WaitForSeconds(_displayPopupTime);
         _achievementPrefabPopup.PlayHideAnim();
         yield return new WaitForSeconds(1.5f);
-        if(_QueuedAchievements.Count != 0)
+        if (_QueuedAchievements.Count != 0)
         {
             DisplayNextinQueue();
         }

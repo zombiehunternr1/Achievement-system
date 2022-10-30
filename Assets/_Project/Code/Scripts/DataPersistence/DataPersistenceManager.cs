@@ -40,7 +40,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        if (_disableDataPersistence)
+        if(_disableDataPersistence)
         {
             Debug.LogWarning("Data persistence is currently disabled!");
         }
@@ -58,7 +58,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void LoadGame()
     {
-        if (_disableDataPersistence)
+        if(_disableDataPersistence)
         {
             return;
         }
@@ -76,7 +76,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        if (_disableDataPersistence)
+        if(_disableDataPersistence)
         {
             return;
         }
@@ -91,7 +91,7 @@ public class DataPersistenceManager : MonoBehaviour
     private void InitializeSelectedProfileId()
     {
         _selectedProfileId = _dataHandler.MostRecentlyUpdatedProfileId;
-        if (_overrideSelectedProfileId)
+        if(_overrideSelectedProfileId)
         {
             _selectedProfileId = _testSelectedProfileId;
             Debug.LogWarning("Overrode selected profile ID with test ID: " + _testSelectedProfileId);
