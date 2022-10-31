@@ -22,4 +22,11 @@ public class ProgressionManager : MonoBehaviour
         _achievementProgressionSlider.maxValue = 100;
         _achievementProgressionSlider.value = data.PercentageAchievementsComplete;
     }
+    public void UpdateData(GameData data, bool isLoading)
+    {
+        if (isLoading)
+        {
+            UpdateUIDisplay(data);
+        }
+    }
 }

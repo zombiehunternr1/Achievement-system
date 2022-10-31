@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
   m_Name: OoohShinyAchievement
   m_EditorClassIdentifier: 
-  _achievementId: 85006e8ea660b8940a07db953e82bb8f
+  _achievementId: e5ea514e132f41f4da2ffdf969745b3b
   _title: OOOOH shiny!!
   _description: Collect a gem
   _icon: {fileID: 21300000, guid: 23887c601bdbe9145a802bb2e520ffe1, type: 3}

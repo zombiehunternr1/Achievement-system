@@ -20,7 +20,7 @@ public class CollectableUIManager : MonoBehaviour
             CollectableObject collectableObject = collectableSprit.GetComponent<CollectableObject>();
             if (collectableObject != null && collectableObject.Collectable != null)
             {
-                if (collectableObject.Collectable.Collected)
+                if (collectableObject.Collectable.IsCollected)
                 {
                     collectableSprit.GetComponent<Button>().enabled = false;
                     collectableSprit.color = new Color32(255, 255, 255, 255);

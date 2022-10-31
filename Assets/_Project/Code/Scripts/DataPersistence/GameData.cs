@@ -55,7 +55,7 @@ public class GameData
         get
         {
             int totalUnlocked = 0;
-            int percentageCompleted = -1;
+            int percentageCompleted = 0;
             foreach(bool unlocked in _totalAchievementsData.Values)
             {
                 if (unlocked)
@@ -75,7 +75,7 @@ public class GameData
         get
         {
             int totalUnlocked = 0;
-            int percentageCompleted = -1;
+            int percentageCompleted = 0;
             foreach(bool collected in _totalCollectablesData.Values)
             {
                 if (collected)
@@ -94,7 +94,7 @@ public class GameData
     {
         get
         {
-            int percentageCompleted = -1;
+            int percentageCompleted = 0;
             if(_totalAchievementsData.Count != 0 && _totalCollectablesData.Count != 0)
             {
                 percentageCompleted = (TotalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));

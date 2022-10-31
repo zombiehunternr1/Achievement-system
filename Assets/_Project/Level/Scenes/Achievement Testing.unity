@@ -6996,6 +6996,7 @@ GameObject:
   - component: {fileID: 1740494974}
   - component: {fileID: 1740494975}
   - component: {fileID: 1740494976}
+  - component: {fileID: 1740494977}
   m_Layer: 5
   m_Name: ProgressionContainer
   m_TagString: Untagged
@@ -7063,6 +7064,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1740494975}
         m_TargetAssemblyTypeName: ProgressionManager, Assembly-CSharp
         m_MethodName: UpdateUIDisplay
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1740494977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740494973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde1b16662477814b9a982ad26a65bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1740494975}
+        m_TargetAssemblyTypeName: ProgressionManager, Assembly-CSharp
+        m_MethodName: UpdateData
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

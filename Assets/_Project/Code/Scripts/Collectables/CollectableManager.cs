@@ -16,7 +16,7 @@ public class CollectableManager : MonoBehaviour
         {
             foreach(CollectableType collectableType in collectableTypeList.CollectablesList)
             {
-                if (collectableType.Collected)
+                if (collectableType.IsCollected)
                 {
                     collecteditems++;
                     _gemCollectedAchievementEvent.Invoke(_gemCollectedAchievementEvent.AchievementID, collecteditems, null);
@@ -35,25 +35,32 @@ public class CollectableManager : MonoBehaviour
                 foreach(CollectableType collectableType in collectableTypeList.CollectablesList)
                 {
                     data.TotalCollectablesData.TryGetValue(collectableType.CollectableID, out bool isCollected);
-                    collectableType.Collected = isCollected;
+                    collectableType.CollectCollectable = isCollected;
                 }
             }
             _updateCollectablesEvent.Invoke();
         }
         else
         {
-            foreach (CollectableTypeList collectableTypeList in _AllItemCollectableLists)
+            int collectableListsIndex = _AllItemCollectableLists.Count;
+            int currentListIndex = 0;
+            while (currentListIndex < collectableListsIndex)
             {
-                foreach (CollectableType collectableType in collectableTypeList.CollectablesList)
+                int collectablesInList = _AllItemCollectableLists[currentListIndex].CollectablesList.Count;
+                int currentCollectableIndex = 0;
+                while (currentCollectableIndex < collectablesInList)
                 {
-                    if (data.TotalCollectablesData.ContainsKey(collectableType.CollectableID))
+                    if (data.TotalCollectablesData.ContainsKey(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID))
                     {
-                        data.TotalCollectablesData.Remove(collectableType.CollectableID);
+                        data.TotalCollectablesData.Remove(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID);
                     }
-                    data.TotalCollectablesData.Add(collectableType.CollectableID, collectableType.Collected);
+                    data.TotalCollectablesData.Add(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID, _AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].IsCollected);
+                    Debug.Log(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex]);
+                    currentCollectableIndex++;
                 }
+                currentListIndex++;
             }
-            _updateProgressionEvent.Invoke(data);
         }
+        _updateProgressionEvent.Invoke(data);
     }
 }

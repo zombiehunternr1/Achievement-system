@@ -14,12 +14,15 @@ public abstract class BaseCollectableTypeSO : ScriptableObject
             return _collectableID;
         }
     }
-    public bool Collected
+    public bool IsCollected
     {
         get
         {
             return _collected;
         }
+    }
+    public bool CollectCollectable
+    {
         set
         {
             _collected = value;

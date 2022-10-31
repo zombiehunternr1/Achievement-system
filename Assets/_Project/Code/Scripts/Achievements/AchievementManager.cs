@@ -53,7 +53,7 @@ public class AchievementManager : MonoBehaviour
                             _intAmount = 0;
                             foreach (CollectableType collectable in _achievementContainerSO.AchievementList[i].Collectable.CollectablesList)
                             {
-                                if (collectable.Collected)
+                                if (collectable.IsCollected)
                                 {
                                     _intAmount++;
                                     if (_intAmount == _achievementContainerSO.AchievementList[i].IntGoal)
@@ -151,7 +151,7 @@ public class AchievementManager : MonoBehaviour
         _intAmount = 0;
         foreach (CollectableType collectable in _achievementContainerSO.AchievementList[achievementIndex].Collectable.CollectablesList)
         {
-            if (collectable.Collected)
+            if (collectable.IsCollected)
             {
                 _intAmount++;
             }
@@ -249,13 +249,16 @@ public class AchievementManager : MonoBehaviour
         }
         else
         {
-            foreach (AchievementInfoSO achievement in _achievementContainerSO.AchievementList)
+            int AchievementsInList = _achievementContainerSO.AchievementList.Count;
+            int currentIndex = 0;
+            while(currentIndex < AchievementsInList)
             {
-                if (data.TotalAchievementsData.ContainsKey(achievement.AchievementId))
+                if (data.TotalAchievementsData.ContainsKey(_achievementContainerSO.AchievementList[currentIndex].AchievementId))
                 {
-                    data.TotalAchievementsData.Remove(achievement.AchievementId);
+                    data.TotalAchievementsData.Remove(_achievementContainerSO.AchievementList[currentIndex].AchievementId);
                 }
-                data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
+                data.TotalAchievementsData.Add(_achievementContainerSO.AchievementList[currentIndex].AchievementId, _achievementContainerSO.AchievementList[currentIndex].IsUnlocked);
+                currentIndex++;
             }
         }
         _updateProgressionEvent.Invoke(data);
