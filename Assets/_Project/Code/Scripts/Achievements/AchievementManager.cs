@@ -19,7 +19,7 @@ public class AchievementManager : MonoBehaviour
     private int _intAmount = 0;
     private string _hiddenText = "??????????????";
     private EventInstance _soundEffect;
-    private void OnEnable()
+    private void Awake()
     {
         _achievementObjects = new List<AchievementObject>();
         _QueuedAchievements = new List<int>();
@@ -249,16 +249,16 @@ public class AchievementManager : MonoBehaviour
         }
         else
         {
-            int AchievementsInList = _achievementContainerSO.AchievementList.Count;
-            int currentIndex = 0;
-            while(currentIndex < AchievementsInList)
+            int currentIndexCount = 0;
+            while (currentIndexCount < _achievementContainerSO.AchievementList.Count)
             {
-                if (data.TotalAchievementsData.ContainsKey(_achievementContainerSO.AchievementList[currentIndex].AchievementId))
+                if (data.TotalAchievementsData.ContainsKey(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId))
                 {
-                    data.TotalAchievementsData.Remove(_achievementContainerSO.AchievementList[currentIndex].AchievementId);
+                    data.TotalAchievementsData.Remove(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId);
                 }
-                data.TotalAchievementsData.Add(_achievementContainerSO.AchievementList[currentIndex].AchievementId, _achievementContainerSO.AchievementList[currentIndex].IsUnlocked);
-                currentIndex++;
+                data.TotalAchievementsData.Add(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId, _achievementContainerSO.AchievementList[currentIndexCount].IsUnlocked);
+                Debug.Log(_achievementContainerSO.AchievementList[currentIndexCount]);
+                currentIndexCount++;
             }
         }
         _updateProgressionEvent.Invoke(data);

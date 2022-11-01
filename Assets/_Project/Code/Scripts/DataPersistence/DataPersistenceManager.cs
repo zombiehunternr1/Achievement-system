@@ -16,7 +16,6 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData _gameData;
     private FileDataHandler _dataHandler;
     private string _selectedProfileId = "";
-    private static DataPersistenceManager _instance;
     public bool HasGameData
     {
         get
@@ -33,13 +32,6 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void Awake()
     {
-        if(_instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
         if(_disableDataPersistence)
         {
             Debug.LogWarning("Data persistence is currently disabled!");
@@ -47,6 +39,10 @@ public class DataPersistenceManager : MonoBehaviour
         _dataHandler = new FileDataHandler(Application.persistentDataPath, _fileName, _useEncryption);
         InitializeSelectedProfileId();
         LoadGame();
+    }
+    private void Start()
+    {
+        SaveGame();
     }
     public void NewGame()
     {

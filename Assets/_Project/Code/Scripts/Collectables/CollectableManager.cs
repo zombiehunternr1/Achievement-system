@@ -55,7 +55,7 @@ public class CollectableManager : MonoBehaviour
                         data.TotalCollectablesData.Remove(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID);
                     }
                     data.TotalCollectablesData.Add(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID, _AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].IsCollected);
-                    Debug.Log(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex]);
+                    //Debug.Log(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex]);
                     currentCollectableIndex++;
                 }
                 currentListIndex++;
