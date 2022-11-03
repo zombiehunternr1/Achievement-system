@@ -249,16 +249,14 @@ public class AchievementManager : MonoBehaviour
         }
         else
         {
-            int currentIndexCount = 0;
-            while (currentIndexCount < _achievementContainerSO.AchievementList.Count)
+            foreach(AchievementInfoSO achievement in _achievementContainerSO.AchievementList)
             {
-                if (data.TotalAchievementsData.ContainsKey(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId))
+                if (data.TotalAchievementsData.ContainsKey(achievement.AchievementId))
                 {
-                    data.TotalAchievementsData.Remove(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId);
+                    data.TotalAchievementsData.Remove(achievement.AchievementId);
                 }
-                data.TotalAchievementsData.Add(_achievementContainerSO.AchievementList[currentIndexCount].AchievementId, _achievementContainerSO.AchievementList[currentIndexCount].IsUnlocked);
-                Debug.Log(_achievementContainerSO.AchievementList[currentIndexCount]);
-                currentIndexCount++;
+                data.TotalAchievementsData.Add(achievement.AchievementId, achievement.IsUnlocked);
+                Debug.Log(achievement);
             }
         }
         _updateProgressionEvent.Invoke(data);
