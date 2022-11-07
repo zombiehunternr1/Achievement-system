@@ -16,14 +16,14 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData _gameData;
     private FileDataHandler _dataHandler;
     private string _selectedProfileId = "";
-    public bool HasGameData
+    public bool hasGameData
     {
         get
         {
             return _gameData != null;
         }
     }
-    public Dictionary<string, GameData> GetAllProfilesGameData
+    public Dictionary<string, GameData> getAllProfilesGameData
     {
         get
         {
@@ -32,17 +32,13 @@ public class DataPersistenceManager : MonoBehaviour
     }
     private void Awake()
     {
-        if(_disableDataPersistence)
+        if (_disableDataPersistence)
         {
             Debug.LogWarning("Data persistence is currently disabled!");
         }
         _dataHandler = new FileDataHandler(Application.persistentDataPath, _fileName, _useEncryption);
         InitializeSelectedProfileId();
         LoadGame();
-    }
-    private void Start()
-    {
-        SaveGame();
     }
     public void NewGame()
     {
@@ -69,7 +65,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        if(_disableDataPersistence)
+        if (_disableDataPersistence)
         {
             return;
         }
@@ -78,12 +74,12 @@ public class DataPersistenceManager : MonoBehaviour
             Debug.LogWarning("No data was found! A new game needs to be started before data can be saved!");
         }
         _updateStorageDataEvent.Invoke(_gameData, false);
-        _gameData.LastUpdated = System.DateTime.Now.ToBinary();
+        _gameData.lastUpdated = System.DateTime.Now.ToBinary();
         _dataHandler.Save(_gameData, _selectedProfileId);
     }
     private void InitializeSelectedProfileId()
     {
-        _selectedProfileId = _dataHandler.MostRecentlyUpdatedProfileId;
+        _selectedProfileId = _dataHandler.mostRecentlyUpdatedProfileId;
         if(_overrideSelectedProfileId)
         {
             _selectedProfileId = _testSelectedProfileId;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1258,9 +1258,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 535528399}
   - {fileID: 869330440}
   - {fileID: 1364405325}
+  - {fileID: 535528399}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2397,7 +2397,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 313775374}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &535528400
 MonoBehaviour:
@@ -4255,7 +4255,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 313775374}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &869330449
 MonoBehaviour:
@@ -5233,7 +5233,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 313775374}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1364405326
 MonoBehaviour:
@@ -5252,9 +5252,8 @@ MonoBehaviour:
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
   _gemCollectedAchievementEvent: {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
   _allGemsCollectedAchievementEvent: {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
-  _AllItemCollectableLists:
-  - {fileID: 11400000, guid: 9809d59512a5c0143b94e2ada4fdb344, type: 2}
-  - {fileID: 11400000, guid: 2d5871815008fa34e8b646d4a6e92cfd, type: 2}
+  _allItemCollectableLists:
+  - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
 --- !u!114 &1364405327
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,21 +7,21 @@ public abstract class BaseCollectableTypeSO : ScriptableObject
     [UniqueIdentifier]
     [SerializeField] private string _collectableID;
     [SerializeField] private bool _collected;
-    public string CollectableID
+    public string collectableId
     {
         get
         {
             return _collectableID;
         }
     }
-    public bool IsCollected
+    public bool isCollected
     {
         get
         {
             return _collected;
         }
     }
-    public bool CollectCollectable
+    public bool collectCollectable
     {
         set
         {

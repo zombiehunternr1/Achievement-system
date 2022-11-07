@@ -6,11 +6,11 @@ using UnityEngine;
 public class GameData
 {
     [SerializeField] private long _lastUpdated;
-    [SerializeField] private SerializableDictionary<string, bool> _totalAchievementsData;
+    [SerializeField] public SerializableDictionary<string, bool> _totalAchievementsData;
     [SerializeField] private SerializableDictionary<string, bool> _totalCollectablesData;
-    private List<SerializableDictionary<string, bool>> _AllData = new List<SerializableDictionary<string, bool>>();
+    private List<SerializableDictionary<string, bool>> _allData = new List<SerializableDictionary<string, bool>>();
 
-    public long LastUpdated
+    public long lastUpdated
     {
         get
         {
@@ -21,7 +21,7 @@ public class GameData
             _lastUpdated = value;
         }
     }
-    public SerializableDictionary<string, bool> TotalAchievementsData
+    public SerializableDictionary<string, bool> totalAchievementsData
     {
         get
         {
@@ -32,7 +32,7 @@ public class GameData
             _totalAchievementsData = value;
         }
     }
-    public SerializableDictionary<string, bool> TotalCollectablesData
+    public SerializableDictionary<string, bool> totalCollectionsData
     {
         get
         {
@@ -47,10 +47,10 @@ public class GameData
     {
         _totalAchievementsData = new SerializableDictionary<string, bool>();
         _totalCollectablesData = new SerializableDictionary<string, bool>();
-        _AllData.Add(_totalAchievementsData);
-        _AllData.Add(_totalCollectablesData);
+        _allData.Add(_totalAchievementsData);
+        _allData.Add(_totalCollectablesData);
     }
-    public int PercentageAchievementsComplete
+    public int percentageAchievementsComplete
     {
         get
         {
@@ -70,7 +70,7 @@ public class GameData
             return percentageCompleted;
         }
     }
-    public int PercentageCollectionComplete
+    public int percentageCollectionComplete
     {
         get
         {
@@ -90,26 +90,26 @@ public class GameData
             return percentageCompleted;
         }
     }
-    public int PercentageTotalComplete
+    public int percentageTotalComplete
     {
         get
         {
             int percentageCompleted = 0;
             if(_totalAchievementsData.Count != 0 && _totalCollectablesData.Count != 0)
             {
-                percentageCompleted = (TotalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));
+                percentageCompleted = (totalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));
             }
             return percentageCompleted;
         }
     }
-    private int TotalDataCompletion
+    private int totalDataCompletion
     {
         get
         {
             int totalCount = 0;
-            for (int i = 0; i < _AllData.Count; i++)
+            for (int i = 0; i < _allData.Count; i++)
             {
-                foreach (var value in _AllData[i].Values)
+                foreach (var value in _allData[i].Values)
                 {
                     if (value)
                     {

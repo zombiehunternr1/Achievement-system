@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class CollectableManager : MonoBehaviour
 {
@@ -8,15 +9,15 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private AchievementEvent _gemCollectedAchievementEvent;
     [SerializeField] private AchievementEvent _allGemsCollectedAchievementEvent;
-    [SerializeField] private List<CollectableTypeList> _AllItemCollectableLists;
+    [SerializeField] private List<CollectableTypeList> _allItemCollectableLists;
     public void UpdateCollectableStatus()
     {
         int collecteditems = 0;
-        foreach (CollectableTypeList collectableTypeList in _AllItemCollectableLists)
+        foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
         {
-            foreach(CollectableType collectableType in collectableTypeList.CollectablesList)
+            foreach(CollectableType collectableType in collectableTypeList.collectablesList)
             {
-                if (collectableType.IsCollected)
+                if (collectableType.isCollected)
                 {
                     collecteditems++;
                     _gemCollectedAchievementEvent.Invoke(_gemCollectedAchievementEvent.AchievementID, collecteditems, null);
@@ -30,35 +31,28 @@ public class CollectableManager : MonoBehaviour
     {
         if (isLoading)
         {
-            foreach (CollectableTypeList collectableTypeList in _AllItemCollectableLists)
+            foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
             {
-                foreach(CollectableType collectableType in collectableTypeList.CollectablesList)
+                foreach(CollectableType collectableType in collectableTypeList.collectablesList)
                 {
-                    data.TotalCollectablesData.TryGetValue(collectableType.CollectableID, out bool isCollected);
-                    collectableType.CollectCollectable = isCollected;
+                    data.totalCollectionsData.TryGetValue(collectableType.collectableId, out bool isCollected);
+                    collectableType.collectCollectable = isCollected;
                 }
             }
             _updateCollectablesEvent.Invoke();
         }
         else
         {
-            int collectableListsIndex = _AllItemCollectableLists.Count;
-            int currentListIndex = 0;
-            while (currentListIndex < collectableListsIndex)
+            foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
             {
-                int collectablesInList = _AllItemCollectableLists[currentListIndex].CollectablesList.Count;
-                int currentCollectableIndex = 0;
-                while (currentCollectableIndex < collectablesInList)
+                foreach(CollectableType collectableType in collectableTypeList.collectablesList)
                 {
-                    if (data.TotalCollectablesData.ContainsKey(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID))
+                    if (data.totalCollectionsData.ContainsKey(collectableType.collectableId))
                     {
-                        data.TotalCollectablesData.Remove(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID);
+                        data.totalCollectionsData.Remove(collectableType.collectableId);
                     }
-                    data.TotalCollectablesData.Add(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].CollectableID, _AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex].IsCollected);
-                    //Debug.Log(_AllItemCollectableLists[currentListIndex].CollectablesList[currentCollectableIndex]);
-                    currentCollectableIndex++;
+                    data.totalCollectionsData.Add(collectableType.collectableId, collectableType.isCollected);
                 }
-                currentListIndex++;
             }
         }
         _updateProgressionEvent.Invoke(data);

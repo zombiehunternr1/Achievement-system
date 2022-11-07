@@ -1,5 +1,5 @@
-using UnityEngine;
 using FMODUnity;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievements/Achievement")]
 public class AchievementInfoSO : ScriptableObject
@@ -24,28 +24,28 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private bool _unlocked;
     [SerializeField] private EventReference _soundEffect;
 
-    public string AchievementId
+    public string achievementId
     {
         get
         {
             return _achievementId;
         }
     }
-    public string Title
+    public string title
     {
         get
         {
             return _title;
         }
     }
-    public string Description
+    public string description
     {
         get
         {
             return _description;
         }
     }
-    public Sprite Icon
+    public Sprite icon
     {
         get
         {
@@ -59,14 +59,14 @@ public class AchievementInfoSO : ScriptableObject
             return _CollectableType;
         }
     }
-    public CollectableTypeList Collectable
+    public CollectableTypeList collectable
     {
         get
         {
             return _collectable;
         }
     }
-    public int CurrentIntAmount
+    public int currentIntAmount
     {
         get
         {
@@ -77,14 +77,14 @@ public class AchievementInfoSO : ScriptableObject
             _intCurrentAmount = value;
         }
     }
-    public int IntGoal
+    public int intGoal
     {
         get
         {
             return _intGoalAmount;
         }
     }
-    public float CurrentFloatAmount
+    public float currentFloatAmount
     {
         get
         {
@@ -95,42 +95,42 @@ public class AchievementInfoSO : ScriptableObject
             _floatCurrentAmount = value;
         }
     }
-    public float FloatGoal
+    public float floatGoal
     {
         get
         {
             return _floatGoalAmount;
         }
     }
-    public bool ShowProgression
+    public bool showProgression
     {
         get
         {
             return _showProgression;
         }
     }
-    public bool IsHidden
+    public bool isHidden
     {
         get
         {
             return _isHidden;
         }
     }
-    public bool IsUnlocked
+    public bool isUnlocked
     {
         get
         {
             return _unlocked;
         }
     }
-    public bool AchievementUnlocked
+    public bool achievementUnlocked
     {
         set
         {
             _unlocked = value;
         }
     }
-    public EventReference SoundEffect
+    public EventReference soundEffect
     {
         get
         {

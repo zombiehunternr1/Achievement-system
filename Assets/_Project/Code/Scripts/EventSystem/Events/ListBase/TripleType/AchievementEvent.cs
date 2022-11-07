@@ -8,7 +8,7 @@ public class AchievementEvent : BaseEventListTripleGenericType<string, int?, flo
     {
         get
         {
-            return _AchievementToUnlock.AchievementId;
+            return _AchievementToUnlock.achievementId;
         }
     }
 }

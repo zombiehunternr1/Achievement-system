@@ -82,7 +82,7 @@ public class FileDataHandler
         }
         return profileDictionary;
     }
-    public string MostRecentlyUpdatedProfileId
+    public string mostRecentlyUpdatedProfileId
     {
         get
         {
@@ -102,8 +102,8 @@ public class FileDataHandler
                 }
                 else
                 {
-                    DateTime mostRecentDataTime = DateTime.FromBinary(profilesGameData[mostRecentlyprofileId].LastUpdated);
-                    DateTime newDataTime = DateTime.FromBinary(gameData.LastUpdated);
+                    DateTime mostRecentDataTime = DateTime.FromBinary(profilesGameData[mostRecentlyprofileId].lastUpdated);
+                    DateTime newDataTime = DateTime.FromBinary(gameData.lastUpdated);
                     if(newDataTime > mostRecentDataTime)
                     {
                         mostRecentlyprofileId = profileId;

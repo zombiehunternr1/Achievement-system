@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
-  m_Name: TheCollecterEvent
+  m_Name: TheCollectorEvent
   m_EditorClassIdentifier: 
   _AchievementToUnlock: {fileID: 11400000, guid: 330b3f810b5ad794b8ab4545ade9e977, type: 2}
