@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 237d4ce58fe00694aa8599cbc0f42323, type: 3}
-  m_Name: SaveGame
+  m_Name: ResetEvent
   m_EditorClassIdentifier: 

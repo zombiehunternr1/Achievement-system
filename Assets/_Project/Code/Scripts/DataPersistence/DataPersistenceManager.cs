@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+    [SerializeField] private GenericEmptyEvent _resetEvent;
     [SerializeField] private SaveAndLoadEvent _updateStorageDataEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [Header("Debugging")]
@@ -46,6 +47,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         _gameData = new GameData();
+        _resetEvent.Invoke();
         SaveGame();
     }
     public void LoadGame()

@@ -29,6 +29,14 @@ public class AchievementManager : MonoBehaviour
     {
         StartCoroutine(PopupCooldown());
     }
+    public void ResetAllAchievements()
+    {
+        foreach(AchievementInfoSO achievement in _achievementContainerSO.achievementList)
+        {
+            achievement.achievementUnlocked = false;
+        }
+        UpdateUnlockedStatus();
+    }
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
         for (int i = 0; i < _achievementContainerSO.achievementList.Count; i++)

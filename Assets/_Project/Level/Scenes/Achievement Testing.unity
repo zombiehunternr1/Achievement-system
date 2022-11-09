@@ -2411,6 +2411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504107ee212a5a428912ff52e9bb483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resetEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
   _updateStorageDataEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
   _disableDataPersistence: 0
@@ -4215,6 +4216,7 @@ GameObject:
   - component: {fileID: 869330451}
   - component: {fileID: 869330449}
   - component: {fileID: 869330452}
+  - component: {fileID: 869330453}
   m_Layer: 0
   m_Name: Achievement Manager
   m_TagString: Untagged
@@ -4338,6 +4340,34 @@ MonoBehaviour:
       - m_Target: {fileID: 869330439}
         m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
         m_MethodName: StartPopupCooldown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &869330453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 869330439}
+        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
+        m_MethodName: ResetAllAchievements
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5213,6 +5243,7 @@ GameObject:
   - component: {fileID: 1364405326}
   - component: {fileID: 1364405327}
   - component: {fileID: 1364405328}
+  - component: {fileID: 1364405329}
   m_Layer: 0
   m_Name: Collectable Manager
   m_TagString: Untagged
@@ -5303,6 +5334,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CollectableManager, Assembly-CSharp
         m_MethodName: UpdateData
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1364405329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364405324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1364405326}
+        m_TargetAssemblyTypeName: CollectableManager, Assembly-CSharp
+        m_MethodName: ResetAllCollectibles
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class CollectableManager : MonoBehaviour
 {
@@ -26,6 +25,17 @@ public class CollectableManager : MonoBehaviour
             }
         }
         _saveGameEvent.Invoke();
+    }
+    public void ResetAllCollectibles()
+    {
+        foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
+        {
+            foreach(CollectableType collectable in collectableTypeList.collectablesList)
+            {
+                collectable.collectCollectable = false;
+            }
+        }
+        _updateCollectablesEvent.Invoke();
     }
     public void UpdateData(GameData data, bool isLoading)
     {
