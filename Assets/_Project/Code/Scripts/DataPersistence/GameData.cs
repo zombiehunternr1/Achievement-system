@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData
 {
     [SerializeField] private long _lastUpdated;
-    [SerializeField] public SerializableDictionary<string, bool> _totalAchievementsData;
+    [SerializeField] private SerializableDictionary<string, bool> _totalAchievementsData;
     [SerializeField] private SerializableDictionary<string, bool> _totalCollectablesData;
     private List<SerializableDictionary<string, bool>> _allData = new List<SerializableDictionary<string, bool>>();
 
