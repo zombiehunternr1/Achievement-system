@@ -5254,6 +5254,7 @@ MonoBehaviour:
   _allGemsCollectedAchievementEvent: {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   _allItemCollectableLists:
   - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
+  - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
 --- !u!114 &1364405327
 MonoBehaviour:
   m_ObjectHideFlags: 0

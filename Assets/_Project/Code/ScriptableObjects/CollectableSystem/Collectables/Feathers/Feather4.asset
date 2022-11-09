@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
   m_Name: Feather4
   m_EditorClassIdentifier: 
-  _collectableID: 731592cf416eb2b44b7cc49fe9286f25
+  _collectableID: d00ffa69b4a3cf849acc5c48efa9db97
   _collected: 0

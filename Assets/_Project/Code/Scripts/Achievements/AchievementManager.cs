@@ -249,13 +249,23 @@ public class AchievementManager : MonoBehaviour
         }
         else
         {
-            foreach(AchievementInfoSO achievement in _achievementContainerSO.achievementList)
+            List<AchievementInfoSO>.Enumerator enumAchievementsList = _achievementContainerSO.achievementList.GetEnumerator();
+            try
             {
-                if (data.totalAchievementsData.ContainsKey(achievement.achievementId))
+                while (enumAchievementsList.MoveNext())
                 {
-                    data.totalAchievementsData.Remove(achievement.achievementId);
+                    string id = enumAchievementsList.Current.achievementId;
+                    bool value = enumAchievementsList.Current.isUnlocked;
+                    if (data.totalAchievementsData.ContainsKey(id))
+                    {
+                        data.totalAchievementsData.Remove(id);
+                    }
+                    data.totalAchievementsData.Add(id, value);
                 }
-                data.totalAchievementsData.Add(achievement.achievementId, achievement.isUnlocked);
+            }
+            finally
+            {
+                enumAchievementsList.Dispose();
             }
         }
         _updateProgressionEvent.Invoke(data);

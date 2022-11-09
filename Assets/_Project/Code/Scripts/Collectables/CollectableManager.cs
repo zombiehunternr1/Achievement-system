@@ -43,16 +43,27 @@ public class CollectableManager : MonoBehaviour
         }
         else
         {
-            foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
+            List<CollectableTypeList>.Enumerator enumAllCollectablesLists = _allItemCollectableLists.GetEnumerator();
+            try
             {
-                foreach(CollectableType collectableType in collectableTypeList.collectablesList)
+                while (enumAllCollectablesLists.MoveNext())
                 {
-                    if (data.totalCollectionsData.ContainsKey(collectableType.collectableId))
+                    List<BaseCollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.collectablesList.GetEnumerator();
+                    while (enumCurrentCollectableList.MoveNext())
                     {
-                        data.totalCollectionsData.Remove(collectableType.collectableId);
+                        string id = enumCurrentCollectableList.Current.collectableId;
+                        bool value = enumCurrentCollectableList.Current.isCollected;
+                        if (data.totalCollectionsData.ContainsKey(id))
+                        {
+                            data.totalCollectionsData.Remove(id);
+                        }
+                        data.totalCollectionsData.Add(id, value);
                     }
-                    data.totalCollectionsData.Add(collectableType.collectableId, collectableType.isCollected);
                 }
+            }
+            finally
+            {
+                enumAllCollectablesLists.Dispose();
             }
         }
         _updateProgressionEvent.Invoke(data);

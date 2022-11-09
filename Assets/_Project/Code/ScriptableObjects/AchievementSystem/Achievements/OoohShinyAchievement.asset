@@ -22,7 +22,7 @@ MonoBehaviour:
   _intGoalAmount: 1
   _floatCurrentAmount: 0
   _floatGoalAmount: 0
-  _collectable: {fileID: 11400000, guid: 9809d59512a5c0143b94e2ada4fdb344, type: 2}
+  _collectable: {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
   _showProgression: 0
   _isHidden: 0
   _unlocked: 0
