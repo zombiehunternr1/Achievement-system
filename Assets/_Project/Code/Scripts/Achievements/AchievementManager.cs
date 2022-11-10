@@ -35,7 +35,7 @@ public class AchievementManager : MonoBehaviour
         {
             achievement.achievementUnlocked = false;
         }
-        UpdateUnlockedStatus();
+        Invoke("UpdateUnlockedStatus", 0.01f);
     }
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
@@ -164,7 +164,6 @@ public class AchievementManager : MonoBehaviour
                 _intAmount++;
             }
         }
-
     }
     private void UpdateAchievementObject(int objectIndex, int achievementIndex, bool isHidden)
     {
