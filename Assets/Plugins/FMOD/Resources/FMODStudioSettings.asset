@@ -257,8 +257,8 @@ MonoBehaviour:
       Value: []
       HasValue: 1
     CallbackHandler:
-      Value: {fileID: 0}
-      HasValue: 0
+      Value: {fileID: 11400000, guid: 1e37c44277520c54bbefe874a328642b, type: 2}
+      HasValue: 1
   OutputTypeName: 
   threadAffinities:
     Value: []
@@ -766,8 +766,8 @@ MonoBehaviour:
       Value: 1
       HasValue: 1
     LiveUpdatePort:
-      Value: 0
-      HasValue: 0
+      Value: 9264
+      HasValue: 1
     Overlay:
       Value: 0
       HasValue: 1
@@ -802,8 +802,8 @@ MonoBehaviour:
       Value: []
       HasValue: 0
     CallbackHandler:
-      Value: {fileID: 0}
-      HasValue: 0
+      Value: {fileID: 11400000, guid: 1e37c44277520c54bbefe874a328642b, type: 2}
+      HasValue: 1
   OutputTypeName: 
   threadAffinities:
     Value: []
