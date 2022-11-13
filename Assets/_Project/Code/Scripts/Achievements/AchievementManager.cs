@@ -59,18 +59,7 @@ public class AchievementManager : MonoBehaviour
                         }
                         else
                         {
-                            _intAmount = 0;
-                            foreach (CollectableType collectable in _achievementContainerSO.achievementList[i].collectable.collectablesList)
-                            {
-                                if (collectable.isCollected)
-                                {
-                                    _intAmount++;
-                                    if (_intAmount == _achievementContainerSO.achievementList[i].intGoal)
-                                    {
-                                        UnlockAchievement(i);
-                                    }
-                                }
-                            }
+                            CheckCollectables(i);
                         }
                         UpdateUnlockedStatus();
                     }
@@ -92,6 +81,49 @@ public class AchievementManager : MonoBehaviour
             }
         }
     }
+    private void CheckCollectables(int achievementIndex)
+    {
+        _intAmount = 0;
+        if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Collectable)
+        {
+            foreach (CollectableType collectable in _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList)
+            {
+                if (collectable.isCollected)
+                {
+                    _intAmount++;
+                    if (_achievementContainerSO.achievementList[achievementIndex].manualGoalAmount)
+                    {
+                        if (_intAmount == _achievementContainerSO.achievementList[achievementIndex].intGoal)
+                        {
+                            UnlockAchievement(achievementIndex);
+                        }
+                    }
+                    else
+                    {
+                        if (_intAmount == _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList.Count)
+                        {
+                            UnlockAchievement(achievementIndex);
+                        }
+                    }
+                }
+            }
+        }
+        else if(_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Achievement)
+        {
+            foreach (AchievementInfoSO achievement in _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList)
+            {
+                if (achievement.isUnlocked)
+                {
+                    _intAmount++;
+                    if (_intAmount == _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count)
+                    {
+                        UnlockAchievement(achievementIndex);
+                    }
+                }
+            }
+        }
+    }
+
     private void SetupAchievementDisplay()
     {
         if (_achievementContainerSO.achievementList.Count == 0)
