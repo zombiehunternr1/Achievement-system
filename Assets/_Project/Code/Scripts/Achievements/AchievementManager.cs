@@ -152,16 +152,19 @@ public class AchievementManager : MonoBehaviour
     }
     private void UpdateProgresssionStatus(int achievementIndex)
     {
+        _intAmount = 0;
         if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.None)
         {
             return;
         }
-        _intAmount = 0;
-        foreach (CollectableType collectable in _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList)
+        else if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Collectable)
         {
-            if (collectable.isCollected)
+            foreach (CollectableType collectable in _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList)
             {
-                _intAmount++;
+                if (collectable.isCollected)
+                {
+                    _intAmount++;
+                }
             }
         }
     }
