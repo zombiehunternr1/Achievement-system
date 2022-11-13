@@ -25,7 +25,7 @@ MonoBehaviour:
   _collectableList: {fileID: 0}
   _achievementList: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _manualGoalAmount: 0
-  _showProgression: 0
+  _showProgression: 1
   _isHidden: 0
   _unlocked: 0
   _soundEffect:

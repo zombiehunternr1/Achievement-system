@@ -4236,6 +4236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _overAchieverEvent: {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
   _achievementContainerSO: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}

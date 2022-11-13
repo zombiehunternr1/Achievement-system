@@ -19,10 +19,12 @@ MonoBehaviour:
   _CompletionType: 1
   _CollectableType: 1
   _intCurrentAmount: 0
-  _intGoalAmount: 7
+  _intGoalAmount: 0
   _floatCurrentAmount: 0
   _floatGoalAmount: 0
-  _collectable: {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
+  _collectableList: {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
+  _achievementList: {fileID: 0}
+  _manualGoalAmount: 0
   _showProgression: 1
   _isHidden: 0
   _unlocked: 0

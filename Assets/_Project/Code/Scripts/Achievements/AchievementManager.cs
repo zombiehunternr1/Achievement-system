@@ -230,8 +230,24 @@ public class AchievementManager : MonoBehaviour
             _achievementObjects[objectIndex].SetDescription(_achievementContainerSO.achievementList[achievementIndex].description);
             if (_achievementContainerSO.achievementList[achievementIndex].showProgression)
             {
-                _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].intGoal,
-                _achievementContainerSO.achievementList[achievementIndex].currentFloatAmount, _achievementContainerSO.achievementList[achievementIndex].floatGoal);
+                if (_achievementContainerSO.achievementList[achievementIndex].manualGoalAmount)
+                {
+                    _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].intGoal,
+                    _achievementContainerSO.achievementList[achievementIndex].currentFloatAmount, _achievementContainerSO.achievementList[achievementIndex].floatGoal);
+                }
+                else
+                {
+                    if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Collectable)
+                    {
+                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList.Count,
+                        _achievementContainerSO.achievementList[achievementIndex].currentFloatAmount, _achievementContainerSO.achievementList[achievementIndex].floatGoal);
+                    }
+                    else if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Achievement)
+                    {
+                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count,
+                        _achievementContainerSO.achievementList[achievementIndex].currentFloatAmount, _achievementContainerSO.achievementList[achievementIndex].floatGoal);
+                    }
+                }
             }
             else
             {
