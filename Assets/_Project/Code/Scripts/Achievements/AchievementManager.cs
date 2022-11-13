@@ -6,6 +6,7 @@ using FMODUnity;
 
 public class AchievementManager : MonoBehaviour
 {
+    [SerializeField] private AchievementEvent _overAchieverEvent;
     [SerializeField] private AchievementContainerSO _achievementContainerSO;
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
@@ -152,13 +153,13 @@ public class AchievementManager : MonoBehaviour
     }
     private void UpdateProgresssionStatus(int achievementIndex)
     {
-        _intAmount = 0;
         if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.None)
         {
             return;
         }
         else if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Collectable)
         {
+            _intAmount = 0;
             foreach (CollectableType collectable in _achievementContainerSO.achievementList[achievementIndex].collectable.collectablesList)
             {
                 if (collectable.isCollected)
@@ -166,6 +167,18 @@ public class AchievementManager : MonoBehaviour
                     _intAmount++;
                 }
             }
+        }
+        else if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Achievement)
+        {
+            _intAmount = 0;
+            foreach (AchievementInfoSO achievement in _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList)
+            {
+                if (achievement.isUnlocked)
+                {
+                    _intAmount++;
+                }
+            }
+            Debug.Log(_intAmount);
         }
     }
     private void UpdateAchievementObject(int objectIndex, int achievementIndex, bool isHidden)
@@ -199,6 +212,7 @@ public class AchievementManager : MonoBehaviour
     {
         _achievementContainerSO.achievementList[achievementID].achievementUnlocked = true;
         _saveGameEvent.Invoke();
+        _overAchieverEvent.Invoke(_overAchieverEvent.AchievementID, null, null);
         UpdateUnlockedStatus();
         AddToQueueDisplay(achievementID);
     }
