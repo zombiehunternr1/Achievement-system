@@ -75,7 +75,14 @@ public class AchievementManager : MonoBehaviour
                     }
                     else
                     {
-                        UnlockAchievement(i);
+                        if (_achievementContainerSO.achievementList[i].collectableType == AchievementInfoSO.CollectableType.Achievement)
+                        {
+                            CheckCollectables(i);
+                        }
+                        else
+                        {
+                            UnlockAchievement(i);
+                        }
                     }
                 }
             }
@@ -112,14 +119,18 @@ public class AchievementManager : MonoBehaviour
         {
             foreach (AchievementInfoSO achievement in _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList)
             {
-                if (achievement.isUnlocked)
+                if(achievement.collectableType != AchievementInfoSO.CollectableType.Achievement)
                 {
-                    _intAmount++;
-                    if (_intAmount == _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count)
+                    if (achievement.isUnlocked)
                     {
-                        UnlockAchievement(achievementIndex);
+                        _intAmount++;
+                        if (_intAmount == _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count - 1)
+                        {
+                            UnlockAchievement(achievementIndex);
+                        }
                     }
                 }
+
             }
         }
     }
@@ -205,12 +216,14 @@ public class AchievementManager : MonoBehaviour
             _intAmount = 0;
             foreach (AchievementInfoSO achievement in _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList)
             {
-                if (achievement.isUnlocked)
+                if(achievement.collectableType != AchievementInfoSO.CollectableType.Achievement)
                 {
-                    _intAmount++;
+                    if (achievement.isUnlocked)
+                    {
+                        _intAmount++;
+                    }
                 }
             }
-            Debug.Log(_intAmount);
         }
     }
     private void UpdateAchievementObject(int objectIndex, int achievementIndex, bool isHidden)
@@ -244,7 +257,7 @@ public class AchievementManager : MonoBehaviour
                     }
                     else if (_achievementContainerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.Achievement)
                     {
-                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count,
+                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, _achievementContainerSO.achievementList[achievementIndex].achievements.achievementList.Count - 1,
                         _achievementContainerSO.achievementList[achievementIndex].currentFloatAmount, _achievementContainerSO.achievementList[achievementIndex].floatGoal);
                     }
                 }
@@ -260,7 +273,6 @@ public class AchievementManager : MonoBehaviour
     {
         _achievementContainerSO.achievementList[achievementID].achievementUnlocked = true;
         _saveGameEvent.Invoke();
-        _overAchieverEvent.Invoke(_overAchieverEvent.AchievementID, null, null);
         UpdateUnlockedStatus();
         AddToQueueDisplay(achievementID);
     }
@@ -275,6 +287,7 @@ public class AchievementManager : MonoBehaviour
         {
             _QueuedAchievements.Add(achievementID);
         }
+        _overAchieverEvent.Invoke(_overAchieverEvent.AchievementID, null, null);
     }
     private void DisplayNextinQueue()
     {
