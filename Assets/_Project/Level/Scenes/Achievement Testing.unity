@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4236,6 +4236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allAchievementsEvent: {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
   _achievementContainerSO: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
@@ -4306,6 +4307,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1034e8f829163942a4ca4920826e2d1, type: 2}
   - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   - {fileID: 11400000, guid: 2a386230feb259544862a8867c448ae2, type: 2}
+  - {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
   _unityEvent:
     m_PersistentCalls:
       m_Calls:

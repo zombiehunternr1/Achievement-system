@@ -17,6 +17,8 @@ public class AchievementEditor : Editor
         _floatCurrentValueProp,
         _floatGoalValueProp,
         _collectableTypeListProp,
+        _achievementListProp,
+        _manualGoalAmountProp,
         _showProgresssionProp,
         _isHiddenValueProp,
         _unlockedValueProp,
@@ -35,8 +37,10 @@ public class AchievementEditor : Editor
         _intGoalValueProp = serializedObject.FindProperty("_intGoalAmount");
         _floatCurrentValueProp = serializedObject.FindProperty("_floatCurrentAmount");
         _floatGoalValueProp = serializedObject.FindProperty("_floatGoalAmount");
-        _collectableTypeListProp = serializedObject.FindProperty("_collectable");
+        _collectableTypeListProp = serializedObject.FindProperty("_collectableList");
+        _achievementListProp = serializedObject.FindProperty("_achievementList");
         _showProgresssionProp = serializedObject.FindProperty("_showProgression");
+        _manualGoalAmountProp = serializedObject.FindProperty("_manualGoalAmount");
         _isHiddenValueProp = serializedObject.FindProperty("_isHidden");
         _unlockedValueProp = serializedObject.FindProperty("_unlocked");
         _soundEffectValueProp = serializedObject.FindProperty("_soundEffect");
@@ -77,8 +81,15 @@ public class AchievementEditor : Editor
                         EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         break;
                     case AchievementInfoSO.CollectableType.Collectable:
-                        EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         EditorGUILayout.PropertyField(_collectableTypeListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        if (_manualGoalAmountProp.boolValue)
+                        {
+                            EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
+                        }
+                        EditorGUILayout.PropertyField(_manualGoalAmountProp);
+                        break;
+                    case AchievementInfoSO.CollectableType.Achievement:
+                        EditorGUILayout.PropertyField(_achievementListProp, new GUILayoutOption[] { GUILayout.Width(400) });
                         break;
                 }
                 break;
@@ -91,8 +102,12 @@ public class AchievementEditor : Editor
                         EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                         break;
                     case AchievementInfoSO.CollectableType.Collectable:
-                        EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                         EditorGUILayout.PropertyField(_collectableTypeListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        if (_manualGoalAmountProp.boolValue)
+                        {
+                            EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
+                        }
+                        EditorGUILayout.PropertyField(_manualGoalAmountProp);
                         break;
                 }
                 break;

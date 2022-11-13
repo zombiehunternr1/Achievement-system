@@ -11,14 +11,16 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private Sprite _icon;
     public enum completionType { noRequirements, integerRequirement, floatRequirement };
     [SerializeField] private completionType _CompletionType;
-    public enum CollectableType { None, Collectable };
+    public enum CollectableType { None, Collectable, Achievement };
     [SerializeField] private CollectableType _CollectableType;
 
     [SerializeField] private int _intCurrentAmount;
     [SerializeField] private int _intGoalAmount;
     [SerializeField] private float _floatCurrentAmount;
     [SerializeField] private float _floatGoalAmount;
-    [SerializeField] private CollectableTypeList _collectable;
+    [SerializeField] private CollectableTypeList _collectableList;
+    [SerializeField] private AchievementContainerSO _achievementList;
+    [SerializeField] private bool _manualGoalAmount;
     [SerializeField] private bool _showProgression;
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _unlocked;
@@ -63,7 +65,14 @@ public class AchievementInfoSO : ScriptableObject
     {
         get
         {
-            return _collectable;
+            return _collectableList;
+        }
+    }
+    public AchievementContainerSO achievements
+    {
+        get
+        {
+            return _achievementList;
         }
     }
     public int currentIntAmount
@@ -100,6 +109,13 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             return _floatGoalAmount;
+        }
+    }
+    public bool manualGoalAmount
+    {
+        get
+        {
+            return _manualGoalAmount;
         }
     }
     public bool showProgression
