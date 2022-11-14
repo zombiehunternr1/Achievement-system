@@ -12,19 +12,19 @@ public class MenuManager : MonoBehaviour
     public void SubmitFloatValue()
     {
         float floatValue = float.Parse(_floatInputText.text);
-        _floatAchievementEvent.Invoke(_floatAchievementEvent.AchievementID, null, floatValue);
+        _floatAchievementEvent.Invoke(_floatAchievementEvent.achievementId, null, floatValue);
     }
     public void SubmitIntValue()
     {
         int intValue = int.Parse(_integerInputText.text);
-        _intAchievementEvent.Invoke(_intAchievementEvent.AchievementID, intValue, null);
+        _intAchievementEvent.Invoke(_intAchievementEvent.achievementId, intValue, null);
     }
     public void QuitButton()
     {
-        _quitAchievementEvent.Invoke(_quitAchievementEvent.AchievementID, null, null);
+        _quitAchievementEvent.Invoke(_quitAchievementEvent.achievementId, null, null);
     }
     public void HiddenButton()
     {
-        _hiddenAchievementEvent.Invoke(_hiddenAchievementEvent.AchievementID, null, null);
+        _hiddenAchievementEvent.Invoke(_hiddenAchievementEvent.achievementId, null, null);
     }
 }

@@ -7,9 +7,9 @@ using FMODUnity;
 public class AchievementManager : MonoBehaviour
 {
     [SerializeField] private AchievementEvent _overAchieverEvent;
-    [SerializeField] private AchievementListSO _achievementManagerSO;
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
+    [SerializeField] private AchievementListSO _achievementManagerSO;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
@@ -287,7 +287,7 @@ public class AchievementManager : MonoBehaviour
         {
             _QueuedAchievements.Add(achievementID);
         }
-        _overAchieverEvent.Invoke(_overAchieverEvent.AchievementID, null, null);
+        _overAchieverEvent.Invoke(_overAchieverEvent.achievementId, null, null);
     }
     private void DisplayNextinQueue()
     {
