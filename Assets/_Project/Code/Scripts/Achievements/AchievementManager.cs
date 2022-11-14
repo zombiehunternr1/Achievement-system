@@ -46,30 +46,30 @@ public class AchievementManager : MonoBehaviour
             {
                 if (achievementID == _achievementManagerSO.achievementList[i].achievementId && !_achievementManagerSO.achievementList[i].isUnlocked)
                 {
-                    if (intValue != null)
+                    if(intValue != null || floatValue != null)
                     {
-                        if (_achievementManagerSO.achievementList[i].collectableType == AchievementInfoSO.CollectableType.None)
+                        if(intValue != null)
                         {
-                            _achievementManagerSO.achievementList[i].currentIntAmount = (int)intValue;
-                            _intAmount = (int)intValue;
-                            if (intValue == _achievementManagerSO.achievementList[i].intGoal)
+                            if (_achievementManagerSO.achievementList[i].collectableType == AchievementInfoSO.CollectableType.None)
+                            {
+                                _achievementManagerSO.achievementList[i].currentIntAmount = (int)intValue;
+                                if (intValue == _achievementManagerSO.achievementList[i].intGoal)
+                                {
+                                    UnlockAchievement(i);
+                                }
+                            }
+                            else
+                            {
+                                CheckCollectables(i);
+                            }
+                        }
+                        else if(floatValue != null)
+                        {
+                            _achievementManagerSO.achievementList[i].currentFloatAmount = (float)floatValue;
+                            if (floatValue == _achievementManagerSO.achievementList[i].floatGoal)
                             {
                                 UnlockAchievement(i);
                             }
-                        }
-                        else
-                        {
-                            CheckCollectables(i);
-                        }
-                        UpdateUnlockedStatus();
-                    }
-                    else if (floatValue != null)
-                    {
-                        _achievementManagerSO.achievementList[i].currentFloatAmount = (float)floatValue;
-                        if (floatValue == _achievementManagerSO.achievementList[i].floatGoal)
-                        {
-                            UnlockAchievement(i);
-                            return;
                         }
                         UpdateUnlockedStatus();
                     }
