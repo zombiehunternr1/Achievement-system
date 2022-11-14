@@ -19,7 +19,7 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private float _floatCurrentAmount;
     [SerializeField] private float _floatGoalAmount;
     [SerializeField] private CollectableTypeList _collectableList;
-    [SerializeField] private AchievementContainerSO _achievementList;
+    [SerializeField] private AchievementListSO _achievementList;
     [SerializeField] private bool _manualGoalAmount;
     [SerializeField] private bool _showProgression;
     [SerializeField] private bool _isHidden;
@@ -68,11 +68,26 @@ public class AchievementInfoSO : ScriptableObject
             return _collectableList;
         }
     }
-    public AchievementContainerSO achievements
+    public AchievementListSO achievements
     {
         get
         {
             return _achievementList;
+        }
+    }
+    public int achievementCount
+    {
+        get
+        {
+            int total = 0;
+            foreach(AchievementInfoSO achievement in _achievementList.achievementList)
+            {
+                if(achievement.collectableType != CollectableType.Achievement)
+                {
+                    total++;
+                }
+            }
+            return total;
         }
     }
     public int currentIntAmount
