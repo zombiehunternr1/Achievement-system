@@ -7,13 +7,13 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private List<AchievementEvent> _gemCollectableEvents;
-    [SerializeField] private List<CollectableTypeList> _allItemCollectableLists;
+    [SerializeField] private List<CollectableTypeListSO> _allItemCollectableLists;
     public void UpdateCollectableStatus()
     {
         int collecteditems = 0;
-        foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
+        foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
         {
-            foreach(CollectableType collectableType in collectableTypeList.collectablesList)
+            foreach(CollectableTypeSO collectableType in collectableTypeList.collectablesList)
             {
                 if (collectableType.isCollected)
                 {
@@ -29,9 +29,9 @@ public class CollectableManager : MonoBehaviour
     }
     public void ResetAllCollectibles()
     {
-        foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
+        foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
         {
-            foreach(CollectableType collectable in collectableTypeList.collectablesList)
+            foreach(CollectableTypeSO collectable in collectableTypeList.collectablesList)
             {
                 collectable.collectCollectable = false;
             }
@@ -42,9 +42,9 @@ public class CollectableManager : MonoBehaviour
     {
         if (isLoading)
         {
-            foreach (CollectableTypeList collectableTypeList in _allItemCollectableLists)
+            foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
             {
-                foreach(CollectableType collectableType in collectableTypeList.collectablesList)
+                foreach(CollectableTypeSO collectableType in collectableTypeList.collectablesList)
                 {
                     data.totalCollectionsData.TryGetValue(collectableType.collectableId, out bool isCollected);
                     collectableType.collectCollectable = isCollected;
@@ -54,7 +54,7 @@ public class CollectableManager : MonoBehaviour
         }
         else
         {
-            List<CollectableTypeList>.Enumerator enumAllCollectablesLists = _allItemCollectableLists.GetEnumerator();
+            List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allItemCollectableLists.GetEnumerator();
             try
             {
                 while (enumAllCollectablesLists.MoveNext())

@@ -3,8 +3,8 @@ using UnityEngine;
 public class CollectableObject : MonoBehaviour
 {
     [SerializeField] private GenericEmptyEvent _updateCollectedTypeEvent;
-    [SerializeField] private CollectableType _collectableType;
-    public CollectableType Collectable
+    [SerializeField] private CollectableTypeSO _collectableType;
+    public CollectableTypeSO Collectable
     {
         get
         {

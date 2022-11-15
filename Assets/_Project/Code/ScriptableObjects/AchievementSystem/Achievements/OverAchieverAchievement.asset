@@ -16,12 +16,14 @@ MonoBehaviour:
   _title: Over Achiever!
   _description: Unlock all achievements
   _icon: {fileID: 21300000, guid: cb94b7e2b29450b4381767d4a0dc8b51, type: 3}
-  _CompletionType: 1
-  _CollectableType: 2
+  _completionType: 1
+  _collectableType: 2
+  _collectableRequirementType: 0
   _intCurrentAmount: 0
   _intGoalAmount: 0
   _floatCurrentAmount: 0
   _floatGoalAmount: 0
+  _collectable: {fileID: 0}
   _collectableList: {fileID: 0}
   _achievementList: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _manualGoalAmount: 0

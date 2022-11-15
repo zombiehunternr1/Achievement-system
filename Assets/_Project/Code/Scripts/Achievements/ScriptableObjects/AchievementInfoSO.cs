@@ -9,16 +9,19 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private string _title;
     [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
-    public enum completionType { noRequirements, integerRequirement, floatRequirement };
-    [SerializeField] private completionType _CompletionType;
-    public enum CollectableType { None, Collectable, Achievement };
-    [SerializeField] private CollectableType _CollectableType;
+    public enum CompletionType { noRequirements, integerRequirement, floatRequirement };
+    [SerializeField] private CompletionType _completionType;
+    public enum CollectableType { none, collectable, achievement };
+    [SerializeField] private CollectableType _collectableType;
+    public enum CollectableRequirementType { single, list};
+    [SerializeField] private CollectableRequirementType _collectableRequirementType;
 
     [SerializeField] private int _intCurrentAmount;
     [SerializeField] private int _intGoalAmount;
     [SerializeField] private float _floatCurrentAmount;
     [SerializeField] private float _floatGoalAmount;
-    [SerializeField] private CollectableTypeList _collectableList;
+    [SerializeField] private CollectableTypeSO _collectable;
+    [SerializeField] private CollectableTypeListSO _collectableList;
     [SerializeField] private AchievementListSO _achievementList;
     [SerializeField] private bool _manualGoalAmount;
     [SerializeField] private bool _showProgression;
@@ -58,10 +61,24 @@ public class AchievementInfoSO : ScriptableObject
     {
         get
         {
-            return _CollectableType;
+            return _collectableType;
         }
     }
-    public CollectableTypeList collectable
+    public CollectableRequirementType collectableRequirementType
+    {
+        get
+        {
+            return _collectableRequirementType;
+        }
+    }
+    public CollectableTypeSO collectable
+    {
+        get
+        {
+            return _collectable;
+        }
+    }
+    public CollectableTypeListSO collectableList
     {
         get
         {
@@ -82,7 +99,7 @@ public class AchievementInfoSO : ScriptableObject
             int total = 0;
             foreach(AchievementInfoSO achievement in _achievementList.achievementList)
             {
-                if(achievement.collectableType != CollectableType.Achievement)
+                if(achievement.collectableType != CollectableType.achievement)
                 {
                     total++;
                 }

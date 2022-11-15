@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
-  m_Name: OoohShinyAchievement
+  m_Name: TheCollectorAchievement
   m_EditorClassIdentifier: 
-  _achievementId: 85006e8ea660b8940a07db953e82bb8f
-  _title: OOOOH shiny!!
-  _description: Collect a gem
-  _icon: {fileID: 21300000, guid: 23887c601bdbe9145a802bb2e520ffe1, type: 3}
-  _CompletionType: 1
-  _CollectableType: 1
+  _achievementId: 330b3f810b5ad794b8ab4545ade9e977
+  _title: The collector
+  _description: Collect all the gems
+  _icon: {fileID: 21300000, guid: dfe5601eea97fe048bb46b2452ad1310, type: 3}
+  _completionType: 1
+  _collectableType: 1
+  _collectableRequirementType: 1
   _intCurrentAmount: 0
-  _intGoalAmount: 1
+  _intGoalAmount: 0
   _floatCurrentAmount: 0
   _floatGoalAmount: 0
+  _collectable: {fileID: 0}
   _collectableList: {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
   _achievementList: {fileID: 0}
-  _manualGoalAmount: 1
-  _showProgression: 0
+  _manualGoalAmount: 0
+  _showProgression: 1
   _isHidden: 0
   _unlocked: 0
   _soundEffect:

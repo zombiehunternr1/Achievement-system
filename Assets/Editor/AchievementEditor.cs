@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,11 +11,13 @@ public class AchievementEditor : Editor
         _iconValueProp,
         _completionTypeProp,
         _collectableTypeProp,
+        _collectableProp,
+        _collectableListProp,
+        _collectableRequirementTypeProp,
         _intCurrentValueProp,
         _intGoalValueProp,
         _floatCurrentValueProp,
         _floatGoalValueProp,
-        _collectableTypeListProp,
         _achievementListProp,
         _manualGoalAmountProp,
         _showProgresssionProp,
@@ -31,13 +32,15 @@ public class AchievementEditor : Editor
         _titleValueProp = serializedObject.FindProperty("_title");
         _desciptionValueProp = serializedObject.FindProperty("_description");
         _iconValueProp = serializedObject.FindProperty("_icon");
-        _completionTypeProp = serializedObject.FindProperty("_CompletionType");
-        _collectableTypeProp = serializedObject.FindProperty("_CollectableType");
+        _completionTypeProp = serializedObject.FindProperty("_completionType");
+        _collectableTypeProp = serializedObject.FindProperty("_collectableType");
+        _collectableRequirementTypeProp = serializedObject.FindProperty("_collectableRequirementType");
+        _collectableProp = serializedObject.FindProperty("_collectable");
+        _collectableListProp = serializedObject.FindProperty("_collectableList");
         _intCurrentValueProp = serializedObject.FindProperty("_intCurrentAmount");
         _intGoalValueProp = serializedObject.FindProperty("_intGoalAmount");
         _floatCurrentValueProp = serializedObject.FindProperty("_floatCurrentAmount");
         _floatGoalValueProp = serializedObject.FindProperty("_floatGoalAmount");
-        _collectableTypeListProp = serializedObject.FindProperty("_collectableList");
         _achievementListProp = serializedObject.FindProperty("_achievementList");
         _showProgresssionProp = serializedObject.FindProperty("_showProgression");
         _manualGoalAmountProp = serializedObject.FindProperty("_manualGoalAmount");
@@ -65,51 +68,46 @@ public class AchievementEditor : Editor
         EditorGUILayout.PropertyField(_desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
         EditorGUILayout.PropertyField(_iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
         EditorGUILayout.PropertyField(_completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
-        AchievementInfoSO.completionType completionType = (AchievementInfoSO.completionType)_completionTypeProp.enumValueIndex;
+        AchievementInfoSO.CompletionType completionType = (AchievementInfoSO.CompletionType)_completionTypeProp.enumValueIndex;
         AchievementInfoSO.CollectableType collectableType = (AchievementInfoSO.CollectableType)_collectableTypeProp.enumValueIndex;
-
+        AchievementInfoSO.CollectableRequirementType collectableRequirementType = (AchievementInfoSO.CollectableRequirementType)_collectableRequirementTypeProp.enumValueIndex;
         switch (completionType)
         {
-            case AchievementInfoSO.completionType.noRequirements:
+            case AchievementInfoSO.CompletionType.noRequirements:
                 break;
-            case AchievementInfoSO.completionType.integerRequirement:
+            case AchievementInfoSO.CompletionType.integerRequirement:
                 EditorGUILayout.PropertyField(_collectableTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
                 switch (collectableType)
                 {
-                    case AchievementInfoSO.CollectableType.None:
+                    case AchievementInfoSO.CollectableType.none:
                         EditorGUILayout.PropertyField(_intCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         break;
-                    case AchievementInfoSO.CollectableType.Collectable:
-                        EditorGUILayout.PropertyField(_collectableTypeListProp, new GUILayoutOption[] { GUILayout.Width(400) });
-                        if (_manualGoalAmountProp.boolValue)
+                    case AchievementInfoSO.CollectableType.collectable:
+                        EditorGUILayout.PropertyField(_collectableRequirementTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        switch (collectableRequirementType)
                         {
-                            EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
+                            case AchievementInfoSO.CollectableRequirementType.single:
+                                EditorGUILayout.PropertyField(_collectableProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                break;
+                            case AchievementInfoSO.CollectableRequirementType.list:
+                                EditorGUILayout.PropertyField(_collectableListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                if (_manualGoalAmountProp.boolValue)
+                                {
+                                    EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
+                                }
+                                EditorGUILayout.PropertyField(_manualGoalAmountProp);
+                                break;
                         }
-                        EditorGUILayout.PropertyField(_manualGoalAmountProp);
                         break;
-                    case AchievementInfoSO.CollectableType.Achievement:
+                    case AchievementInfoSO.CollectableType.achievement:
                         EditorGUILayout.PropertyField(_achievementListProp, new GUILayoutOption[] { GUILayout.Width(400) });
                         break;
                 }
                 break;
-            case AchievementInfoSO.completionType.floatRequirement:
-                EditorGUILayout.PropertyField(_collectableTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
-                switch (collectableType) 
-                {
-                    case AchievementInfoSO.CollectableType.None:
-                        EditorGUILayout.PropertyField(_floatCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
-                        EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
-                        break;
-                    case AchievementInfoSO.CollectableType.Collectable:
-                        EditorGUILayout.PropertyField(_collectableTypeListProp, new GUILayoutOption[] { GUILayout.Width(400) });
-                        if (_manualGoalAmountProp.boolValue)
-                        {
-                            EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
-                        }
-                        EditorGUILayout.PropertyField(_manualGoalAmountProp);
-                        break;
-                }
+            case AchievementInfoSO.CompletionType.floatRequirement:
+                EditorGUILayout.PropertyField(_floatCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
+                EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;
         }
         EditorGUILayout.PropertyField(_showProgresssionProp);

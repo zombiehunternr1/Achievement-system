@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
-  m_Name: Gem1
+  m_Name: ClearGem
   m_EditorClassIdentifier: 
   _collectableID: bbe568ad308ebd145a39ca727fc52aab
   _collected: 0
