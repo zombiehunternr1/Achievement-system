@@ -4237,9 +4237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overAchieverEvent: {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
-  _achievementManagerSO: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
+  _achievementManagerSO: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
   _achievementContainerRect: {fileID: 1756146404}
   _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
@@ -5283,8 +5283,9 @@ MonoBehaviour:
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateCollectablesEvent: {fileID: 11400000, guid: 8bdf3a2f7f05fce46afa932ecb043417, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
-  _gemCollectedAchievementEvent: {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
-  _allGemsCollectedAchievementEvent: {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
+  _gemCollectableEvents:
+  - {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
+  - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   _allItemCollectableLists:
   - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
   - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}

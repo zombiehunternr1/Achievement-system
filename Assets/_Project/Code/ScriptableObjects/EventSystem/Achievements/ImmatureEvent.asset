@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
   m_Name: ImmatureEvent
   m_EditorClassIdentifier: 
-  _AchievementToUnlock: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
+  _achievementToUnlock: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}

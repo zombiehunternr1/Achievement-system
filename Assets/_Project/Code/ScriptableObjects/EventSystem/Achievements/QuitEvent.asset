@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
   m_Name: QuitEvent
   m_EditorClassIdentifier: 
-  _AchievementToUnlock: {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
+  _achievementToUnlock: {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}

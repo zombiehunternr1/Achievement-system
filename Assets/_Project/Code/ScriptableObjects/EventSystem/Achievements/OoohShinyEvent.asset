@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
   m_Name: OoohShinyEvent
   m_EditorClassIdentifier: 
-  _AchievementToUnlock: {fileID: 11400000, guid: 85006e8ea660b8940a07db953e82bb8f, type: 2}
+  _achievementToUnlock: {fileID: 11400000, guid: 85006e8ea660b8940a07db953e82bb8f, type: 2}

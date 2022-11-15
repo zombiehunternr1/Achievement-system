@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
   m_Name: HiddenEvent
   m_EditorClassIdentifier: 
-  _AchievementToUnlock: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
+  _achievementToUnlock: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
