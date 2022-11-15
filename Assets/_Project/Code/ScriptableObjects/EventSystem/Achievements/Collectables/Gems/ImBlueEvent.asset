@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
-  m_Name: BlueGem
+  m_Script: {fileID: 11500000, guid: b2b306734ea21ba488972efc455c0c13, type: 3}
+  m_Name: ImBlueEvent
   m_EditorClassIdentifier: 
-  _collectableID: ce1d5b8b73a5b7440b70842850c75d2f
-  _collected: 0
+  _achievementToUnlock: {fileID: 11400000, guid: 9a38a692c7f59c944a8d9dd7d3a582a7, type: 2}

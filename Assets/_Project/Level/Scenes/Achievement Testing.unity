@@ -4308,6 +4308,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   - {fileID: 11400000, guid: 2a386230feb259544862a8867c448ae2, type: 2}
   - {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
+  - {fileID: 11400000, guid: 9e416ad9baf42834d810d345e86216f8, type: 2}
+  - {fileID: 11400000, guid: b4bb4680111f34847932342b0b72f92d, type: 2}
+  - {fileID: 11400000, guid: ef9dc7285d5142241a56c032c7169914, type: 2}
+  - {fileID: 11400000, guid: 391ca80a0a4a72c41bd2fd0de9999143, type: 2}
+  - {fileID: 11400000, guid: 0fb612402959ce84396b6c23f4304f13, type: 2}
+  - {fileID: 11400000, guid: e7040af5336f42e4d88de40eb55723da, type: 2}
   _unityEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5286,6 +5292,12 @@ MonoBehaviour:
   _gemCollectableEvents:
   - {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
   - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
+  - {fileID: 11400000, guid: 0fb612402959ce84396b6c23f4304f13, type: 2}
+  - {fileID: 11400000, guid: e7040af5336f42e4d88de40eb55723da, type: 2}
+  - {fileID: 11400000, guid: 9e416ad9baf42834d810d345e86216f8, type: 2}
+  - {fileID: 11400000, guid: b4bb4680111f34847932342b0b72f92d, type: 2}
+  - {fileID: 11400000, guid: ef9dc7285d5142241a56c032c7169914, type: 2}
+  - {fileID: 11400000, guid: 391ca80a0a4a72c41bd2fd0de9999143, type: 2}
   _allItemCollectableLists:
   - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
   - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}

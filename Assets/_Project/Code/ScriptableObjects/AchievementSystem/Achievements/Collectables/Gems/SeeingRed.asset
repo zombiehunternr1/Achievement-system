@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
+  m_Name: SeeingRed
+  m_EditorClassIdentifier: 
+  _achievementId: a9cf41d1547acb647b2f3db46b575985
+  _title: Seeing red
+  _description: Collect the red gem
+  _icon: {fileID: 21300000, guid: 5261aeca043b7c043ae6c6b8e9e9349d, type: 3}
+  _completionType: 1
+  _collectableType: 1
+  _collectableRequirementType: 0
+  _intCurrentAmount: 0
+  _intGoalAmount: 0
+  _floatCurrentAmount: 0
+  _floatGoalAmount: 0
+  _collectable: {fileID: 11400000, guid: 7f913c989d0be6b4ea8e6a40e4a8207e, type: 2}
+  _collectableList: {fileID: 0}
+  _achievementList: {fileID: 0}
+  _manualGoalAmount: 0
+  _showProgression: 0
+  _isHidden: 0
+  _unlocked: 0
+  _soundEffect:
+    Guid:
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal

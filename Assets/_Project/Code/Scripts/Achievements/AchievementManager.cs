@@ -93,23 +93,33 @@ public class AchievementManager : MonoBehaviour
         _intAmount = 0;
         if (_achievementManagerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.collectable)
         {
-            foreach (CollectableTypeSO collectable in _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList)
+            if (_achievementManagerSO.achievementList[achievementIndex].collectableRequirementType == AchievementInfoSO.CollectableRequirementType.single)
             {
-                if (collectable.isCollected)
+                if (_achievementManagerSO.achievementList[achievementIndex].collectable.isCollected)
                 {
-                    _intAmount++;
-                    if (_achievementManagerSO.achievementList[achievementIndex].manualGoalAmount)
+                    UnlockAchievement(achievementIndex);
+                }
+            }
+            else
+            {
+                foreach (CollectableTypeSO collectable in _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList)
+                {
+                    if (collectable.isCollected)
                     {
-                        if (_intAmount == _achievementManagerSO.achievementList[achievementIndex].intGoal)
+                        _intAmount++;
+                        if (_achievementManagerSO.achievementList[achievementIndex].manualGoalAmount)
                         {
-                            UnlockAchievement(achievementIndex);
+                            if (_intAmount == _achievementManagerSO.achievementList[achievementIndex].intGoal)
+                            {
+                                UnlockAchievement(achievementIndex);
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (_intAmount == _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList.Count)
+                        else
                         {
-                            UnlockAchievement(achievementIndex);
+                            if (_intAmount == _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList.Count)
+                            {
+                                UnlockAchievement(achievementIndex);
+                            }
                         }
                     }
                 }
@@ -203,11 +213,21 @@ public class AchievementManager : MonoBehaviour
         else if (_achievementManagerSO.achievementList[achievementIndex].collectableType == AchievementInfoSO.CollectableType.collectable)
         {
             _intAmount = 0;
-            foreach (CollectableTypeSO collectable in _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList)
+            if (_achievementManagerSO.achievementList[achievementIndex].collectableRequirementType == AchievementInfoSO.CollectableRequirementType.single)
             {
-                if (collectable.isCollected)
+                if (_achievementManagerSO.achievementList[achievementIndex].collectable.isCollected)
                 {
                     _intAmount++;
+                }
+            }
+            else
+            {
+                foreach (CollectableTypeSO collectable in _achievementManagerSO.achievementList[achievementIndex].collectableList.collectablesList)
+                {
+                    if (collectable.isCollected)
+                    {
+                        _intAmount++;
+                    }
                 }
             }
         }
