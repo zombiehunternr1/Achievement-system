@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4305,15 +4305,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: edc42c8c7c42b544f8772d8001eba803, type: 2}
   - {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
   - {fileID: 11400000, guid: d1034e8f829163942a4ca4920826e2d1, type: 2}
-  - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
   - {fileID: 11400000, guid: 2a386230feb259544862a8867c448ae2, type: 2}
-  - {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
   - {fileID: 11400000, guid: 9e416ad9baf42834d810d345e86216f8, type: 2}
   - {fileID: 11400000, guid: b4bb4680111f34847932342b0b72f92d, type: 2}
   - {fileID: 11400000, guid: ef9dc7285d5142241a56c032c7169914, type: 2}
   - {fileID: 11400000, guid: 391ca80a0a4a72c41bd2fd0de9999143, type: 2}
   - {fileID: 11400000, guid: 0fb612402959ce84396b6c23f4304f13, type: 2}
   - {fileID: 11400000, guid: e7040af5336f42e4d88de40eb55723da, type: 2}
+  - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
+  - {fileID: 11400000, guid: ffacc1bf2d5a51447b279fe4c8333f20, type: 2}
+  - {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
   _unityEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5289,6 +5290,7 @@ MonoBehaviour:
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateCollectablesEvent: {fileID: 11400000, guid: 8bdf3a2f7f05fce46afa932ecb043417, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
+  _allCollectablesCollectedEvent: {fileID: 11400000, guid: ffacc1bf2d5a51447b279fe4c8333f20, type: 2}
   _gemCollectableEvents:
   - {fileID: 11400000, guid: 93d02b10cb21f614093c6965fdc8b892, type: 2}
   - {fileID: 11400000, guid: bf2caa32045765149a3bb09629e622cf, type: 2}
@@ -5301,6 +5303,7 @@ MonoBehaviour:
   _allItemCollectableLists:
   - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
   - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
+  - {fileID: 11400000, guid: 70d384e6669ac1c478e8230bf4a75e00, type: 2}
 --- !u!114 &1364405327
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
+    [SerializeField] private AchievementEvent _allCollectablesCollectedEvent;
     [SerializeField] private List<AchievementEvent> _gemCollectableEvents;
     [SerializeField] private List<CollectableTypeListSO> _allItemCollectableLists;
     public void UpdateCollectableStatus()
@@ -18,10 +19,11 @@ public class CollectableManager : MonoBehaviour
                 if (collectableType.isCollected)
                 {
                     collecteditems++;
-                    foreach(AchievementEvent achievementEvent in _gemCollectableEvents)
+                    foreach (AchievementEvent achievementEvent in _gemCollectableEvents)
                     {
                         achievementEvent.Invoke(achievementEvent.achievementId, collecteditems, null);
                     }
+                    _allCollectablesCollectedEvent.Invoke(_allCollectablesCollectedEvent.achievementId, collecteditems, null);
                 }
             }
         }
