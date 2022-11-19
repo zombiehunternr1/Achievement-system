@@ -15,9 +15,9 @@ MonoBehaviour:
   _totalAchievements:
   - {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
   - {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
-  - {fileID: 11400000, guid: 85006e8ea660b8940a07db953e82bb8f, type: 2}
   - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
   - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
+  - {fileID: 11400000, guid: 85006e8ea660b8940a07db953e82bb8f, type: 2}
   - {fileID: 11400000, guid: a9cf41d1547acb647b2f3db46b575985, type: 2}
   - {fileID: 11400000, guid: 079ea1fd65878b742bcb1f486758fc0f, type: 2}
   - {fileID: 11400000, guid: 7c9e6e041a064984a8f04e3e4e5dca0d, type: 2}
