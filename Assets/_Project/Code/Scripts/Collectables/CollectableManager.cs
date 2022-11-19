@@ -6,24 +6,22 @@ public class CollectableManager : MonoBehaviour
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
-    [SerializeField] private AchievementEvent _allCollectablesCollectedEvent;
-    [SerializeField] private List<AchievementEvent> _gemCollectableEvents;
-    [SerializeField] private List<CollectableTypeListSO> _allItemCollectableLists;
+    [SerializeField] private UpdateAchievementsEvent _updateAchievementsEvent;
+    [SerializeField] private CollectableListHolder _allcollectableListsReference;
     public void UpdateCollectableStatus()
     {
         int collecteditems = 0;
-        foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
+        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.allCollectableLists)
         {
             foreach(CollectableTypeSO collectableType in collectableTypeList.collectablesList)
             {
                 if (collectableType.isCollected)
                 {
                     collecteditems++;
-                    foreach (AchievementEvent achievementEvent in _gemCollectableEvents)
+                    foreach(AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
                     {
-                        achievementEvent.Invoke(achievementEvent.achievementId, collecteditems, null);
+                        _updateAchievementsEvent.Invoke(achievementEvent.achievementId, collecteditems, null);
                     }
-                    _allCollectablesCollectedEvent.Invoke(_allCollectablesCollectedEvent.achievementId, collecteditems, null);
                 }
             }
         }
@@ -31,7 +29,7 @@ public class CollectableManager : MonoBehaviour
     }
     public void ResetAllCollectibles()
     {
-        foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
+        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.allCollectableLists)
         {
             foreach(CollectableTypeSO collectable in collectableTypeList.collectablesList)
             {
@@ -44,7 +42,7 @@ public class CollectableManager : MonoBehaviour
     {
         if (isLoading)
         {
-            foreach (CollectableTypeListSO collectableTypeList in _allItemCollectableLists)
+            foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.allCollectableLists)
             {
                 foreach(CollectableTypeSO collectableType in collectableTypeList.collectablesList)
                 {
@@ -56,7 +54,7 @@ public class CollectableManager : MonoBehaviour
         }
         else
         {
-            List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allItemCollectableLists.GetEnumerator();
+            List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allcollectableListsReference.allCollectableLists.GetEnumerator();
             try
             {
                 while (enumAllCollectablesLists.MoveNext())

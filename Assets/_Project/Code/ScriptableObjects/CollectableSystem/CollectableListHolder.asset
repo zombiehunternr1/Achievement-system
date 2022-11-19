@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76e4676658db414c95f66557ff4bf10, type: 3}
+  m_Name: CollectableListHolder
+  m_EditorClassIdentifier: 
+  _collectableTypeListReferences:
+  - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
+  - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
+  - {fileID: 11400000, guid: 70d384e6669ac1c478e8230bf4a75e00, type: 2}

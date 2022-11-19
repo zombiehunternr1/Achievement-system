@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac033238e8d48b479e2198b7a6d04e5, type: 3}
+  m_Name: WhatCouldGoWrongAchievement
+  m_EditorClassIdentifier: 
+  _achievementId: fddbc881902b9a04481c99f1e62e5a12
+  _title: What could go wrong?
+  _description: If you could just go ahead and not do that. That'd be great
+  _icon: {fileID: 21300000, guid: 080bf216f899353468069974ff1e934b, type: 3}
+  _completionType: 2
+  _collectableType: 0
+  _collectableRequirementType: 0
+  _intCurrentAmount: 24
+  _intGoalAmount: 0
+  _floatCurrentAmount: 305326.1
+  _floatGoalAmount: 305326.1
+  _collectable: {fileID: 0}
+  _collectableList: {fileID: 0}
+  _achievementList: {fileID: 0}
+  _manualGoalAmount: 0
+  _showProgression: 0
+  _isHidden: 0
+  _unlocked: 0
+  _soundEffect:
+    Guid:
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal
