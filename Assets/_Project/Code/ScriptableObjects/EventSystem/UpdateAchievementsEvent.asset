@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeefd28732d9c6429798566611876fc, type: 3}
   m_Name: UpdateAchievementsEvent
   m_EditorClassIdentifier: 
-  _achievmentsReferenceHolder:
+  _achievementReferenceHolders:
   - {fileID: 11400000, guid: ee27f40535aebdf4c91b6d3e57e51b54, type: 2}
   - {fileID: 11400000, guid: edc42c8c7c42b544f8772d8001eba803, type: 2}
   - {fileID: 11400000, guid: d1034e8f829163942a4ca4920826e2d1, type: 2}

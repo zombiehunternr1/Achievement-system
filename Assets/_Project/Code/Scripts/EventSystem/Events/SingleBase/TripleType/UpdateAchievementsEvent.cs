@@ -4,12 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="UpdateAchievementsEvent", menuName ="Scriptable Objects/Events/Type/Update Achievements Event")]
 public class UpdateAchievementsEvent : BaseEventSingleGenericTripleType<string, int?, float?>
 {
-    [SerializeField] private List<AchievementReferenceHolderSO> _achievmentsReferenceHolder;
+    [SerializeField] private List<AchievementReferenceHolderSO> _achievementReferenceHolders;
     public List<AchievementReferenceHolderSO> achievementReferences
     {
         get
         {
-            return _achievmentsReferenceHolder;
+            return _achievementReferenceHolders;
         }
     }
 }
