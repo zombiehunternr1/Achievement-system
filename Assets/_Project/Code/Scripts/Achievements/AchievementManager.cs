@@ -96,9 +96,19 @@ public class AchievementManager : MonoBehaviour
         {
             if (_achievementManagerSO.achievementList[achievementIndex].collectableRequirementType == AchievementInfoSO.CollectableRequirementType.single)
             {
-                if (_achievementManagerSO.achievementList[achievementIndex].collectable.isCollected)
+                if (!_achievementManagerSO.achievementList[achievementIndex].collectable.isCollected)
+                {
+                    return;             
+                }
+                if (!_achievementManagerSO.achievementList[achievementIndex].requiresPreviousAchievement)
                 {
                     UnlockAchievement(achievementIndex);
+                    return;
+                }
+                if (_achievementManagerSO.achievementList[achievementIndex].previousAchievement.isUnlocked)
+                {
+                    AddToQueueDisplay(achievementIndex);
+                    return;
                 }
             }
             else

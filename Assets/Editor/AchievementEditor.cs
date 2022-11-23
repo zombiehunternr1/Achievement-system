@@ -12,6 +12,7 @@ public class AchievementEditor : Editor
         _completionTypeProp,
         _collectableTypeProp,
         _collectableProp,
+        _prevousAchievementProp,
         _collectableListProp,
         _collectableRequirementTypeProp,
         _intCurrentValueProp,
@@ -20,6 +21,7 @@ public class AchievementEditor : Editor
         _floatGoalValueProp,
         _achievementListProp,
         _manualGoalAmountProp,
+        _requiresPreviousAchievementProp,
         _showProgresssionProp,
         _isHiddenValueProp,
         _unlockedValueProp,
@@ -36,6 +38,7 @@ public class AchievementEditor : Editor
         _collectableTypeProp = serializedObject.FindProperty("_collectableType");
         _collectableRequirementTypeProp = serializedObject.FindProperty("_collectableRequirementType");
         _collectableProp = serializedObject.FindProperty("_collectable");
+        _prevousAchievementProp = serializedObject.FindProperty("_previousAchievement");
         _collectableListProp = serializedObject.FindProperty("_collectableList");
         _intCurrentValueProp = serializedObject.FindProperty("_intCurrentAmount");
         _intGoalValueProp = serializedObject.FindProperty("_intGoalAmount");
@@ -44,6 +47,7 @@ public class AchievementEditor : Editor
         _achievementListProp = serializedObject.FindProperty("_achievementList");
         _showProgresssionProp = serializedObject.FindProperty("_showProgression");
         _manualGoalAmountProp = serializedObject.FindProperty("_manualGoalAmount");
+        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requiresPreviousAchievement");
         _isHiddenValueProp = serializedObject.FindProperty("_isHidden");
         _unlockedValueProp = serializedObject.FindProperty("_unlocked");
         _soundEffectValueProp = serializedObject.FindProperty("_soundEffect");
@@ -89,9 +93,19 @@ public class AchievementEditor : Editor
                         {
                             case AchievementInfoSO.CollectableRequirementType.single:
                                 EditorGUILayout.PropertyField(_collectableProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
+                                if (_requiresPreviousAchievementProp.boolValue)
+                                {
+                                    EditorGUILayout.PropertyField(_prevousAchievementProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                }
                                 break;
                             case AchievementInfoSO.CollectableRequirementType.list:
                                 EditorGUILayout.PropertyField(_collectableListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
+                                if (_requiresPreviousAchievementProp.boolValue)
+                                {
+                                    EditorGUILayout.PropertyField(_prevousAchievementProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                                }
                                 if (_manualGoalAmountProp.boolValue)
                                 {
                                     EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
@@ -102,6 +116,11 @@ public class AchievementEditor : Editor
                         break;
                     case AchievementInfoSO.CollectableType.achievement:
                         EditorGUILayout.PropertyField(_achievementListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
+                        if (_requiresPreviousAchievementProp.boolValue)
+                        {
+                            EditorGUILayout.PropertyField(_prevousAchievementProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        }
                         break;
                 }
                 break;

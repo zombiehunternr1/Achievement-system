@@ -24,9 +24,11 @@ MonoBehaviour:
   _floatCurrentAmount: 0
   _floatGoalAmount: 0
   _collectable: {fileID: 0}
+  _previousAchievement: {fileID: 11400000, guid: 330b3f810b5ad794b8ab4545ade9e977, type: 2}
   _collectableList: {fileID: 11400000, guid: 70d384e6669ac1c478e8230bf4a75e00, type: 2}
   _achievementList: {fileID: 0}
   _manualGoalAmount: 0
+  _requiresPreviousAchievement: 1
   _showProgression: 1
   _isHidden: 0
   _unlocked: 0

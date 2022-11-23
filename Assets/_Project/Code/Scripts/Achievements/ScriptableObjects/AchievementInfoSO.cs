@@ -21,9 +21,11 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private float _floatCurrentAmount;
     [SerializeField] private float _floatGoalAmount;
     [SerializeField] private CollectableTypeSO _collectable;
+    [SerializeField] private AchievementInfoSO _previousAchievement;
     [SerializeField] private CollectableTypeListSO _collectableList;
     [SerializeField] private AchievementListSO _achievementList;
     [SerializeField] private bool _manualGoalAmount;
+    [SerializeField] private bool _requiresPreviousAchievement;
     [SerializeField] private bool _showProgression;
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _unlocked;
@@ -76,6 +78,13 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             return _collectable;
+        }
+    }
+    public AchievementInfoSO previousAchievement
+    {
+        get
+        {
+            return _previousAchievement;
         }
     }
     public CollectableTypeListSO collectableList
@@ -148,6 +157,13 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             return _manualGoalAmount;
+        }
+    }
+    public bool requiresPreviousAchievement
+    {
+        get
+        {
+            return _requiresPreviousAchievement;
         }
     }
     public bool showProgression

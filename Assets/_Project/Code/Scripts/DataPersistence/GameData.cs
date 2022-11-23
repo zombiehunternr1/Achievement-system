@@ -65,7 +65,7 @@ public class GameData
             }
             if(_totalAchievementsData.Count != 0)
             {
-                percentageCompleted = (totalUnlocked * 100 / _totalAchievementsData.Count);
+                percentageCompleted = totalUnlocked * 100 / _totalAchievementsData.Count;
             }
             return percentageCompleted;
         }
@@ -85,7 +85,7 @@ public class GameData
             }
             if (_totalCollectablesData.Count != 0)
             {
-                percentageCompleted = (totalUnlocked * 100 / _totalCollectablesData.Count);
+                percentageCompleted = totalUnlocked * 100 / _totalCollectablesData.Count;
             }
             return percentageCompleted;
         }
@@ -97,7 +97,7 @@ public class GameData
             int percentageCompleted = 0;
             if(_totalAchievementsData.Count != 0 && _totalCollectablesData.Count != 0)
             {
-                percentageCompleted = (totalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count));
+                percentageCompleted = totalDataCompletion * 100 / (_totalAchievementsData.Count + _totalCollectablesData.Count);
             }
             return percentageCompleted;
         }
