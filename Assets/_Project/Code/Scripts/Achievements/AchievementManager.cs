@@ -151,11 +151,9 @@ public class AchievementManager : MonoBehaviour
                         }
                     }
                 }
-
             }
         }
     }
-
     private void SetupAchievementDisplay()
     {
         if (_achievementManagerSO.achievementList.Count == 0)
