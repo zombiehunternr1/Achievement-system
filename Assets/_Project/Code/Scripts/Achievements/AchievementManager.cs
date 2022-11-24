@@ -382,6 +382,7 @@ public class AchievementManager : MonoBehaviour
                 enumAchievementsList.Dispose();
             }
         }
+        UpdateUnlockedStatus();
         _updateProgressionEvent.Invoke(data);
     }
 }
