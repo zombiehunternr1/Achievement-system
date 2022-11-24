@@ -9,5 +9,5 @@
  
  I've also improved my custom scriptable object Unity events based on the feedback I got from a colleague programmer from school.
  I now know how to make a more abstract and generic scriptable object Unity event that I can use as a base for all my different types of Unity events.
- Working on this project was a lot of fun, and I've learned a lot from it, even though it took some time to fully practice and understand how it all works.
+ Working on this project was a lot of fun, and I've learned a lot from it, even though it took some time to practice and fully understand how it all works.
  This is something I can also reuse for my future projects as well.
