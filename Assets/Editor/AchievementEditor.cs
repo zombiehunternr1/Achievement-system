@@ -68,30 +68,30 @@ public class AchievementEditor : Editor
         EditorGUI.EndDisabledGroup();
         serializedObject.Update();
         EditorGUILayout.PropertyField(_idValueProp, new GUILayoutOption[] {GUILayout.Width(750)});
-        EditorGUILayout.PropertyField(_titleValueProp, new GUILayoutOption[] { GUILayout.Width(500)});
-        EditorGUILayout.PropertyField(_desciptionValueProp, new GUILayoutOption[] {GUILayout.Width(500)});
-        EditorGUILayout.PropertyField(_iconValueProp, new GUILayoutOption[] {GUILayout.Width(350)});
+        EditorGUILayout.PropertyField(_titleValueProp);
+        EditorGUILayout.PropertyField(_desciptionValueProp);
+        EditorGUILayout.PropertyField(_iconValueProp);
         EditorGUILayout.PropertyField(_completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
         AchievementInfoSO.CompletionType completionType = (AchievementInfoSO.CompletionType)_completionTypeProp.enumValueIndex;
-        AchievementInfoSO.CollectableType collectableType = (AchievementInfoSO.CollectableType)_collectableTypeProp.enumValueIndex;
-        AchievementInfoSO.CollectableRequirementType collectableRequirementType = (AchievementInfoSO.CollectableRequirementType)_collectableRequirementTypeProp.enumValueIndex;
+        AchievementInfoSO.CollectableEnumType collectableType = (AchievementInfoSO.CollectableEnumType)_collectableTypeProp.enumValueIndex;
+        AchievementInfoSO.CollectableRequirementEnumType collectableRequirementType = (AchievementInfoSO.CollectableRequirementEnumType)_collectableRequirementTypeProp.enumValueIndex;
         switch (completionType)
         {
-            case AchievementInfoSO.CompletionType.noRequirements:
+            case AchievementInfoSO.CompletionType.NoRequirements:
                 break;
-            case AchievementInfoSO.CompletionType.integerRequirement:
+            case AchievementInfoSO.CompletionType.IntegerRequirement:
                 EditorGUILayout.PropertyField(_collectableTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
                 switch (collectableType)
                 {
-                    case AchievementInfoSO.CollectableType.none:
+                    case AchievementInfoSO.CollectableEnumType.None:
                         EditorGUILayout.PropertyField(_intCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         EditorGUILayout.PropertyField(_intGoalValueProp, new GUILayoutOption[] { GUILayout.Width(300) });
                         break;
-                    case AchievementInfoSO.CollectableType.collectable:
+                    case AchievementInfoSO.CollectableEnumType.Collectable:
                         EditorGUILayout.PropertyField(_collectableRequirementTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
                         switch (collectableRequirementType)
                         {
-                            case AchievementInfoSO.CollectableRequirementType.single:
+                            case AchievementInfoSO.CollectableRequirementEnumType.Single:
                                 EditorGUILayout.PropertyField(_collectableProp, new GUILayoutOption[] { GUILayout.Width(400) });
                                 EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
                                 if (_requiresPreviousAchievementProp.boolValue)
@@ -99,7 +99,7 @@ public class AchievementEditor : Editor
                                     EditorGUILayout.PropertyField(_prevousAchievementProp, new GUILayoutOption[] { GUILayout.Width(400) });
                                 }
                                 break;
-                            case AchievementInfoSO.CollectableRequirementType.list:
+                            case AchievementInfoSO.CollectableRequirementEnumType.List:
                                 EditorGUILayout.PropertyField(_collectableListProp, new GUILayoutOption[] { GUILayout.Width(400) });
                                 EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
                                 if (_requiresPreviousAchievementProp.boolValue)
@@ -114,7 +114,7 @@ public class AchievementEditor : Editor
                                 break;
                         }
                         break;
-                    case AchievementInfoSO.CollectableType.achievement:
+                    case AchievementInfoSO.CollectableEnumType.Achievement:
                         EditorGUILayout.PropertyField(_achievementListProp, new GUILayoutOption[] { GUILayout.Width(400) });
                         EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
                         if (_requiresPreviousAchievementProp.boolValue)
@@ -124,7 +124,7 @@ public class AchievementEditor : Editor
                         break;
                 }
                 break;
-            case AchievementInfoSO.CompletionType.floatRequirement:
+            case AchievementInfoSO.CompletionType.FloatRequirement:
                 EditorGUILayout.PropertyField(_floatCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;

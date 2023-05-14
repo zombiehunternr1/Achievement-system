@@ -11,10 +11,6 @@ public class UniqueIdentifierDrawerEditor : PropertyDrawer
         property.stringValue = uniqueID;
         Rect textFieldPosition = position;
         textFieldPosition.height = 16;
-        DrawLabelField(textFieldPosition, property, label);
-    }
-    private void DrawLabelField(Rect position, SerializedProperty property, GUIContent label)
-    {
         EditorGUI.LabelField(position, label, new GUIContent(property.stringValue));
     }
 }

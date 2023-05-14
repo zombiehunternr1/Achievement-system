@@ -19,14 +19,16 @@ MonoBehaviour:
   _completionType: 2
   _collectableType: 0
   _collectableRequirementType: 0
-  _intCurrentAmount: 24
+  _intCurrentAmount: 2
   _intGoalAmount: 0
   _floatCurrentAmount: 305326.1
   _floatGoalAmount: 305326.1
   _collectable: {fileID: 0}
+  _previousAchievement: {fileID: 0}
   _collectableList: {fileID: 0}
   _achievementList: {fileID: 0}
   _manualGoalAmount: 0
+  _requiresPreviousAchievement: 0
   _showProgression: 0
   _isHidden: 0
   _unlocked: 0
