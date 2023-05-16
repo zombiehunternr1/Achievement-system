@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProgressionManager : MonoBehaviour
+public class ProgressionUIController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _totalCompletionProgressionText;
     [SerializeField] Slider _totalCompletionProgressionSlider;

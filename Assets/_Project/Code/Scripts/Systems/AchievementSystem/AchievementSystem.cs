@@ -6,7 +6,6 @@ using FMODUnity;
 
 public class AchievementSystem : MonoBehaviour
 {
-    [SerializeField] private UpdateAchievementsEvent _updateAchievementsEvent;
     [SerializeField] private PlayPopUpDisplayStatusEvent _playPopUpDisplayStatusEvent;
     [SerializeField] private SetAchievementPopUpInfoEvent _setAchievementPopUpInfoEvent;
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
@@ -317,7 +316,7 @@ public class AchievementSystem : MonoBehaviour
         {
             _QueuedAchievements.Add(achievementID);
         }
-        _updateAchievementsEvent.Invoke(_overAchieverReference.AchievementId, null, null);
+        CheckValueRequirement(_overAchieverReference.AchievementId, null, null);
     }
     private void DisplayNextinQueue()
     {

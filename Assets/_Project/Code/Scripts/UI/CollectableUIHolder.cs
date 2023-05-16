@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CollectableUIManager : MonoBehaviour
+public class CollectableUIHolder : MonoBehaviour
 {
     [SerializeField] private List<RawImage> _collectableSprites;
     private void OnEnable()
