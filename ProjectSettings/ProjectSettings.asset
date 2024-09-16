@@ -807,11 +807,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 7bd68782-d0da-4f73-9266-1e060e551ed1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Achievement system
+  organizationId: zombiehunternr1
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
