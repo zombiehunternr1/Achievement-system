@@ -25,7 +25,7 @@ public class AchievementSystem : MonoBehaviour
     private int CountAllUnlockedAchievements()
     {
         int unlockedCount = 0;
-        foreach (var subAchievement in _achievementListReference.AchievementList)
+        foreach (AchievementInfoSO subAchievement in _achievementListReference.AchievementList)
         {
             if (subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && subAchievement.IsUnlocked)
             {
@@ -37,7 +37,7 @@ public class AchievementSystem : MonoBehaviour
     private int CountCollectedItems(AchievementInfoSO achievement)
     {
         int collectedCount = 0;
-        foreach (var collectable in achievement.CollectableList.CollectablesList)
+        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList.CollectablesList)
         {
             if (collectable.IsCollected)
             {
