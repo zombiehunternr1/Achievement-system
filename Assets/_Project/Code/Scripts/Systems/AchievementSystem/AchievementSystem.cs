@@ -87,43 +87,41 @@ public class AchievementSystem : MonoBehaviour
     }
     private void CheckCollectables(AchievementInfoSO achievement)
     {
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
-        {
-            if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-            {
-                if (!achievement.Collectable.IsCollected)
-                {
-                    return;             
-                }
-                if (!achievement.RequiresPreviousAchievement)
-                {
-                    UnlockAchievement(achievement);
-                    return;
-                }
-                if (achievement.PreviousAchievement.IsUnlocked)
-                {
-                    AddToQueueDisplay(achievement);
-                    return;
-                }
-            }
-            else
-            {
-                int unlockedCount = achievement.CollectableList.CollectablesList
-                .Where(collectable => collectable.IsCollected)
-                .Count();
-                if ((achievement.ManualGoalAmount && unlockedCount == achievement.IntGoal) ||
-                    (!achievement.ManualGoalAmount && unlockedCount == achievement.CollectableList.CollectablesList.Count))
-                {
-                    UnlockAchievement(achievement);
-                }
-            }
-        }
-        else
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
         {
             int unlockedCount = _achievementListReference.AchievementList
                 .Where(subAchievement => subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement
                 && subAchievement.IsUnlocked).Count();
             if (unlockedCount == achievement.AchievementCount)
+            {
+                UnlockAchievement(achievement);
+            }
+            return;
+        }
+        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        {
+            if (!achievement.Collectable.IsCollected)
+            {
+                return;
+            }
+            if (!achievement.RequiresPreviousAchievement)
+            {
+                UnlockAchievement(achievement);
+                return;
+            }
+            if (achievement.PreviousAchievement.IsUnlocked)
+            {
+                AddToQueueDisplay(achievement);
+                return;
+            }
+        }
+        else
+        {
+            int unlockedCount = achievement.CollectableList.CollectablesList
+            .Where(collectable => collectable.IsCollected)
+            .Count();
+            if ((achievement.ManualGoalAmount && unlockedCount == achievement.IntGoal) ||
+                (!achievement.ManualGoalAmount && unlockedCount == achievement.CollectableList.CollectablesList.Count))
             {
                 UnlockAchievement(achievement);
             }
