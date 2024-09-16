@@ -18,4 +18,11 @@ public class AchievementReferenceHolderSO : ScriptableObject
             return _achievementToUnlock.CollectableList;
         }
     }
+    public CollectableTypeSO collectableType
+    {
+        get
+        {
+            return _achievementToUnlock.Collectable;
+        }
+    }
 }

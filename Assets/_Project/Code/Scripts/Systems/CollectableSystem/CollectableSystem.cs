@@ -4,31 +4,64 @@ using UnityEngine;
 public class CollectableSystem : MonoBehaviour
 {
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
-    [SerializeField] private GenericEmptyEvent _updateCollectablesEvent;
+    [SerializeField] private GenericEmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private UpdateAchievementsEvent _updateAchievementsEvent;
     [SerializeField] private CollectableListHolder _allcollectableListsReference;
-    public void UpdateCollectableStatus()
+    private bool ListContainsCollectable(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType)
     {
-        int collecteditems = 0;
-        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
+        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
         {
-            foreach(CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
+            if (collectableTypeFromList == collectableType)
             {
-                if (collectableType.IsCollected)
-                {
-                    collecteditems++;
-                    foreach(AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
-                    {
-                        if(achievementEvent.CollectableTypeList != null && achievementEvent.CollectableTypeList.CollectablesList.Contains(collectableType))
-                        {
-                            _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collecteditems, null);
-                        }
-                    }
-                }
+                return true;
             }
         }
+        return false;
+    }
+    private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
+    {
+        int collectedItems = 0;
+        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
+        {
+            if (collectableTypeFromList.IsCollected)
+            {
+                collectedItems++;
+            }
+        }
+        return collectedItems;
+    }
+    public void UpdateCollectableStatus(CollectableTypeSO collectableType)
+    {
+        int collectedItems = 0;
+        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
+        {
+            if (ListContainsCollectable(collectableTypeList, collectableType))
+            {
+                collectedItems += CountCollectedItems(collectableTypeList);
+                UpdateAchievementsForCollectable(collectableType, collectedItems);
+            }
+        }
+        _updateCollectablesStatusEvent.Invoke();
         _saveGameEvent.Invoke();
+    }
+    private void UpdateAchievementsForCollectable(CollectableTypeSO collectableType, int collectedItems)
+    {
+        foreach (AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
+        {
+            if (achievementEvent.CollectableTypeList == null || achievementEvent.CollectableTypeList.CollectablesList.Count == 0)
+            {
+                if (achievementEvent.collectableType == collectableType)
+                {
+                    _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
+                }
+                continue;
+            }
+            if(ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
+            {
+                _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
+            }
+        }
     }
     public void ResetAllCollectibles()
     {
@@ -39,7 +72,7 @@ public class CollectableSystem : MonoBehaviour
                 collectable.SetCollectableStatus(false);
             }
         }
-        _updateCollectablesEvent.Invoke();
+        _updateCollectablesStatusEvent.Invoke();
     }
     public void UpdateData(GameData data, bool isLoading)
     {
@@ -53,7 +86,7 @@ public class CollectableSystem : MonoBehaviour
                     collectableType.SetCollectableStatus(isCollected);
                 }
             }
-            _updateCollectablesEvent.Invoke();
+            _updateCollectablesStatusEvent.Invoke();
         }
         else
         {

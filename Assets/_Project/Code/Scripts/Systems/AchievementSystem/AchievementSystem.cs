@@ -22,6 +22,30 @@ public class AchievementSystem : MonoBehaviour
     private int _intAmount = 0;
     private readonly string _hiddenText = "??????????????";
     private EventInstance _soundEffect;
+    private int CountAllUnlockedAchievements()
+    {
+        int unlockedCount = 0;
+        foreach (var subAchievement in _achievementListReference.AchievementList)
+        {
+            if (subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && subAchievement.IsUnlocked)
+            {
+                unlockedCount++;
+            }
+        }
+        return unlockedCount;
+    }
+    private int CountCollectedItems(AchievementInfoSO achievement)
+    {
+        int collectedCount = 0;
+        foreach (var collectable in achievement.CollectableList.CollectablesList)
+        {
+            if (collectable.IsCollected)
+            {
+                collectedCount++;
+            }
+        }
+        return collectedCount;
+    }
     private void Awake()
     {
         _achievementObjects = new List<AchievementObject>();
@@ -95,6 +119,49 @@ public class AchievementSystem : MonoBehaviour
     {
         if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
         {
+            int unlockedCount = CountAllUnlockedAchievements();
+            if (unlockedCount >= achievement.AchievementCount)
+            {
+                UnlockAchievement(achievement);
+            }
+            return;
+        }
+        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        {
+            if (!achievement.Collectable.IsCollected)
+            {
+                return;
+            }
+
+            if (achievement.RequiresPreviousAchievement && !achievement.PreviousAchievement.IsUnlocked)
+            {
+                return;
+            }
+
+            UnlockAchievement(achievement);
+            AddToQueueDisplay(achievement);
+            return;
+        }
+        int collectedCount = CountCollectedItems(achievement);
+        bool meetsGoal;
+        if (achievement.ManualGoalAmount)
+        {
+            meetsGoal = collectedCount == achievement.IntGoal;
+        }
+        else
+        {
+            meetsGoal = collectedCount == achievement.CollectableList.CollectablesList.Count;
+        }
+        if (meetsGoal)
+        {
+            UnlockAchievement(achievement);
+        }
+    }
+    /*
+    private void CheckCollectableType(AchievementInfoSO achievement)
+    {
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+        {
             int unlockedCount = _achievementListReference.AchievementList
                 .Where(subAchievement => subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement
                 && subAchievement.IsUnlocked).Count();
@@ -133,6 +200,35 @@ public class AchievementSystem : MonoBehaviour
             }
         }
     }
+    */
+    private void SetupAchievementDisplay()
+    {
+        if (_achievementListReference.AchievementList.Count == 0)
+        {
+            Debug.LogWarning("The list of achievements to unlock is empty!");
+            return;
+        }
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        {
+            var achievement = _achievementListReference.AchievementList[i];
+            if (achievement == null)
+            {
+                Debug.LogWarning($"There is a missing reference at element {i} in the achievements to unlock list");
+                continue;
+            }
+            var achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
+            _achievementObjects.Add(achievementObject);
+            bool isHidden = achievement.IsHidden;
+            UpdateAchievementObject(_achievementObjects.Count - 1, i, isHidden);
+
+            if (isHidden)
+            {
+                achievementObject.DisableLock();
+            }
+        }
+        UpdateUnlockedStatus();
+    }
+    /*
     private void SetupAchievementDisplay()
     {
         if (_achievementListReference.AchievementList.Count == 0)
@@ -163,6 +259,7 @@ public class AchievementSystem : MonoBehaviour
         }
         UpdateUnlockedStatus();
     }
+    */
     private void UpdateUnlockedStatus()
     {
         int objectIndex = 0;
