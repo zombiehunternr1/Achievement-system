@@ -118,7 +118,7 @@ public class AchievementSystem : MonoBehaviour
                 }
             }
         }
-        else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+        else
         {
             int unlockedCount = _achievementListReference.AchievementList
                 .Where(subAchievement => subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement
