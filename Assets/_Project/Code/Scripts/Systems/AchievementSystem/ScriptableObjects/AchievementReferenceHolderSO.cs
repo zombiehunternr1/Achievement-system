@@ -11,4 +11,11 @@ public class AchievementReferenceHolderSO : ScriptableObject
             return _achievementToUnlock.AchievementId;
         }
     }
+    public CollectableTypeListSO CollectableTypeList
+    {
+        get
+        {
+            return _achievementToUnlock.CollectableList;
+        }
+    }
 }

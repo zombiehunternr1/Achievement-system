@@ -20,7 +20,10 @@ public class CollectableSystem : MonoBehaviour
                     collecteditems++;
                     foreach(AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
                     {
-                        _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collecteditems, null);
+                        if(achievementEvent.CollectableTypeList != null && achievementEvent.CollectableTypeList.CollectablesList.Contains(collectableType))
+                        {
+                            _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collecteditems, null);
+                        }
                     }
                 }
             }
