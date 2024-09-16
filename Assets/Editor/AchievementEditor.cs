@@ -72,14 +72,14 @@ public class AchievementEditor : Editor
         EditorGUILayout.PropertyField(_desciptionValueProp);
         EditorGUILayout.PropertyField(_iconValueProp);
         EditorGUILayout.PropertyField(_completionTypeProp, new GUILayoutOption[] {GUILayout.Width(400)});
-        AchievementInfoSO.CompletionType completionType = (AchievementInfoSO.CompletionType)_completionTypeProp.enumValueIndex;
+        AchievementInfoSO.CompletionEnumType completionType = (AchievementInfoSO.CompletionEnumType)_completionTypeProp.enumValueIndex;
         AchievementInfoSO.CollectableEnumType collectableType = (AchievementInfoSO.CollectableEnumType)_collectableTypeProp.enumValueIndex;
         AchievementInfoSO.CollectableRequirementEnumType collectableRequirementType = (AchievementInfoSO.CollectableRequirementEnumType)_collectableRequirementTypeProp.enumValueIndex;
         switch (completionType)
         {
-            case AchievementInfoSO.CompletionType.NoRequirements:
+            case AchievementInfoSO.CompletionEnumType.NoRequirements:
                 break;
-            case AchievementInfoSO.CompletionType.IntegerRequirement:
+            case AchievementInfoSO.CompletionEnumType.IntegerRequirement:
                 EditorGUILayout.PropertyField(_collectableTypeProp, new GUILayoutOption[] { GUILayout.Width(400) });
                 switch (collectableType)
                 {
@@ -124,7 +124,7 @@ public class AchievementEditor : Editor
                         break;
                 }
                 break;
-            case AchievementInfoSO.CompletionType.FloatRequirement:
+            case AchievementInfoSO.CompletionEnumType.FloatRequirement:
                 EditorGUILayout.PropertyField(_floatCurrentValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 EditorGUILayout.PropertyField(_floatGoalValueProp, new GUILayoutOption[] { GUILayout.Width(350) });
                 break;

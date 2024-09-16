@@ -45,13 +45,33 @@ public class AchievementSystem : MonoBehaviour
         AchievementInfoSO achievement = _achievementListReference.AchievementList
             .FirstOrDefault(achievement => achievement != null && achievement.AchievementId == achievementID);
 
-        if (achievement == null || achievement.IsUnlocked)
+        if (achievement == null)
         {
+            Debug.LogWarning("Couldn't find the achievement in the list with ID: " + achievementID);
+            return;
+        }
+        if (achievement.IsUnlocked)
+        {
+            return;
+        }
+        if (achievement.CompletionType == AchievementInfoSO.CompletionEnumType.NoRequirements)
+        {
+            UnlockAchievement(achievement);
+            return;
+        }
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+        {
+            CheckCollectableType(achievement);
             return;
         }
         if (intValue != null)
         {
-            if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None)
+            if (achievement.CollectableType != AchievementInfoSO.CollectableEnumType.None)
+            {
+                CheckCollectableType(achievement);
+                return;
+            }
+            else
             {
                 achievement.UpdateCurrentAmount(intValue, null);
                 if (intValue == achievement.IntGoal)
@@ -59,10 +79,7 @@ public class AchievementSystem : MonoBehaviour
                     UnlockAchievement(achievement);
                 }
             }
-            else
-            {
-                CheckCollectables(achievement);
-            }
+            return;
         }
         else if (floatValue != null)
         {
@@ -71,21 +88,10 @@ public class AchievementSystem : MonoBehaviour
             {
                 UnlockAchievement(achievement);
             }
+            return;
         }
-        else
-        {
-            if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-            {
-                CheckCollectables(achievement);
-            }
-            else
-            {
-                UnlockAchievement(achievement);
-            }
-        }
-        UpdateUnlockedStatus();
     }
-    private void CheckCollectables(AchievementInfoSO achievement)
+    private void CheckCollectableType(AchievementInfoSO achievement)
     {
         if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
         {
@@ -331,7 +337,6 @@ public class AchievementSystem : MonoBehaviour
                 data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
                 achievement.AchievementUnlocked = isUnlocked;
             }
-            UpdateUnlockedStatus();
         }
         else
         {

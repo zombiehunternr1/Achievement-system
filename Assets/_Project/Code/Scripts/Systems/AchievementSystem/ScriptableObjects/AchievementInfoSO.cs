@@ -9,8 +9,8 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private string _title;
     [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
-    public enum CompletionType { NoRequirements, IntegerRequirement, FloatRequirement };
-    [SerializeField] private CompletionType _completionType;
+    public enum CompletionEnumType { NoRequirements, IntegerRequirement, FloatRequirement };
+    [SerializeField] private CompletionEnumType _completionType;
     public enum CollectableEnumType { None, Collectable, Achievement };
     [SerializeField] private CollectableEnumType _collectableType;
     public enum CollectableRequirementEnumType { Single, List};
@@ -57,6 +57,13 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             return _icon;
+        }
+    }
+    public CompletionEnumType CompletionType
+    {
+        get
+        {
+            return _completionType;
         }
     }
     public CollectableEnumType CollectableType
