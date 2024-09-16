@@ -19,11 +19,8 @@ public abstract class BaseCollectableTypeSO : ScriptableObject
             return _isCollected;
         }
     }
-    public bool CollectCollectable
+    public void SetCollectableStatus(bool value)
     {
-        set
-        {
-            _isCollected = value;
-        }
+        _isCollected = value;
     }
 }

@@ -13,7 +13,7 @@ public class CollectableObject : MonoBehaviour
     }
     public void Collect()
     {
-        _collectableType.CollectCollectable = true;
+        _collectableType.SetCollectableStatus(true);
         _updateCollectedTypeEvent.Invoke();
     }
 }

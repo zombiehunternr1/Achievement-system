@@ -36,7 +36,7 @@ public class CollectableSystem : MonoBehaviour
         {
             foreach(CollectableTypeSO collectable in collectableTypeList.CollectablesList)
             {
-                collectable.CollectCollectable = false;
+                collectable.SetCollectableStatus(false);
             }
         }
         _updateCollectablesEvent.Invoke();
@@ -50,7 +50,7 @@ public class CollectableSystem : MonoBehaviour
                 foreach(CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
                 {
                     data.TotalCollectionsData.TryGetValue(collectableType.CollectableId, out bool isCollected);
-                    collectableType.CollectCollectable = isCollected;
+                    collectableType.SetCollectableStatus(isCollected);
                 }
             }
             _updateCollectablesEvent.Invoke();
