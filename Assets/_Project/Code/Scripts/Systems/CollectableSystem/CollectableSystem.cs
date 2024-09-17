@@ -49,70 +49,81 @@ public class CollectableSystem : MonoBehaviour
     {
         foreach (AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
         {
-            if (achievementEvent.CollectableTypeList == null || achievementEvent.CollectableTypeList.CollectablesList.Count == 0)
+            if (achievementEvent.CollectableTypeList != null && achievementEvent.CollectableTypeList.CollectablesList.Count > 0 &&
+                !ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
             {
-                if (achievementEvent.collectableType == collectableType)
-                {
-                    _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
-                }
                 continue;
             }
-            if(ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
+            if (achievementEvent.CollectableTypeList == null || achievementEvent.CollectableTypeList.CollectablesList.Count == 0)
             {
-                _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
+                if (achievementEvent.collectableType != collectableType)
+                {
+                    continue;
+                }
             }
+            _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
         }
     }
     public void ResetAllCollectibles()
     {
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
-            foreach(CollectableTypeSO collectable in collectableTypeList.CollectablesList)
-            {
-                collectable.SetCollectableStatus(false);
-            }
+            ResetCollectablesInList(collectableTypeList);
         }
         _updateCollectablesStatusEvent.Invoke();
+    }
+    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
+    {
+        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
+        {
+            collectable.SetCollectableStatus(false);
+        }
     }
     public void UpdateData(GameData data, bool isLoading)
     {
         if (isLoading)
         {
-            foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
-            {
-                foreach(CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
-                {
-                    data.TotalCollectionsData.TryGetValue(collectableType.CollectableId, out bool isCollected);
-                    collectableType.SetCollectableStatus(isCollected);
-                }
-            }
-            _updateCollectablesStatusEvent.Invoke();
+            UpdateCollectableStatusFromData(data);
         }
         else
         {
-            List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allcollectableListsReference.AllCollectableLists.GetEnumerator();
-            try
-            {
-                while (enumAllCollectablesLists.MoveNext())
-                {
-                    List<BaseCollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.CollectablesList.GetEnumerator();
-                    while (enumCurrentCollectableList.MoveNext())
-                    {
-                        string id = enumCurrentCollectableList.Current.CollectableId;
-                        bool value = enumCurrentCollectableList.Current.IsCollected;
-                        if (data.TotalCollectionsData.ContainsKey(id))
-                        {
-                            data.TotalCollectionsData.Remove(id);
-                        }
-                        data.TotalCollectionsData.Add(id, value);
-                    }
-                }
-            }
-            finally
-            {
-                enumAllCollectablesLists.Dispose();
-            }
+            SaveCollectableStatusToData(data);
         }
         _updateProgressionEvent.Invoke(data);
+    }
+    private void UpdateCollectableStatusFromData(GameData data)
+    {
+        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
+        {
+            foreach (CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
+            {
+                data.TotalCollectionsData.TryGetValue(collectableType.CollectableId, out bool isCollected);
+                collectableType.SetCollectableStatus(isCollected);
+            }
+        }
+        _updateCollectablesStatusEvent.Invoke();
+    }
+    private void SaveCollectableStatusToData(GameData data)
+    {
+        List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allcollectableListsReference.AllCollectableLists.GetEnumerator();
+        try
+        {
+            while (enumAllCollectablesLists.MoveNext())
+            {
+                List<BaseCollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.CollectablesList.GetEnumerator();
+
+                while (enumCurrentCollectableList.MoveNext())
+                {
+                    string id = enumCurrentCollectableList.Current.CollectableId;
+                    bool value = enumCurrentCollectableList.Current.IsCollected;
+
+                    data.TotalCollectionsData[id] = value;
+                }
+            }
+        }
+        finally
+        {
+            enumAllCollectablesLists.Dispose();
+        }
     }
 }

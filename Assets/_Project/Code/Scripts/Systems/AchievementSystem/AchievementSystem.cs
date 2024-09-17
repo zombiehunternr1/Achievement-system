@@ -157,50 +157,6 @@ public class AchievementSystem : MonoBehaviour
             UnlockAchievement(achievement);
         }
     }
-    /*
-    private void CheckCollectableType(AchievementInfoSO achievement)
-    {
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-        {
-            int unlockedCount = _achievementListReference.AchievementList
-                .Where(subAchievement => subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement
-                && subAchievement.IsUnlocked).Count();
-            if (unlockedCount == achievement.AchievementCount)
-            {
-                UnlockAchievement(achievement);
-            }
-            return;
-        }
-        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-        {
-            if (!achievement.Collectable.IsCollected)
-            {
-                return;
-            }
-            if (!achievement.RequiresPreviousAchievement)
-            {
-                UnlockAchievement(achievement);
-                return;
-            }
-            if (achievement.PreviousAchievement.IsUnlocked)
-            {
-                AddToQueueDisplay(achievement);
-                return;
-            }
-        }
-        else
-        {
-            int unlockedCount = achievement.CollectableList.CollectablesList
-            .Where(collectable => collectable.IsCollected)
-            .Count();
-            if ((achievement.ManualGoalAmount && unlockedCount == achievement.IntGoal) ||
-                (!achievement.ManualGoalAmount && unlockedCount == achievement.CollectableList.CollectablesList.Count))
-            {
-                UnlockAchievement(achievement);
-            }
-        }
-    }
-    */
     private void SetupAchievementDisplay()
     {
         if (_achievementListReference.AchievementList.Count == 0)
@@ -228,38 +184,6 @@ public class AchievementSystem : MonoBehaviour
         }
         UpdateUnlockedStatus();
     }
-    /*
-    private void SetupAchievementDisplay()
-    {
-        if (_achievementListReference.AchievementList.Count == 0)
-        {
-            Debug.LogWarning("The list of achievements to unlock is empty!");
-            return;
-        }
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
-        {
-            if (_achievementListReference.AchievementList[i] != null)
-            {
-                AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
-                _achievementObjects.Add(achievementObject);
-                if (_achievementListReference.AchievementList[i].IsHidden)
-                {
-                    UpdateAchievementObject(_achievementObjects.LastIndexOf(achievementObject), i, true);
-                    achievementObject.DisableLock();
-                }
-                else
-                {
-                    UpdateAchievementObject(_achievementObjects.LastIndexOf(achievementObject), i, false);
-                }
-            }
-            else
-            {
-                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
-            }
-        }
-        UpdateUnlockedStatus();
-    }
-    */
     private void UpdateUnlockedStatus()
     {
         int objectIndex = 0;
@@ -429,34 +353,40 @@ public class AchievementSystem : MonoBehaviour
     {
         if (isLoading)
         {
-            foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
-            {
-                data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
-                achievement.AchievementUnlocked = isUnlocked;
-            }
+            LoadAchievementDataFromGameData(data);
         }
         else
         {
-            List<AchievementInfoSO>.Enumerator enumAchievementsList = _achievementListReference.AchievementList.GetEnumerator();
-            try
-            {
-                while (enumAchievementsList.MoveNext())
-                {
-                    string id = enumAchievementsList.Current.AchievementId;
-                    bool value = enumAchievementsList.Current.IsUnlocked;
-                    if (data.TotalAchievementsData.ContainsKey(id))
-                    {
-                        data.TotalAchievementsData.Remove(id);
-                    }
-                    data.TotalAchievementsData.Add(id, value);
-                }
-            }
-            finally
-            {
-                enumAchievementsList.Dispose();
-            }
+            SaveAchievementDataToGameData(data);
         }
+
         UpdateUnlockedStatus();
         _updateProgressionEvent.Invoke(data);
+    }
+    private void LoadAchievementDataFromGameData(GameData data)
+    {
+        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
+        {
+            data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
+            achievement.AchievementUnlocked = isUnlocked;
+        }
+    }
+    private void SaveAchievementDataToGameData(GameData data)
+    {
+        List<AchievementInfoSO>.Enumerator enumAchievementsList = _achievementListReference.AchievementList.GetEnumerator();
+
+        try
+        {
+            while (enumAchievementsList.MoveNext())
+            {
+                string id = enumAchievementsList.Current.AchievementId;
+                bool value = enumAchievementsList.Current.IsUnlocked;
+                data.SetTotalAchievementsData(id, value);
+            }
+        }
+        finally
+        {
+            enumAchievementsList.Dispose();
+        }
     }
 }

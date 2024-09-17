@@ -15,10 +15,6 @@ public class GameData
         {
             return _lastUpdated;
         }
-        set
-        {
-            _lastUpdated = value;
-        }
     }
     public SerializableDictionary<string, bool> TotalAchievementsData
     {
@@ -26,20 +22,12 @@ public class GameData
         {
             return _totalAchievementsData;
         }
-        set
-        {
-            _totalAchievementsData = value;
-        }
     }
     public SerializableDictionary<string, bool> TotalCollectionsData
     {
         get
         {
             return _totalCollectablesData;
-        }
-        set
-        {
-            _totalCollectablesData = value;
         }
     }
     public GameData()
@@ -106,17 +94,33 @@ public class GameData
         get
         {
             int totalCount = 0;
-            for (int i = 0; i < _allData.Count; i++)
+            List<bool> allValues = new();
+            foreach (var dataList in _allData)
             {
-                foreach (var value in _allData[i].Values)
+                allValues.AddRange(dataList.Values);
+            }
+            foreach (bool value in allValues)
+            {
+                if (value)
                 {
-                    if (value)
-                    {
-                        totalCount++;
-                    }
+                    totalCount++;
                 }
             }
+
             return totalCount;
         }
+    }
+
+    public void SetLastUpdated(long value)
+    {
+        _lastUpdated = value;
+    }
+    public void SetTotalAchievementsData(string idValue, bool boolValue)
+    {
+        _totalAchievementsData[idValue] = boolValue;
+    }
+    public void SetTotalCollectionsData(string iDValue, bool boolValue)
+    {
+        _totalCollectablesData[iDValue] = boolValue;
     }
 }

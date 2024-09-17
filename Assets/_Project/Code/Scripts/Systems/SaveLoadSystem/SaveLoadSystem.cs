@@ -63,7 +63,7 @@ public class SaveLoadSystem : MonoBehaviour
         {
             Debug.LogWarning("No data was found! A new game needs to be started before data can be saved!");
         }
-        _gameData.LastUpdated = System.DateTime.Now.ToBinary();
+        _gameData.SetLastUpdated(System.DateTime.Now.ToBinary());
         _dataHandler.Save(_gameData, _selectedProfileId);
         _updateStorageDataEvent.Invoke(_gameData, false);
         _updateProgressionEvent.Invoke(_gameData);
