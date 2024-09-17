@@ -156,11 +156,11 @@ public class AchievementSystem : MonoBehaviour
         bool meetsGoal;
         if (achievement.ManualGoalAmount)
         {
-            meetsGoal = collectedCount == achievement.IntGoal;
+            meetsGoal = collectedCount.Equals(achievement.IntGoal);
         }
         else
         {
-            meetsGoal = collectedCount == achievement.CollectableList.CollectablesList.Count;
+            meetsGoal = collectedCount.Equals(achievement.CollectableList.CollectablesList.Count);
         }
         if (meetsGoal)
         {
