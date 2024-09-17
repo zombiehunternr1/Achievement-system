@@ -116,8 +116,7 @@ public class CollectableSystem : MonoBehaviour
                 {
                     string id = enumCurrentCollectableList.Current.CollectableId;
                     bool value = enumCurrentCollectableList.Current.IsCollected;
-
-                    data.TotalCollectionsData[id] = value;
+                    data.SetTotalCollectionsData(id, value);
                 }
             }
         }
