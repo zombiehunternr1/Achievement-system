@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using System.Linq;
 
 public class AchievementSystem : MonoBehaviour
 {
@@ -46,6 +45,18 @@ public class AchievementSystem : MonoBehaviour
         }
         return collectedCount;
     }
+    private AchievementInfoSO FindAchievementById(string achievementID)
+    {
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        {
+            if (_achievementListReference.AchievementList[i] != null &&
+                _achievementListReference.AchievementList[i].AchievementId == achievementID)
+            {
+                return _achievementListReference.AchievementList[i];
+            }
+        }
+        return null;
+    }
     private void Awake()
     {
         _achievementObjects = new List<AchievementObject>();
@@ -66,9 +77,7 @@ public class AchievementSystem : MonoBehaviour
     }
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
-        AchievementInfoSO achievement = _achievementListReference.AchievementList
-            .FirstOrDefault(achievement => achievement != null && achievement.AchievementId == achievementID);
-
+        AchievementInfoSO achievement = FindAchievementById(achievementID);
         if (achievement == null)
         {
             Debug.LogWarning("Couldn't find the achievement in the list with ID: " + achievementID);
@@ -88,31 +97,32 @@ public class AchievementSystem : MonoBehaviour
             CheckCollectableType(achievement);
             return;
         }
-        if (intValue != null)
+        HandleValueUpdate(achievement, intValue, floatValue);
+    }
+    private void HandleValueUpdate(AchievementInfoSO achievement, int? intValue, float? floatValue)
+    {
+        if (intValue.HasValue)
         {
             if (achievement.CollectableType != AchievementInfoSO.CollectableEnumType.None)
             {
                 CheckCollectableType(achievement);
-                return;
             }
             else
             {
                 achievement.UpdateCurrentAmount(intValue, null);
-                if (intValue == achievement.IntGoal)
+                if (intValue.Value == achievement.IntGoal)
                 {
                     UnlockAchievement(achievement);
                 }
             }
-            return;
         }
-        else if (floatValue != null)
+        else
         {
             achievement.UpdateCurrentAmount(null, floatValue);
-            if (floatValue == achievement.FloatGoal)
+            if (floatValue.Value == achievement.FloatGoal)
             {
                 UnlockAchievement(achievement);
             }
-            return;
         }
     }
     private void CheckCollectableType(AchievementInfoSO achievement)

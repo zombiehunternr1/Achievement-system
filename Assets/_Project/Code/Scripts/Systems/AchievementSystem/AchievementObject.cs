@@ -11,6 +11,19 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private RectTransform _progressBarRect;
     [SerializeField] private TextMeshProUGUI _progressText;
     [SerializeField] private Slider _progressSlider;
+    private string _achievementId;
+
+    public string AchievementId
+    {
+        get
+        {
+            return _achievementId;
+        }
+    }
+    public void SetAchievementId(string achievementId)
+    {
+        _achievementId = achievementId;
+    }
     public void SetIcon(Sprite iconInfo)
     {
         _icon.sprite = iconInfo;
