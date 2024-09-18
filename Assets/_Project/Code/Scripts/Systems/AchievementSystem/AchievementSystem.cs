@@ -329,8 +329,7 @@ public class AchievementSystem : MonoBehaviour
         achievementObject.SetDescription(achievement.Description);
         if (!achievement.ShowProgression)
         {
-            achievementObject.ProgressDisplay(false, _intAmount, achievement.IntGoal,
-            achievement.CurrentFloatAmount, achievement.FloatGoal);
+            achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
             return;
         }
         if (achievement.ManualGoalAmount)
