@@ -49,17 +49,15 @@ public class CollectableSystem : MonoBehaviour
     {
         foreach (AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
         {
-            if (achievementEvent.CollectableTypeList != null && achievementEvent.CollectableTypeList.CollectablesList.Count > 0 &&
-                !ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
+            bool hasCollectableTypeList = achievementEvent.CollectableTypeList != null;
+            bool hasCollectables = hasCollectableTypeList && achievementEvent.CollectableTypeList.CollectablesList.Count > 0;
+            if (hasCollectables && !ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
             {
                 continue;
             }
-            if (achievementEvent.CollectableTypeList == null || achievementEvent.CollectableTypeList.CollectablesList.Count == 0)
+            if (!hasCollectables && achievementEvent.collectableType != collectableType)
             {
-                if (achievementEvent.collectableType != collectableType)
-                {
-                    continue;
-                }
+                continue;
             }
             _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
         }
