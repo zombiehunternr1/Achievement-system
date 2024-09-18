@@ -173,12 +173,10 @@ public class AchievementSystem : MonoBehaviour
             {
                 return;
             }
-
             if (achievement.RequiresPreviousAchievement && !achievement.PreviousAchievement.IsUnlocked)
             {
                 return;
             }
-
             UnlockAchievement(achievement);
             return;
         }
