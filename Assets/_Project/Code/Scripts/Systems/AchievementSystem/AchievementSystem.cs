@@ -131,7 +131,8 @@ public class AchievementSystem : MonoBehaviour
             UnlockAchievement(achievement);
             return;
         }
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement || 
+            achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
         {
             CheckCollectableType(achievement);
             return;
@@ -142,26 +143,17 @@ public class AchievementSystem : MonoBehaviour
     {
         if (intValue.HasValue)
         {
-            if (achievement.CollectableType != AchievementInfoSO.CollectableEnumType.None)
-            {
-                CheckCollectableType(achievement);
-            }
-            else
-            {
-                achievement.UpdateCurrentAmount(intValue, null);
-                if (intValue.Value == achievement.IntGoal)
-                {
-                    UnlockAchievement(achievement);
-                }
-            }
-        }
-        else
-        {
-            achievement.UpdateCurrentAmount(null, floatValue);
-            if (floatValue.Value == achievement.FloatGoal)
+            achievement.UpdateCurrentAmount(intValue, null);
+            if (intValue.Value == achievement.IntGoal)
             {
                 UnlockAchievement(achievement);
             }
+            return;
+        }
+        achievement.UpdateCurrentAmount(null, floatValue);
+        if (floatValue.Value == achievement.FloatGoal)
+        {
+            UnlockAchievement(achievement);
         }
     }
     private void CheckCollectableType(AchievementInfoSO achievement)
