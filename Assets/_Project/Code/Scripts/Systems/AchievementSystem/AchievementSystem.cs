@@ -327,32 +327,26 @@ public class AchievementSystem : MonoBehaviour
         achievementObject.SetIcon(achievement.Icon);
         achievementObject.SetTitle(achievement.Title);
         achievementObject.SetDescription(achievement.Description);
-        if (achievement.ShowProgression)
-        {
-            if (achievement.ManualGoalAmount)
-            {
-                achievementObject.ProgressDisplay(true, _intAmount, achievement.IntGoal,
-                achievement.CurrentFloatAmount, achievement.FloatGoal);
-            }
-            else
-            {
-                if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
-                {
-                    achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.CollectablesList.Count,
-                    achievement.CurrentFloatAmount, achievement.FloatGoal);
-                }
-                else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-                {
-                    achievementObject.ProgressDisplay(true, _intAmount, achievement.AchievementCount,
-                    achievement.CurrentFloatAmount, achievement.FloatGoal);
-                }
-            }
-        }
-        else
+        if (!achievement.ShowProgression)
         {
             achievementObject.ProgressDisplay(false, _intAmount, achievement.IntGoal,
             achievement.CurrentFloatAmount, achievement.FloatGoal);
+            return;
         }
+        if (achievement.ManualGoalAmount)
+        {
+            achievementObject.ProgressDisplay(true, _intAmount, achievement.IntGoal,
+            achievement.CurrentFloatAmount, achievement.FloatGoal);
+            return;
+        }
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
+        {
+            achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.CollectablesList.Count,
+            achievement.CurrentFloatAmount, achievement.FloatGoal);
+            return;
+        }
+        achievementObject.ProgressDisplay(true, _intAmount, achievement.AchievementCount,
+        achievement.CurrentFloatAmount, achievement.FloatGoal);
     }
     private void UnlockAchievement(AchievementInfoSO achievement)
     {
