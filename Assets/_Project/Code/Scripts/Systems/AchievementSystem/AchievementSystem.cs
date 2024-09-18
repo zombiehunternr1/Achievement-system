@@ -114,7 +114,6 @@ public class AchievementSystem : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         UpdateUnlockedStatus(achievement);
     }
-
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
         AchievementInfoSO achievement = FindAchievementById(achievementID);
@@ -225,12 +224,11 @@ public class AchievementSystem : MonoBehaviour
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
             achievementObject.SetAchievementId(achievement.AchievementId);
             _achievementObjects.Add(achievementObject);
-            bool isHidden = achievement.IsHidden;
-            if (isHidden)
+            if (achievement.IsHidden)
             {
                 achievementObject.DisableLock();
             }
-            UpdateAchievementObject(i, achievement, isHidden);
+            UpdateAchievementObject(i, achievement, achievement.IsHidden);
         }
     }
     private void UpdateUnlockedStatus(AchievementInfoSO achievement)
@@ -252,9 +250,8 @@ public class AchievementSystem : MonoBehaviour
         }
         else
         {
-            bool isHidden = achievement.IsHidden;
-            UpdateAchievementObject(objectIndex, achievement, isHidden);
-            if (!isHidden)
+            UpdateAchievementObject(objectIndex, achievement, achievement.IsHidden);
+            if (!achievement.IsHidden)
             {
                 _achievementObjects[objectIndex].EnableLock();
             }
@@ -285,20 +282,18 @@ public class AchievementSystem : MonoBehaviour
                 continue;
             }
             UpdateProgressionStatus(relatedAchievement);
-            bool isHidden = relatedAchievement.IsHidden;
-            bool isUnlocked = relatedAchievement.IsUnlocked;
-            if (isUnlocked)
+            if (relatedAchievement.IsUnlocked)
             {
                 UpdateAchievementObject(relatedIndex, relatedAchievement, false);
-                if (!isHidden)
+                if (!relatedAchievement.IsHidden)
                 {
                     _achievementObjects[relatedIndex].UnlockAchievement();
                 }
             }
             else
             {
-                UpdateAchievementObject(relatedIndex, relatedAchievement, isHidden);
-                if (!isHidden)
+                UpdateAchievementObject(relatedIndex, relatedAchievement, relatedAchievement.IsHidden);
+                if (!relatedAchievement.IsHidden)
                 {
                     _achievementObjects[relatedIndex].EnableLock();
                 }
@@ -322,45 +317,43 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UpdateAchievementObject(int objectIndex, AchievementInfoSO achievement, bool isHidden)
     {
+        AchievementObject achievementObject = _achievementObjects[objectIndex];
         if (isHidden)
         {
-            _achievementObjects[objectIndex].SetIcon(_hiddenAchievement);
-            _achievementObjects[objectIndex].SetTitle(_hiddenText);
-            _achievementObjects[objectIndex].SetDescription(_hiddenText);
-            _achievementObjects[objectIndex].ProgressDisplay(false, achievement.CurrentIntAmount, achievement.IntGoal,
-            achievement.CurrentFloatAmount, achievement.FloatGoal);
+            achievementObject.SetIcon(_hiddenAchievement);
+            achievementObject.SetTitle(_hiddenText);
+            achievementObject.SetDescription(_hiddenText);
+            achievementObject.ProgressDisplay(false, 0,0,0,0);
+            return;
         }
-        else
+        achievementObject.SetIcon(achievement.Icon);
+        achievementObject.SetTitle(achievement.Title);
+        achievementObject.SetDescription(achievement.Description);
+        if (achievement.ShowProgression)
         {
-            _achievementObjects[objectIndex].SetIcon(achievement.Icon);
-            _achievementObjects[objectIndex].SetTitle(achievement.Title);
-            _achievementObjects[objectIndex].SetDescription(achievement.Description);
-            if (achievement.ShowProgression)
+            if (achievement.ManualGoalAmount)
             {
-                if (achievement.ManualGoalAmount)
-                {
-                    _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, achievement.IntGoal,
-                    achievement.CurrentFloatAmount, achievement.FloatGoal);
-                }
-                else
-                {
-                    if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
-                    {
-                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, achievement.CollectableList.CollectablesList.Count,
-                        achievement.CurrentFloatAmount, achievement.FloatGoal);
-                    }
-                    else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-                    {
-                        _achievementObjects[objectIndex].ProgressDisplay(true, _intAmount, achievement.AchievementCount,
-                        achievement.CurrentFloatAmount, achievement.FloatGoal);
-                    }
-                }
+                achievementObject.ProgressDisplay(true, _intAmount, achievement.IntGoal,
+                achievement.CurrentFloatAmount, achievement.FloatGoal);
             }
             else
             {
-                _achievementObjects[objectIndex].ProgressDisplay(false, _intAmount, achievement.IntGoal,
-                achievement.CurrentFloatAmount, achievement.FloatGoal);
+                if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
+                {
+                    achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.CollectablesList.Count,
+                    achievement.CurrentFloatAmount, achievement.FloatGoal);
+                }
+                else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+                {
+                    achievementObject.ProgressDisplay(true, _intAmount, achievement.AchievementCount,
+                    achievement.CurrentFloatAmount, achievement.FloatGoal);
+                }
             }
+        }
+        else
+        {
+            achievementObject.ProgressDisplay(false, _intAmount, achievement.IntGoal,
+            achievement.CurrentFloatAmount, achievement.FloatGoal);
         }
     }
     private void UnlockAchievement(AchievementInfoSO achievement)
