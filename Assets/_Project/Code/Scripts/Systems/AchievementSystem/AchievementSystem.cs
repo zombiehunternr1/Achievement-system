@@ -306,12 +306,10 @@ public class AchievementSystem : MonoBehaviour
         }
         if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
         {
-           _intAmount = AddCollectedAmount(achievement);
+            _intAmount = AddCollectedAmount(achievement);
+            return;
         }
-        else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-        {
-           _intAmount = AddUnlockedAchievementAmount(achievement);
-        }
+        _intAmount = AddUnlockedAchievementAmount(achievement);
     }
     private void UpdateAchievementObject(int objectIndex, AchievementInfoSO achievement, bool isHidden)
     {
