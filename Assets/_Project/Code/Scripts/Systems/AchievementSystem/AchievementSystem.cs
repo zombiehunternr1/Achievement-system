@@ -185,7 +185,7 @@ public class AchievementSystem : MonoBehaviour
             AchievementInfoSO achievement = _achievementListReference.AchievementList[i];
             if (achievement == null)
             {
-                Debug.LogWarning($"There is a missing reference at element {i} in the achievements to unlock list");
+                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
                 continue;
             }
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
