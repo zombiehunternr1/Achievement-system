@@ -196,44 +196,15 @@ public class AchievementSystem : MonoBehaviour
             {
                 achievementObject.DisableLock();
             }
-            UpdateUnlockedStatus(achievement);
+            UpdateAchievementObject(i, achievement, isHidden);
         }
     }
-    /*
-    private void UpdateUnlockedStatus()
-    {
-        int objectIndex = 0;
-
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
-        {
-            var achievement = _achievementListReference.AchievementList[i];
-
-            if (achievement == null)
-                continue;
-
-            UpdateProgresssionStatus(i);
-
-            bool isHidden = achievement.IsHidden;
-            bool isUnlocked = achievement.IsUnlocked;
-            if (isUnlocked)
-            {
-                HandleUnlockedAchievement(objectIndex, i);
-                _achievementObjects[objectIndex].UnlockAchievement();
-            }
-            else
-            {
-                HandleLockedAchievement(objectIndex, i, isHidden);
-            }
-            objectIndex++;
-        }
-    }
-    */
     private void UpdateUnlockedStatus(AchievementInfoSO achievement)
     {
         int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
         if (objectIndex == -1)
         {
-            Debug.LogWarning("No corresponding achievement object found!");
+            Debug.LogWarning("No corresponding achievement object found with achievement: " + achievement.Title + "!");
             return;
         }
         UpdateProgressionStatus(achievement);
@@ -258,32 +229,45 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UpdateRelatedAchievements(AchievementInfoSO achievement)
     {
-        List<int> relatedIndexes = new List<int>();
-        foreach (AchievementInfoSO relatedAchievement in _achievementListReference.AchievementList)
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
-            if(relatedAchievement != null && relatedAchievement.AchievementId.Equals(achievement.AchievementId))
+            AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
+            if (relatedAchievement == null || relatedAchievement.AchievementId.Equals(achievement.AchievementId))
             {
                 continue;
             }
             int relatedIndex = -1;
-            relatedIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == relatedAchievement.AchievementId);
-            if(relatedIndex == -1)
+            for (int j = 0; j < _achievementObjects.Count; j++)
             {
+                if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
+                {
+                    relatedIndex = j;
+                    break;
+                }
+            }
+            if (relatedIndex == -1)
+            {
+                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
                 continue;
             }
-            relatedIndexes.Add(relatedIndex);
-        }
-        foreach (int relatedIndex in relatedIndexes) 
-        {
-            AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[relatedIndex];
             UpdateProgressionStatus(relatedAchievement);
-            if (relatedAchievement.IsUnlocked && relatedAchievement.IsHidden)
+            bool isHidden = relatedAchievement.IsHidden;
+            bool isUnlocked = relatedAchievement.IsUnlocked;
+            if (isUnlocked)
             {
                 UpdateAchievementObject(relatedIndex, relatedAchievement, false);
+                if (!isHidden)
+                {
+                    _achievementObjects[relatedIndex].UnlockAchievement();
+                }
             }
             else
             {
-                UpdateAchievementObject(relatedIndex, relatedAchievement, relatedAchievement.IsHidden);
+                UpdateAchievementObject(relatedIndex, relatedAchievement, isHidden);
+                if (!isHidden)
+                {
+                    _achievementObjects[relatedIndex].EnableLock();
+                }
             }
         }
     }
