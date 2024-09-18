@@ -112,7 +112,7 @@ public class AchievementSystem : MonoBehaviour
     private IEnumerator DeplayUpdateUnlockedStatus(AchievementInfoSO achievement)
     {
         yield return new WaitForSeconds(0.01f);
-        UpdateUnlockedStatus(achievement);
+        UpdateAchievementStatus(achievement);
     }
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {
@@ -203,8 +203,9 @@ public class AchievementSystem : MonoBehaviour
         if (meetsGoal)
         {
             UnlockAchievement(achievement);
+            return;
         }
-        UpdateUnlockedStatus(achievement);
+        UpdateAchievementStatus(achievement);
     }
     private void SetupAchievementDisplay()
     {
@@ -231,7 +232,7 @@ public class AchievementSystem : MonoBehaviour
             UpdateAchievementObject(i, achievement, achievement.IsHidden);
         }
     }
-    private void UpdateUnlockedStatus(AchievementInfoSO achievement)
+    private void UpdateAchievementStatus(AchievementInfoSO achievement)
     {
         int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
         if (objectIndex == -1)
@@ -242,10 +243,7 @@ public class AchievementSystem : MonoBehaviour
         UpdateProgressionStatus(achievement);
         if (achievement.IsUnlocked)
         {
-            if (achievement.IsHidden)
-            {
-                UpdateAchievementObject(objectIndex, achievement, false);
-            }
+            UpdateAchievementObject(objectIndex, achievement, false);
             _achievementObjects[objectIndex].UnlockAchievement();
         }
         else
@@ -360,7 +358,7 @@ public class AchievementSystem : MonoBehaviour
     {
         achievement.AchievementUnlocked = true;
         _saveGameEvent.Invoke();
-        UpdateUnlockedStatus(achievement);
+        UpdateAchievementStatus(achievement);
         AddToQueueDisplay(achievement);
     }
     private void AddToQueueDisplay(AchievementInfoSO achievement)
@@ -425,7 +423,7 @@ public class AchievementSystem : MonoBehaviour
         {
             data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
             achievement.AchievementUnlocked = isUnlocked;
-            UpdateUnlockedStatus(achievement);
+            UpdateAchievementStatus(achievement);
         }
     }
     private void SaveAchievementDataToGameData(GameData data)
