@@ -241,18 +241,15 @@ public class AchievementSystem : MonoBehaviour
             return;
         }
         UpdateProgressionStatus(achievement);
+        bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
+        UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
         if (achievement.IsUnlocked)
         {
-            UpdateAchievementObject(objectIndex, achievement, false);
             _achievementObjects[objectIndex].UnlockAchievement();
         }
-        else
+        else if (!achievement.IsHidden)
         {
-            UpdateAchievementObject(objectIndex, achievement, achievement.IsHidden);
-            if (!achievement.IsHidden)
-            {
-                _achievementObjects[objectIndex].EnableLock();
-            }
+            _achievementObjects[objectIndex].EnableLock();
         }
         UpdateRelatedAchievements(achievement);
     }
