@@ -45,6 +45,40 @@ public class AchievementSystem : MonoBehaviour
         }
         return collectedCount;
     }
+    private int AddCollectedAmount(AchievementInfoSO achievement)
+    {
+        int amount = 0;
+        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        {
+            if (achievement.Collectable.IsCollected)
+            {
+                amount++;
+            }
+        }
+        else
+        {
+            foreach (CollectableTypeSO collectable in achievement.CollectableList.CollectablesList)
+            {
+                if (collectable.IsCollected)
+                {
+                    amount++;
+                }
+            }
+        }
+        return amount;
+    }
+    private int AddUnlockedAchievementAmount(AchievementInfoSO achievement)
+    {
+        int amount = 0;
+        foreach (AchievementInfoSO subAchievement in achievement.Achievements.AchievementList)
+        {
+            if (subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && subAchievement.IsUnlocked)
+            {
+                amount++;
+            }
+        }
+        return amount;
+    }
     private AchievementInfoSO FindAchievementById(string achievementID)
     {
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
@@ -277,40 +311,13 @@ public class AchievementSystem : MonoBehaviour
         {
             return;
         }
-        else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
+        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
         {
-            _intAmount = 0;
-            if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-            {
-                if (achievement.Collectable.IsCollected)
-                {
-                    _intAmount++;
-                }
-            }
-            else
-            {
-                foreach (CollectableTypeSO collectable in achievement.CollectableList.CollectablesList)
-                {
-                    if (collectable.IsCollected)
-                    {
-                        _intAmount++;
-                    }
-                }
-            }
+           _intAmount = AddCollectedAmount(achievement);
         }
         else if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
         {
-            _intAmount = 0;
-            foreach (AchievementInfoSO subAchievement in achievement.Achievements.AchievementList)
-            {
-                if(subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement)
-                {
-                    if (subAchievement.IsUnlocked)
-                    {
-                        _intAmount++;
-                    }
-                }
-            }
+           _intAmount = AddUnlockedAchievementAmount(achievement);
         }
     }
     private void UpdateAchievementObject(int objectIndex, AchievementInfoSO achievement, bool isHidden)
