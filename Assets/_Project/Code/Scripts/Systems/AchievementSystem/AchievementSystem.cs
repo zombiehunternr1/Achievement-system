@@ -114,6 +114,7 @@ public class AchievementSystem : MonoBehaviour
             {
                 if (relatedCollectable.CollectableId == _lastCollectedType.CollectableId)
                 {
+                    _lastCollectedType = null;
                     return true;
                 }
             }
