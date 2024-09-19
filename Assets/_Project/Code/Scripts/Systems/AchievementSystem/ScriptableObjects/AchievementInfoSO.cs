@@ -24,7 +24,7 @@ public class AchievementInfoSO : ScriptableObject
     [SerializeField] private CollectableTypeSO _collectable;
     [SerializeField] private AchievementInfoSO _previousAchievement;
     [SerializeField] private CollectableTypeListSO _collectableList;
-    [SerializeField] private AchievementListSO _achievementList;
+    [SerializeField] private AchievementListSO _achievementListReference;
     [SerializeField] private bool _manualGoalAmount;
     [SerializeField] private bool _requiresPreviousAchievement;
     [SerializeField] private bool _showProgression;
@@ -110,7 +110,7 @@ public class AchievementInfoSO : ScriptableObject
     {
         get
         {
-            return _achievementList;
+            return _achievementListReference;
         }
     }
     public int AchievementCount
@@ -118,7 +118,7 @@ public class AchievementInfoSO : ScriptableObject
         get
         {
             int total = 0;
-            foreach(AchievementInfoSO achievement in _achievementList.AchievementList)
+            foreach(AchievementInfoSO achievement in _achievementListReference.AchievementList)
             {
                 if(achievement.CollectableType != CollectableEnumType.Achievement)
                 {
