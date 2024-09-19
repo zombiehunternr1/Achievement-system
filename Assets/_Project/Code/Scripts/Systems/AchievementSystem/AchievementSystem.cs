@@ -79,17 +79,6 @@ public class AchievementSystem : MonoBehaviour
         }
         return amount;
     }
-    private bool ListContainsCollectable(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType)
-    {
-        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
-        {
-            if (collectableTypeFromList == collectableType)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
     private AchievementInfoSO FindAchievementById(string achievementID)
     {
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
@@ -131,7 +120,7 @@ public class AchievementSystem : MonoBehaviour
         {
             bool hasCollectableTypeList = achievement.CollectableList != null;
             bool hasCollectables = hasCollectableTypeList && achievement.CollectableList.CollectablesList.Count > 0;
-            if (hasCollectables && !ListContainsCollectable(achievement.CollectableList, collectableType))
+            if (hasCollectables && !collectableTypeList.CollectablesList.Contains(collectableType))
             {
                 continue;
             }

@@ -8,17 +8,6 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
     [SerializeField] private CheckCollectableRequestEvent _checkCollectableRequestEvent;
     [SerializeField] private CollectableListHolder _allcollectableListsReference;
-    private bool ListContainsCollectable(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType)
-    {
-        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
-        {
-            if (collectableTypeFromList == collectableType)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
     private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
     {
         int collectedItems = 0;
@@ -36,7 +25,7 @@ public class CollectableSystem : MonoBehaviour
         int collectedItemsAmount = 0;
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
-            if (ListContainsCollectable(collectableTypeList, collectableType))
+            if (collectableTypeList.CollectablesList.Contains(collectableType))
             {
                 collectedItemsAmount += CountCollectedItems(collectableTypeList);
                 _checkCollectableRequestEvent.Invoke(collectableTypeList, collectableType, collectedItemsAmount);
