@@ -10,7 +10,7 @@ public class AchievementSystem : MonoBehaviour
     [SerializeField] private SetAchievementPopUpInfoEvent _setAchievementPopUpInfoEvent;
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
-    [SerializeField] private AchievementReferenceHolderSO _overAchieverReference;
+    [SerializeField] private AchievementInfoSO _overAchieverReference;
     [SerializeField] private AchievementListSO _achievementListReference;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
@@ -91,6 +91,17 @@ public class AchievementSystem : MonoBehaviour
         }
         return null;
     }
+    private bool ListContainsCollectable(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType)
+    {
+        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
+        {
+            if (collectableTypeFromList == collectableType)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void Awake()
     {
         _achievementObjects = new List<AchievementObject>();
@@ -113,6 +124,23 @@ public class AchievementSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(0.01f);
         UpdateAchievementStatus(achievement);
+    }
+    public void CheckCollectableRequest(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType, int collectedAmount)
+    {
+        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
+        {
+            bool hasCollectableTypeList = achievement.CollectableList != null;
+            bool hasCollectables = hasCollectableTypeList && achievement.CollectableList.CollectablesList.Count > 0;
+            if (hasCollectables && !ListContainsCollectable(achievement.CollectableList, collectableType))
+            {
+                continue;
+            }
+            if (!hasCollectables && achievement.Collectable != collectableType)
+            {
+                continue;
+            }
+            CheckValueRequirement(achievement.AchievementId, collectedAmount, null);
+        }
     }
     public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
     {

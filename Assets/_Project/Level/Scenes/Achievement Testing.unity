@@ -4168,6 +4168,7 @@ GameObject:
   - component: {fileID: 869330440}
   - component: {fileID: 869330439}
   - component: {fileID: 869330454}
+  - component: {fileID: 869330455}
   - component: {fileID: 869330449}
   - component: {fileID: 869330452}
   - component: {fileID: 869330453}
@@ -4194,7 +4195,7 @@ MonoBehaviour:
   _setAchievementPopUpInfoEvent: {fileID: 11400000, guid: a8ba94020e0886c4ca6b57d8e14db626, type: 2}
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
-  _overAchieverReference: {fileID: 11400000, guid: 09391f8b0a2df6c42b5d4de14bd079a3, type: 2}
+  _overAchieverReference: {fileID: 11400000, guid: c5a9305c840aa1b41bf7d4dffbdafa99, type: 2}
   _achievementListReference: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
   _achievementContainerRect: {fileID: 1756146404}
@@ -4318,6 +4319,34 @@ MonoBehaviour:
       - m_Target: {fileID: 869330439}
         m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
         m_MethodName: CheckValueRequirement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &869330455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e05d0e67d73ba4b489f1e96aa58b4a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvent: {fileID: 11400000, guid: 210a0623da8f39a4a87865b3924b262a, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 869330439}
+        m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+        m_MethodName: CheckCollectableRequest
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5269,7 +5298,7 @@ MonoBehaviour:
   _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
   _updateCollectablesStatusEvent: {fileID: 11400000, guid: f3df40944535ac44fb12cd46120612b4, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
-  _updateAchievementsEvent: {fileID: 11400000, guid: f5a785d618de71646a14a270b8ffe216, type: 2}
+  _checkCollectableRequestEvent: {fileID: 11400000, guid: 210a0623da8f39a4a87865b3924b262a, type: 2}
   _allcollectableListsReference: {fileID: 11400000, guid: 9c0f4b1d0fe89f64a861660fc7661aa4, type: 2}
 --- !u!114 &1364405328
 MonoBehaviour:
@@ -6633,10 +6662,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4b26d01fc485c40815839a3184d688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _quitAchievementReference: {fileID: 11400000, guid: d1034e8f829163942a4ca4920826e2d1, type: 2}
-  _hiddenAchievementReference: {fileID: 11400000, guid: ee27f40535aebdf4c91b6d3e57e51b54, type: 2}
-  _floatAchievementReference: {fileID: 11400000, guid: 2a386230feb259544862a8867c448ae2, type: 2}
-  _intAchievementReference: {fileID: 11400000, guid: edc42c8c7c42b544f8772d8001eba803, type: 2}
+  _quitAchievementReference: {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
+  _hiddenAchievementReference: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
+  _floatAchievementReference: {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
+  _intAchievementReference: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
   _updateAchievmentsEvent: {fileID: 11400000, guid: f5a785d618de71646a14a270b8ffe216, type: 2}
   _floatInputText: {fileID: 672545898}
   _integerInputText: {fileID: 1850466131}

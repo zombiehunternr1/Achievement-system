@@ -3,10 +3,10 @@ using TMPro;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private AchievementReferenceHolderSO _quitAchievementReference;
-    [SerializeField] private AchievementReferenceHolderSO _hiddenAchievementReference;
-    [SerializeField] private AchievementReferenceHolderSO _floatAchievementReference;
-    [SerializeField] private AchievementReferenceHolderSO _intAchievementReference;
+    [SerializeField] private AchievementInfoSO _quitAchievementReference;
+    [SerializeField] private AchievementInfoSO _hiddenAchievementReference;
+    [SerializeField] private AchievementInfoSO _floatAchievementReference;
+    [SerializeField] private AchievementInfoSO _intAchievementReference;
     [SerializeField] private UpdateAchievementsEvent _updateAchievmentsEvent;
     [SerializeField] private TMP_InputField _floatInputText;
     [SerializeField] private TMP_InputField _integerInputText;

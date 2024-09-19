@@ -6,7 +6,7 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private GenericEmptyEvent _saveGameEvent;
     [SerializeField] private GenericEmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
-    [SerializeField] private UpdateAchievementsEvent _updateAchievementsEvent;
+    [SerializeField] private CheckCollectableRequestEvent _checkCollectableRequestEvent;
     [SerializeField] private CollectableListHolder _allcollectableListsReference;
     private bool ListContainsCollectable(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType)
     {
@@ -33,34 +33,17 @@ public class CollectableSystem : MonoBehaviour
     }
     public void UpdateCollectableStatus(CollectableTypeSO collectableType)
     {
-        int collectedItems = 0;
+        int collectedItemsAmount = 0;
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
             if (ListContainsCollectable(collectableTypeList, collectableType))
             {
-                collectedItems += CountCollectedItems(collectableTypeList);
-                UpdateAchievementsForCollectable(collectableType, collectedItems);
+                collectedItemsAmount += CountCollectedItems(collectableTypeList);
+                _checkCollectableRequestEvent.Invoke(collectableTypeList, collectableType, collectedItemsAmount);
             }
         }
         _updateCollectablesStatusEvent.Invoke();
         _saveGameEvent.Invoke();
-    }
-    private void UpdateAchievementsForCollectable(CollectableTypeSO collectableType, int collectedItems)
-    {
-        foreach (AchievementReferenceHolderSO achievementEvent in _updateAchievementsEvent.achievementReferences)
-        {
-            bool hasCollectableTypeList = achievementEvent.CollectableTypeList != null;
-            bool hasCollectables = hasCollectableTypeList && achievementEvent.CollectableTypeList.CollectablesList.Count > 0;
-            if (hasCollectables && !ListContainsCollectable(achievementEvent.CollectableTypeList, collectableType))
-            {
-                continue;
-            }
-            if (!hasCollectables && achievementEvent.collectableType != collectableType)
-            {
-                continue;
-            }
-            _updateAchievementsEvent.Invoke(achievementEvent.AchievementId, collectedItems, null);
-        }
     }
     public void ResetAllCollectibles()
     {
