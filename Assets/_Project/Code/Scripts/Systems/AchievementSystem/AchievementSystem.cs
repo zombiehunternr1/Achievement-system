@@ -91,6 +91,35 @@ public class AchievementSystem : MonoBehaviour
         }
         return -1;
     }
+    private bool IsRelevantAchievement(AchievementInfoSO relatedAchievement, AchievementInfoSO achievement)
+    {
+        if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+        {
+            return true;
+        }
+        if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
+            achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
+            relatedAchievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single ||
+            achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        {
+            return false;
+        }
+        if (relatedAchievement.ManualGoalAmount || _lastCollectedType == null)
+        {
+            return false;
+        }
+        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
+        {
+            foreach (BaseCollectableTypeSO relatedCollectable in relatedAchievement.CollectableList)
+            {
+                if (relatedCollectable.CollectableId == _lastCollectedType.CollectableId)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     private AchievementInfoSO FindAchievementById(string achievementID)
     {
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
@@ -276,87 +305,36 @@ public class AchievementSystem : MonoBehaviour
     private void UpdateRelatedAchievements(AchievementInfoSO achievement)
     {
         Dictionary<int, AchievementInfoSO> relatedAchievementDictionary = new Dictionary<int, AchievementInfoSO>();
-        int index = -1;
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        foreach (AchievementInfoSO relatedAchievement in _achievementListReference.AchievementList)
         {
-            AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
-            if (relatedAchievement == null)
+            if (relatedAchievement == null || !IsRelevantAchievement(relatedAchievement, achievement))
             {
                 continue;
             }
-            if(relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-            {
-                index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
-                if (index == -1)
-                {
-                    Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
-                    continue;
-                }
-                relatedAchievementDictionary.Add(index, relatedAchievement);
-                continue;
-            }
-            if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
-                achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
-                relatedAchievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single ||
-                achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-            {
-                continue;
-            }
-            if (relatedAchievement.ManualGoalAmount)
-            {
-                continue;
-            }
-            if (_lastCollectedType == null)
-            {
-                continue;
-            }
-            bool matchFound = false;
-            foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
-            {
-                for (int j = 0; j < relatedAchievement.CollectableList.Count; j++)
-                {
-                    if (relatedAchievement.CollectableList[j].CollectableId == _lastCollectedType.CollectableId)
-                    {
-                        matchFound = true;
-                        break;
-                    }
-                }
-                break;
-            }
-            if (!matchFound)
-            {
-                continue;
-            }
-            index = -1;
-            index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
+            int index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
             if (index == -1)
             {
-                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
+                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId + "!");
                 continue;
             }
             relatedAchievementDictionary.Add(index, relatedAchievement);
         }
         foreach (KeyValuePair<int, AchievementInfoSO> keyValuePair in relatedAchievementDictionary)
         {
-            index = keyValuePair.Key;
-            AchievementInfoSO relatedAchievement = keyValuePair.Value;
-            UpdateProgressionStatus(relatedAchievement);
-            if (relatedAchievement.IsUnlocked)
-            {
-                UpdateAchievementObject(index, relatedAchievement, false);
-                if (!relatedAchievement.IsHidden)
-                {
-                    _achievementObjects[index].UnlockAchievement();
-                }
-            }
-            else
-            {
-                UpdateAchievementObject(index, relatedAchievement, relatedAchievement.IsHidden);
-                if (!relatedAchievement.IsHidden)
-                {
-                    _achievementObjects[index].EnableLock();
-                }
-            }
+            UpdateAchievementProgress(keyValuePair.Key, keyValuePair.Value);
+        }
+    }
+    private void UpdateAchievementProgress(int index, AchievementInfoSO relatedAchievement)
+    {
+        UpdateProgressionStatus(relatedAchievement);
+        UpdateAchievementObject(index, relatedAchievement, relatedAchievement.IsHidden);
+        if (relatedAchievement.IsUnlocked)
+        {
+            _achievementObjects[index].UnlockAchievement();
+        }
+        else if (!relatedAchievement.IsHidden)
+        {
+            _achievementObjects[index].EnableLock();
         }
     }
     private void UpdateProgressionStatus(AchievementInfoSO achievement)
