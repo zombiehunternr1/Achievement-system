@@ -1,4 +1,5 @@
 using FMODUnity;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievements/Achievement")]
@@ -94,11 +95,15 @@ public class AchievementInfoSO : ScriptableObject
             return _previousAchievement;
         }
     }
-    public CollectableTypeListSO CollectableList
+    public List<BaseCollectableTypeSO> CollectableList
     {
         get
         {
-            return _collectableList;
+            if(_collectableList != null)
+            {
+                return _collectableList.CollectablesList;
+            }
+            return null;
         }
     }
     public AchievementListSO Achievements

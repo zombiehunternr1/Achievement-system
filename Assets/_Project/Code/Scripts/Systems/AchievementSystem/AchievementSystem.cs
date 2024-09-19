@@ -36,7 +36,7 @@ public class AchievementSystem : MonoBehaviour
     private int CountCollectedItems(AchievementInfoSO achievement)
     {
         int collectedCount = 0;
-        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList.CollectablesList)
+        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
         {
             if (collectable.IsCollected)
             {
@@ -57,7 +57,7 @@ public class AchievementSystem : MonoBehaviour
         }
         else
         {
-            foreach (CollectableTypeSO collectable in achievement.CollectableList.CollectablesList)
+            foreach (CollectableTypeSO collectable in achievement.CollectableList)
             {
                 if (collectable.IsCollected)
                 {
@@ -119,7 +119,7 @@ public class AchievementSystem : MonoBehaviour
         foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
         {
             bool hasCollectableTypeList = achievement.CollectableList != null;
-            bool hasCollectables = hasCollectableTypeList && achievement.CollectableList.CollectablesList.Count > 0;
+            bool hasCollectables = hasCollectableTypeList && achievement.CollectableList.Count > 0;
             if (hasCollectables && !collectableTypeList.CollectablesList.Contains(collectableType))
             {
                 continue;
@@ -205,7 +205,7 @@ public class AchievementSystem : MonoBehaviour
         }
         else
         {
-            meetsGoal = collectedCount.Equals(achievement.CollectableList.CollectablesList.Count);
+            meetsGoal = collectedCount.Equals(achievement.CollectableList.Count);
         }
         if (meetsGoal)
         {
@@ -342,7 +342,7 @@ public class AchievementSystem : MonoBehaviour
         }
         if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
         {
-            achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.CollectablesList.Count,
+            achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.Count,
             achievement.CurrentFloatAmount, achievement.FloatGoal);
             return;
         }
