@@ -19,7 +19,7 @@ public class AchievementInfoSOEditor : Editor
         _intGoalValueProp,
         _floatCurrentValueProp,
         _floatGoalValueProp,
-        _achievementListProp,
+        _achievementListReferenceProp,
         _manualGoalAmountProp,
         _requiresPreviousAchievementProp,
         _showProgresssionProp,
@@ -44,7 +44,7 @@ public class AchievementInfoSOEditor : Editor
         _intGoalValueProp = serializedObject.FindProperty("_intGoalAmount");
         _floatCurrentValueProp = serializedObject.FindProperty("_floatCurrentAmount");
         _floatGoalValueProp = serializedObject.FindProperty("_floatGoalAmount");
-        _achievementListProp = serializedObject.FindProperty("_achievementList");
+        _achievementListReferenceProp = serializedObject.FindProperty("_achievementListReference");
         _showProgresssionProp = serializedObject.FindProperty("_showProgression");
         _manualGoalAmountProp = serializedObject.FindProperty("_manualGoalAmount");
         _requiresPreviousAchievementProp = serializedObject.FindProperty("_requiresPreviousAchievement");
@@ -115,7 +115,7 @@ public class AchievementInfoSOEditor : Editor
                         }
                         break;
                     case AchievementInfoSO.CollectableEnumType.Achievement:
-                        EditorGUILayout.PropertyField(_achievementListProp, new GUILayoutOption[] { GUILayout.Width(400) });
+                        EditorGUILayout.PropertyField(_achievementListReferenceProp, new GUILayoutOption[] { GUILayout.Width(400) });
                         EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
                         if (_requiresPreviousAchievementProp.boolValue)
                         {
