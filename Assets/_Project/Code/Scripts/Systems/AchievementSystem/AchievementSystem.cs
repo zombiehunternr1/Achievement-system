@@ -262,6 +262,57 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UpdateRelatedAchievements(AchievementInfoSO achievement)
     {
+        Dictionary<int, AchievementInfoSO> relatedAchievementDictionary = new Dictionary<int, AchievementInfoSO>();
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        {
+            AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
+            if(relatedAchievement == null)
+            {
+                continue;
+            }
+            if(relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None)
+            {
+                continue;
+            }
+            int index = -1;
+            for (int j = 0; j < _achievementObjects.Count; j++) 
+            {
+                if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
+                {
+                    index = j;
+                    relatedAchievementDictionary.Add(index, relatedAchievement);
+                    break;
+                }
+            }
+            if(index == -1)
+            {
+                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
+                continue;
+            }
+        }
+        foreach (KeyValuePair<int, AchievementInfoSO> keyValuePair in relatedAchievementDictionary)
+        {
+            int index = keyValuePair.Key;
+            AchievementInfoSO relatedAchievement = keyValuePair.Value;
+            UpdateProgressionStatus(relatedAchievement);
+            if (relatedAchievement.IsUnlocked)
+            {
+                UpdateAchievementObject(index, relatedAchievement, false);
+                if (!relatedAchievement.IsHidden)
+                {
+                    _achievementObjects[index].UnlockAchievement();
+                }
+            }
+            else
+            {
+                UpdateAchievementObject(index, relatedAchievement, relatedAchievement.IsHidden);
+                if (!relatedAchievement.IsHidden)
+                {
+                    _achievementObjects[index].EnableLock();
+                }
+            }
+        }
+        /*
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
             AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
@@ -301,6 +352,7 @@ public class AchievementSystem : MonoBehaviour
                 }
             }
         }
+        */
     }
     private void UpdateProgressionStatus(AchievementInfoSO achievement)
     {
@@ -367,6 +419,8 @@ public class AchievementSystem : MonoBehaviour
         {
             _QueuedAchievements.Add(achievement);
         }
+        //I have to always check this one otherwise it doesn't update the over achiever achievement
+        //Can this still be done even without a reference to it
         CheckValueRequirement(_overAchieverReference.AchievementId, null, null);
     }
     private void DisplayNextinQueue()

@@ -106,13 +106,6 @@ public class AchievementInfoSO : ScriptableObject
             return null;
         }
     }
-    public AchievementListSO Achievements
-    {
-        get
-        {
-            return _achievementListReference;
-        }
-    }
     public int AchievementCount
     {
         get
