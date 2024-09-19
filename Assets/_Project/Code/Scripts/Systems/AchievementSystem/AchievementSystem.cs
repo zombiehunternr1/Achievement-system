@@ -18,6 +18,7 @@ public class AchievementSystem : MonoBehaviour
     [SerializeField] private int _displayPopupTime = 5;
     private List<AchievementObject> _achievementObjects;
     private List<AchievementInfoSO> _QueuedAchievements;
+    private BaseCollectableTypeSO _lastCollectedType;
     private int _intAmount = 0;
     private readonly string _hiddenText = "??????????????";
     private EventInstance _soundEffect;
@@ -128,6 +129,7 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
+            _lastCollectedType = collectableType;
             CheckValueRequirement(achievement.AchievementId, collectedAmount, null);
         }
     }
@@ -266,11 +268,57 @@ public class AchievementSystem : MonoBehaviour
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
             AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
-            if(relatedAchievement == null)
+            if (relatedAchievement == null)
             {
                 continue;
             }
-            if(relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None)
+            if(relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
+            {
+                int indextest = -1;
+                for (int j = 0; j < _achievementObjects.Count; j++)
+                {
+                    if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
+                    {
+                        indextest = j;
+                        relatedAchievementDictionary.Add(indextest, relatedAchievement);
+                        break;
+                    }
+                }
+                if (indextest == -1)
+                {
+                    Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
+                    continue;
+                }
+            }
+            if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
+                achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
+                relatedAchievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single ||
+                achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+            {
+                continue;
+            }
+            if (relatedAchievement.ManualGoalAmount)
+            {
+                continue;
+            }
+            if (_lastCollectedType == null)
+            {
+                continue;
+            }
+            bool matchFound = false;
+            foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
+            {
+                for (int j = 0; j < relatedAchievement.CollectableList.Count; j++)
+                {
+                    if (relatedAchievement.CollectableList[j].CollectableId == _lastCollectedType.CollectableId)
+                    {
+                        matchFound = true;
+                        break;
+                    }
+                }
+                break;
+            }
+            if (!matchFound)
             {
                 continue;
             }
@@ -284,7 +332,7 @@ public class AchievementSystem : MonoBehaviour
                     break;
                 }
             }
-            if(index == -1)
+            if (index == -1)
             {
                 Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
                 continue;
@@ -312,47 +360,6 @@ public class AchievementSystem : MonoBehaviour
                 }
             }
         }
-        /*
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
-        {
-            AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
-            if (relatedAchievement == null || relatedAchievement.AchievementId.Equals(achievement.AchievementId))
-            {
-                continue;
-            }
-            int relatedIndex = -1;
-            for (int j = 0; j < _achievementObjects.Count; j++)
-            {
-                if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
-                {
-                    relatedIndex = j;
-                    break;
-                }
-            }
-            if (relatedIndex == -1)
-            {
-                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
-                continue;
-            }
-            UpdateProgressionStatus(relatedAchievement);
-            if (relatedAchievement.IsUnlocked)
-            {
-                UpdateAchievementObject(relatedIndex, relatedAchievement, false);
-                if (!relatedAchievement.IsHidden)
-                {
-                    _achievementObjects[relatedIndex].UnlockAchievement();
-                }
-            }
-            else
-            {
-                UpdateAchievementObject(relatedIndex, relatedAchievement, relatedAchievement.IsHidden);
-                if (!relatedAchievement.IsHidden)
-                {
-                    _achievementObjects[relatedIndex].EnableLock();
-                }
-            }
-        }
-        */
     }
     private void UpdateProgressionStatus(AchievementInfoSO achievement)
     {
@@ -419,8 +426,6 @@ public class AchievementSystem : MonoBehaviour
         {
             _QueuedAchievements.Add(achievement);
         }
-        //I have to always check this one otherwise it doesn't update the over achiever achievement
-        //Can this still be done even without a reference to it
         CheckValueRequirement(_overAchieverReference.AchievementId, null, null);
     }
     private void DisplayNextinQueue()
