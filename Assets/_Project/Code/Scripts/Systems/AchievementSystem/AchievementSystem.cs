@@ -80,6 +80,17 @@ public class AchievementSystem : MonoBehaviour
         }
         return amount;
     }
+    private int FindAchievementObjectIndex(string achievementId)
+    {
+        for (int j = 0; j < _achievementObjects.Count; j++)
+        {
+            if (_achievementObjects[j].AchievementId == achievementId)
+            {
+                return j;
+            }
+        }
+        return -1;
+    }
     private AchievementInfoSO FindAchievementById(string achievementID)
     {
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
@@ -265,6 +276,7 @@ public class AchievementSystem : MonoBehaviour
     private void UpdateRelatedAchievements(AchievementInfoSO achievement)
     {
         Dictionary<int, AchievementInfoSO> relatedAchievementDictionary = new Dictionary<int, AchievementInfoSO>();
+        int index = -1;
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
             AchievementInfoSO relatedAchievement = _achievementListReference.AchievementList[i];
@@ -274,21 +286,14 @@ public class AchievementSystem : MonoBehaviour
             }
             if(relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
             {
-                int indextest = -1;
-                for (int j = 0; j < _achievementObjects.Count; j++)
-                {
-                    if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
-                    {
-                        indextest = j;
-                        relatedAchievementDictionary.Add(indextest, relatedAchievement);
-                        break;
-                    }
-                }
-                if (indextest == -1)
+                index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
+                if (index == -1)
                 {
                     Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
                     continue;
                 }
+                relatedAchievementDictionary.Add(index, relatedAchievement);
+                continue;
             }
             if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
                 achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
@@ -322,25 +327,18 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
-            int index = -1;
-            for (int j = 0; j < _achievementObjects.Count; j++) 
-            {
-                if (_achievementObjects[j].AchievementId == relatedAchievement.AchievementId)
-                {
-                    index = j;
-                    relatedAchievementDictionary.Add(index, relatedAchievement);
-                    break;
-                }
-            }
+            index = -1;
+            index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
             if (index == -1)
             {
                 Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId);
                 continue;
             }
+            relatedAchievementDictionary.Add(index, relatedAchievement);
         }
         foreach (KeyValuePair<int, AchievementInfoSO> keyValuePair in relatedAchievementDictionary)
         {
-            int index = keyValuePair.Key;
+            index = keyValuePair.Key;
             AchievementInfoSO relatedAchievement = keyValuePair.Value;
             UpdateProgressionStatus(relatedAchievement);
             if (relatedAchievement.IsUnlocked)
