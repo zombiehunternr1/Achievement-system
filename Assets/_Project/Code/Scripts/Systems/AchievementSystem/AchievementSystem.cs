@@ -67,12 +67,12 @@ public class AchievementSystem : MonoBehaviour
         }
         return amount;
     }
-    private int AddUnlockedAchievementAmount(AchievementInfoSO achievement)
+    private int CountUnlockedNonAchievementItems()
     {
         int amount = 0;
-        foreach (AchievementInfoSO subAchievement in achievement.Achievements.AchievementList)
+        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
         {
-            if (subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && subAchievement.IsUnlocked)
+            if (achievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && achievement.IsUnlocked)
             {
                 amount++;
             }
@@ -313,7 +313,7 @@ public class AchievementSystem : MonoBehaviour
             _intAmount = AddCollectedAmount(achievement);
             return;
         }
-        _intAmount = AddUnlockedAchievementAmount(achievement);
+        _intAmount = CountUnlockedNonAchievementItems();
     }
     private void UpdateAchievementObject(int objectIndex, AchievementInfoSO achievement, bool isHidden)
     {
