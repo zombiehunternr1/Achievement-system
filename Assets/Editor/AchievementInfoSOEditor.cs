@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(AchievementInfoSO)), CanEditMultipleObjects]
-public class AchievementEditor : Editor
+public class AchievementInfoSOEditor : Editor
 {
     private SerializedProperty
         _idValueProp,
