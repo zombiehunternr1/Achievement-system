@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    [SerializeField] private EmptyEvent _resetEvent;
-    [SerializeField] private DoubleEvent _updateStorageDataEvent;
-    [SerializeField] private SingleEvent _updateProgressionEvent;
-    [Header("Debugging")]
-    [SerializeField] private bool _disableDataPersistence = false;
-    [SerializeField] private bool _initializeDataIfNull = false;
-    [SerializeField] private bool _overrideSelectedProfileId = false;
-    [SerializeField] private string _testSelectedProfileId = "Test";
+
     [Header("File Storage Config")]
     [SerializeField] private string _fileName;
     [SerializeField] private bool _useEncryption;
     private GameData _gameData;
     private FileDataHandler _dataHandler;
     private string _selectedProfileId = "";
+    [Header("Debugging")]
+    [SerializeField] private bool _disableDataPersistence = false;
+    [SerializeField] private bool _initializeDataIfNull = false;
+    [SerializeField] private bool _overrideSelectedProfileId = false;
+    [SerializeField] private string _testSelectedProfileId = "Game Data";
+    [Header("Event references")]
+    [SerializeField] private EmptyEvent _resetEvent;
+    [SerializeField] private DoubleEvent _updateStorageDataEvent;
+    [SerializeField] private SingleEvent _updateProgressionEvent;
     private void Awake()
     {
         if (_disableDataPersistence)

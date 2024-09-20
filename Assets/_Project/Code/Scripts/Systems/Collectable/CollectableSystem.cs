@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class CollectableSystem : MonoBehaviour
 {
+    [Header("Collectable references")]
+    [SerializeField] private CollectableListHolder _allcollectableListsReference;
+    [Header("Event references")]
     [SerializeField] private EmptyEvent _saveGameEvent;
     [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
     [SerializeField] private TripleEvent _checkCollectableRequestEvent;
-    [SerializeField] private CollectableListHolder _allcollectableListsReference;
     private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
     {
         int collectedItems = 0;

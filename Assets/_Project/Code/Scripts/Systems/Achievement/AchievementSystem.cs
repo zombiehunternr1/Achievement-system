@@ -6,16 +6,19 @@ using FMODUnity;
 
 public class AchievementSystem : MonoBehaviour
 {
+    [Header("Achievement references")]
+    [SerializeField] private AchievementInfoSO _overAchieverReference;
+    [SerializeField] private AchievementListSO _achievementListReference;
+    [Header("Event references")]
     [SerializeField] private SingleEvent _playPopUpDisplayStatusEvent;
     [SerializeField] private DoubleEvent _setAchievementPopUpInfoEvent;
     [SerializeField] private EmptyEvent _saveGameEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
-    [SerializeField] private AchievementInfoSO _overAchieverReference;
-    [SerializeField] private AchievementListSO _achievementListReference;
+    [Header("Component & Settings references")]
+    [SerializeField] private int _displayPopupTime = 5;
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
-    [SerializeField] private int _displayPopupTime = 5;
     private List<AchievementObject> _achievementObjects;
     private List<AchievementInfoSO> _QueuedAchievements;
     private BaseCollectableTypeSO _lastCollectedType;

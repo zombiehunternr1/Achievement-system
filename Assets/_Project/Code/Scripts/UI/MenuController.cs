@@ -3,13 +3,16 @@ using TMPro;
 
 public class MenuController : MonoBehaviour
 {
+    [Header("Component references")]
+    [SerializeField] private TMP_InputField _floatInputText;
+    [SerializeField] private TMP_InputField _integerInputText;
+    [Header("Achievement references")]
     [SerializeField] private AchievementInfoSO _quitAchievementReference;
     [SerializeField] private AchievementInfoSO _hiddenAchievementReference;
     [SerializeField] private AchievementInfoSO _floatAchievementReference;
     [SerializeField] private AchievementInfoSO _intAchievementReference;
+    [Header("Event references")]
     [SerializeField] private TripleEvent _updateAchievementsEvent;
-    [SerializeField] private TMP_InputField _floatInputText;
-    [SerializeField] private TMP_InputField _integerInputText;
     public void SubmitFloatValue()
     {
         float floatValue = float.Parse(_floatInputText.text);
