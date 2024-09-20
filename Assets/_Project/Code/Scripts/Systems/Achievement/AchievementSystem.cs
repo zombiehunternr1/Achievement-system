@@ -25,6 +25,28 @@ public class AchievementSystem : MonoBehaviour
     private int _intAmount = 0;
     private readonly string _hiddenText = "??????????????";
     private EventInstance _soundEffect;
+    private int AddCollectedAmount(AchievementInfoSO achievement)
+    {
+        int amount = 0;
+        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        {
+            if (achievement.Collectable.IsCollected)
+            {
+                amount++;
+            }
+        }
+        else
+        {
+            foreach (CollectableTypeSO collectable in achievement.CollectableList)
+            {
+                if (collectable.IsCollected)
+                {
+                    amount++;
+                }
+            }
+        }
+        return amount;
+    }
     private int CountAllUnlockedAchievements()
     {
         int unlockedCount = 0;
@@ -48,28 +70,6 @@ public class AchievementSystem : MonoBehaviour
             }
         }
         return collectedCount;
-    }
-    private int AddCollectedAmount(AchievementInfoSO achievement)
-    {
-        int amount = 0;
-        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-        {
-            if (achievement.Collectable.IsCollected)
-            {
-                amount++;
-            }
-        }
-        else
-        {
-            foreach (CollectableTypeSO collectable in achievement.CollectableList)
-            {
-                if (collectable.IsCollected)
-                {
-                    amount++;
-                }
-            }
-        }
-        return amount;
     }
     private int CountUnlockedNonAchievementItems()
     {
