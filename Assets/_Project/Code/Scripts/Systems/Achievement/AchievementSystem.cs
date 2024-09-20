@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class AchievementSystem : MonoBehaviour
 {
@@ -360,23 +361,29 @@ public class AchievementSystem : MonoBehaviour
         AchievementObject achievementObject = _achievementObjects[objectIndex];
         if (isHidden)
         {
-            achievementObject.SetIcon(_hiddenAchievement);
-            achievementObject.SetTitle(_hiddenText);
-            achievementObject.SetDescription(_hiddenText);
-            achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
+            SetAchievementHidden(achievementObject);
             return;
         }
+        SetAchievementVisible(achievementObject, achievement);
+    }
+    private void SetAchievementHidden(AchievementObject achievementObject)
+    {
+        achievementObject.SetIcon(_hiddenAchievement);
+        achievementObject.SetTitle(_hiddenText);
+        achievementObject.SetDescription(_hiddenText);
+        achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
+    }
+    private void SetAchievementVisible(AchievementObject achievementObject, AchievementInfoSO achievement)
+    {
         achievementObject.SetIcon(achievement.Icon);
         achievementObject.SetTitle(achievement.Title);
         achievementObject.SetDescription(achievement.Description);
         if (!achievement.ShowProgression)
         {
             achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
+            return;
         }
-        else
-        {
-            SetProgressionDisplay(achievementObject, achievement);
-        }
+        SetProgressionDisplay(achievementObject, achievement);
     }
     private void SetProgressionDisplay(AchievementObject achievementObject, AchievementInfoSO achievement)
     {
