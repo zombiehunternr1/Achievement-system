@@ -2,7 +2,7 @@ using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Achievements/Achievement")]
+[CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Systems/Achievements/Achievement")]
 public class AchievementInfoSO : ScriptableObject
 {
     [UniqueIdentifier]

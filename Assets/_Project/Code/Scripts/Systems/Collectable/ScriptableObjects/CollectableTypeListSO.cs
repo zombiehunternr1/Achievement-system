@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CollectableListSO", menuName = "Scriptable Objects/Collectables/Collectable List")]
+[CreateAssetMenu(fileName = "CollectableListSO", menuName = "Scriptable Objects/Systems/Collectables/Collectable List")]
 public class CollectableTypeListSO : ScriptableObject
 {
     [SerializeField] private List<BaseCollectableTypeSO> _Collectables;

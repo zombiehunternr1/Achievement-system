@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    [SerializeField] private GenericEmptyEvent _resetEvent;
-    [SerializeField] private SaveAndLoadEvent _updateStorageDataEvent;
-    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
+    [SerializeField] private EmptyEvent _resetEvent;
+    [SerializeField] private DoubleEvent _updateStorageDataEvent;
+    [SerializeField] private SingleEvent _updateProgressionEvent;
     [Header("Debugging")]
     [SerializeField] private bool _disableDataPersistence = false;
     [SerializeField] private bool _initializeDataIfNull = false;

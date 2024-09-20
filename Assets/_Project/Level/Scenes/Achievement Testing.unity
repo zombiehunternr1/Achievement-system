@@ -918,8 +918,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: df48748ff4732714f93d314275580d8b, type: 2}
-        m_TargetAssemblyTypeName: BaseEventEmpty, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: 428fdf1a3d0860140b2c5ee7cda90b95, type: 2}
+        m_TargetAssemblyTypeName: EmptyEvent, Assembly-CSharp
         m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 731592cf416eb2b44b7cc49fe9286f25, type: 2}
 --- !u!114 &336364300
 MonoBehaviour:
@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 7f913c989d0be6b4ea8e6a40e4a8207e, type: 2}
 --- !u!114 &405767572
 MonoBehaviour:
@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 736d8712bc521194daafe3eca78901ec, type: 2}
 --- !u!114 &423697905
 MonoBehaviour:
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 0bf17826cfe2d5b48922ce7ad7c24457, type: 2}
 --- !u!114 &517709748
 MonoBehaviour:
@@ -2338,8 +2338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 535528399}
   - component: {fileID: 535528400}
-  - component: {fileID: 535528403}
-  - component: {fileID: 535528402}
   - component: {fileID: 535528401}
   m_Layer: 0
   m_Name: SaveLoadSystem
@@ -2375,9 +2373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504107ee212a5a428912ff52e9bb483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resetEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
-  _updateStorageDataEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
-  _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
+  _resetEvent: {fileID: 11400000, guid: dab13b6c33f24674da729675bf1cb079, type: 2}
+  _updateStorageDataEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+  _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
   _disableDataPersistence: 0
   _initializeDataIfNull: 1
   _overrideSelectedProfileId: 1
@@ -2393,81 +2391,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 535528398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Script: {fileID: 11500000, guid: e164d7a5daff1c049bdef4c14337ae0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: df48748ff4732714f93d314275580d8b, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 535528400}
-        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
-        m_MethodName: LoadGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &535528402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535528398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 535528400}
-        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
-        m_MethodName: SaveGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &535528403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535528398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: d25a9e9addbfe3f4f9713f66524d2081, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 535528400}
-        m_TargetAssemblyTypeName: DataPersistenceManager, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _emptyEvent: {fileID: 11400000, guid: b59a1321b0da38947a0e921dc56d0cf5, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 535528400}
+          m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
+          m_MethodName: NewGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _emptyEvent: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 535528400}
+          m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
+          m_MethodName: SaveGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _emptyEvent: {fileID: 11400000, guid: 428fdf1a3d0860140b2c5ee7cda90b95, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 535528400}
+          m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
+          m_MethodName: LoadGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &626241425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,7 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: bbe568ad308ebd145a39ca727fc52aab, type: 2}
 --- !u!114 &626241430
 MonoBehaviour:
@@ -3543,7 +3518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: d00ffa69b4a3cf849acc5c48efa9db97, type: 2}
 --- !u!114 &720298824
 MonoBehaviour:
@@ -3687,7 +3662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 4781f6b695c0cf74b8d3a47176f3d762, type: 2}
 --- !u!114 &723293764
 MonoBehaviour:
@@ -3810,7 +3785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 41bdd460848411149848c876cc8ead55, type: 2}
 --- !u!114 &779760555
 MonoBehaviour:
@@ -4167,11 +4142,9 @@ GameObject:
   m_Component:
   - component: {fileID: 869330440}
   - component: {fileID: 869330439}
-  - component: {fileID: 869330454}
-  - component: {fileID: 869330455}
-  - component: {fileID: 869330449}
-  - component: {fileID: 869330452}
-  - component: {fileID: 869330453}
+  - component: {fileID: 869330456}
+  - component: {fileID: 869330457}
+  - component: {fileID: 869330458}
   m_Layer: 0
   m_Name: AchievementSystem
   m_TagString: Untagged
@@ -4191,10 +4164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playPopUpDisplayStatusEvent: {fileID: 11400000, guid: eda1fd96da1dcb04299f93c33494d982, type: 2}
-  _setAchievementPopUpInfoEvent: {fileID: 11400000, guid: a8ba94020e0886c4ca6b57d8e14db626, type: 2}
-  _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
-  _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
+  _playPopUpDisplayStatusEvent: {fileID: 11400000, guid: 76f85149e04554842afbde61d547e323, type: 2}
+  _setAchievementPopUpInfoEvent: {fileID: 11400000, guid: 3242eb86ea49d584aab24ce1cfedb66d, type: 2}
+  _saveGameEvent: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
+  _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
   _overAchieverReference: {fileID: 11400000, guid: c5a9305c840aa1b41bf7d4dffbdafa99, type: 2}
   _achievementListReference: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
   _hiddenAchievement: {fileID: 21300000, guid: 83af7ac56053eb543a307557c4b9714f, type: 3}
@@ -4216,7 +4189,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 313775374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &869330449
+--- !u!114 &869330456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4225,26 +4198,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 869330438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde1b16662477814b9a982ad26a65bf3, type: 3}
+  m_Script: {fileID: 11500000, guid: e164d7a5daff1c049bdef4c14337ae0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: UpdateData
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330452
+  _baseEvents:
+  - _emptyEvent: {fileID: 11400000, guid: dab13b6c33f24674da729675bf1cb079, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330439}
+          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+          m_MethodName: ResetAllAchievements
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _emptyEvent: {fileID: 11400000, guid: 6728693e1576aca4496330515f00e286, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330439}
+          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+          m_MethodName: StartPopupCooldown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &869330457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4253,26 +4243,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 869330438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: d650d355099c9b444a83473961f684e6, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: StartPopupCooldown
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330453
+  _baseEvents:
+  - _doubleEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330439}
+          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+          m_MethodName: UpdateData
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &869330458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4281,81 +4272,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 869330438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Script: {fileID: 11500000, guid: 9efada256337b2048930e530300d60e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: ResetAllAchievements
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b63be7e5c61e18740b34c4173ec145a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: f5a785d618de71646a14a270b8ffe216, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
-        m_MethodName: CheckValueRequirement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &869330455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05d0e67d73ba4b489f1e96aa58b4a1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 210a0623da8f39a4a87865b3924b262a, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 869330439}
-        m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
-        m_MethodName: CheckCollectableRequest
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _tripleEvent: {fileID: 11400000, guid: b7aee7e7639fce74cb637c3f930dfc3a, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330439}
+          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+          m_MethodName: CheckCollectableRequest
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _tripleEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330439}
+          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+          m_MethodName: CheckValueRequirement
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &930332463
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,9 +5210,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1364405325}
   - component: {fileID: 1364405326}
-  - component: {fileID: 1364405330}
-  - component: {fileID: 1364405329}
-  - component: {fileID: 1364405328}
+  - component: {fileID: 1364405331}
+  - component: {fileID: 1364405333}
+  - component: {fileID: 1364405332}
   m_Layer: 0
   m_Name: CollectableSystem
   m_TagString: Untagged
@@ -5295,12 +5247,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36c4f58579e0a6428fd01740b7104ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _saveGameEvent: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
-  _updateCollectablesStatusEvent: {fileID: 11400000, guid: f3df40944535ac44fb12cd46120612b4, type: 2}
-  _updateProgressionEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
-  _checkCollectableRequestEvent: {fileID: 11400000, guid: 210a0623da8f39a4a87865b3924b262a, type: 2}
+  _saveGameEvent: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
+  _updateCollectablesStatusEvent: {fileID: 11400000, guid: a2ef0f855d6996b44af4c37dadc18dd9, type: 2}
+  _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
+  _checkCollectableRequestEvent: {fileID: 11400000, guid: b7aee7e7639fce74cb637c3f930dfc3a, type: 2}
   _allcollectableListsReference: {fileID: 11400000, guid: 9c0f4b1d0fe89f64a861660fc7661aa4, type: 2}
---- !u!114 &1364405328
+--- !u!114 &1364405331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5309,26 +5261,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1364405324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde1b16662477814b9a982ad26a65bf3, type: 3}
+  m_Script: {fileID: 11500000, guid: e164d7a5daff1c049bdef4c14337ae0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1364405326}
-        m_TargetAssemblyTypeName: CollectableManager, Assembly-CSharp
-        m_MethodName: UpdateData
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1364405329
+  _baseEvents:
+  - _emptyEvent: {fileID: 11400000, guid: dab13b6c33f24674da729675bf1cb079, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1364405326}
+          m_TargetAssemblyTypeName: CollectableSystem, Assembly-CSharp
+          m_MethodName: ResetAllCollectibles
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1364405332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5337,26 +5290,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1364405324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 5d6e2946d4a410d43b4616d4a4006530, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1364405326}
-        m_TargetAssemblyTypeName: CollectableManager, Assembly-CSharp
-        m_MethodName: ResetAllCollectibles
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1364405330
+  _baseEvents:
+  - _doubleEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1364405326}
+          m_TargetAssemblyTypeName: CollectableSystem, Assembly-CSharp
+          m_MethodName: UpdateData
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1364405333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5365,25 +5319,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1364405324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 195035bb201306f4793067919f28094a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1364405326}
-        m_TargetAssemblyTypeName: CollectableSystem, Assembly-CSharp
-        m_MethodName: UpdateCollectableStatus
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _singleEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1364405326}
+          m_TargetAssemblyTypeName: CollectableSystem, Assembly-CSharp
+          m_MethodName: UpdateCollectableStatus
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1380172713
 GameObject:
   m_ObjectHideFlags: 0
@@ -5638,8 +5593,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: ddd2b4778d5d33743b29170d16e3f328, type: 2}
-        m_TargetAssemblyTypeName: BaseEventEmpty, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
+        m_TargetAssemblyTypeName: EmptyEvent, Assembly-CSharp
         m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
@@ -6666,7 +6621,7 @@ MonoBehaviour:
   _hiddenAchievementReference: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
   _floatAchievementReference: {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
   _intAchievementReference: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
-  _updateAchievmentsEvent: {fileID: 11400000, guid: f5a785d618de71646a14a270b8ffe216, type: 2}
+  _updateAchievementsEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
   _floatInputText: {fileID: 672545898}
   _integerInputText: {fileID: 1850466131}
 --- !u!1 &1734382967
@@ -6755,7 +6710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: a2831b041dc70d2409d800ebf2db4dc7, type: 2}
 --- !u!114 &1734382972
 MonoBehaviour:
@@ -7033,7 +6988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: ce1d5b8b73a5b7440b70842850c75d2f, type: 2}
 --- !u!114 &1740075572
 MonoBehaviour:
@@ -7101,7 +7056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1740494974}
   - component: {fileID: 1740494975}
-  - component: {fileID: 1740494976}
+  - component: {fileID: 1740494978}
   - component: {fileID: 1740494977}
   m_Layer: 5
   m_Name: ProgressionContainer
@@ -7150,34 +7105,6 @@ MonoBehaviour:
   _collectionProgressionSlider: {fileID: 1861706321}
   _achievementProgressionText: {fileID: 259419546}
   _achievementProgressionSlider: {fileID: 1943172762}
---- !u!114 &1740494976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1740494973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c2847cbfdd33d47939b8a62a94ff1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: f587e91a7084ce34ea5f52aa2a311329, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1740494975}
-        m_TargetAssemblyTypeName: ProgressionManager, Assembly-CSharp
-        m_MethodName: UpdateUIDisplay
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1740494977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7187,25 +7114,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 1740494973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde1b16662477814b9a982ad26a65bf3, type: 3}
+  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: 14dc87f53ff5bb944b6992a38c9d0392, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1740494975}
-        m_TargetAssemblyTypeName: ProgressionManager, Assembly-CSharp
-        m_MethodName: UpdateData
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _doubleEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1740494975}
+          m_TargetAssemblyTypeName: ProgressionUIController, Assembly-CSharp
+          m_MethodName: UpdateData
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1740494978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740494973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvents:
+  - _singleEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1740494975}
+          m_TargetAssemblyTypeName: ProgressionUIController, Assembly-CSharp
+          m_MethodName: UpdateUIDisplay
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1756146403
 GameObject:
   m_ObjectHideFlags: 0
@@ -8514,25 +8471,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1946144161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
+  m_Script: {fileID: 11500000, guid: e164d7a5daff1c049bdef4c14337ae0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: f3df40944535ac44fb12cd46120612b4, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1946144164}
-        m_TargetAssemblyTypeName: GemUIManager, Assembly-CSharp
-        m_MethodName: UpdateCollectedStatus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _emptyEvent: {fileID: 11400000, guid: a2ef0f855d6996b44af4c37dadc18dd9, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1946144164}
+          m_TargetAssemblyTypeName: CollectableUIHolder, Assembly-CSharp
+          m_MethodName: UpdateCollectedStatus
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1959885864
 GameObject:
   m_ObjectHideFlags: 0
@@ -8619,7 +8577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 2cd6624fa1cca2b4282554fa6c3910d7, type: 2}
 --- !u!114 &1959885869
 MonoBehaviour:
@@ -8822,7 +8780,7 @@ GameObject:
   - component: {fileID: 1991615653}
   - component: {fileID: 1991615656}
   - component: {fileID: 1991615655}
-  - component: {fileID: 1991615654}
+  - component: {fileID: 1991615657}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -8854,34 +8812,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 1409.1628, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1991615654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991615652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d6e0a04af3ed1d4f9062227939be619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: f3df40944535ac44fb12cd46120612b4, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1991615655}
-        m_TargetAssemblyTypeName: GemUIManager, Assembly-CSharp
-        m_MethodName: UpdateCollectedStatus
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1991615655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8924,6 +8854,35 @@ MonoBehaviour:
   m_Spacing: {x: 25, y: 25}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1991615657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991615652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e164d7a5daff1c049bdef4c14337ae0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvents:
+  - _emptyEvent: {fileID: 11400000, guid: a2ef0f855d6996b44af4c37dadc18dd9, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1991615655}
+          m_TargetAssemblyTypeName: CollectableUIHolder, Assembly-CSharp
+          m_MethodName: UpdateCollectedStatus
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2012082243
 GameObject:
   m_ObjectHideFlags: 0
@@ -9069,7 +9028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: 44603b2e3dd918a40a6d813dc088d7dc, type: 2}
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
   _collectableType: {fileID: 11400000, guid: 516966997dc3b51498256fab436aad49, type: 2}
 --- !u!114 &2057875701
 MonoBehaviour:
@@ -9263,8 +9222,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: d25a9e9addbfe3f4f9713f66524d2081, type: 2}
-        m_TargetAssemblyTypeName: BaseEventEmpty, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: b59a1321b0da38947a0e921dc56d0cf5, type: 2}
+        m_TargetAssemblyTypeName: EmptyEvent, Assembly-CSharp
         m_MethodName: Invoke
         m_Mode: 1
         m_Arguments:
@@ -9406,8 +9365,8 @@ GameObject:
   - component: {fileID: 5026759234846229987}
   - component: {fileID: 4996261618011942240}
   - component: {fileID: 5026759234846229990}
-  - component: {fileID: 5026759234846229991}
-  - component: {fileID: 5026759234846229992}
+  - component: {fileID: 5026759234846229993}
+  - component: {fileID: 5026759234846229994}
   m_Layer: 5
   m_Name: Popup
   m_TagString: Untagged
@@ -9430,7 +9389,7 @@ MonoBehaviour:
   _icon: {fileID: 5026759235730460199}
   _titleText: {fileID: 5026759235317325526}
   _popupAnimation: {fileID: 4996261618011942240}
---- !u!114 &5026759234846229991
+--- !u!114 &5026759234846229993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9439,26 +9398,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 5026759234846229989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740da6596c35af74f94356044f820bf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: eda1fd96da1dcb04299f93c33494d982, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5026759234846229990}
-        m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-        m_MethodName: PlayDisplayStatus
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5026759234846229992
+  _baseEvents:
+  - _singleEvent: {fileID: 11400000, guid: 76f85149e04554842afbde61d547e323, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5026759234846229990}
+          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
+          m_MethodName: PlayDisplayStatus
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &5026759234846229994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9467,25 +9427,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5026759234846229989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f81d2185f2412eb428951148f1538adc, type: 3}
+  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: a8ba94020e0886c4ca6b57d8e14db626, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5026759234846229990}
-        m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-        m_MethodName: SetPopUpInfo
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _doubleEvent: {fileID: 11400000, guid: 3242eb86ea49d584aab24ce1cfedb66d, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5026759234846229990}
+          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
+          m_MethodName: SetPopUpInfo
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!222 &5026759235317325525
 CanvasRenderer:
   m_ObjectHideFlags: 0

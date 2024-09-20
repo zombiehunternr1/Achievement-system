@@ -6,10 +6,10 @@ using FMODUnity;
 
 public class AchievementSystem : MonoBehaviour
 {
-    [SerializeField] private PlayPopUpDisplayStatusEvent _playPopUpDisplayStatusEvent;
-    [SerializeField] private SetAchievementPopUpInfoEvent _setAchievementPopUpInfoEvent;
-    [SerializeField] private GenericEmptyEvent _saveGameEvent;
-    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
+    [SerializeField] private SingleEvent _playPopUpDisplayStatusEvent;
+    [SerializeField] private DoubleEvent _setAchievementPopUpInfoEvent;
+    [SerializeField] private EmptyEvent _saveGameEvent;
+    [SerializeField] private SingleEvent _updateProgressionEvent;
     [SerializeField] private AchievementInfoSO _overAchieverReference;
     [SerializeField] private AchievementListSO _achievementListReference;
     [SerializeField] private Sprite _hiddenAchievement;
@@ -156,8 +156,11 @@ public class AchievementSystem : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         UpdateAchievementStatus(achievement);
     }
-    public void CheckCollectableRequest(CollectableTypeListSO collectableTypeList, CollectableTypeSO collectableType, int collectedAmount)
+    public void CheckCollectableRequest(object collectableTypeListObj, object collectableTypeObj, object collectedAmountObj)
     {
+        CollectableTypeListSO collectableTypeList = (CollectableTypeListSO)collectableTypeListObj;
+        CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
+        int collectedAmount = (int)collectedAmountObj;
         foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
         {
             bool hasCollectableTypeList = achievement.CollectableList != null;
@@ -174,8 +177,11 @@ public class AchievementSystem : MonoBehaviour
             CheckValueRequirement(achievement.AchievementId, collectedAmount, null);
         }
     }
-    public void CheckValueRequirement(string achievementID, int? intValue, float? floatValue)
+    public void CheckValueRequirement(object achievementIDObj, object intValueObj, object floatValueObj)
     {
+        string achievementID = (string)achievementIDObj;
+        int? intValue = intValueObj as int?;
+        float? floatValue = floatValueObj as float?;
         AchievementInfoSO achievement = FindAchievementById(achievementID);
         if (achievement == null)
         {
@@ -436,17 +442,20 @@ public class AchievementSystem : MonoBehaviour
             StopAllCoroutines();
         }
     }
-    public void UpdateData(GameData data, bool isLoading)
+    public void UpdateData(object gameDataObj, object isLoadingObj)
     {
+
+        GameData gameData = (GameData)gameDataObj;
+        bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
-            LoadAchievementDataFromGameData(data);
+            LoadAchievementDataFromGameData(gameData);
         }
         else
         {
-            SaveAchievementDataToGameData(data);
+            SaveAchievementDataToGameData(gameData);
         }
-        _updateProgressionEvent.Invoke(data);
+        _updateProgressionEvent.Invoke(gameData);
     }
     private void LoadAchievementDataFromGameData(GameData data)
     {

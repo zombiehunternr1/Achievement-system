@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class CollectableSystem : MonoBehaviour
 {
-    [SerializeField] private GenericEmptyEvent _saveGameEvent;
-    [SerializeField] private GenericEmptyEvent _updateCollectablesStatusEvent;
-    [SerializeField] private UpdateProgressionEvent _updateProgressionEvent;
-    [SerializeField] private CheckCollectableRequestEvent _checkCollectableRequestEvent;
+    [SerializeField] private EmptyEvent _saveGameEvent;
+    [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
+    [SerializeField] private SingleEvent _updateProgressionEvent;
+    [SerializeField] private TripleEvent _checkCollectableRequestEvent;
     [SerializeField] private CollectableListHolder _allcollectableListsReference;
     private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
     {
@@ -20,8 +20,9 @@ public class CollectableSystem : MonoBehaviour
         }
         return collectedItems;
     }
-    public void UpdateCollectableStatus(CollectableTypeSO collectableType)
+    public void UpdateCollectableStatus(object collectableTypeObj)
     {
+        CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
         int collectedItemsAmount = 0;
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
@@ -49,19 +50,21 @@ public class CollectableSystem : MonoBehaviour
             collectable.SetCollectableStatus(false);
         }
     }
-    public void UpdateData(GameData data, bool isLoading)
+    public void UpdateData(object gameDataObj, object isLoadingObj)
     {
+        GameData gameData = (GameData)gameDataObj;
+        bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
-            UpdateCollectableStatusFromData(data);
+            LoadCollectableStatusFromData(gameData);
         }
         else
         {
-            SaveCollectableStatusToData(data);
+            SaveCollectableStatusToData(gameData);
         }
-        _updateProgressionEvent.Invoke(data);
+        _updateProgressionEvent.Invoke(gameData);
     }
-    private void UpdateCollectableStatusFromData(GameData data)
+    private void LoadCollectableStatusFromData(GameData data)
     {
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {

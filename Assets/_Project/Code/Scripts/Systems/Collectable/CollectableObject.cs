@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollectableObject : MonoBehaviour
 {
-    [SerializeField] private UpdateCollectableTypeEvent _updateCollectedTypeEvent;
+    [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableTypeSO _collectableType;
     public CollectableTypeSO Collectable
     {
