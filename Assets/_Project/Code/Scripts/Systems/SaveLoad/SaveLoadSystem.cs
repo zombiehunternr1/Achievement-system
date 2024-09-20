@@ -13,7 +13,7 @@ public class SaveLoadSystem : MonoBehaviour
     [SerializeField] private bool _disableDataPersistence = false;
     [SerializeField] private bool _initializeDataIfNull = false;
     [SerializeField] private bool _overrideSelectedProfileId = false;
-    [SerializeField] private string _testSelectedProfileId = "Game Data";
+    [SerializeField] private string _profileName = "Game Data";
     [Header("Event references")]
     [SerializeField] private EmptyEvent _resetEvent;
     [SerializeField] private DoubleEvent _updateStorageDataEvent;
@@ -75,8 +75,8 @@ public class SaveLoadSystem : MonoBehaviour
         _selectedProfileId = _dataHandler.mostRecentlyUpdatedProfileId;
         if(_overrideSelectedProfileId)
         {
-            _selectedProfileId = _testSelectedProfileId;
-            Debug.LogWarning("Overrode selected profile ID with test ID: " + _testSelectedProfileId);
+            _selectedProfileId = _profileName;
+            Debug.LogWarning("Overrode selected profile ID with test ID: " + _profileName);
         }
     }
     private void OnApplicationQuit()
