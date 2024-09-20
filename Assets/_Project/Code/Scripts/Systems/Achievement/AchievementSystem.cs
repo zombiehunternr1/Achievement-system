@@ -314,7 +314,6 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UpdateRelatedAchievements(AchievementInfoSO achievement)
     {
-        Dictionary<int, AchievementInfoSO> relatedAchievementDictionary = new Dictionary<int, AchievementInfoSO>();
         foreach (AchievementInfoSO relatedAchievement in _achievementListReference.AchievementList)
         {
             if (relatedAchievement == null || !IsRelevantAchievement(relatedAchievement, achievement))
@@ -327,11 +326,7 @@ public class AchievementSystem : MonoBehaviour
                 Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId + "!");
                 continue;
             }
-            relatedAchievementDictionary.Add(index, relatedAchievement);
-        }
-        foreach (KeyValuePair<int, AchievementInfoSO> keyValuePair in relatedAchievementDictionary)
-        {
-            UpdateAchievementProgress(keyValuePair.Key, keyValuePair.Value);
+            UpdateAchievementProgress(index, relatedAchievement);
         }
     }
     private void UpdateAchievementProgress(int index, AchievementInfoSO relatedAchievement)
@@ -368,7 +363,7 @@ public class AchievementSystem : MonoBehaviour
             achievementObject.SetIcon(_hiddenAchievement);
             achievementObject.SetTitle(_hiddenText);
             achievementObject.SetDescription(_hiddenText);
-            achievementObject.ProgressDisplay(false, 0,0,0,0);
+            achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
             return;
         }
         achievementObject.SetIcon(achievement.Icon);
@@ -377,8 +372,14 @@ public class AchievementSystem : MonoBehaviour
         if (!achievement.ShowProgression)
         {
             achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
-            return;
         }
+        else
+        {
+            SetProgressionDisplay(achievementObject, achievement);
+        }
+    }
+    private void SetProgressionDisplay(AchievementObject achievementObject, AchievementInfoSO achievement)
+    {
         if (achievement.ManualGoalAmount)
         {
             achievementObject.ProgressDisplay(true, _intAmount, achievement.IntGoal,
