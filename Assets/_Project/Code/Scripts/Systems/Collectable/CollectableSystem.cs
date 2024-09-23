@@ -13,9 +13,9 @@ public class CollectableSystem : MonoBehaviour
     private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
     {
         int collectedItems = 0;
-        foreach (CollectableTypeSO collectableTypeFromList in collectableTypeList.CollectablesList)
+        for(int i = 0; i < collectableTypeList.CollectablesList.Count; i++)
         {
-            if (collectableTypeFromList.IsCollected)
+            if (collectableTypeList.CollectablesList[i].IsCollected)
             {
                 collectedItems++;
             }
