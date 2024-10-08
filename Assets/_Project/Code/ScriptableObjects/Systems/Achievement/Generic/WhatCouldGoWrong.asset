@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
+  m_Name: WhatCouldGoWrong
+  m_EditorClassIdentifier: 
+  _achievementId: b8be9a8989033e34a9183a6535f0d93f
+  _title: What could go wrong?
+  _description: If you could just go ahead and not do that. That'd be great
+  _icon: {fileID: 21300000, guid: 080bf216f899353468069974ff1e934b, type: 3}
+  _soundEffect:
+    Guid:
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal
+  _unlocked: 0
+  _requiresPreviousAchievement: 0
+  _previousAchievement: {fileID: 0}
+  _achievementList: {fileID: 0}
+  _isHidden: 0
+  _showProgression: 0
+  _progressionEnumDisplay: 0
+  _completionEnumRequirement: 1
+  _valueEnumType: 1
+  _isExactAmount: 1
+  _currentIntegerAmount: 0
+  _goalIntegerAmount: 0
+  _currentFloatAmount: 0
+  _goalFloatAmount: 305326.1
+  _collectableEnumRequirement: 0
+  _collectableType: {fileID: 0}
+  _collectableTypeList: {fileID: 0}
+  _collectableTypeLists: []
+  _requiresMultipleCollectableLists: 0
+  _minimumGoalAmount: 0

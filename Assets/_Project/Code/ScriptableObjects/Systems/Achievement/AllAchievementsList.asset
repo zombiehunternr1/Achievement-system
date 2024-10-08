@@ -9,21 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed8578160758144db9a1a9febc57bce, type: 3}
+  m_Script: {fileID: 11500000, guid: dbd1807c0a88498439d9ef11f413d2ee, type: 3}
   m_Name: AllAchievementsList
   m_EditorClassIdentifier: 
   _totalAchievements:
-  - {fileID: 11400000, guid: c5a9305c840aa1b41bf7d4dffbdafa99, type: 2}
-  - {fileID: 11400000, guid: 3840b4d2a9901c64a8e65cbb6c77de73, type: 2}
-  - {fileID: 11400000, guid: 330b3f810b5ad794b8ab4545ade9e977, type: 2}
-  - {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
-  - {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
-  - {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
-  - {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
-  - {fileID: 11400000, guid: 85006e8ea660b8940a07db953e82bb8f, type: 2}
-  - {fileID: 11400000, guid: a9cf41d1547acb647b2f3db46b575985, type: 2}
-  - {fileID: 11400000, guid: 079ea1fd65878b742bcb1f486758fc0f, type: 2}
-  - {fileID: 11400000, guid: 7c9e6e041a064984a8f04e3e4e5dca0d, type: 2}
-  - {fileID: 11400000, guid: f2fc60c7df4012042888112e8780a3df, type: 2}
-  - {fileID: 11400000, guid: f06594d551b735a4c81e0dab857f23f8, type: 2}
-  - {fileID: 11400000, guid: 9a38a692c7f59c944a8d9dd7d3a582a7, type: 2}
+  - {fileID: 11400000, guid: 090a39aec01363c4695f8961fa7f0f98, type: 2}
+  - {fileID: 11400000, guid: 2e3525bba62a48f41929b6a77a0f5fe3, type: 2}
+  - {fileID: 11400000, guid: ca273e874d488874da44d83af0b3d52a, type: 2}
+  - {fileID: 11400000, guid: 4a0c7de6e5c6cc649af47ff9996d7a41, type: 2}
+  - {fileID: 11400000, guid: ab07899b780dd09428e83cd085489964, type: 2}
+  - {fileID: 11400000, guid: e016500edff2e5a47b17aca9a5410805, type: 2}
+  - {fileID: 11400000, guid: b8be9a8989033e34a9183a6535f0d93f, type: 2}
+  - {fileID: 11400000, guid: 14471e26320bb274b9700356d728522f, type: 2}
+  - {fileID: 11400000, guid: 19f0cbca6133f374bbca5695b3dac085, type: 2}
+  - {fileID: 11400000, guid: 3a5b8601ecaf6ee469753d58ecfdd72a, type: 2}
+  - {fileID: 11400000, guid: 582e6b073569d0842879483943d50eda, type: 2}
+  - {fileID: 11400000, guid: 9c757ed23d066384ebf190c2a8a7fd4a, type: 2}
+  - {fileID: 11400000, guid: e5539495a79e22643af248c080320e88, type: 2}
+  - {fileID: 11400000, guid: 178cf82c0873d4942a5c00f8337b3e6d, type: 2}
+  - {fileID: 11400000, guid: 82e60afcaa39d1e489da045d4258e20b, type: 2}

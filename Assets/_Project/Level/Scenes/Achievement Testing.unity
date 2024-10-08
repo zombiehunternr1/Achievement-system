@@ -2378,7 +2378,7 @@ MonoBehaviour:
   _disableDataPersistence: 0
   _initializeDataIfNull: 1
   _overrideSelectedProfileId: 1
-  _testSelectedProfileId: Game Data
+  _profileName: Game Data
   _resetEvent: {fileID: 11400000, guid: dab13b6c33f24674da729675bf1cb079, type: 2}
   _updateStorageDataEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
@@ -4143,6 +4143,7 @@ GameObject:
   - component: {fileID: 869330440}
   - component: {fileID: 869330439}
   - component: {fileID: 869330456}
+  - component: {fileID: 869330459}
   - component: {fileID: 869330457}
   - component: {fileID: 869330458}
   m_Layer: 0
@@ -4164,8 +4165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ad21ace04dc2a40a007e3565c02774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overAchieverReference: {fileID: 11400000, guid: c5a9305c840aa1b41bf7d4dffbdafa99, type: 2}
-  _achievementListReference: {fileID: 11400000, guid: 8d6405f6996557b459e13f4de4418c58, type: 2}
+  _overAchieverReference: {fileID: 11400000, guid: 090a39aec01363c4695f8961fa7f0f98, type: 2}
+  _achievementSOList: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
   _playPopUpDisplayStatusEvent: {fileID: 11400000, guid: 76f85149e04554842afbde61d547e323, type: 2}
   _setAchievementPopUpInfoEvent: {fileID: 11400000, guid: 3242eb86ea49d584aab24ce1cfedb66d, type: 2}
   _saveGameEvent: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
@@ -4276,13 +4277,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseEvents:
-  - _tripleEvent: {fileID: 11400000, guid: b7aee7e7639fce74cb637c3f930dfc3a, type: 2}
+  - _tripleEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
     _unityEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 869330439}
           m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
-          m_MethodName: CheckCollectableRequest
+          m_MethodName: UpdateRecievedAchievement
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4292,13 +4293,26 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - _tripleEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
+--- !u!114 &869330459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvents:
+  - _singleEvent: {fileID: 11400000, guid: caf7da5fe9d45904abccb2799a7b3bf8, type: 2}
     _unityEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 869330439}
           m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
-          m_MethodName: CheckValueRequirement
+          m_MethodName: CheckCollectableRequest
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5251,7 +5265,7 @@ MonoBehaviour:
   _saveGameEvent: {fileID: 11400000, guid: e4ea6acc87a002a4f899766a6be064c6, type: 2}
   _updateCollectablesStatusEvent: {fileID: 11400000, guid: a2ef0f855d6996b44af4c37dadc18dd9, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
-  _checkCollectableRequestEvent: {fileID: 11400000, guid: b7aee7e7639fce74cb637c3f930dfc3a, type: 2}
+  _checkCollectableRequestEvent: {fileID: 11400000, guid: caf7da5fe9d45904abccb2799a7b3bf8, type: 2}
 --- !u!114 &1364405331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6619,10 +6633,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floatInputText: {fileID: 672545898}
   _integerInputText: {fileID: 1850466131}
-  _quitAchievementReference: {fileID: 11400000, guid: 1cade70e1ce841a48be6a4edc63c3d29, type: 2}
-  _hiddenAchievementReference: {fileID: 11400000, guid: e5ea514e132f41f4da2ffdf969745b3b, type: 2}
-  _floatAchievementReference: {fileID: 11400000, guid: fddbc881902b9a04481c99f1e62e5a12, type: 2}
-  _intAchievementReference: {fileID: 11400000, guid: 04c11abe971d8984e93a174288492090, type: 2}
+  _quitAchievementReference: {fileID: 11400000, guid: e016500edff2e5a47b17aca9a5410805, type: 2}
+  _hiddenAchievementReference: {fileID: 11400000, guid: 14471e26320bb274b9700356d728522f, type: 2}
+  _floatAchievementReference: {fileID: 11400000, guid: b8be9a8989033e34a9183a6535f0d93f, type: 2}
+  _integerAchievementReference: {fileID: 11400000, guid: ab07899b780dd09428e83cd085489964, type: 2}
   _updateAchievementsEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
 --- !u!1 &1734382967
 GameObject:

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
-  m_Name: Feather2
+  m_Script: {fileID: 11500000, guid: 714bea77887fc6541ba0fd76b3f50427, type: 3}
+  m_Name: CheckCollectableEvent
   m_EditorClassIdentifier: 
-  _collectableID: 731592cf416eb2b44b7cc49fe9286f25
-  _isCollected: 0

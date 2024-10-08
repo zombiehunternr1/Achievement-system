@@ -50,27 +50,39 @@ public class AchievementObject : MonoBehaviour
     {
         _locked.enabled = false;
     }
-    public void ProgressDisplay(bool display, int? currentIntValue, int? goalIntValue, float? currentfloatValue, float? goalFloatValue)
+    public void ProgressDisplay(bool display, string progression)
     {
-        if (display)
-        {
-            _progressBarRect.gameObject.SetActive(true);
-            if(goalIntValue != 0)
-            {
-                _progressText.text = currentIntValue + " / " + goalIntValue;
-                _progressSlider.maxValue = (float)goalIntValue;
-                _progressSlider.value = (float)currentIntValue;
-            }
-            if(goalFloatValue != 0)
-            {
-                _progressText.text = currentfloatValue + " / " + goalFloatValue;
-                _progressSlider.maxValue = (float)goalFloatValue;
-                _progressSlider.value = (float)currentfloatValue;
-            }
-        }
-        else
+        if (!display)
         {
             _progressBarRect.gameObject.SetActive(false);
+            _progressSlider.gameObject.SetActive(false);
+            return;
+        }
+        _progressBarRect.gameObject.SetActive(true);
+        _progressText.text = progression;
+        if (progression.Contains("/"))
+        {
+            string[] parts = progression.Split('/');
+            if (parts.Length == 2)
+            {
+                if (int.TryParse(parts[0].Trim(), out int currentAmount) &&
+                    int.TryParse(parts[1].Trim(), out int goalAmount))
+                {
+                    _progressSlider.maxValue = goalAmount;
+                    _progressSlider.value = currentAmount;
+                    _progressSlider.gameObject.SetActive(true);
+                }
+            }
+        }
+        else if (progression.Contains("%"))
+        {
+            string percentageString = progression.Replace("%", "").Trim();
+            if (float.TryParse(percentageString, out float percentage))
+            {
+                _progressSlider.maxValue = 100f;
+                _progressSlider.value = percentage;
+                _progressSlider.gameObject.SetActive(true);
+            }
         }
     }
 }

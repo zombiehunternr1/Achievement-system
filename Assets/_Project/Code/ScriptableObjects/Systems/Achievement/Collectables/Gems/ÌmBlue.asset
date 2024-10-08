@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
+  m_Name: "\xCCmBlue"
+  m_EditorClassIdentifier: 
+  _achievementId: 82e60afcaa39d1e489da045d4258e20b
+  _title: I'm blue
+  _description: Collect the blue gem
+  _icon: {fileID: 21300000, guid: f6e5d6de81e16704c877e9317f2098fd, type: 3}
+  _soundEffect:
+    Guid:
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal
+  _unlocked: 0
+  _requiresPreviousAchievement: 0
+  _previousAchievement: {fileID: 0}
+  _achievementList: {fileID: 0}
+  _isHidden: 0
+  _showProgression: 0
+  _progressionEnumDisplay: 0
+  _completionEnumRequirement: 2
+  _valueEnumType: 0
+  _isExactAmount: 0
+  _currentIntegerAmount: 0
+  _goalIntegerAmount: 0
+  _currentFloatAmount: 0
+  _goalFloatAmount: 0
+  _collectableEnumRequirement: 0
+  _collectableType: {fileID: 11400000, guid: ce1d5b8b73a5b7440b70842850c75d2f, type: 2}
+  _collectableTypeList: {fileID: 0}
+  _collectableTypeLists: []
+  _requiresMultipleCollectableLists: 0
+  _minimumGoalAmount: 0

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Feather5
   m_EditorClassIdentifier: 
   _collectableID: 516966997dc3b51498256fab436aad49
-  _collected: 0
+  _isCollected: 0

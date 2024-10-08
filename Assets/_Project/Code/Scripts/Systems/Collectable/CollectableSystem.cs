@@ -9,29 +9,15 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private EmptyEvent _saveGameEvent;
     [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
-    [SerializeField] private TripleEvent _checkCollectableRequestEvent;
-    private int CountCollectedItems(CollectableTypeListSO collectableTypeList)
-    {
-        int collectedItems = 0;
-        for(int i = 0; i < collectableTypeList.CollectablesList.Count; i++)
-        {
-            if (collectableTypeList.CollectablesList[i].IsCollected)
-            {
-                collectedItems++;
-            }
-        }
-        return collectedItems;
-    }
+    [SerializeField] private SingleEvent _checkCollectableRequestEvent;
     public void UpdateCollectableStatus(object collectableTypeObj)
     {
         CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
-        int collectedItemsAmount = 0;
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
             if (collectableTypeList.CollectablesList.Contains(collectableType))
             {
-                collectedItemsAmount += CountCollectedItems(collectableTypeList);
-                _checkCollectableRequestEvent.Invoke(collectableTypeList, collectableType, collectedItemsAmount);
+                _checkCollectableRequestEvent.Invoke(collectableType);
             }
         }
         _updateCollectablesStatusEvent.Invoke();
@@ -44,13 +30,6 @@ public class CollectableSystem : MonoBehaviour
             ResetCollectablesInList(collectableTypeList);
         }
         _updateCollectablesStatusEvent.Invoke();
-    }
-    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
-    {
-        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
-        {
-            collectable.SetCollectableStatus(false);
-        }
     }
     public void UpdateData(object gameDataObj, object isLoadingObj)
     {
@@ -65,6 +44,13 @@ public class CollectableSystem : MonoBehaviour
             SaveCollectableStatusToData(gameData);
         }
         _updateProgressionEvent.Invoke(gameData);
+    }
+    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
+    {
+        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
+        {
+            collectable.SetCollectableStatus(false);
+        }
     }
     private void LoadCollectableStatusFromData(GameData data)
     {

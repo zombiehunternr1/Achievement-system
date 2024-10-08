@@ -7,8 +7,8 @@ using FMODUnity;
 public class AchievementSystem : MonoBehaviour
 {
     [Header("Achievement references")]
-    [SerializeField] private AchievementInfoSO _overAchieverReference;
-    [SerializeField] private AchievementListSO _achievementListReference;
+    [SerializeField] private AchievementSO _overAchieverReference;
+    [SerializeField] private AchievementSOList _achievementSOList;
     [Header("Event references")]
     [SerializeField] private SingleEvent _playPopUpDisplayStatusEvent;
     [SerializeField] private DoubleEvent _setAchievementPopUpInfoEvent;
@@ -19,127 +19,47 @@ public class AchievementSystem : MonoBehaviour
     [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
-    private List<AchievementObject> _achievementObjects;
-    private List<AchievementInfoSO> _QueuedAchievements;
-    private BaseCollectableTypeSO _lastCollectedType;
-    private int _intAmount = 0;
+    private List<AchievementObject> _achievementObjects = new List<AchievementObject>();
+    private List<AchievementSO> _QueuedAchievements = new List<AchievementSO>();
     private readonly string _hiddenText = "??????????????";
     private EventInstance _soundEffect;
-    private int AddCollectedAmount(AchievementInfoSO achievement)
+    private AchievementSO FindAchievementById(string achievementID)
     {
-        int amount = 0;
-        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
+        for (int i = 0; i < _achievementSOList.AchievementList.Count; i++)
         {
-            if (achievement.Collectable.IsCollected)
+            if (_achievementSOList.AchievementList[i] != null &&
+                _achievementSOList.AchievementList[i].AchievementId == achievementID)
             {
-                amount++;
-            }
-        }
-        else
-        {
-            foreach (CollectableTypeSO collectable in achievement.CollectableList)
-            {
-                if (collectable.IsCollected)
-                {
-                    amount++;
-                }
-            }
-        }
-        return amount;
-    }
-    private int CountAllUnlockedAchievements()
-    {
-        int unlockedCount = 0;
-        foreach (AchievementInfoSO subAchievement in _achievementListReference.AchievementList)
-        {
-            if (subAchievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && subAchievement.IsUnlocked)
-            {
-                unlockedCount++;
-            }
-        }
-        return unlockedCount;
-    }
-    private int CountCollectedItems(AchievementInfoSO achievement)
-    {
-        int collectedCount = 0;
-        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
-        {
-            if (collectable.IsCollected)
-            {
-                collectedCount++;
-            }
-        }
-        return collectedCount;
-    }
-    private int CountUnlockedNonAchievementItems()
-    {
-        int amount = 0;
-        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
-        {
-            if (achievement.CollectableType != AchievementInfoSO.CollectableEnumType.Achievement && achievement.IsUnlocked)
-            {
-                amount++;
-            }
-        }
-        return amount;
-    }
-    private int FindAchievementObjectIndex(string achievementId)
-    {
-        for (int j = 0; j < _achievementObjects.Count; j++)
-        {
-            if (_achievementObjects[j].AchievementId == achievementId)
-            {
-                return j;
-            }
-        }
-        return -1;
-    }
-    private bool IsRelevantAchievement(AchievementInfoSO relatedAchievement, AchievementInfoSO achievement)
-    {
-        if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-        {
-            return true;
-        }
-        if (relatedAchievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
-            achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None ||
-            relatedAchievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single ||
-            achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-        {
-            return false;
-        }
-        if (relatedAchievement.ManualGoalAmount || _lastCollectedType == null)
-        {
-            return false;
-        }
-        foreach (BaseCollectableTypeSO collectable in achievement.CollectableList)
-        {
-            foreach (BaseCollectableTypeSO relatedCollectable in relatedAchievement.CollectableList)
-            {
-                if (relatedCollectable.CollectableId == _lastCollectedType.CollectableId)
-                {
-                    _lastCollectedType = null;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    private AchievementInfoSO FindAchievementById(string achievementID)
-    {
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
-        {
-            if (_achievementListReference.AchievementList[i] != null &&
-                _achievementListReference.AchievementList[i].AchievementId == achievementID)
-            {
-                return _achievementListReference.AchievementList[i];
+                return _achievementSOList.AchievementList[i];
             }
         }
         return null;
     }
+    private List<AchievementSO> TopologicalSort(Dictionary<AchievementSO, List<AchievementSO>> dependencyGraph)
+    {
+        List<AchievementSO> sortedList = new List<AchievementSO>();
+        HashSet<AchievementSO> visited = new HashSet<AchievementSO>();
+        void Visit(AchievementSO achievement)
+        {
+            if (!visited.Contains(achievement))
+            {
+                visited.Add(achievement);
+                foreach (AchievementSO neighbor in dependencyGraph[achievement])
+                {
+                    Visit(neighbor);
+                }
+                sortedList.Add(achievement);
+            }
+        }
+        foreach (AchievementSO achievement in dependencyGraph.Keys)
+        {
+            Visit(achievement);
+        }
+        sortedList.Reverse();
+        return sortedList;
+    }
     private void Awake()
     {
-        _achievementObjects = new List<AchievementObject>();
-        _QueuedAchievements = new List<AchievementInfoSO>();
         SetupAchievementDisplay();
     }
     public void StartPopupCooldown()
@@ -148,134 +68,110 @@ public class AchievementSystem : MonoBehaviour
     }
     public void ResetAllAchievements()
     {
-        foreach(AchievementInfoSO achievement in _achievementListReference.AchievementList)
+        foreach (AchievementSO achievement in _achievementSOList.AchievementList)
         {
-            achievement.AchievementUnlocked = false;
+            achievement.LockAchievement();
             StartCoroutine(DeplayUpdateUnlockedStatus(achievement));
         }
     }
-    private IEnumerator DeplayUpdateUnlockedStatus(AchievementInfoSO achievement)
+    public void CheckCollectableRequest(object collectableTypeObj)
     {
-        yield return new WaitForSeconds(0.01f);
-        UpdateAchievementStatus(achievement);
-    }
-    public void CheckCollectableRequest(object collectableTypeListObj, object collectableTypeObj, object collectedAmountObj)
-    {
-        CollectableTypeListSO collectableTypeList = (CollectableTypeListSO)collectableTypeListObj;
         CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
-        int collectedAmount = (int)collectedAmountObj;
-        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
+        Dictionary<AchievementSO, List<AchievementSO>> dependencyGraph = new Dictionary<AchievementSO, List<AchievementSO>>();
+        for (int i = 0; i < _achievementSOList.AchievementList.Count; i++)
         {
-            bool hasCollectableTypeList = achievement.CollectableList != null;
-            bool hasCollectables = hasCollectableTypeList && achievement.CollectableList.Count > 0;
-            if (hasCollectables && !collectableTypeList.CollectablesList.Contains(collectableType))
+            AchievementSO achievement = _achievementSOList.AchievementList[i];
+            if (achievement.IsUnlocked || achievement.CompletionEnumRequirement != CompletionEnumRequirement.CollectableRequirement)
             {
                 continue;
             }
-            if (!hasCollectables && achievement.Collectable != collectableType)
+            if (!achievement.IsAchievementRelated(collectableType.CollectableId))
             {
                 continue;
             }
-            _lastCollectedType = collectableType;
-            CheckValueRequirement(achievement.AchievementId, collectedAmount, null);
+            UpdateAchievementStatus(achievement);
+            if (!achievement.IsCollectableGoalReached(collectableType))
+            {
+                continue;
+            }
+            if (!dependencyGraph.ContainsKey(achievement))
+            {
+                dependencyGraph[achievement] = new List<AchievementSO>();
+                continue;
+            }
+            if (achievement.RequiresPreviousAchievement && achievement.PreviousAchievementUnlocked)
+            {
+                if (!dependencyGraph.ContainsKey(achievement.PreviousAchievementSO))
+                {
+                    dependencyGraph[achievement.PreviousAchievementSO] = new List<AchievementSO>();
+                }
+                continue;
+            }
+            dependencyGraph[achievement.PreviousAchievementSO].Add(achievement);
+        }
+        List<AchievementSO> sortedAchievements = TopologicalSort(dependencyGraph);
+        for (int i = 0; i < sortedAchievements.Count; i++)
+        {
+            UnlockAchievement(sortedAchievements[i]);
         }
     }
-    public void CheckValueRequirement(object achievementIDObj, object intValueObj, object floatValueObj)
+    public void UpdateRecievedAchievement(object achievementIDObj, object intValueObj, object floatValueObj)
     {
         string achievementID = (string)achievementIDObj;
         int? intValue = intValueObj as int?;
         float? floatValue = floatValueObj as float?;
-        AchievementInfoSO achievement = FindAchievementById(achievementID);
+        AchievementSO achievement = FindAchievementById(achievementID);
         if (achievement == null)
         {
             Debug.LogWarning("Couldn't find the achievement in the list with ID: " + achievementID);
             return;
         }
+        CheckAchievementRequirementStatus(achievement, intValue, floatValue);
+    }
+    private void CheckAchievementRequirementStatus(AchievementSO achievement, int? intValue, float? floatValue)
+    {
         if (achievement.IsUnlocked)
         {
             return;
         }
-        if (achievement.CompletionType == AchievementInfoSO.CompletionEnumType.NoRequirements)
+        if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.NoRequirement ||
+            achievement.CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement && achievement.IsAchievementGoalReached)
         {
             UnlockAchievement(achievement);
             return;
         }
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement || 
-            achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
+        if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
         {
-            CheckCollectableType(achievement);
-            return;
-        }
-        HandleValueUpdate(achievement, intValue, floatValue);
-    }
-    private void HandleValueUpdate(AchievementInfoSO achievement, int? intValue, float? floatValue)
-    {
-        if (intValue.HasValue)
-        {
-            achievement.UpdateCurrentAmount(intValue, null);
-            if (intValue.Value == achievement.IntGoal)
-            {
-                UnlockAchievement(achievement);
-            }
-            return;
-        }
-        achievement.UpdateCurrentAmount(null, floatValue);
-        if (floatValue.Value == achievement.FloatGoal)
-        {
-            UnlockAchievement(achievement);
-        }
-    }
-    private void CheckCollectableType(AchievementInfoSO achievement)
-    {
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Achievement)
-        {
-            int unlockedCount = CountAllUnlockedAchievements();
-            if (unlockedCount >= achievement.AchievementCount)
-            {
-                UnlockAchievement(achievement);
-            }
-            return;
-        }
-        if (achievement.CollectableRequirementType == AchievementInfoSO.CollectableRequirementEnumType.Single)
-        {
-            if (!achievement.Collectable.IsCollected)
-            {
-                return;
-            }
-            if (achievement.RequiresPreviousAchievement && !achievement.PreviousAchievement.IsUnlocked)
-            {
-                return;
-            }
-            UnlockAchievement(achievement);
-            return;
-        }
-        int collectedCount = CountCollectedItems(achievement);
-        bool meetsGoal;
-        if (achievement.ManualGoalAmount)
-        {
-            meetsGoal = collectedCount.Equals(achievement.IntGoal);
-        }
-        else
-        {
-            meetsGoal = collectedCount.Equals(achievement.CollectableList.Count);
-        }
-        if (meetsGoal)
-        {
-            UnlockAchievement(achievement);
+            HandleValueUpdate(achievement, intValue, floatValue);
             return;
         }
         UpdateAchievementStatus(achievement);
     }
+    private void HandleValueUpdate(AchievementSO achievement, int? intValue, float? floatValue)
+    {
+        if (intValue.HasValue)
+        {
+            achievement.UpdateCurrentAmount(intValue, null);
+        }
+        else
+        {
+            achievement.UpdateCurrentAmount(null, floatValue);
+        }
+        if (achievement.IsValueGoalReached)
+        {
+            UnlockAchievement(achievement);
+        }
+    }
     private void SetupAchievementDisplay()
     {
-        if (_achievementListReference.AchievementList.Count == 0)
+        if (_achievementSOList.AchievementList.Count == 0)
         {
             Debug.LogWarning("The list of achievements to unlock is empty!");
             return;
         }
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        for (int i = 0; i < _achievementSOList.AchievementList.Count; i++)
         {
-            AchievementInfoSO achievement = _achievementListReference.AchievementList[i];
+            AchievementSO achievement = _achievementSOList.AchievementList[i];
             if (achievement == null)
             {
                 Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
@@ -291,7 +187,14 @@ public class AchievementSystem : MonoBehaviour
             UpdateAchievementObject(i, achievement, achievement.IsHidden);
         }
     }
-    private void UpdateAchievementStatus(AchievementInfoSO achievement)
+    private void UnlockAchievement(AchievementSO achievement)
+    {
+        achievement.UnlockAchievement();
+        _saveGameEvent.Invoke();
+        UpdateAchievementStatus(achievement);
+        AddToQueueDisplay(achievement);
+    }
+    private void UpdateAchievementStatus(AchievementSO achievement)
     {
         int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
         if (objectIndex == -1)
@@ -299,65 +202,20 @@ public class AchievementSystem : MonoBehaviour
             Debug.LogWarning("No corresponding achievement object found with achievement: " + achievement.Title + "!");
             return;
         }
-        UpdateProgressionStatus(achievement);
         bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
         UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
+    }
+    private void UpdateAchievementObject(int objectIndex, AchievementSO achievement, bool isHidden)
+    {
+        AchievementObject achievementObject = _achievementObjects[objectIndex];
         if (achievement.IsUnlocked)
         {
-            _achievementObjects[objectIndex].UnlockAchievement();
+            achievementObject.UnlockAchievement();
         }
         else if (!achievement.IsHidden)
         {
-            _achievementObjects[objectIndex].EnableLock();
+            achievementObject.EnableLock();
         }
-        UpdateRelatedAchievements(achievement);
-    }
-    private void UpdateRelatedAchievements(AchievementInfoSO achievement)
-    {
-        foreach (AchievementInfoSO relatedAchievement in _achievementListReference.AchievementList)
-        {
-            if (relatedAchievement == null || !IsRelevantAchievement(relatedAchievement, achievement))
-            {
-                continue;
-            }
-            int index = FindAchievementObjectIndex(relatedAchievement.AchievementId);
-            if (index == -1)
-            {
-                Debug.LogWarning("Couldn't find the achievement object for ID: " + relatedAchievement.AchievementId + "!");
-                continue;
-            }
-            UpdateAchievementProgress(index, relatedAchievement);
-        }
-    }
-    private void UpdateAchievementProgress(int index, AchievementInfoSO relatedAchievement)
-    {
-        UpdateProgressionStatus(relatedAchievement);
-        UpdateAchievementObject(index, relatedAchievement, relatedAchievement.IsHidden);
-        if (relatedAchievement.IsUnlocked)
-        {
-            _achievementObjects[index].UnlockAchievement();
-        }
-        else if (!relatedAchievement.IsHidden)
-        {
-            _achievementObjects[index].EnableLock();
-        }
-    }
-    private void UpdateProgressionStatus(AchievementInfoSO achievement)
-    {
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.None)
-        {
-            return;
-        }
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
-        {
-            _intAmount = AddCollectedAmount(achievement);
-            return;
-        }
-        _intAmount = CountUnlockedNonAchievementItems();
-    }
-    private void UpdateAchievementObject(int objectIndex, AchievementInfoSO achievement, bool isHidden)
-    {
-        AchievementObject achievementObject = _achievementObjects[objectIndex];
         if (isHidden)
         {
             SetAchievementHidden(achievementObject);
@@ -370,45 +228,16 @@ public class AchievementSystem : MonoBehaviour
         achievementObject.SetIcon(_hiddenAchievement);
         achievementObject.SetTitle(_hiddenText);
         achievementObject.SetDescription(_hiddenText);
-        achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
+        achievementObject.ProgressDisplay(false, string.Empty);
     }
-    private void SetAchievementVisible(AchievementObject achievementObject, AchievementInfoSO achievement)
+    private void SetAchievementVisible(AchievementObject achievementObject, AchievementSO achievement)
     {
         achievementObject.SetIcon(achievement.Icon);
         achievementObject.SetTitle(achievement.Title);
         achievementObject.SetDescription(achievement.Description);
-        if (!achievement.ShowProgression)
-        {
-            achievementObject.ProgressDisplay(false, 0, 0, 0, 0);
-            return;
-        }
-        SetProgressionDisplay(achievementObject, achievement);
+        achievementObject.ProgressDisplay(achievement.ShowProgression, achievement.Progression);
     }
-    private void SetProgressionDisplay(AchievementObject achievementObject, AchievementInfoSO achievement)
-    {
-        if (achievement.ManualGoalAmount)
-        {
-            achievementObject.ProgressDisplay(true, _intAmount, achievement.IntGoal,
-            achievement.CurrentFloatAmount, achievement.FloatGoal);
-            return;
-        }
-        if (achievement.CollectableType == AchievementInfoSO.CollectableEnumType.Collectable)
-        {
-            achievementObject.ProgressDisplay(true, _intAmount, achievement.CollectableList.Count,
-            achievement.CurrentFloatAmount, achievement.FloatGoal);
-            return;
-        }
-        achievementObject.ProgressDisplay(true, _intAmount, achievement.AchievementCount,
-        achievement.CurrentFloatAmount, achievement.FloatGoal);
-    }
-    private void UnlockAchievement(AchievementInfoSO achievement)
-    {
-        achievement.AchievementUnlocked = true;
-        _saveGameEvent.Invoke();
-        UpdateAchievementStatus(achievement);
-        AddToQueueDisplay(achievement);
-    }
-    private void AddToQueueDisplay(AchievementInfoSO achievement)
+    private void AddToQueueDisplay(AchievementSO achievement)
     {
         if (_QueuedAchievements.Count == 0)
         {
@@ -419,7 +248,7 @@ public class AchievementSystem : MonoBehaviour
         {
             _QueuedAchievements.Add(achievement);
         }
-        CheckValueRequirement(_overAchieverReference.AchievementId, null, null);
+        CheckAchievementRequirementStatus(_overAchieverReference, null, null);
     }
     private void DisplayNextinQueue()
     {
@@ -429,7 +258,7 @@ public class AchievementSystem : MonoBehaviour
             DisplayPopUpAchievement(_QueuedAchievements[0]);
         }
     }
-    private void DisplayPopUpAchievement(AchievementInfoSO achievement)
+    private void DisplayPopUpAchievement(AchievementSO achievement)
     {
         _setAchievementPopUpInfoEvent.Invoke(achievement.Icon, achievement.Title);
         _playPopUpDisplayStatusEvent.Invoke("Displaying");
@@ -437,6 +266,11 @@ public class AchievementSystem : MonoBehaviour
         RuntimeManager.AttachInstanceToGameObject(_soundEffect, transform);
         _soundEffect.start();
         _soundEffect.release();
+    }
+    private IEnumerator DeplayUpdateUnlockedStatus(AchievementSO achievement)
+    {
+        yield return new WaitForSeconds(0.01f);
+        UpdateAchievementStatus(achievement);
     }
     private IEnumerator PopupCooldown()
     {
@@ -469,16 +303,23 @@ public class AchievementSystem : MonoBehaviour
     }
     private void LoadAchievementDataFromGameData(GameData data)
     {
-        foreach (AchievementInfoSO achievement in _achievementListReference.AchievementList)
+        foreach (AchievementSO achievement in _achievementSOList.AchievementList)
         {
             data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
-            achievement.AchievementUnlocked = isUnlocked;
+            if (isUnlocked)
+            {
+                achievement.UnlockAchievement();
+            }
+            else
+            {
+                achievement.LockAchievement();
+            }
             UpdateAchievementStatus(achievement);
         }
     }
     private void SaveAchievementDataToGameData(GameData data)
     {
-        List<AchievementInfoSO>.Enumerator enumAchievementsList = _achievementListReference.AchievementList.GetEnumerator();
+        List<AchievementSO>.Enumerator enumAchievementsList = _achievementSOList.AchievementList.GetEnumerator();
 
         try
         {

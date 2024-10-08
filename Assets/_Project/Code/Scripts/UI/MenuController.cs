@@ -7,10 +7,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private TMP_InputField _floatInputText;
     [SerializeField] private TMP_InputField _integerInputText;
     [Header("Achievement references")]
-    [SerializeField] private AchievementInfoSO _quitAchievementReference;
-    [SerializeField] private AchievementInfoSO _hiddenAchievementReference;
-    [SerializeField] private AchievementInfoSO _floatAchievementReference;
-    [SerializeField] private AchievementInfoSO _intAchievementReference;
+    [SerializeField] private AchievementSO _quitAchievementReference;
+    [SerializeField] private AchievementSO _hiddenAchievementReference;
+    [SerializeField] private AchievementSO _floatAchievementReference;
+    [SerializeField] private AchievementSO _integerAchievementReference;
     [Header("Event references")]
     [SerializeField] private TripleEvent _updateAchievementsEvent;
     public void SubmitFloatValue()
@@ -21,7 +21,7 @@ public class MenuController : MonoBehaviour
     public void SubmitIntValue()
     {
         int intValue = int.Parse(_integerInputText.text);
-        _updateAchievementsEvent.Invoke(_intAchievementReference.AchievementId, intValue, null);
+        _updateAchievementsEvent.Invoke(_integerAchievementReference.AchievementId, intValue, null);
     }
     public void QuitButton()
     {
