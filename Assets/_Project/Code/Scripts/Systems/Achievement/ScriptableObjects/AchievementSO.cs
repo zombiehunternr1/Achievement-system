@@ -274,6 +274,22 @@ public class AchievementSO : ScriptableObject
         }
         return false;
     }
+    private int ActualAchievementCount
+    {
+        get
+        {
+            int amount = 0;
+            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+            {
+                AchievementSO achievement = _achievementList.AchievementList[i];
+                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+                {
+                    amount++;
+                }
+            }
+            return amount;
+        }
+    }
     private bool IsRequirementMet(List<BaseCollectableTypeSO> collectablesList, int goalAmount, bool isMultipleLists)
     {
         int currentAmount;
@@ -293,22 +309,6 @@ public class AchievementSO : ScriptableObject
             }
         }
         return false;
-    }
-    private int ActualAchievementCount
-    {
-        get
-        {
-            int amount = 0;
-            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
-            {
-                AchievementSO achievement = _achievementList.AchievementList[i];
-                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
-                {
-                    amount++;
-                }
-            }
-            return amount;
-        }
     }
     private string GetProgressionDisplayType(float currentAmount, float goalAmount)
     {
