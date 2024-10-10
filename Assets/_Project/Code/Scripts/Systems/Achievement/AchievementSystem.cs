@@ -6,8 +6,7 @@ using FMODUnity;
 
 public class AchievementSystem : MonoBehaviour
 {
-    [Header("Achievement references")]
-    [SerializeField] private AchievementSO _overAchieverReference;
+    [Header("Achievement list reference")]
     [SerializeField] private AchievementSOList _achievementSOList;
     [Header("Event references")]
     [SerializeField] private SingleEvent _playPopUpDisplayStatusEvent;
@@ -189,10 +188,15 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UnlockAchievement(AchievementSO achievement)
     {
+        if (_QueuedAchievements.Contains(achievement))
+        {
+            return;
+        }
         achievement.UnlockAchievement();
         _saveGameEvent.Invoke();
         UpdateAchievementStatus(achievement);
         AddToQueueDisplay(achievement);
+        CheckAchievementTypes();
     }
     private void UpdateAchievementStatus(AchievementSO achievement)
     {
@@ -248,7 +252,23 @@ public class AchievementSystem : MonoBehaviour
         {
             _QueuedAchievements.Add(achievement);
         }
-        CheckAchievementRequirementStatus(_overAchieverReference, null, null);
+    }
+    private void CheckAchievementTypes()
+    {
+        for (int i =0; i < _achievementSOList.AchievementList.Count; i++)
+        {
+            AchievementSO achievement = _achievementSOList.AchievementList[i];
+            if (achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+            {
+                continue;
+            }
+            if (achievement.IsAchievementGoalReached)
+            {
+                UnlockAchievement(achievement);
+                return;
+            }
+            UpdateAchievementStatus(achievement);
+        }
     }
     private void DisplayNextinQueue()
     {
