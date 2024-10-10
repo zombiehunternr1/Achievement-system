@@ -301,8 +301,8 @@ public class AchievementSO : ScriptableObject
             int amount = 0;
             for (int i = 0; i < _achievementList.AchievementList.Count; i++)
             {
-                if (_achievementList.AchievementList[i] != null &&
-                    _achievementList.AchievementList[i].CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+                AchievementSO achievement = _achievementList.AchievementList[i];
+                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
                 {
                     amount++;
                 }
