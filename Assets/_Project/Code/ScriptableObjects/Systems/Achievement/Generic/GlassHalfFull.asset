@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
-  m_Name: OverAchiever
+  m_Name: GlassHalfFull
   m_EditorClassIdentifier: 
-  _achievementId: 090a39aec01363c4695f8961fa7f0f98
-  _title: All achievements
-  _description: Unlocked all achievements
-  _icon: {fileID: 21300000, guid: cb94b7e2b29450b4381767d4a0dc8b51, type: 3}
+  _achievementId: 2a3e56ad70d71fb4a89490808de43cbc
+  _title: Glass half full
+  _description: Unlock 50% of the achievements
+  _icon: {fileID: 21300000, guid: 73aebdb61b4dba041b34acf0c407eb00, type: 3}
   _soundEffect:
     Guid:
-      Data1: -1983379594
-      Data2: 1243488972
-      Data3: -694181203
-      Data4: 1514187033
-    Path: event:/Hidden
+      Data1: -117677675
+      Data2: 1195134965
+      Data3: -1185649736
+      Data4: 354117730
+    Path: event:/Normal
   _unlocked: 0
-  _requiresPreviousAchievement: 1
-  _previousAchievement: {fileID: 11400000, guid: 2e3525bba62a48f41929b6a77a0f5fe3, type: 2}
+  _requiresPreviousAchievement: 0
+  _previousAchievement: {fileID: 0}
   _achievementList: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
-  _customAchievementGoalAmount: 0
-  _goalAchievementAmount: 5
+  _customAchievementGoalAmount: 1
+  _goalAchievementAmount: 8
   _isHidden: 0
   _showProgression: 1
-  _progressionEnumDisplay: 0
+  _progressionEnumDisplay: 1
   _completionEnumRequirement: 3
-  _valueEnumType: 1
+  _valueEnumType: 0
   _isExactAmount: 0
   _currentIntegerAmount: 0
   _goalIntegerAmount: 0

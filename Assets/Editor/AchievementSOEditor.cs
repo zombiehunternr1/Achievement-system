@@ -14,6 +14,8 @@ public class AchievementSOEditor : Editor
         _requiresPreviousAchievementProp,
         _previousAchievementProp,
         _achievementListProp,
+        _customAchievementGoalAmountProp,
+        _goalAchievementAmountProp,
         _isHiddenProp,
         _showProgressionProp,
         _progressionEnumDisplayProp,
@@ -42,6 +44,8 @@ public class AchievementSOEditor : Editor
         _requiresPreviousAchievementProp = serializedObject.FindProperty("_requiresPreviousAchievement");
         _previousAchievementProp = serializedObject.FindProperty("_previousAchievement");
         _achievementListProp = serializedObject.FindProperty("_achievementList");
+        _customAchievementGoalAmountProp = serializedObject.FindProperty("_customAchievementGoalAmount");
+        _goalAchievementAmountProp = serializedObject.FindProperty("_goalAchievementAmount");
         _isHiddenProp = serializedObject.FindProperty("_isHidden");
         _showProgressionProp = serializedObject.FindProperty("_showProgression");
         _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionEnumDisplay");
@@ -150,6 +154,11 @@ public class AchievementSOEditor : Editor
             break;
             case CompletionEnumRequirement.AchievementRequirement:
                 EditorGUILayout.PropertyField(_achievementListProp);
+                EditorGUILayout.PropertyField(_customAchievementGoalAmountProp);
+                if (_customAchievementGoalAmountProp.boolValue)
+                {
+                    EditorGUILayout.PropertyField(_goalAchievementAmountProp);
+                }
             break;
         }
         serializedObject.ApplyModifiedProperties();

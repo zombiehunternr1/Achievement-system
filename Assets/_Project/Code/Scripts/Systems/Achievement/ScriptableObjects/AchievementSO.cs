@@ -16,6 +16,8 @@ public class AchievementSO : ScriptableObject
     [SerializeField] private bool _requiresPreviousAchievement;
     [SerializeField] private AchievementSO _previousAchievement;
     [SerializeField] private AchievementSOList _achievementList;
+    [SerializeField] private bool _customAchievementGoalAmount;
+    [SerializeField] private int _goalAchievementAmount;
 
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _showProgression;
@@ -175,6 +177,40 @@ public class AchievementSO : ScriptableObject
             return false;
         }
     }
+    public bool IsAchievementGoalReached
+    {
+        get
+        {
+            int currentAmount = 0;
+            int goalAmount;
+            if (_customAchievementGoalAmount)
+            {
+                goalAmount = _goalAchievementAmount;
+            }
+            else
+            {
+                goalAmount = ActualAchievementCount;
+            }
+            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+            {
+                AchievementSO achievement = _achievementList.AchievementList[i];
+                if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
+                {
+                    continue;
+                }
+                if (!achievement.IsUnlocked)
+                {
+                    continue;
+                }
+                currentAmount++;
+                if (currentAmount >= goalAmount)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
     public bool IsCollectableGoalReached(BaseCollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
@@ -204,24 +240,6 @@ public class AchievementSO : ScriptableObject
             }
         }
         return false;
-    }
-    public bool IsAchievementGoalReached
-    {
-        get
-        {
-            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
-            {
-                if(_achievementList.AchievementList[i].CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
-                {
-                    continue;
-                }
-                if (!_achievementList.AchievementList[i].IsUnlocked)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
     public bool IsAchievementRelated(string collectableId)
     {
@@ -333,15 +351,28 @@ public class AchievementSO : ScriptableObject
     private string GetAchievementProgression()
     {
         int currentAmount = 0;
-        for (int i = 0; i < _achievementList.AchievementList.Count; i++) 
+        int goalAmount;
+        if (_customAchievementGoalAmount)
         {
-            if (_achievementList.AchievementList[i].IsUnlocked && 
-                _achievementList.AchievementList[i].CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+            goalAmount = _goalAchievementAmount;
+        }
+        else
+        {
+            goalAmount = ActualAchievementCount;
+        }
+        for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+        {
+            AchievementSO achievement = _achievementList.AchievementList[i];
+            if (achievement.IsUnlocked && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
             {
                 currentAmount++;
+                if (currentAmount >= goalAmount)
+                {
+                    break;
+                }
             }
         }
-        return GetProgressionDisplayType(currentAmount, ActualAchievementCount);
+        return GetProgressionDisplayType(currentAmount, goalAmount);
     }
     private string GetSingleCollectableProgression()
     {
