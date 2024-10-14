@@ -114,20 +114,18 @@ public class AchievementSystem : MonoBehaviour
             UnlockAchievement(sortedAchievements[i]);
         }
     }
-    public void UpdateRecievedAchievement(object achievementIDObj, object intValueObj, object floatValueObj)
+    public void UpdateRecievedAchievement(object achievementIDObj, object valueObj)
     {
         string achievementID = (string)achievementIDObj;
-        int? intValue = intValueObj as int?;
-        float? floatValue = floatValueObj as float?;
         AchievementSO achievement = FindAchievementById(achievementID);
         if (achievement == null)
         {
             Debug.LogWarning("Couldn't find the achievement in the list with ID: " + achievementID);
             return;
         }
-        CheckAchievementRequirementStatus(achievement, intValue, floatValue);
+        CheckAchievementRequirementStatus(achievement, valueObj);
     }
-    private void CheckAchievementRequirementStatus(AchievementSO achievement, int? intValue, float? floatValue)
+    private void CheckAchievementRequirementStatus(AchievementSO achievement, object valueObj)
     {
         if (achievement.IsUnlocked)
         {
@@ -141,21 +139,14 @@ public class AchievementSystem : MonoBehaviour
         }
         if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
         {
-            HandleValueUpdate(achievement, intValue, floatValue);
+            HandleValueUpdate(achievement, valueObj);
             return;
         }
         UpdateAchievementStatus(achievement);
     }
-    private void HandleValueUpdate(AchievementSO achievement, int? intValue, float? floatValue)
+    private void HandleValueUpdate(AchievementSO achievement, object valueObj)
     {
-        if (intValue.HasValue)
-        {
-            achievement.UpdateCurrentAmount(intValue, null);
-        }
-        else
-        {
-            achievement.UpdateCurrentAmount(null, floatValue);
-        }
+        achievement.UpdateCurrentAmount(valueObj);
         if (achievement.IsValueGoalReached)
         {
             UnlockAchievement(achievement);

@@ -419,15 +419,15 @@ public class AchievementSO : ScriptableObject
     {
         _unlocked = false;
     }
-    public void UpdateCurrentAmount(int? newIntAmount, float? newFloatAmount)
+    public void UpdateCurrentAmount(object valueObj)
     {
-        if (newIntAmount.HasValue)
+        if (valueObj is int newIntValue)
         {
-            _currentIntegerAmount = (int)newIntAmount;
+            _currentIntegerAmount = newIntValue;
         }
-        else
+        else if (valueObj is float newFloatValue)
         {
-            _currentFloatAmount = (float)newFloatAmount;
+            _currentFloatAmount = newFloatValue;
         }
     }
 }
