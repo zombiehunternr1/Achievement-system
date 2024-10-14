@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using System.Threading.Tasks;
 
 public class AchievementSystem : MonoBehaviour
 {
@@ -286,12 +287,13 @@ public class AchievementSystem : MonoBehaviour
             StopAllCoroutines();
         }
     }
-    public void UpdateData(object gameDataObj, object isLoadingObj)
+    public async void UpdateData(object gameDataObj, object isLoadingObj)
     {
         GameData gameData = (GameData)gameDataObj;
         bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
+            await Task.Delay(1);
             LoadAchievementDataFromGameData(gameData);
         }
         else
