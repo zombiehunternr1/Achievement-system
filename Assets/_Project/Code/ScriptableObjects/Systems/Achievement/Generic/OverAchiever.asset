@@ -30,7 +30,7 @@ MonoBehaviour:
   _customAchievementGoalAmount: 0
   _goalAchievementAmount: 5
   _isHidden: 0
-  _showProgression: 1
+  _showProgression: 0
   _progressionEnumDisplay: 0
   _completionEnumRequirement: 3
   _valueEnumType: 1
