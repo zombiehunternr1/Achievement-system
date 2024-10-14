@@ -20,21 +20,16 @@ public class AchievementObject : MonoBehaviour
             return _achievementId;
         }
     }
+    public void SetAchievementData (Sprite icon, string title, string description, bool displayProgression, string Progression)
+    {
+        _icon.sprite = icon;
+        _titleText.text = title;
+        _descriptionText.text = description;
+        ProgressDisplay(displayProgression, Progression);
+    }
     public void SetAchievementId(string achievementId)
     {
         _achievementId = achievementId;
-    }
-    public void SetIcon(Sprite iconInfo)
-    {
-        _icon.sprite = iconInfo;
-    }
-    public void SetTitle(string titleInfo)
-    {
-        _titleText.text = titleInfo;
-    }
-    public void SetDescription(string descriptionInfo)
-    {
-        _descriptionText.text = descriptionInfo;
     }
     public void UnlockAchievement()
     {
@@ -50,7 +45,7 @@ public class AchievementObject : MonoBehaviour
     {
         _locked.enabled = false;
     }
-    public void ProgressDisplay(bool display, string progression)
+    private void ProgressDisplay(bool display, string progression)
     {
         if (!display)
         {

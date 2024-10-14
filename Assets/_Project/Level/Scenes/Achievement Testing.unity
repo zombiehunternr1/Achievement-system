@@ -4144,7 +4144,6 @@ GameObject:
   - component: {fileID: 869330439}
   - component: {fileID: 869330456}
   - component: {fileID: 869330459}
-  - component: {fileID: 869330458}
   - component: {fileID: 869330457}
   m_Layer: 0
   m_Name: AchievementSystem
@@ -4270,35 +4269,6 @@ MonoBehaviour:
         - m_Target: {fileID: 869330439}
           m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
           m_MethodName: UpdateData
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &869330458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869330438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9efada256337b2048930e530300d60e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvents:
-  - _tripleEvent: {fileID: 11400000, guid: 71d68ee1da07341408924cddaec5ccc2, type: 2}
-    _unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 869330439}
-          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
-          m_MethodName: UpdateRecievedAchievement
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

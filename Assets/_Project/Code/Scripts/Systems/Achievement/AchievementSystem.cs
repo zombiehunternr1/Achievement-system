@@ -213,24 +213,10 @@ public class AchievementSystem : MonoBehaviour
         }
         if (isHidden)
         {
-            SetAchievementHidden(achievementObject);
+            achievementObject.SetAchievementData(_hiddenAchievement, _hiddenText, _hiddenText, false, string.Empty);
             return;
         }
-        SetAchievementVisible(achievementObject, achievement);
-    }
-    private void SetAchievementHidden(AchievementObject achievementObject)
-    {
-        achievementObject.SetIcon(_hiddenAchievement);
-        achievementObject.SetTitle(_hiddenText);
-        achievementObject.SetDescription(_hiddenText);
-        achievementObject.ProgressDisplay(false, string.Empty);
-    }
-    private void SetAchievementVisible(AchievementObject achievementObject, AchievementSO achievement)
-    {
-        achievementObject.SetIcon(achievement.Icon);
-        achievementObject.SetTitle(achievement.Title);
-        achievementObject.SetDescription(achievement.Description);
-        achievementObject.ProgressDisplay(achievement.ShowProgression, achievement.Progression);
+        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.ShowProgression, achievement.Progression);
     }
     private void AddToQueueDisplay(AchievementSO achievement)
     {
