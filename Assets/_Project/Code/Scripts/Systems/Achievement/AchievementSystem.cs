@@ -142,7 +142,6 @@ public class AchievementSystem : MonoBehaviour
             HandleValueUpdate(achievement, valueObj);
             return;
         }
-        UpdateAchievementStatus(achievement);
     }
     private void HandleValueUpdate(AchievementSO achievement, object valueObj)
     {
@@ -150,6 +149,10 @@ public class AchievementSystem : MonoBehaviour
         if (achievement.IsValueGoalReached)
         {
             UnlockAchievement(achievement);
+        }
+        else
+        {
+            UpdateAchievementStatus(achievement);
         }
     }
     private void SetupAchievementDisplay()
