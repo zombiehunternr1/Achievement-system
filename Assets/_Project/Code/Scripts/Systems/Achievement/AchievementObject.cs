@@ -12,7 +12,6 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _progressText;
     [SerializeField] private Slider _progressSlider;
     private string _achievementId;
-
     public string AchievementId
     {
         get

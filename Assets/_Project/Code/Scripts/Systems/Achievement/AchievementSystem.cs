@@ -288,7 +288,6 @@ public class AchievementSystem : MonoBehaviour
     }
     public void UpdateData(object gameDataObj, object isLoadingObj)
     {
-
         GameData gameData = (GameData)gameDataObj;
         bool isLoading = (bool)isLoadingObj;
         if (isLoading)
@@ -320,7 +319,6 @@ public class AchievementSystem : MonoBehaviour
     private void SaveAchievementDataToGameData(GameData data)
     {
         List<AchievementSO>.Enumerator enumAchievementsList = _achievementSOList.AchievementList.GetEnumerator();
-
         try
         {
             while (enumAchievementsList.MoveNext())
