@@ -20,7 +20,7 @@ public class AchievementObject : MonoBehaviour
             return _achievementId;
         }
     }
-    public void SetAchievementData (Sprite icon, string title, string description, bool displayProgression, string Progression)
+    public void SetAchievementData(Sprite icon, string title, string description, bool displayProgression, string Progression)
     {
         _icon.sprite = icon;
         _titleText.text = title;
@@ -47,26 +47,20 @@ public class AchievementObject : MonoBehaviour
     }
     private void ProgressDisplay(bool display, string progression)
     {
+        _progressBarRect.gameObject.SetActive(display);
+        _progressSlider.gameObject.SetActive(display);
         if (!display)
         {
-            _progressBarRect.gameObject.SetActive(false);
-            _progressSlider.gameObject.SetActive(false);
             return;
         }
-        _progressBarRect.gameObject.SetActive(true);
         _progressText.text = progression;
         if (progression.Contains("/"))
         {
             string[] parts = progression.Split('/');
-            if (parts.Length == 2)
+            if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int currentAmount) && int.TryParse(parts[1].Trim(), out int goalAmount))
             {
-                if (int.TryParse(parts[0].Trim(), out int currentAmount) &&
-                    int.TryParse(parts[1].Trim(), out int goalAmount))
-                {
-                    _progressSlider.maxValue = goalAmount;
-                    _progressSlider.value = currentAmount;
-                    _progressSlider.gameObject.SetActive(true);
-                }
+                _progressSlider.maxValue = goalAmount;
+                _progressSlider.value = currentAmount;
             }
         }
         else if (progression.Contains("%"))
@@ -76,7 +70,6 @@ public class AchievementObject : MonoBehaviour
             {
                 _progressSlider.maxValue = 100f;
                 _progressSlider.value = percentage;
-                _progressSlider.gameObject.SetActive(true);
             }
         }
     }
