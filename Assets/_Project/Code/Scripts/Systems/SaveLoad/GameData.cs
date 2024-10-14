@@ -8,6 +8,7 @@ public class GameData
     [SerializeField] private long _lastUpdated;
     [SerializeField] private SerializableDictionary<string, bool> _totalAchievementsData;
     [SerializeField] private SerializableDictionary<string, bool> _totalCollectablesData;
+    [SerializeField] private SerializableDictionary<string, float> _currentValueData;
     private List<SerializableDictionary<string, bool>> _allData = new List<SerializableDictionary<string, bool>>();
     public long LastUpdated
     {
@@ -30,10 +31,18 @@ public class GameData
             return _totalCollectablesData;
         }
     }
+    public SerializableDictionary <string, float> CurrentValueData
+    {
+        get
+        {
+            return _currentValueData;
+        }
+    }
     public GameData()
     {
         _totalAchievementsData = new SerializableDictionary<string, bool>();
         _totalCollectablesData = new SerializableDictionary<string, bool>();
+        _currentValueData = new SerializableDictionary<string, float>();
         _allData.Add(_totalAchievementsData);
         _allData.Add(_totalCollectablesData);
     }
@@ -122,5 +131,9 @@ public class GameData
     public void SetTotalCollectionsData(string iDValue, bool boolValue)
     {
         _totalCollectablesData[iDValue] = boolValue;
+    }
+    public void SetCurrentValueData(string iDValue, float value)
+    {
+        _currentValueData[iDValue] = value;
     }
 }

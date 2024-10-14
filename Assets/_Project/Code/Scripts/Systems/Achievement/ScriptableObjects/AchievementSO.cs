@@ -211,6 +211,17 @@ public class AchievementSO : ScriptableObject
             return false;
         }
     }
+    public float GetCurrentAmount
+    {
+        get
+        {
+            if (_valueEnumType == ValueEnumType.Integer)
+            {
+                return _currentIntegerAmount;
+            }
+            return _currentFloatAmount;
+        }
+    }
     public bool IsCollectableGoalReached(BaseCollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
@@ -429,5 +440,14 @@ public class AchievementSO : ScriptableObject
         {
             _currentFloatAmount = newFloatValue;
         }
+    }
+    public void SetCurrentValueFromSaveFile(float currentValue)
+    {
+        if (_valueEnumType == ValueEnumType.Integer)
+        {
+            _currentIntegerAmount = (int)currentValue;
+            return;
+        }
+        _currentFloatAmount = currentValue;
     }
 }

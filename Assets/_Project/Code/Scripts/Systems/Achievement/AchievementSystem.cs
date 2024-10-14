@@ -307,6 +307,11 @@ public class AchievementSystem : MonoBehaviour
         foreach (AchievementSO achievement in _achievementSOList.AchievementList)
         {
             data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
+            if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+            {
+                data.CurrentValueData.TryGetValue(achievement.AchievementId, out float currentValue);
+                achievement.SetCurrentValueFromSaveFile(currentValue);
+            }
             if (isUnlocked)
             {
                 achievement.UnlockAchievement();
@@ -326,8 +331,12 @@ public class AchievementSystem : MonoBehaviour
             while (enumAchievementsList.MoveNext())
             {
                 string id = enumAchievementsList.Current.AchievementId;
-                bool value = enumAchievementsList.Current.IsUnlocked;
-                data.SetTotalAchievementsData(id, value);
+                bool boolValue = enumAchievementsList.Current.IsUnlocked;
+                data.SetTotalAchievementsData(id, boolValue);
+                if (enumAchievementsList.Current.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+                {
+                    data.SetCurrentValueData(id, enumAchievementsList.Current.GetCurrentAmount);
+                }
             }
         }
         finally
