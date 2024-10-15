@@ -430,18 +430,18 @@ public class AchievementSO : ScriptableObject
     {
         _unlocked = false;
     }
-    public void UpdateCurrentAmount(object valueObj)
+    public void UpdateCurrentAmount(object newValueObj)
     {
-        if (valueObj is int newIntValue)
+        if (newValueObj is int newIntValue)
         {
             _currentIntegerAmount = newIntValue;
         }
-        else if (valueObj is float newFloatValue)
+        else if (newValueObj is float newFloatValue)
         {
             _currentFloatAmount = newFloatValue;
         }
     }
-    public void SetCurrentValueFromSaveFile(float currentValue)
+    public void SetCurrentValue(float currentValue)
     {
         if (_valueEnumType == ValueEnumType.Integer)
         {

@@ -71,6 +71,7 @@ public class AchievementSystem : MonoBehaviour
         foreach (AchievementSO achievement in _achievementSOList.AchievementList)
         {
             achievement.LockAchievement();
+            achievement.SetCurrentValue(0);
             StartCoroutine(DeplayUpdateUnlockedStatus(achievement));
         }
     }
@@ -310,7 +311,7 @@ public class AchievementSystem : MonoBehaviour
             if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
             {
                 data.CurrentValueData.TryGetValue(achievement.AchievementId, out float currentValue);
-                achievement.SetCurrentValueFromSaveFile(currentValue);
+                achievement.SetCurrentValue(currentValue);
             }
             if (isUnlocked)
             {
