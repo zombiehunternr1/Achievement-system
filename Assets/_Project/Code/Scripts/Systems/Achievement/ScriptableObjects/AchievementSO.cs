@@ -1,4 +1,5 @@
 using FMODUnity;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -434,16 +435,11 @@ public class AchievementSO : ScriptableObject
     {
         if (_valueEnumType == ValueEnumType.Integer)
         {
-            if (value is int newIntValue)
-            {
-                _currentIntegerAmount = newIntValue;
-                return;
-            }
-            _currentIntegerAmount = (int)(float)value;
+            _currentIntegerAmount = Convert.ToInt32(value);
         }
-        else if (value is float newFloatValue)
-        {
-            _currentFloatAmount = newFloatValue;
+        else
+        {          
+            _currentFloatAmount = Convert.ToSingle(value);
         }
     }
 }

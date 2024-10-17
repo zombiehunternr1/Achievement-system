@@ -240,7 +240,7 @@ public class AchievementSystem : MonoBehaviour
         for (int i =0; i < _achievementSOList.AchievementList.Count; i++)
         {
             AchievementSO achievement = _achievementSOList.AchievementList[i];
-            if (achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+            if (achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement || achievement.IsUnlocked)
             {
                 continue;
             }
