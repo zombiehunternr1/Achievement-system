@@ -123,6 +123,17 @@ public class AchievementSO : ScriptableObject
             return _showProgression;
         }
     }
+    public float GetCurrentAmount
+    {
+        get
+        {
+            if (_valueEnumType == ValueEnumType.Integer)
+            {
+                return _currentIntegerAmount;
+            }
+            return _currentFloatAmount;
+        }
+    }
     public string Progression
     {
         get
@@ -210,17 +221,6 @@ public class AchievementSO : ScriptableObject
                 }
             }
             return false;
-        }
-    }
-    public float GetCurrentAmount
-    {
-        get
-        {
-            if (_valueEnumType == ValueEnumType.Integer)
-            {
-                return _currentIntegerAmount;
-            }
-            return _currentFloatAmount;
         }
     }
     public bool IsCollectableGoalReached(BaseCollectableTypeSO collectable)

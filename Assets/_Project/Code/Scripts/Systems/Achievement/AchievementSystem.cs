@@ -127,6 +127,31 @@ public class AchievementSystem : MonoBehaviour
         }
         CheckAchievementRequirementStatus(achievement, valueObj);
     }
+    private void SetupAchievementDisplay()
+    {
+        if (_achievementSOList.AchievementList.Count == 0)
+        {
+            Debug.LogWarning("The list of achievements to unlock is empty!");
+            return;
+        }
+        for (int i = 0; i < _achievementSOList.AchievementList.Count; i++)
+        {
+            AchievementSO achievement = _achievementSOList.AchievementList[i];
+            if (achievement == null)
+            {
+                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
+                continue;
+            }
+            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
+            achievementObject.SetAchievementId(achievement.AchievementId);
+            _achievementObjects.Add(achievementObject);
+            if (achievement.IsHidden)
+            {
+                achievementObject.DisableLock();
+            }
+            UpdateAchievementObject(i, achievement, achievement.IsHidden);
+        }
+    }
     private void CheckAchievementRequirementStatus(AchievementSO achievement, object valueObj)
     {
         if (achievement.IsUnlocked)
@@ -155,31 +180,6 @@ public class AchievementSystem : MonoBehaviour
         else
         {
             UpdateAchievementStatus(achievement);
-        }
-    }
-    private void SetupAchievementDisplay()
-    {
-        if (_achievementSOList.AchievementList.Count == 0)
-        {
-            Debug.LogWarning("The list of achievements to unlock is empty!");
-            return;
-        }
-        for (int i = 0; i < _achievementSOList.AchievementList.Count; i++)
-        {
-            AchievementSO achievement = _achievementSOList.AchievementList[i];
-            if (achievement == null)
-            {
-                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
-                continue;
-            }
-            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
-            achievementObject.SetAchievementId(achievement.AchievementId);
-            _achievementObjects.Add(achievementObject);
-            if (achievement.IsHidden)
-            {
-                achievementObject.DisableLock();
-            }
-            UpdateAchievementObject(i, achievement, achievement.IsHidden);
         }
     }
     private void UnlockAchievement(AchievementSO achievement)
@@ -223,18 +223,6 @@ public class AchievementSystem : MonoBehaviour
         }
         achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.ShowProgression, achievement.Progression);
     }
-    private void AddToQueueDisplay(AchievementSO achievement)
-    {
-        if (_QueuedAchievements.Count == 0)
-        {
-            _QueuedAchievements.Add(achievement);
-            DisplayPopUpAchievement(achievement);
-        }
-        else
-        {
-            _QueuedAchievements.Add(achievement);
-        }
-    }
     private void CheckAchievementTypes()
     {
         for (int i =0; i < _achievementSOList.AchievementList.Count; i++)
@@ -250,6 +238,19 @@ public class AchievementSystem : MonoBehaviour
                 return;
             }
             UpdateAchievementStatus(achievement);
+        }
+    }
+    #region Achievement display
+    private void AddToQueueDisplay(AchievementSO achievement)
+    {
+        if (_QueuedAchievements.Count == 0)
+        {
+            _QueuedAchievements.Add(achievement);
+            DisplayPopUpAchievement(achievement);
+        }
+        else
+        {
+            _QueuedAchievements.Add(achievement);
         }
     }
     private void DisplayNextinQueue()
@@ -269,6 +270,8 @@ public class AchievementSystem : MonoBehaviour
         _soundEffect.start();
         _soundEffect.release();
     }
+    #endregion
+    #region Co-routines
     private IEnumerator DeplayUpdateUnlockedStatus(AchievementSO achievement)
     {
         yield return new WaitForSeconds(0.01f);
@@ -288,6 +291,8 @@ public class AchievementSystem : MonoBehaviour
             StopAllCoroutines();
         }
     }
+    #endregion
+    #region Saving & Loading
     public async void UpdateData(object gameDataObj, object isLoadingObj)
     {
         GameData gameData = (GameData)gameDataObj;
@@ -345,4 +350,5 @@ public class AchievementSystem : MonoBehaviour
             enumAchievementsList.Dispose();
         }
     }
+    #endregion
 }

@@ -31,6 +31,14 @@ public class CollectableSystem : MonoBehaviour
         }
         _updateCollectablesStatusEvent.Invoke();
     }
+    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
+    {
+        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
+        {
+            collectable.SetCollectableStatus(false);
+        }
+    }
+    #region Saving & Loading
     public void UpdateData(object gameDataObj, object isLoadingObj)
     {
         GameData gameData = (GameData)gameDataObj;
@@ -44,13 +52,6 @@ public class CollectableSystem : MonoBehaviour
             SaveCollectableStatusToData(gameData);
         }
         _updateProgressionEvent.Invoke(gameData);
-    }
-    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
-    {
-        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
-        {
-            collectable.SetCollectableStatus(false);
-        }
     }
     private void LoadCollectableStatusFromData(GameData data)
     {
@@ -86,4 +87,5 @@ public class CollectableSystem : MonoBehaviour
             enumAllCollectablesLists.Dispose();
         }
     }
+    #endregion
 }
