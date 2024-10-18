@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7444233282688323646}
   - component: {fileID: 7483805170991544509}
   - component: {fileID: 7444233282688323643}
-  - component: {fileID: 7444233282688323642}
-  - component: {fileID: 7444233282688323637}
+  - component: {fileID: 6362771983624499379}
+  - component: {fileID: 5795354678373286488}
   m_Layer: 5
   m_Name: AchievementPopup
   m_TagString: Untagged
@@ -37,7 +37,6 @@ RectTransform:
   - {fileID: 7444233283003177973}
   - {fileID: 7444233283147877130}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -84,7 +83,7 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!95 &7483805170991544509
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -98,6 +97,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
   _icon: {fileID: 7444233283003177978}
   _titleText: {fileID: 7444233283147877131}
   _popupAnimation: {fileID: 7483805170991544509}
---- !u!114 &7444233282688323642
+--- !u!114 &6362771983624499379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,26 +127,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 7444233282688323640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740da6596c35af74f94356044f820bf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: eda1fd96da1dcb04299f93c33494d982, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7444233282688323643}
-        m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-        m_MethodName: PlayDisplayStatus
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7444233282688323637
+  _baseEvents:
+  - _singleEvent: {fileID: 11400000, guid: 76f85149e04554842afbde61d547e323, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7444233282688323643}
+          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
+          m_MethodName: PlayDisplayStatus
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &5795354678373286488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,25 +156,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 7444233282688323640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f81d2185f2412eb428951148f1538adc, type: 3}
+  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseEvent: {fileID: 11400000, guid: a8ba94020e0886c4ca6b57d8e14db626, type: 2}
-  _unityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7444233282688323643}
-        m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-        m_MethodName: SetPopUpInfo
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _baseEvents:
+  - _doubleEvent: {fileID: 11400000, guid: 3242eb86ea49d584aab24ce1cfedb66d, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7444233282688323643}
+          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
+          m_MethodName: SetPopUpInfo
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7444233283003177972
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +207,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7444233282688323641}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -281,7 +282,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7444233282688323641}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -359,15 +359,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
