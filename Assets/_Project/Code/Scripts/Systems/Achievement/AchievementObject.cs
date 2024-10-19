@@ -11,7 +11,7 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private RectTransform _progressBarRect;
     [SerializeField] private TextMeshProUGUI _progressText;
     [SerializeField] private Slider _progressSlider;
-    [SerializeField] private Sprite _hiddenAchievement;
+    [SerializeField] private Sprite _hiddenAchievementSprite;
     private string _achievementId;
     private const string HiddenText = "??????????????";
     public string AchievementId
@@ -25,7 +25,7 @@ public class AchievementObject : MonoBehaviour
     {
         if (isHidden)
         {
-            _icon.sprite = _hiddenAchievement;
+            _icon.sprite = _hiddenAchievementSprite;
             _titleText.text = HiddenText;
             _descriptionText.text = HiddenText;
         }
