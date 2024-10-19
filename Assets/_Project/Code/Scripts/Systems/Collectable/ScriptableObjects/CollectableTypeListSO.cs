@@ -4,12 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CollectableListSO", menuName = "Scriptable Objects/Systems/Collectables/Collectable List")]
 public class CollectableTypeListSO : ScriptableObject
 {
-    [SerializeField] private List<CollectableTypeSO> _CollectableTypes;
-    public List<CollectableTypeSO> CollectableTypeList
+    [SerializeField] private List<BaseCollectableTypeSO> _Collectables;
+    public List<BaseCollectableTypeSO> CollectablesList
     {
         get
         {
-            return _CollectableTypes;
+            return _Collectables;
         }
     }
 }

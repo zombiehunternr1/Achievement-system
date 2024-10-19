@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: YellowGem
   m_EditorClassIdentifier: 
   _collectableID: 0bf17826cfe2d5b48922ce7ad7c24457
-  _isCollected: 0
+  _collected: 0

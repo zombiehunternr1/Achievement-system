@@ -15,7 +15,7 @@ public class CollectableSystem : MonoBehaviour
         CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
-            if (collectableTypeList.CollectableTypeList.Contains(collectableType))
+            if (collectableTypeList.CollectablesList.Contains(collectableType))
             {
                 _checkCollectableRequestEvent.Invoke(collectableType);
             }
@@ -33,7 +33,7 @@ public class CollectableSystem : MonoBehaviour
     }
     private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
     {
-        foreach (CollectableTypeSO collectable in collectableTypeList.CollectableTypeList)
+        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
         {
             collectable.SetCollectableStatus(false);
         }
@@ -57,7 +57,7 @@ public class CollectableSystem : MonoBehaviour
     {
         foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
         {
-            foreach (CollectableTypeSO collectableType in collectableTypeList.CollectableTypeList)
+            foreach (CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
             {
                 data.TotalCollectionsData.TryGetValue(collectableType.CollectableId, out bool isCollected);
                 collectableType.SetCollectableStatus(isCollected);
@@ -72,7 +72,7 @@ public class CollectableSystem : MonoBehaviour
         {
             while (enumAllCollectablesLists.MoveNext())
             {
-                List<CollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.CollectableTypeList.GetEnumerator();
+                List<BaseCollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.CollectablesList.GetEnumerator();
 
                 while (enumCurrentCollectableList.MoveNext())
                 {
