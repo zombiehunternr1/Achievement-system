@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
   m_Name: PurpleGem
   m_EditorClassIdentifier: 
-  _collectableID: 41bdd460848411149848c876cc8ead55
-  _collected: 0
+  _collectableID: 0bf17826cfe2d5b48922ce7ad7c24457
+  _isCollected: 0

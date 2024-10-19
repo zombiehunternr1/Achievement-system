@@ -223,7 +223,7 @@ public class AchievementSO : ScriptableObject
             return false;
         }
     }
-    public bool IsCollectableGoalReached(BaseCollectableTypeSO collectable)
+    public bool IsCollectableGoalReached(CollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
@@ -231,21 +231,21 @@ public class AchievementSO : ScriptableObject
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
-            return _collectableTypeList.CollectablesList.Contains(collectable) && 
-                IsRequirementMet(_collectableTypeList.CollectablesList, _collectableTypeList.CollectablesList.Count,
+            return _collectableTypeList.CollectableTypeList.Contains(collectable) && 
+                IsRequirementMet(_collectableTypeList.CollectableTypeList, _collectableTypeList.CollectableTypeList.Count,
                 _requiresMultipleCollectableLists);
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
         {
             if (!_requiresMultipleCollectableLists)
             {
-                return _collectableTypeList.CollectablesList.Contains(collectable) && 
-                    IsRequirementMet(_collectableTypeList.CollectablesList, _minimumGoalAmount, _requiresMultipleCollectableLists);
+                return _collectableTypeList.CollectableTypeList.Contains(collectable) && 
+                    IsRequirementMet(_collectableTypeList.CollectableTypeList, _minimumGoalAmount, _requiresMultipleCollectableLists);
             }
             for (int i = 0; i < _collectableTypeLists.Count; i++)
             {
-                if (_collectableTypeLists[i].CollectablesList.Contains(collectable) && 
-                    IsRequirementMet(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount, _requiresMultipleCollectableLists))
+                if (_collectableTypeLists[i].CollectableTypeList.Contains(collectable) && 
+                    IsRequirementMet(_collectableTypeLists[i].CollectableTypeList, _minimumGoalAmount, _requiresMultipleCollectableLists))
                 {
                     return true;
                 }
@@ -266,9 +266,9 @@ public class AchievementSO : ScriptableObject
         }
         if (!_requiresMultipleCollectableLists)
         {
-            for (int i = 0; i < _collectableTypeList.CollectablesList.Count; i++)
+            for (int i = 0; i < _collectableTypeList.CollectableTypeList.Count; i++)
             {
-                if (_collectableTypeList.CollectablesList[i].CollectableId == collectableId)
+                if (_collectableTypeList.CollectableTypeList[i].CollectableId == collectableId)
                 {
                     return true;
                 }
@@ -276,9 +276,9 @@ public class AchievementSO : ScriptableObject
         }
         for (int i = 0; i < _collectableTypeLists.Count; i++)
         {
-            for (int j = 0; j < _collectableTypeLists[i].CollectablesList.Count; j++)
+            for (int j = 0; j < _collectableTypeLists[i].CollectableTypeList.Count; j++)
             {
-                if (_collectableTypeLists[i].CollectablesList[j].CollectableId == collectableId)
+                if (_collectableTypeLists[i].CollectableTypeList[j].CollectableId == collectableId)
                 {
                     return true;
                 }
@@ -302,7 +302,7 @@ public class AchievementSO : ScriptableObject
             return amount;
         }
     }
-    private bool IsRequirementMet(List<BaseCollectableTypeSO> collectablesList, int goalAmount, bool isMultipleLists)
+    private bool IsRequirementMet(List<CollectableTypeSO> collectablesList, int goalAmount, bool isMultipleLists)
     {
         int currentAmount;
         if (!isMultipleLists)
@@ -313,7 +313,7 @@ public class AchievementSO : ScriptableObject
         int totalAmount = 0;
         for (int i = 0; i < _collectableTypeLists.Count; i++)
         {
-            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount);
+            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectableTypeList, _minimumGoalAmount);
             totalAmount += currentAmount;
             if (totalAmount >= _collectableTypeLists.Count * _minimumGoalAmount)
             {
@@ -338,12 +338,12 @@ public class AchievementSO : ScriptableObject
         int currentAmount;
         if (!_requiresMultipleCollectableLists)
         {
-            currentAmount = GetCollectedAmount(_collectableTypeList.CollectablesList, _minimumGoalAmount);
+            currentAmount = GetCollectedAmount(_collectableTypeList.CollectableTypeList, _minimumGoalAmount);
             return GetProgressionDisplayType(currentAmount, _minimumGoalAmount);
         }
         for (int i = 0; i < _collectableTypeLists.Count; i++)
         {
-            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount);
+            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectableTypeList, _minimumGoalAmount);
             totalAmount += currentAmount;
             if (totalAmount >= _collectableTypeLists.Count * _minimumGoalAmount)
             {
@@ -398,16 +398,16 @@ public class AchievementSO : ScriptableObject
     private string GetAllCollectablesProgression()
     {
         int currentAmount = 0;
-        for (int i = 0; i < _collectableTypeList.CollectablesList.Count; i++)
+        for (int i = 0; i < _collectableTypeList.CollectableTypeList.Count; i++)
         {
-            if (_collectableTypeList.CollectablesList[i].IsCollected)
+            if (_collectableTypeList.CollectableTypeList[i].IsCollected)
             {
                 currentAmount++;
             }
         }
-        return GetProgressionDisplayType(currentAmount, _collectableTypeList.CollectablesList.Count);
+        return GetProgressionDisplayType(currentAmount, _collectableTypeList.CollectableTypeList.Count);
     }
-    private int GetCollectedAmount(List<BaseCollectableTypeSO> collectablesList, int goalAmount)
+    private int GetCollectedAmount(List<CollectableTypeSO> collectablesList, int goalAmount)
     {
         int count = 0;
         for (int i = 0; i < collectablesList.Count; i++)
