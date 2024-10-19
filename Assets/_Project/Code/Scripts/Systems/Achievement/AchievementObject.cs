@@ -11,7 +11,9 @@ public class AchievementObject : MonoBehaviour
     [SerializeField] private RectTransform _progressBarRect;
     [SerializeField] private TextMeshProUGUI _progressText;
     [SerializeField] private Slider _progressSlider;
+    [SerializeField] private Sprite _hiddenAchievement;
     private string _achievementId;
+    private const string HiddenText = "??????????????";
     public string AchievementId
     {
         get
@@ -19,11 +21,20 @@ public class AchievementObject : MonoBehaviour
             return _achievementId;
         }
     }
-    public void SetAchievementData(Sprite icon, string title, string description, bool displayProgression, string Progression)
+    public void SetAchievementData(Sprite icon, string title, string description, bool displayProgression, string Progression, bool isHidden)
     {
-        _icon.sprite = icon;
-        _titleText.text = title;
-        _descriptionText.text = description;
+        if (isHidden)
+        {
+            _icon.sprite = _hiddenAchievement;
+            _titleText.text = HiddenText;
+            _descriptionText.text = HiddenText;
+        }
+        else
+        {
+            _icon.sprite = icon;
+            _titleText.text = title;
+            _descriptionText.text = description;
+        }
         ProgressDisplay(displayProgression, Progression);
     }
     public void SetAchievementId(string achievementId)

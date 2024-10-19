@@ -16,12 +16,10 @@ public class AchievementSystem : MonoBehaviour
     [SerializeField] private SingleEvent _updateProgressionEvent;
     [Header("Component & Settings references")]
     [SerializeField] private int _displayPopupTime = 5;
-    [SerializeField] private Sprite _hiddenAchievement;
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
     private List<AchievementObject> _achievementObjects = new List<AchievementObject>();
-    private List<AchievementSO> _QueuedAchievements = new List<AchievementSO>();
-    private readonly string _hiddenText = "??????????????";
+    private List<AchievementSO> _queuedAchievements = new List<AchievementSO>();
     private EventInstance _soundEffect;
     private AchievementSO FindAchievementById(string achievementID)
     {
@@ -184,7 +182,7 @@ public class AchievementSystem : MonoBehaviour
     }
     private void UnlockAchievement(AchievementSO achievement)
     {
-        if (_QueuedAchievements.Contains(achievement))
+        if (_queuedAchievements.Contains(achievement))
         {
             return;
         }
@@ -218,10 +216,10 @@ public class AchievementSystem : MonoBehaviour
         }
         if (isHidden)
         {
-            achievementObject.SetAchievementData(_hiddenAchievement, _hiddenText, _hiddenText, false, string.Empty);
+            achievementObject.SetAchievementData(null, string.Empty, string.Empty, false, string.Empty, isHidden);
             return;
         }
-        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.ShowProgression, achievement.Progression);
+        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.ShowProgression, achievement.Progression, isHidden);
     }
     private void CheckAchievementTypes()
     {
@@ -243,22 +241,22 @@ public class AchievementSystem : MonoBehaviour
     #region Achievement display
     private void AddToQueueDisplay(AchievementSO achievement)
     {
-        if (_QueuedAchievements.Count == 0)
+        if (_queuedAchievements.Count == 0)
         {
-            _QueuedAchievements.Add(achievement);
+            _queuedAchievements.Add(achievement);
             DisplayPopUpAchievement(achievement);
         }
         else
         {
-            _QueuedAchievements.Add(achievement);
+            _queuedAchievements.Add(achievement);
         }
     }
     private void DisplayNextinQueue()
     {
-        _QueuedAchievements.RemoveAt(0);
-        if (_QueuedAchievements.Count != 0)
+        _queuedAchievements.RemoveAt(0);
+        if (_queuedAchievements.Count != 0)
         {
-            DisplayPopUpAchievement(_QueuedAchievements[0]);
+            DisplayPopUpAchievement(_queuedAchievements[0]);
         }
     }
     private void DisplayPopUpAchievement(AchievementSO achievement)
@@ -282,7 +280,7 @@ public class AchievementSystem : MonoBehaviour
         yield return new WaitForSeconds(_displayPopupTime);
         _playPopUpDisplayStatusEvent.Invoke("Hiding");
         yield return new WaitForSeconds(1.5f);
-        if (_QueuedAchievements.Count != 0)
+        if (_queuedAchievements.Count != 0)
         {
             DisplayNextinQueue();
         }
