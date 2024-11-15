@@ -4,39 +4,33 @@ using UnityEngine;
 public class CollectableSystem : MonoBehaviour
 {
     [Header("Collectable references")]
-    [SerializeField] private CollectableListHolder _allcollectableListsReference;
+    [SerializeField] private CollectableListSO _allCollectablesListReference;
     [Header("Event references")]
     [SerializeField] private EmptyEvent _saveGameEvent;
     [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
     [SerializeField] private SingleEvent _checkCollectableRequestEvent;
-    public void UpdateCollectableStatus(object collectableTypeObj)
+    public void UpdateCollectableStatus(object collectableV2Obj)
     {
-        CollectableTypeSO collectableType = (CollectableTypeSO)collectableTypeObj;
-        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
-        {
-            if (collectableTypeList.CollectablesList.Contains(collectableType))
-            {
-                _checkCollectableRequestEvent.Invoke(collectableType);
-            }
-        }
+        CollectableSO collectableV2 = (CollectableSO)collectableV2Obj;
+        _checkCollectableRequestEvent.Invoke(collectableV2);
         _updateCollectablesStatusEvent.Invoke();
         _saveGameEvent.Invoke();
     }
-    public void ResetAllCollectibles()
+    public void ResetAllCollectables()
     {
-        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
+        foreach (CollectableSO collectable in _allCollectablesListReference.CollectablesList)
         {
-            ResetCollectablesInList(collectableTypeList);
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            {
+                collectable.SetCollectableStatus(false);
+            }
+            foreach (CollectableStatus collectableStatus in collectable.MultiCollectableStatus)
+            {
+                collectableStatus.SetCollectableStatus(false);
+            }
         }
         _updateCollectablesStatusEvent.Invoke();
-    }
-    private void ResetCollectablesInList(CollectableTypeListSO collectableTypeList)
-    {
-        foreach (CollectableTypeSO collectable in collectableTypeList.CollectablesList)
-        {
-            collectable.SetCollectableStatus(false);
-        }
     }
     #region Saving & Loading
     public void UpdateData(object gameDataObj, object isLoadingObj)
@@ -53,38 +47,52 @@ public class CollectableSystem : MonoBehaviour
         }
         _updateProgressionEvent.Invoke(gameData);
     }
-    private void LoadCollectableStatusFromData(GameData data)
+    private void LoadCollectableStatusFromData(GameData gameData)
     {
-        foreach (CollectableTypeListSO collectableTypeList in _allcollectableListsReference.AllCollectableLists)
+        foreach (CollectableSO collectableV2 in _allCollectablesListReference.CollectablesList)
         {
-            foreach (CollectableTypeSO collectableType in collectableTypeList.CollectablesList)
+            if (collectableV2.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                data.TotalCollectionsData.TryGetValue(collectableType.CollectableId, out bool isCollected);
-                collectableType.SetCollectableStatus(isCollected);
+                gameData.TotalCollectionsData.TryGetValue(collectableV2.SingleCollectableStatus.CollectableId, out bool isCollected);
+                collectableV2.SetCollectableStatus(isCollected);
+            }
+            for (int i = 0; i < collectableV2.MultiCollectableStatus.Count; i++)
+            {
+                gameData.TotalCollectionsData.TryGetValue(collectableV2.MultiCollectableStatus[i].CollectableId, out bool isCollected);
+                collectableV2.MultiCollectableStatus[i].SetCollectableStatus(isCollected);
             }
         }
         _updateCollectablesStatusEvent.Invoke();
     }
-    private void SaveCollectableStatusToData(GameData data)
+    private void SaveCollectableStatusToData(GameData gameData)
     {
-        List<CollectableTypeListSO>.Enumerator enumAllCollectablesLists = _allcollectableListsReference.AllCollectableLists.GetEnumerator();
+        List<CollectableSO>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
+        string collectableId;
+        bool isCollected;
         try
         {
-            while (enumAllCollectablesLists.MoveNext())
+            while (enumAllCollectables.MoveNext())
             {
-                List<BaseCollectableTypeSO>.Enumerator enumCurrentCollectableList = enumAllCollectablesLists.Current.CollectablesList.GetEnumerator();
-
-                while (enumCurrentCollectableList.MoveNext())
+                if (enumAllCollectables.Current.ItemAmountType == CollectionEnumItemAmount.SingleItem)
                 {
-                    string id = enumCurrentCollectableList.Current.CollectableId;
-                    bool value = enumCurrentCollectableList.Current.IsCollected;
-                    data.SetTotalCollectionsData(id, value);
+                    collectableId = enumAllCollectables.Current.SingleCollectableStatus.CollectableId;
+                    isCollected = enumAllCollectables.Current.SingleCollectableStatus.IsCollected;
+                    gameData.SetTotalCollectionsData(collectableId, isCollected);
+                }
+                else
+                {
+                    for (int i = 0; i < enumAllCollectables.Current.MultiCollectableStatus.Count; i++)
+                    {
+                        collectableId = enumAllCollectables.Current.MultiCollectableStatus[i].CollectableId;
+                        isCollected = enumAllCollectables.Current.MultiCollectableStatus[i].IsCollected;
+                        gameData.SetTotalCollectionsData(collectableId, isCollected);
+                    }
                 }
             }
         }
         finally
         {
-            enumAllCollectablesLists.Dispose();
+            enumAllCollectables.Dispose();
         }
     }
     #endregion

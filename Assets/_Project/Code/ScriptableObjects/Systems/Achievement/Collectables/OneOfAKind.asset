@@ -27,6 +27,8 @@ MonoBehaviour:
   _requiresPreviousAchievement: 0
   _previousAchievement: {fileID: 0}
   _achievementList: {fileID: 0}
+  _customAchievementGoalAmount: 0
+  _goalAchievementAmount: 0
   _isHidden: 0
   _showProgression: 1
   _progressionEnumDisplay: 1
@@ -38,10 +40,6 @@ MonoBehaviour:
   _currentFloatAmount: 0
   _goalFloatAmount: 0
   _collectableEnumRequirement: 2
-  _collectableType: {fileID: 0}
-  _collectableTypeList: {fileID: 0}
-  _collectableTypeLists:
-  - {fileID: 11400000, guid: e0dcad03a2cf2184b9cadb10c1f9b0e7, type: 2}
-  - {fileID: 11400000, guid: c777b912776eada43940f91669fbb452, type: 2}
-  _requiresMultipleCollectableLists: 1
+  _collectable: {fileID: 0}
+  _collectableList: {fileID: 11400000, guid: 84e31202b76c2324ba919d8fbd195712, type: 2}
   _minimumGoalAmount: 1

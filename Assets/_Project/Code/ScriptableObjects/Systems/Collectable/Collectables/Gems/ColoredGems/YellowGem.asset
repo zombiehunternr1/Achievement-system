@@ -9,8 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885a5d02f9009c74da1997ca0c47eab6, type: 3}
+  m_Script: {fileID: 11500000, guid: da02d696a879d7044bc26013e8cc151b, type: 3}
   m_Name: YellowGem
   m_EditorClassIdentifier: 
-  _collectableID: 0bf17826cfe2d5b48922ce7ad7c24457
-  _collected: 0
+  _collectionType: 0
+  _itemAmountType: 0
+  _singleCollectableStatus:
+    _collectableId: 32072
+    _isCollected: 0
+    _currentAmount: 0
+    _goalAmount: 0
+    _increaseSpeed: 0
+  _multiCollectablesStatus: []
+  _collectableCategory: 2

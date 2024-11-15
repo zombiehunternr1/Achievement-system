@@ -27,9 +27,8 @@ public class AchievementSOEditor : Editor
         _currentFloatAmountProp,
         _goalFloatAmountProp,
         _collectableEnumRequirementProp,
-        _collectableTypeProp,
-        _collectableTypeListProp,
-        _collectableTypeListsProp,
+        _collectableProp,
+        _collectableListProp,
         _requiresMultipleCollectableListsProp,
         _minimumGoalAmountProp;
     private MonoScript _monoScript;
@@ -57,9 +56,8 @@ public class AchievementSOEditor : Editor
         _currentFloatAmountProp = serializedObject.FindProperty("_currentFloatAmount");
         _goalFloatAmountProp = serializedObject.FindProperty("_goalFloatAmount");
         _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableEnumRequirement");
-        _collectableTypeProp = serializedObject.FindProperty("_collectableType");
-        _collectableTypeListProp = serializedObject.FindProperty("_collectableTypeList");
-        _collectableTypeListsProp = serializedObject.FindProperty("_collectableTypeLists");
+        _collectableProp = serializedObject.FindProperty("_collectable");
+        _collectableListProp = serializedObject.FindProperty("_collectableList");
         _requiresMultipleCollectableListsProp = serializedObject.FindProperty("_requiresMultipleCollectableLists");
         _minimumGoalAmountProp = serializedObject.FindProperty("_minimumGoalAmount");
     }
@@ -133,21 +131,13 @@ public class AchievementSOEditor : Editor
                 switch (collectableEnumRequirement)
                 {
                     case CollectableEnumRequirement.SingleCollectable:
-                        EditorGUILayout.PropertyField(_collectableTypeProp);
+                        EditorGUILayout.PropertyField(_collectableProp);
                     break;
                     case CollectableEnumRequirement.AllCollectables:
-                        EditorGUILayout.PropertyField(_collectableTypeListProp);
+                        EditorGUILayout.PropertyField(_collectableListProp);
                     break;
                     case CollectableEnumRequirement.Custom:
-                        EditorGUILayout.PropertyField(_requiresMultipleCollectableListsProp);
-                        if (_requiresMultipleCollectableListsProp.boolValue)
-                        {
-                            EditorGUILayout.PropertyField(_collectableTypeListsProp);
-                        }
-                        else
-                        {
-                            EditorGUILayout.PropertyField(_collectableTypeListProp);
-                        }
+                        EditorGUILayout.PropertyField(_collectableListProp);
                         EditorGUILayout.PropertyField(_minimumGoalAmountProp);
                     break;
                 }

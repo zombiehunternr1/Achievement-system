@@ -33,13 +33,11 @@ public class AchievementSO : ScriptableObject
     [SerializeField] private float _goalFloatAmount;
 
     [SerializeField] private CollectableEnumRequirement _collectableEnumRequirement;
-    [SerializeField] private CollectableTypeSO _collectableType;
-    [SerializeField] private CollectableTypeListSO _collectableTypeList;
-    [SerializeField] private List<CollectableTypeListSO> _collectableTypeLists;
-    [SerializeField] private bool _requiresMultipleCollectableLists;
+    [SerializeField] private CollectableSO _collectable;
+    [SerializeField] private CollectableListSO _collectableList;
     [Tooltip("This value is for the minimum amount required in a list or that needs to be met in multiple lists")]
     [SerializeField] private int _minimumGoalAmount;
-    public AchievementSO PreviousAchievementSO
+    public AchievementSO PreviousAchievement
     {
         get
         {
@@ -134,31 +132,20 @@ public class AchievementSO : ScriptableObject
             return _currentFloatAmount;
         }
     }
-    public string Progression
+    private int ActualAchievementCount
     {
         get
         {
-            if (_completionEnumRequirement == CompletionEnumRequirement.NoRequirement)
+            int amount = 0;
+            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
             {
-                return string.Empty;
+                AchievementSO achievement = _achievementList.AchievementList[i];
+                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+                {
+                    amount++;
+                }
             }
-            if (_completionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
-            {
-                return GetValueRequirementProgression();
-            }
-            if (_completionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
-            {
-                return GetAchievementProgression();
-            }
-            if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
-            {
-                return GetSingleCollectableProgression();
-            }
-            if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
-            {
-                return GetAllCollectablesProgression();
-            }
-            return GetCustomRequirementProgression();
+            return amount;
         }
     }
     public bool IsValueGoalReached
@@ -177,7 +164,7 @@ public class AchievementSO : ScriptableObject
                     return true;
                 }
             }
-            if(_isExactAmount)
+            if (_isExactAmount)
             {
                 return _currentFloatAmount == _goalFloatAmount;
             }
@@ -223,104 +210,140 @@ public class AchievementSO : ScriptableObject
             return false;
         }
     }
-    public bool IsCollectableGoalReached(BaseCollectableTypeSO collectable)
+    public string Progression
+    {
+        get
+        {
+            if (_completionEnumRequirement == CompletionEnumRequirement.NoRequirement)
+            {
+                return string.Empty;
+            }
+            if (_completionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+            {
+                return GetValueRequirementProgression();
+            }
+            if (_completionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
+            {
+                return GetAchievementProgression();
+            }
+            if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
+            {
+                return GetSingleCollectableProgression();
+            }
+            if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
+            {
+                return GetAllCollectablesProgression();
+            }
+            return GetCustomRequirementProgression();
+        }
+    }
+    public bool IsCollectableGoalReached(CollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectableType != null && (_collectableType.CollectableId.Equals(collectable.CollectableId) && _collectableType.IsCollected);
+            return _collectable != null && (_collectable.SingleCollectableStatus.CollectableId.Equals(collectable.SingleCollectableStatus.CollectableId) &&
+                _collectable.SingleCollectableStatus.IsCollected);
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
-            return _collectableTypeList.CollectablesList.Contains(collectable) && 
-                IsRequirementMet(_collectableTypeList.CollectablesList, _collectableTypeList.CollectablesList.Count,
-                _requiresMultipleCollectableLists);
+            return IsRequirementMet(_collectableList);
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
         {
-            if (!_requiresMultipleCollectableLists)
-            {
-                return _collectableTypeList.CollectablesList.Contains(collectable) && 
-                    IsRequirementMet(_collectableTypeList.CollectablesList, _minimumGoalAmount, _requiresMultipleCollectableLists);
-            }
-            for (int i = 0; i < _collectableTypeLists.Count; i++)
-            {
-                if (_collectableTypeLists[i].CollectablesList.Contains(collectable) && 
-                    IsRequirementMet(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount, _requiresMultipleCollectableLists))
-                {
-                    return true;
-                }
-            }
+            return IsRequirementMet(_collectableList, _minimumGoalAmount);
         }
         return false;
     }
-    public bool IsAchievementRelated(string collectableId)
+    public bool IsAchievementRelated(CollectableSO collectable)
     {
-        if (_completionEnumRequirement == CompletionEnumRequirement.NoRequirement || 
+        if (_completionEnumRequirement == CompletionEnumRequirement.NoRequirement ||
             _completionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
         {
             return false;
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectableType != null && _collectableType.CollectableId.Equals(collectableId);
+            return _collectable != null && _collectable.SingleCollectableStatus.CollectableId.Equals(collectable.SingleCollectableStatus.CollectableId);
         }
-        if (!_requiresMultipleCollectableLists)
+        for (int i = 0; i < _collectableList.CollectablesList.Count; i++)
         {
-            for (int i = 0; i < _collectableTypeList.CollectablesList.Count; i++)
-            {
-                if (_collectableTypeList.CollectablesList[i].CollectableId == collectableId)
-                {
-                    return true;
-                }
-            }
-        }
-        for (int i = 0; i < _collectableTypeLists.Count; i++)
-        {
-            for (int j = 0; j < _collectableTypeLists[i].CollectablesList.Count; j++)
-            {
-                if (_collectableTypeLists[i].CollectablesList[j].CollectableId == collectableId)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    private int ActualAchievementCount
-    {
-        get
-        {
-            int amount = 0;
-            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
-            {
-                AchievementSO achievement = _achievementList.AchievementList[i];
-                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
-                {
-                    amount++;
-                }
-            }
-            return amount;
-        }
-    }
-    private bool IsRequirementMet(List<BaseCollectableTypeSO> collectablesList, int goalAmount, bool isMultipleLists)
-    {
-        int currentAmount;
-        if (!isMultipleLists)
-        {
-            currentAmount = GetCollectedAmount(collectablesList, goalAmount);
-            return currentAmount >= goalAmount;
-        }
-        int totalAmount = 0;
-        for (int i = 0; i < _collectableTypeLists.Count; i++)
-        {
-            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount);
-            totalAmount += currentAmount;
-            if (totalAmount >= _collectableTypeLists.Count * _minimumGoalAmount)
+            if (_collectableList.CollectablesList.Contains(collectable))
             {
                 return true;
             }
         }
         return false;
+    }
+    private Dictionary<CollectableCategoryEnum, int> GetCollectedAmountPerCategory(List<CollectableSO> singleItems, List<CollectableSO> multipleItems)
+    {
+        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
+        for (int i = 0; i < singleItems.Count; i++)
+        {
+            if (!collectedAmountPerCategory.ContainsKey(singleItems[i].CollectableCategory))
+            {
+                collectedAmountPerCategory[singleItems[i].CollectableCategory] = 0;
+            }
+        }
+        for (int i = 0; i < multipleItems.Count; i++)
+        {
+            if (!collectedAmountPerCategory.ContainsKey(multipleItems[i].CollectableCategory))
+            {
+                collectedAmountPerCategory[multipleItems[i].CollectableCategory] = 0;
+            }
+        }
+        foreach (CollectableSO collectable in singleItems)
+        {
+            if (collectable.SingleCollectableStatus.IsCollected)
+            {
+                collectedAmountPerCategory[collectable.CollectableCategory]++;
+            }
+        }
+        foreach (CollectableSO collectable in multipleItems)
+        {
+            for (int i = 0; i < collectable.MultiCollectableStatus.Count; i++)
+            {
+                if (collectable.MultiCollectableStatus[i].IsCollected)
+                {
+                    collectedAmountPerCategory[collectable.CollectableCategory]++;
+                }
+            }
+        }
+        return collectedAmountPerCategory;
+    }
+    private bool IsRequirementMet(CollectableListSO collectablesList)
+    {
+        List<CollectableSO> singleItemsList = collectablesList.SingleItems;
+        List<CollectableSO> multipleItemsList = collectablesList.MultipleItems;
+        for (int i = 0; i < singleItemsList.Count; i++)
+        {
+            if (!singleItemsList[i].SingleCollectableStatus.IsCollected)
+            {
+                return false;
+            }
+        }
+        for (int i = 0; i < multipleItemsList.Count; i++)
+        {
+            for (int j = 0; j < multipleItemsList[i].MultiCollectableStatus.Count; j++)
+            {
+                if (!multipleItemsList[i].MultiCollectableStatus[j].IsCollected)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private bool IsRequirementMet(CollectableListSO collectablesList, int goalAmount)
+    {
+        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory(collectablesList.SingleItems, collectablesList.MultipleItems);
+        foreach (int collectableAmount in collectedAmountPerCategory.Values)
+        {
+            if (collectableAmount < goalAmount)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     private string GetProgressionDisplayType(float currentAmount, float goalAmount)
     {
@@ -334,23 +357,9 @@ public class AchievementSO : ScriptableObject
     }
     private string GetCustomRequirementProgression()
     {
-        int totalAmount = 0;
-        int currentAmount;
-        if (!_requiresMultipleCollectableLists)
-        {
-            currentAmount = GetCollectedAmount(_collectableTypeList.CollectablesList, _minimumGoalAmount);
-            return GetProgressionDisplayType(currentAmount, _minimumGoalAmount);
-        }
-        for (int i = 0; i < _collectableTypeLists.Count; i++)
-        {
-            currentAmount = GetCollectedAmount(_collectableTypeLists[i].CollectablesList, _minimumGoalAmount);
-            totalAmount += currentAmount;
-            if (totalAmount >= _collectableTypeLists.Count * _minimumGoalAmount)
-            {
-                break;
-            }
-        }
-        return GetProgressionDisplayType(totalAmount, _collectableTypeLists.Count * _minimumGoalAmount);
+        int currentAmount = GetCollectedAmount(_collectableList, _minimumGoalAmount);
+        int totalAmount = GetUniqueCategoryCount();
+        return GetProgressionDisplayType(currentAmount, totalAmount);
     }
     private string GetValueRequirementProgression()
     {
@@ -389,7 +398,7 @@ public class AchievementSO : ScriptableObject
     private string GetSingleCollectableProgression()
     {
         int currentAmount = 0;
-        if (_collectableType.IsCollected)
+        if (_collectable.SingleCollectableStatus.IsCollected)
         {
             currentAmount++;
         }
@@ -398,30 +407,59 @@ public class AchievementSO : ScriptableObject
     private string GetAllCollectablesProgression()
     {
         int currentAmount = 0;
-        for (int i = 0; i < _collectableTypeList.CollectablesList.Count; i++)
+        int totalAmount = 0;
+        for (int i = 0; i < _collectableList.SingleItems.Count; i++)
         {
-            if (_collectableTypeList.CollectablesList[i].IsCollected)
+            if (_collectableList.SingleItems[i].SingleCollectableStatus.IsCollected)
             {
                 currentAmount++;
             }
+            totalAmount++;
         }
-        return GetProgressionDisplayType(currentAmount, _collectableTypeList.CollectablesList.Count);
-    }
-    private int GetCollectedAmount(List<BaseCollectableTypeSO> collectablesList, int goalAmount)
-    {
-        int count = 0;
-        for (int i = 0; i < collectablesList.Count; i++)
+        for (int i = 0; i < _collectableList.MultipleItems.Count; i++)
         {
-            if (collectablesList[i].IsCollected)
+            for (int j = 0; j < _collectableList.MultipleItems[i].MultiCollectableStatus.Count; j++)
             {
-                count++;
-                if (count == goalAmount)
+                if (_collectableList.MultipleItems[i].MultiCollectableStatus[j].IsCollected)
                 {
-                    break;
+                    currentAmount++;
                 }
+                totalAmount++;
             }
         }
-        return count;
+        return GetProgressionDisplayType(currentAmount, totalAmount);
+    }
+    private int GetUniqueCategoryCount()
+    {
+        HashSet<CollectableCategoryEnum> uniqueCategories = new HashSet<CollectableCategoryEnum>();
+        for (int i = 0; i < _collectableList.SingleItems.Count; i++)
+        {
+            if (!uniqueCategories.Contains(_collectableList.SingleItems[i].CollectableCategory))
+            {
+                uniqueCategories.Add(_collectableList.SingleItems[i].CollectableCategory);
+            }
+        }
+        for (int i = 0; i < _collectableList.MultipleItems.Count; i ++)
+        {
+            if (!uniqueCategories.Contains(_collectableList.MultipleItems[i].CollectableCategory))
+            {
+                uniqueCategories.Add(_collectableList.MultipleItems[i].CollectableCategory);
+            }
+        }
+        return uniqueCategories.Count;
+    }
+    private int GetCollectedAmount(CollectableListSO collectablesList, int goalAmount)
+    {
+        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory(collectablesList.SingleItems, collectablesList.MultipleItems);
+        int totalCollected = 0;
+        foreach (int categoryAmount in collectedAmountPerCategory.Values)
+        {
+            if (categoryAmount >= goalAmount)
+            {
+                totalCollected++;
+            }
+        }
+        return totalCollected;
     }
     public void UnlockAchievement()
     {

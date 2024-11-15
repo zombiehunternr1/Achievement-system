@@ -10,15 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da02d696a879d7044bc26013e8cc151b, type: 3}
-  m_Name: BlueGem
+  m_Name: OverTimeTest
   m_EditorClassIdentifier: 
-  _collectionType: 0
-  _itemAmountType: 0
+  _collectionType: 1
+  _itemAmountType: 1
   _singleCollectableStatus:
-    _collectableId: 32474
+    _collectableId: 
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  _multiCollectablesStatus: []
-  _collectableCategory: 2
+  _multiCollectablesStatus:
+  - _collectableId: 32112
+    _isCollected: 0
+    _currentAmount: 0
+    _goalAmount: 7
+    _increaseSpeed: 1
+  - _collectableId: 32040
+    _isCollected: 0
+    _currentAmount: 0
+    _goalAmount: 5
+    _increaseSpeed: 1
+  _collectableCategory: 0

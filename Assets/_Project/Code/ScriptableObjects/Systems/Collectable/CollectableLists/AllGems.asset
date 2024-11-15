@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae902535a7988cd40a7efb4e4aba1c29, type: 3}
-  m_Name: AllCollectables
+  m_Name: AllGems
   m_EditorClassIdentifier: 
   _CollectablesList:
-  - {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
   - {fileID: 11400000, guid: b6eae809f00b5fa498fb45a311ad187a, type: 2}
   - {fileID: 11400000, guid: 193feaccbedf13c4e828093bcd401267, type: 2}
   - {fileID: 11400000, guid: cd3bd3004dec94a4f9ff1176f0698801, type: 2}
