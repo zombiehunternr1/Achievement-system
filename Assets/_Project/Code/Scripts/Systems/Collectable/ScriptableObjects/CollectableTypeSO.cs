@@ -21,30 +21,51 @@ public class CollectableTypeSO : ScriptableObject
             return _itemAmountType;
         }
     }
-    public CollectableStatus SingleCollectableStatus
+    public int MultiCollectables
     {
         get
         {
-            return _singleCollectableStatus;
+            return _multiCollectablesStatus.Count;
         }
     }
-    public List<CollectableStatus> MultiCollectableStatus
+    public string CollectableId()
     {
-        get
-        {
-            return _multiCollectablesStatus;
-        }
+        return _singleCollectableStatus.CollectableId;
+    }
+    public string CollectableId(int index)
+    {
+        return _multiCollectablesStatus[index].CollectableId;
+    }
+    public bool IsMatchingId(string id)
+    {
+        return _singleCollectableStatus.CollectableId.Equals(id);
+    }
+    public bool IsMatchingId(int index, string id)
+    {
+        return _multiCollectablesStatus[index].CollectableId.Equals(id);
+    }
+    public bool IsCollected()
+    {
+        return _singleCollectableStatus.IsCollected;
+    }
+    public bool IsCollected(int index)
+    {
+        return _multiCollectablesStatus[index].IsCollected;
     }
     public bool IsGoalRequirementReached()
     {
-        return _itemAmountType == CollectionEnumItemAmount.SingleItem && _singleCollectableStatus.IsGoalReached;
+        return _singleCollectableStatus.IsGoalReached;
     }
     public bool IsGoalRequirementReached(int currentIdIndex)
     {
-        return _itemAmountType == CollectionEnumItemAmount.MultipleItems && _multiCollectablesStatus[currentIdIndex].IsGoalReached;
+        return _multiCollectablesStatus[currentIdIndex].IsGoalReached;
     }
     public void SetCollectableStatus(bool value)
     {
         _singleCollectableStatus.SetCollectableStatus(value);
+    }
+    public void SetCollectableStatus(int index, bool value)
+    {
+        _multiCollectablesStatus[index].SetCollectableStatus(value);
     }
 }

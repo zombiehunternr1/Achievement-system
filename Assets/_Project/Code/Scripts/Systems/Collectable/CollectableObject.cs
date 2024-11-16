@@ -4,6 +4,7 @@ public class CollectableObject : MonoBehaviour
 {
     [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableSO _collectable;
+
     public CollectableTypeSO Collectable
     {
         get
@@ -25,40 +26,33 @@ public class CollectableObject : MonoBehaviour
     }
     private void CheckInstantly(string objectId)
     {
-        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && !_collectable.IsCollected())
         {
-            if (!_collectable.SingleCollectableStatus.IsCollected)
-            {
-                Collect();
-                return;
-            }
+            Collect();
+            return;
         }
         CheckMultiCollectables(objectId, false);
     }
     private void CheckOverTime(string objectId)
     {
-        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && _collectable.IsGoalRequirementReached())
         {
-            if (!_collectable.SingleCollectableStatus.IsCollected && _collectable.IsGoalRequirementReached())
-            {
-                Collect();
-                return;
-            }
+            Collect();
+            return;
         }
         CheckMultiCollectables(objectId, true);
     }
     private void CheckMultiCollectables(string objectId, bool isGoalRequired)
     {
-        for (int i = 0; i < _collectable.MultiCollectableStatus.Count; i++)
+        for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
-            if (_collectable.MultiCollectableStatus[i].IsCollected)
+            if (_collectable.IsCollected(i))
             {
                 continue;
             }
-            if (_collectable.MultiCollectableStatus[i].CollectableId == objectId && (!isGoalRequired || _collectable.IsGoalRequirementReached(i)))
+            if (_collectable.IsMatchingId(i, objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReached(i)))
             {
-                _collectable.MultiCollectableStatus[i].SetCollectableStatus(true);
-                _updateCollectedTypeEvent.Invoke(_collectable);
+                Collect(i);
                 return;
             }
         }
@@ -66,6 +60,11 @@ public class CollectableObject : MonoBehaviour
     private void Collect()
     {
         _collectable.SetCollectableStatus(true);
+        _updateCollectedTypeEvent.Invoke(_collectable);
+    }
+    private void Collect(int index)
+    {
+        _collectable.SetCollectableStatus(index, true);
         _updateCollectedTypeEvent.Invoke(_collectable);
     }
 }

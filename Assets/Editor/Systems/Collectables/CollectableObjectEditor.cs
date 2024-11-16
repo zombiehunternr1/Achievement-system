@@ -46,9 +46,7 @@ public class CollectableObjectEditor : Editor
         if (collectableProp.objectReferenceValue == reference)
         {
             CollectableSO collectable = (CollectableSO)collectableProp.objectReferenceValue;
-            return collectable != null && 
-                collectable.SingleCollectableStatus.CollectableId == reference.SingleCollectableStatus.CollectableId 
-                && collectable.SingleCollectableStatus.CollectableId != currentId;
+            return collectable != null && collectable.CollectableId() == reference.CollectableId() && collectable.CollectableId() != currentId;
         }
         return false;
     }
@@ -81,7 +79,7 @@ public class CollectableObjectEditor : Editor
     }
     private void HandleSingleItem(CollectableSO currentReference, SerializedObject collectableSerialized)
     {
-        if (string.IsNullOrEmpty(currentReference.SingleCollectableStatus.CollectableId))
+        if (string.IsNullOrEmpty(currentReference.CollectableId()))
         {
             if (GUILayout.Button("Assign as reference"))
             {
@@ -132,7 +130,7 @@ public class CollectableObjectEditor : Editor
     {
         SerializedProperty singleCollectableStatusProp = collectableSerialized.FindProperty("_singleCollectableStatus");
         SerializedProperty collectableIdProp = singleCollectableStatusProp.FindPropertyRelative("_collectableId");
-        if (collectable.SingleCollectableStatus.CollectableId != currentId)
+        if (collectable.CollectableId() != currentId)
         {
             collectableIdProp.stringValue = currentId;
             collectableSerialized.ApplyModifiedProperties();

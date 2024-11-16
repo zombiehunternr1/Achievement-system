@@ -15,7 +15,7 @@ MonoBehaviour:
   _collectionType: 0
   _itemAmountType: 0
   _singleCollectableStatus:
-    _collectableId: 32126
+    _collectableId: 32070
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0

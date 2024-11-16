@@ -21,27 +21,27 @@ MonoBehaviour:
     _goalAmount: 0
     _increaseSpeed: 0
   _multiCollectablesStatus:
-  - _collectableId: 32206
+  - _collectableId: 32150
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 31986
+  - _collectableId: 31930
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 32054
+  - _collectableId: 31998
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 32194
+  - _collectableId: 32138
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 32624
+  - _collectableId: 32568
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0

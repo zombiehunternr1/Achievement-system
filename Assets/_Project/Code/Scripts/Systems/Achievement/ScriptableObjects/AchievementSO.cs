@@ -241,8 +241,7 @@ public class AchievementSO : ScriptableObject
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectable != null && (_collectable.SingleCollectableStatus.CollectableId.Equals(collectable.SingleCollectableStatus.CollectableId) &&
-                _collectable.SingleCollectableStatus.IsCollected);
+            return _collectable.IsMatchingId(collectable.CollectableId()) && _collectable.IsCollected();
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
@@ -263,7 +262,7 @@ public class AchievementSO : ScriptableObject
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectable != null && _collectable.SingleCollectableStatus.CollectableId.Equals(collectable.SingleCollectableStatus.CollectableId);
+            return _collectable != null && _collectable.IsMatchingId(collectable.CollectableId());
         }
         for (int i = 0; i < _collectableList.CollectablesList.Count; i++)
         {
@@ -293,16 +292,16 @@ public class AchievementSO : ScriptableObject
         }
         foreach (CollectableSO collectable in singleItems)
         {
-            if (collectable.SingleCollectableStatus.IsCollected)
+            if (collectable.IsCollected())
             {
                 collectedAmountPerCategory[collectable.CollectableCategory]++;
             }
         }
         foreach (CollectableSO collectable in multipleItems)
         {
-            for (int i = 0; i < collectable.MultiCollectableStatus.Count; i++)
+            for (int i = 0; i < collectable.MultiCollectables; i++)
             {
-                if (collectable.MultiCollectableStatus[i].IsCollected)
+                if (collectable.IsCollected(i))
                 {
                     collectedAmountPerCategory[collectable.CollectableCategory]++;
                 }
@@ -316,16 +315,16 @@ public class AchievementSO : ScriptableObject
         List<CollectableSO> multipleItemsList = collectablesList.MultipleItems;
         for (int i = 0; i < singleItemsList.Count; i++)
         {
-            if (!singleItemsList[i].SingleCollectableStatus.IsCollected)
+            if (!singleItemsList[i].IsCollected())
             {
                 return false;
             }
         }
         for (int i = 0; i < multipleItemsList.Count; i++)
         {
-            for (int j = 0; j < multipleItemsList[i].MultiCollectableStatus.Count; j++)
+            for (int j = 0; j < multipleItemsList[i].MultiCollectables; j++)
             {
-                if (!multipleItemsList[i].MultiCollectableStatus[j].IsCollected)
+                if (!multipleItemsList[i].IsCollected(j))
                 {
                     return false;
                 }
@@ -398,7 +397,7 @@ public class AchievementSO : ScriptableObject
     private string GetSingleCollectableProgression()
     {
         int currentAmount = 0;
-        if (_collectable.SingleCollectableStatus.IsCollected)
+        if (_collectable.IsCollected())
         {
             currentAmount++;
         }
@@ -408,19 +407,19 @@ public class AchievementSO : ScriptableObject
     {
         int currentAmount = 0;
         int totalAmount = 0;
-        for (int i = 0; i < _collectableList.SingleItems.Count; i++)
+        for (int i = 0; i < _collectableList.CollectablesList.Count; i++)
         {
-            if (_collectableList.SingleItems[i].SingleCollectableStatus.IsCollected)
+            if (_collectableList.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                currentAmount++;
+                if (_collectableList.CollectablesList[i].IsCollected())
+                {
+                    currentAmount++;
+                }
+                totalAmount++;
             }
-            totalAmount++;
-        }
-        for (int i = 0; i < _collectableList.MultipleItems.Count; i++)
-        {
-            for (int j = 0; j < _collectableList.MultipleItems[i].MultiCollectableStatus.Count; j++)
+            for (int j = 0; j < _collectableList.CollectablesList[i].MultiCollectables; j++)
             {
-                if (_collectableList.MultipleItems[i].MultiCollectableStatus[j].IsCollected)
+                if (_collectableList.CollectablesList[i].IsCollected(j))
                 {
                     currentAmount++;
                 }

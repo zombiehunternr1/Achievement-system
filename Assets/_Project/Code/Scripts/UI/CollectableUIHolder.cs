@@ -25,7 +25,7 @@ public class CollectableUIHolder : MonoBehaviour
             bool isCollected = false;
             if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                isCollected = collectableObject.Collectable.SingleCollectableStatus.IsCollected;
+                isCollected = collectableObject.Collectable.IsCollected();
             }
             else if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.MultipleItems)
             {
@@ -36,10 +36,13 @@ public class CollectableUIHolder : MonoBehaviour
     }
     private bool IsMultiCollectableCollected(CollectableObject collectableObject)
     {
-        foreach (CollectableStatus collectableStatus in collectableObject.Collectable.MultiCollectableStatus)
+        for (int i = 0; i < collectableObject.Collectable.MultiCollectables; i++)
         {
-            if (collectableStatus.IsCollected && collectableObject.gameObject.GetInstanceID().ToString() == collectableStatus.CollectableId)
+            if (collectableObject.Collectable.IsCollected(i) && 
+                collectableObject.gameObject.GetInstanceID().ToString() == collectableObject.Collectable.CollectableId(i))
+            {
                 return true;
+            }
         }
         return false;
     }
