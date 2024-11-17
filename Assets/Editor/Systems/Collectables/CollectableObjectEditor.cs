@@ -94,7 +94,6 @@ public class CollectableObjectEditor : Editor
         }
         else
         {
-            _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
             if (_currentObjectId.Equals(currentReference.CollectableId()))
             {
                 if (GUILayout.Button("Clear Reference"))
