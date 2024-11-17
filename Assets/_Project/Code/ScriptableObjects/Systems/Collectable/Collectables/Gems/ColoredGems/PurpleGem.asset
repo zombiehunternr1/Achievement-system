@@ -15,7 +15,7 @@ MonoBehaviour:
   _collectionType: 0
   _itemAmountType: 0
   _singleCollectableStatus:
-    _collectableId: 32218
+    _collectableId: ac2d946d-3fa6-4530-9972-4bd473c6e323
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0

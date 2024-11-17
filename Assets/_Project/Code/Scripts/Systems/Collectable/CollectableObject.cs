@@ -4,7 +4,7 @@ public class CollectableObject : MonoBehaviour
 {
     [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableSO _collectable;
-
+    [SerializeField, HideInInspector] private string _objectId = System.Guid.NewGuid().ToString();
     public CollectableTypeSO Collectable
     {
         get
@@ -12,16 +12,22 @@ public class CollectableObject : MonoBehaviour
             return _collectable;
         }
     }
+    public string ObjectId
+    {
+        get
+        {
+            return _objectId;
+        }
+    }
     public void CheckCollectionRequirement()
     {
-        string objectId = gameObject.GetInstanceID().ToString();
         if (_collectable.CollectionType == CollectionEnumType.Instantly)
         {
-            CheckInstantly(objectId);
+            CheckInstantly(_objectId);
         }
         else
         {
-            CheckOverTime(objectId);
+            CheckOverTime(_objectId);
         }
     }
     private void CheckInstantly(string objectId)

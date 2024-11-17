@@ -39,7 +39,7 @@ public class CollectableUIHolder : MonoBehaviour
         for (int i = 0; i < collectableObject.Collectable.MultiCollectables; i++)
         {
             if (collectableObject.Collectable.IsCollected(i) && 
-                collectableObject.gameObject.GetInstanceID().ToString() == collectableObject.Collectable.CollectableId(i))
+                collectableObject.ObjectId == collectableObject.Collectable.CollectableId(i))
             {
                 return true;
             }

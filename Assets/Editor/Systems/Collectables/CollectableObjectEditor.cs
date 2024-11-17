@@ -53,7 +53,6 @@ public class CollectableObjectEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-        _currentObjectId = ((CollectableObject)target).gameObject.GetInstanceID().ToString();
         _collectableProp = serializedObject.FindProperty("_collectable");
         DrawDefaultInspector();
         if (_collectableProp.objectReferenceValue == null)
@@ -63,42 +62,41 @@ public class CollectableObjectEditor : Editor
         else
         {
             CollectableSO currentReference = (CollectableSO)_collectableProp.objectReferenceValue;
-            SerializedObject collectableSerialized = new SerializedObject(currentReference);
-            SerializedProperty collectableItemAmountProp = collectableSerialized.FindProperty("_itemAmountType");
+            SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
+            SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
             CollectionEnumItemAmount collectionEnumType = (CollectionEnumItemAmount)collectableItemAmountProp.enumValueIndex;
+            _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
             if (collectionEnumType == CollectionEnumItemAmount.SingleItem)
             {
-                HandleSingleItem(currentReference, collectableSerialized);
+                HandleSingleItem(currentReference, collectableSOSerialized);
             }
             else
             {
-                HandleMultipleItems(currentReference, collectableSerialized, _currentObjectId);
+                HandleMultipleItems(currentReference, collectableSOSerialized, _currentObjectId);
             }
         }
         serializedObject.ApplyModifiedProperties();
     }
-    private void HandleSingleItem(CollectableSO currentReference, SerializedObject collectableSerialized)
+    private void HandleSingleItem(CollectableSO currentReference, SerializedObject collectableSOSerialized)
     {
         if (string.IsNullOrEmpty(currentReference.CollectableId()))
         {
-            if (GUILayout.Button("Assign as reference"))
-            {
-                SetCollectableIDInScriptableObject(currentReference, collectableSerialized, _currentObjectId);
-            }
+            SetCollectableIDInScriptableObject(currentReference, collectableSOSerialized, _currentObjectId);
         }
         else
         {
+            _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
             if (GUILayout.Button("Clear Reference"))
             {
                 _collectableProp.objectReferenceValue = null;
-                ClearCollectableIDInScriptableObject(currentReference, collectableSerialized);
+                ClearCollectableIDInScriptableObject(currentReference, collectableSOSerialized);
             }
             if (ShouldReplaceReference(currentReference, _currentObjectId))
             {
                 if (GUILayout.Button("Replace Reference"))
                 {
                     _collectableProp.objectReferenceValue = currentReference;
-                    SetCollectableIDInScriptableObject(currentReference, collectableSerialized, _currentObjectId);
+                    SetCollectableIDInScriptableObject(currentReference, collectableSOSerialized, _currentObjectId);
                 }
             }
         }
