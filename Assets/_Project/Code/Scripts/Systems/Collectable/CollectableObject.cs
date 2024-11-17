@@ -4,7 +4,7 @@ public class CollectableObject : MonoBehaviour
 {
     [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableSO _collectable;
-    [SerializeField, HideInInspector] private string _objectId = System.Guid.NewGuid().ToString();
+    [SerializeField] private string _objectId = System.Guid.NewGuid().ToString();
     public CollectableTypeSO Collectable
     {
         get

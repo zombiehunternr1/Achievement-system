@@ -4,7 +4,8 @@ using UnityEngine;
 [CustomEditor(typeof(CollectableObject))]
 public class CollectableObjectEditor : Editor
 {
-    private SerializedProperty _collectableProp;
+    private SerializedProperty _updateCollectedTypeEventProp, _collectableProp;
+    private MonoScript _monoScript;
     private string _currentObjectId = string.Empty;
     private int GetIdFromList(SerializedProperty collectableIDList, string currentId)
     {
@@ -50,11 +51,20 @@ public class CollectableObjectEditor : Editor
         }
         return false;
     }
+    private void OnEnable()
+    {
+        _updateCollectedTypeEventProp = serializedObject.FindProperty("_updateCollectedTypeEvent");
+        _collectableProp = serializedObject.FindProperty("_collectable");
+        _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
+    }
     public override void OnInspectorGUI()
     {
+        EditorGUI.BeginDisabledGroup(true);
+        _monoScript = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
+        EditorGUILayout.ObjectField("Script", _monoScript, typeof(MonoScript), false);
+        EditorGUI.EndDisabledGroup();
         serializedObject.Update();
-        _collectableProp = serializedObject.FindProperty("_collectable");
-        DrawDefaultInspector();
+        EditorGUILayout.PropertyField(_collectableProp);
         if (_collectableProp.objectReferenceValue == null)
         {
             EditorGUILayout.HelpBox("No reference assigned yet. Please select a Collectable reference.", MessageType.Info);
@@ -65,7 +75,6 @@ public class CollectableObjectEditor : Editor
             SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
             SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
             CollectionEnumItemAmount collectionEnumType = (CollectionEnumItemAmount)collectableItemAmountProp.enumValueIndex;
-            _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
             if (collectionEnumType == CollectionEnumItemAmount.SingleItem)
             {
                 HandleSingleItem(currentReference, collectableSOSerialized);
@@ -86,10 +95,13 @@ public class CollectableObjectEditor : Editor
         else
         {
             _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
-            if (GUILayout.Button("Clear Reference"))
+            if (_currentObjectId.Equals(currentReference.CollectableId()))
             {
-                _collectableProp.objectReferenceValue = null;
-                ClearCollectableIDInScriptableObject(currentReference, collectableSOSerialized);
+                if (GUILayout.Button("Clear Reference"))
+                {
+                    _collectableProp.objectReferenceValue = null;
+                    ClearCollectableIDInScriptableObject(currentReference, collectableSOSerialized);
+                }
             }
             if (ShouldReplaceReference(currentReference, _currentObjectId))
             {
