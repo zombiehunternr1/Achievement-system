@@ -79,6 +79,7 @@ public class AchievementSystem : MonoBehaviour
             achievement.NewCurrentValue(0);
             StartCoroutine(DeplayUpdateUnlockedStatus(achievement));
         }
+        _saveGameEvent.Invoke();
     }
     public void CheckCollectableRequest(object collectableV2Obj)
     {
