@@ -40,15 +40,17 @@ public class CollectableSOEditor : Editor
         SerializedProperty element = _multiCollectablesStatusProp.GetArrayElementAtIndex(index);
         rect.y += 2;
         float labelWidth = 90;
-        float fieldWidth = 260;
         float checkboxWidth = 75;
+        float isCollectedWidth = 20;
+        float availableWidth = rect.width;
+        float fieldWidth = Mathf.Max(availableWidth - (labelWidth + checkboxWidth + isCollectedWidth + 15), 100f);
         EditorGUI.BeginDisabledGroup(true);
         EditorGUI.LabelField(new Rect(rect.x, rect.y, labelWidth, EditorGUIUtility.singleLineHeight), "Collectable ID:");
         EditorGUI.PropertyField(new Rect(rect.x + labelWidth, rect.y, fieldWidth, EditorGUIUtility.singleLineHeight),
                                 element.FindPropertyRelative("_collectableId"), GUIContent.none);
         EditorGUI.EndDisabledGroup();
-        EditorGUI.LabelField(new Rect(rect.x + (labelWidth + fieldWidth) + 5, rect.y, checkboxWidth, EditorGUIUtility.singleLineHeight), "Is Collected:");
-        EditorGUI.PropertyField(new Rect(rect.x + (labelWidth + fieldWidth + checkboxWidth) + 5, rect.y, 20, EditorGUIUtility.singleLineHeight),
+        EditorGUI.LabelField(new Rect(rect.x + labelWidth + fieldWidth + 5, rect.y, checkboxWidth, EditorGUIUtility.singleLineHeight), "Is Collected:");
+        EditorGUI.PropertyField(new Rect(rect.x + labelWidth + fieldWidth + checkboxWidth + 5, rect.y, isCollectedWidth, EditorGUIUtility.singleLineHeight),
                                 element.FindPropertyRelative("_isCollected"), GUIContent.none);
         CollectionEnumType collectionEnumType = (CollectionEnumType)_collectionTypeProp.enumValueIndex;
         switch (collectionEnumType)
