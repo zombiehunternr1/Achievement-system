@@ -300,7 +300,7 @@ public class AchievementSystem : MonoBehaviour
         bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
-            await Task.Delay(1);
+            await Task.Yield();
             LoadAchievementDataFromGameData(gameData);
         }
         else
