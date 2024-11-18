@@ -38,8 +38,8 @@ public class CollectableUIHolder : MonoBehaviour
     {
         for (int i = 0; i < collectableObject.Collectable.MultiCollectables; i++)
         {
-            if (collectableObject.Collectable.IsCollected(i) && 
-                collectableObject.ObjectId == collectableObject.Collectable.CollectableId(i))
+            if (collectableObject.Collectable.IsCollectedFromList(i) && 
+                collectableObject.ObjectId == collectableObject.Collectable.CollectableIdFromList(i))
             {
                 return true;
             }

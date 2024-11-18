@@ -12,34 +12,4 @@ public class CollectableListSO : ScriptableObject
             return _CollectablesList;
         }
     }
-    public List<CollectableSO> SingleItems
-    {
-        get
-        {
-            List<CollectableSO> singleItems = new List<CollectableSO>();
-            for (int i = 0; i < _CollectablesList.Count; i++)
-            {
-                if (_CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
-                {
-                    singleItems.Add(_CollectablesList[i]);
-                }
-            }
-            return singleItems;
-        }
-    }
-    public List<CollectableSO> MultipleItems
-    {
-        get
-        {
-            List<CollectableSO> mutipleItems = new List<CollectableSO>();
-            for (int i = 0; i < _CollectablesList.Count; i++)
-            {
-                if (_CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.MultipleItems)
-                {
-                    mutipleItems.Add(_CollectablesList[i]);
-                }
-            }
-            return mutipleItems;
-        }
-    }
 }

@@ -23,42 +23,42 @@ public class CollectableObject : MonoBehaviour
     {
         if (_collectable.CollectionType == CollectionEnumType.Instantly)
         {
-            CheckInstantly();
+            CheckCollectInstantly();
         }
         else
         {
-            CheckOverTime();
+            CheckCollectOverTime();
         }
     }
-    private void CheckInstantly()
+    private void CheckCollectInstantly()
     {
         if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && !_collectable.IsCollected())
         {
             Collect();
             return;
         }
-        CheckMultiCollectables(false);
+        CheckCollectableInList(false);
     }
-    private void CheckOverTime()
+    private void CheckCollectOverTime()
     {
         if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && _collectable.IsGoalRequirementReached())
         {
             Collect();
             return;
         }
-        CheckMultiCollectables(true);
+        CheckCollectableInList(true);
     }
-    private void CheckMultiCollectables(bool isGoalRequired)
+    private void CheckCollectableInList(bool isGoalRequired)
     {
         for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
-            if (_collectable.IsCollected(i))
+            if (_collectable.IsCollectedFromList(i))
             {
                 continue;
             }
-            if (_collectable.IsMatchingId(i, _objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReached(i)))
+            if (_collectable.IsMatchingIdInList(i, _objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReachedFromList(i)))
             {
-                Collect(i);
+                CollectFromList(i);
                 return;
             }
         }
@@ -68,9 +68,9 @@ public class CollectableObject : MonoBehaviour
         _collectable.SetCollectableStatus(true);
         _updateCollectedTypeEvent.Invoke(_collectable);
     }
-    private void Collect(int index)
+    private void CollectFromList(int index)
     {
-        _collectable.SetCollectableStatus(index, true);
+        _collectable.SetCollectableStatusFromList(index, true);
         _updateCollectedTypeEvent.Invoke(_collectable);
     }
 }

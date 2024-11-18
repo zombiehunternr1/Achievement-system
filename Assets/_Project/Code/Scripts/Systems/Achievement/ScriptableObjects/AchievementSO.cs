@@ -15,7 +15,7 @@ public class AchievementSO : ScriptableObject
     [SerializeField] private bool _unlocked;
 
     [SerializeField] private bool _requiresPreviousAchievement;
-    [SerializeField] private AchievementSO _previousAchievement;
+    [SerializeField] private AchievementSO _previousAchievementReference;
     [SerializeField] private AchievementSOList _achievementListReference;
     [SerializeField] private bool _customAchievementGoalAmount;
     [SerializeField] private int _goalAchievementAmount;
@@ -33,15 +33,15 @@ public class AchievementSO : ScriptableObject
     [SerializeField] private float _goalFloatAmount;
 
     [SerializeField] private CollectableEnumRequirement _collectableEnumRequirement;
-    [SerializeField] private CollectableSO _collectable;
-    [SerializeField] private CollectableListSO _collectableList;
-    [Tooltip("This value is for the minimum amount required in a list or that needs to be met in multiple lists")]
+    [SerializeField] private CollectableSO _collectableReference;
+    [SerializeField] private CollectableListSO _collectableListReference;
+    [Tooltip("This value is for the minimum amount required per collectable type in the list")]
     [SerializeField] private int _minimumGoalAmount;
     public AchievementSO PreviousAchievement
     {
         get
         {
-            return _previousAchievement;
+            return _previousAchievementReference;
         }
     }
     public string AchievementId
@@ -104,7 +104,7 @@ public class AchievementSO : ScriptableObject
     {
         get
         {
-            return _previousAchievement.IsUnlocked;
+            return _previousAchievementReference.IsUnlocked;
         }
     }
     public bool IsHidden
@@ -241,15 +241,15 @@ public class AchievementSO : ScriptableObject
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectable.IsMatchingId(collectable.CollectableId()) && _collectable.IsCollected();
+            return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
-            return IsRequirementMet(_collectableList);
+            return IsRequirementMet();
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
         {
-            return IsRequirementMet(_collectableList, _minimumGoalAmount);
+            return IsGoalRequirementMet(_minimumGoalAmount);
         }
         return false;
     }
@@ -262,46 +262,36 @@ public class AchievementSO : ScriptableObject
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectable != null && _collectable.IsMatchingId(collectable.CollectableId());
+            return _collectableReference != null && _collectableReference.IsMatchingId(collectable.CollectableId());
         }
-        for (int i = 0; i < _collectableList.CollectablesList.Count; i++)
+        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
-            if (_collectableList.CollectablesList.Contains(collectable))
+            if (_collectableListReference.CollectablesList.Contains(collectable))
             {
                 return true;
             }
         }
         return false;
     }
-    private Dictionary<CollectableCategoryEnum, int> GetCollectedAmountPerCategory(List<CollectableSO> singleItems, List<CollectableSO> multipleItems)
+    private Dictionary<CollectableCategoryEnum, int> GetCollectedAmountPerCategory()
     {
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
-        for (int i = 0; i < singleItems.Count; i++)
+        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
-            if (!collectedAmountPerCategory.ContainsKey(singleItems[i].CollectableCategory))
+            if (!collectedAmountPerCategory.ContainsKey(_collectableListReference.CollectablesList[i].CollectableCategory))
             {
-                collectedAmountPerCategory[singleItems[i].CollectableCategory] = 0;
+                collectedAmountPerCategory[_collectableListReference.CollectablesList[i].CollectableCategory] = 0;
             }
         }
-        for (int i = 0; i < multipleItems.Count; i++)
+        foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
-            if (!collectedAmountPerCategory.ContainsKey(multipleItems[i].CollectableCategory))
-            {
-                collectedAmountPerCategory[multipleItems[i].CollectableCategory] = 0;
-            }
-        }
-        foreach (CollectableSO collectable in singleItems)
-        {
-            if (collectable.IsCollected())
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && collectable.IsCollected())
             {
                 collectedAmountPerCategory[collectable.CollectableCategory]++;
             }
-        }
-        foreach (CollectableSO collectable in multipleItems)
-        {
             for (int i = 0; i < collectable.MultiCollectables; i++)
             {
-                if (collectable.IsCollected(i))
+                if (collectable.IsCollectedFromList(i))
                 {
                     collectedAmountPerCategory[collectable.CollectableCategory]++;
                 }
@@ -309,22 +299,20 @@ public class AchievementSO : ScriptableObject
         }
         return collectedAmountPerCategory;
     }
-    private bool IsRequirementMet(CollectableListSO collectablesList)
+    private bool IsRequirementMet()
     {
-        List<CollectableSO> singleItemsList = collectablesList.SingleItems;
-        List<CollectableSO> multipleItemsList = collectablesList.MultipleItems;
-        for (int i = 0; i < singleItemsList.Count; i++)
+        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
-            if (!singleItemsList[i].IsCollected())
+            if (_collectableListReference.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                return false;
+                if (!_collectableListReference.CollectablesList[i].IsCollected())
+                {
+                    return false;
+                }
             }
-        }
-        for (int i = 0; i < multipleItemsList.Count; i++)
-        {
-            for (int j = 0; j < multipleItemsList[i].MultiCollectables; j++)
+            for (int j = 0; j < _collectableListReference.CollectablesList[i].MultiCollectables; j++)
             {
-                if (!multipleItemsList[i].IsCollected(j))
+                if (!_collectableListReference.CollectablesList[i].IsCollectedFromList(j))
                 {
                     return false;
                 }
@@ -332,9 +320,9 @@ public class AchievementSO : ScriptableObject
         }
         return true;
     }
-    private bool IsRequirementMet(CollectableListSO collectablesList, int goalAmount)
+    private bool IsGoalRequirementMet(int goalAmount)
     {
-        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory(collectablesList.SingleItems, collectablesList.MultipleItems);
+        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory();
         foreach (int collectableAmount in collectedAmountPerCategory.Values)
         {
             if (collectableAmount < goalAmount)
@@ -356,7 +344,7 @@ public class AchievementSO : ScriptableObject
     }
     private string GetCustomRequirementProgression()
     {
-        int currentAmount = GetCollectedAmount(_collectableList, _minimumGoalAmount);
+        int currentAmount = GetCollectedAmount(_minimumGoalAmount);
         int totalAmount = GetUniqueCategoryCount();
         return GetProgressionDisplayType(currentAmount, totalAmount);
     }
@@ -380,9 +368,8 @@ public class AchievementSO : ScriptableObject
         {
             goalAmount = ActualAchievementCount;
         }
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
         {
-            AchievementSO achievement = _achievementListReference.AchievementList[i];
             if (achievement.IsUnlocked && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
             {
                 currentAmount++;
@@ -397,7 +384,7 @@ public class AchievementSO : ScriptableObject
     private string GetSingleCollectableProgression()
     {
         int currentAmount = 0;
-        if (_collectable.IsCollected())
+        if (_collectableReference.IsCollected())
         {
             currentAmount++;
         }
@@ -407,19 +394,19 @@ public class AchievementSO : ScriptableObject
     {
         int currentAmount = 0;
         int totalAmount = 0;
-        for (int i = 0; i < _collectableList.CollectablesList.Count; i++)
+        foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
-            if (_collectableList.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                if (_collectableList.CollectablesList[i].IsCollected())
+                if (collectable.IsCollected())
                 {
                     currentAmount++;
                 }
                 totalAmount++;
             }
-            for (int j = 0; j < _collectableList.CollectablesList[i].MultiCollectables; j++)
+            for (int j = 0; j < collectable.MultiCollectables; j++)
             {
-                if (_collectableList.CollectablesList[i].IsCollected(j))
+                if (collectable.IsCollectedFromList(j))
                 {
                     currentAmount++;
                 }
@@ -431,25 +418,19 @@ public class AchievementSO : ScriptableObject
     private int GetUniqueCategoryCount()
     {
         HashSet<CollectableCategoryEnum> uniqueCategories = new HashSet<CollectableCategoryEnum>();
-        for (int i = 0; i < _collectableList.SingleItems.Count; i++)
+        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
-            if (!uniqueCategories.Contains(_collectableList.SingleItems[i].CollectableCategory))
+            CollectableCategoryEnum category = _collectableListReference.CollectablesList[i].CollectableCategory;
+            if (!uniqueCategories.Contains(category))
             {
-                uniqueCategories.Add(_collectableList.SingleItems[i].CollectableCategory);
-            }
-        }
-        for (int i = 0; i < _collectableList.MultipleItems.Count; i ++)
-        {
-            if (!uniqueCategories.Contains(_collectableList.MultipleItems[i].CollectableCategory))
-            {
-                uniqueCategories.Add(_collectableList.MultipleItems[i].CollectableCategory);
+                uniqueCategories.Add(category);
             }
         }
         return uniqueCategories.Count;
     }
-    private int GetCollectedAmount(CollectableListSO collectablesList, int goalAmount)
+    private int GetCollectedAmount(int goalAmount)
     {
-        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory(collectablesList.SingleItems, collectablesList.MultipleItems);
+        Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory();
         int totalCollected = 0;
         foreach (int categoryAmount in collectedAmountPerCategory.Values)
         {

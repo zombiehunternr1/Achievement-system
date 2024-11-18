@@ -12,7 +12,7 @@ public class AchievementSOEditor : Editor
         _unlockedProp,
         _soundEffectProp,
         _requiresPreviousAchievementProp,
-        _previousAchievementProp,
+        _previousAchievementReferenceProp,
         _achievementListReferenceProp,
         _customAchievementGoalAmountProp,
         _goalAchievementAmountProp,
@@ -27,8 +27,8 @@ public class AchievementSOEditor : Editor
         _currentFloatAmountProp,
         _goalFloatAmountProp,
         _collectableEnumRequirementProp,
-        _collectableProp,
-        _collectableListProp,
+        _collectableReferenceProp,
+        _collectableListReferenceProp,
         _requiresMultipleCollectableListsProp,
         _minimumGoalAmountProp;
     private MonoScript _monoScript;
@@ -41,7 +41,7 @@ public class AchievementSOEditor : Editor
         _unlockedProp = serializedObject.FindProperty("_unlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
         _requiresPreviousAchievementProp = serializedObject.FindProperty("_requiresPreviousAchievement");
-        _previousAchievementProp = serializedObject.FindProperty("_previousAchievement");
+        _previousAchievementReferenceProp = serializedObject.FindProperty("_previousAchievementReference");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementListReference");
         _customAchievementGoalAmountProp = serializedObject.FindProperty("_customAchievementGoalAmount");
         _goalAchievementAmountProp = serializedObject.FindProperty("_goalAchievementAmount");
@@ -56,8 +56,8 @@ public class AchievementSOEditor : Editor
         _currentFloatAmountProp = serializedObject.FindProperty("_currentFloatAmount");
         _goalFloatAmountProp = serializedObject.FindProperty("_goalFloatAmount");
         _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableEnumRequirement");
-        _collectableProp = serializedObject.FindProperty("_collectable");
-        _collectableListProp = serializedObject.FindProperty("_collectableList");
+        _collectableReferenceProp = serializedObject.FindProperty("_collectableReference");
+        _collectableListReferenceProp = serializedObject.FindProperty("_collectableListReference");
         _requiresMultipleCollectableListsProp = serializedObject.FindProperty("_requiresMultipleCollectableLists");
         _minimumGoalAmountProp = serializedObject.FindProperty("_minimumGoalAmount");
     }
@@ -84,11 +84,11 @@ public class AchievementSOEditor : Editor
         EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
         if (_requiresPreviousAchievementProp.boolValue)
         {
-            EditorGUILayout.PropertyField(_previousAchievementProp);
+            EditorGUILayout.PropertyField(_previousAchievementReferenceProp);
         }
         else
         {
-            _previousAchievementProp.objectReferenceValue = null;
+            _previousAchievementReferenceProp.objectReferenceValue = null;
         }
         EditorGUILayout.PropertyField(_isHiddenProp);
         if (!_isHiddenProp.boolValue)
@@ -131,13 +131,13 @@ public class AchievementSOEditor : Editor
                 switch (collectableEnumRequirement)
                 {
                     case CollectableEnumRequirement.SingleCollectable:
-                        EditorGUILayout.PropertyField(_collectableProp);
+                        EditorGUILayout.PropertyField(_collectableReferenceProp);
                     break;
                     case CollectableEnumRequirement.AllCollectables:
-                        EditorGUILayout.PropertyField(_collectableListProp);
+                        EditorGUILayout.PropertyField(_collectableListReferenceProp);
                     break;
                     case CollectableEnumRequirement.Custom:
-                        EditorGUILayout.PropertyField(_collectableListProp);
+                        EditorGUILayout.PropertyField(_collectableListReferenceProp);
                         EditorGUILayout.PropertyField(_minimumGoalAmountProp);
                     break;
                 }

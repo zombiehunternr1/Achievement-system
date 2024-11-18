@@ -32,7 +32,7 @@ public class CollectableTypeSO : ScriptableObject
     {
         return _singleCollectableStatus.CollectableId;
     }
-    public string CollectableId(int index)
+    public string CollectableIdFromList(int index)
     {
         return _multiCollectablesStatus[index].CollectableId;
     }
@@ -40,7 +40,7 @@ public class CollectableTypeSO : ScriptableObject
     {
         return _singleCollectableStatus.CollectableId.Equals(id);
     }
-    public bool IsMatchingId(int index, string id)
+    public bool IsMatchingIdInList(int index, string id)
     {
         return _multiCollectablesStatus[index].CollectableId.Equals(id);
     }
@@ -48,7 +48,7 @@ public class CollectableTypeSO : ScriptableObject
     {
         return _singleCollectableStatus.IsCollected;
     }
-    public bool IsCollected(int index)
+    public bool IsCollectedFromList(int index)
     {
         return _multiCollectablesStatus[index].IsCollected;
     }
@@ -56,7 +56,7 @@ public class CollectableTypeSO : ScriptableObject
     {
         return _singleCollectableStatus.IsGoalReached;
     }
-    public bool IsGoalRequirementReached(int currentIdIndex)
+    public bool IsGoalRequirementReachedFromList(int currentIdIndex)
     {
         return _multiCollectablesStatus[currentIdIndex].IsGoalReached;
     }
@@ -64,7 +64,7 @@ public class CollectableTypeSO : ScriptableObject
     {
         _singleCollectableStatus.SetCollectableStatus(value);
     }
-    public void SetCollectableStatus(int index, bool value)
+    public void SetCollectableStatusFromList(int index, bool value)
     {
         _multiCollectablesStatus[index].SetCollectableStatus(value);
     }

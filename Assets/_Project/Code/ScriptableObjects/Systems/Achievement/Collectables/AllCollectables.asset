@@ -25,8 +25,8 @@ MonoBehaviour:
     Path: event:/Normal
   _unlocked: 0
   _requiresPreviousAchievement: 1
-  _previousAchievement: {fileID: 11400000, guid: ca273e874d488874da44d83af0b3d52a, type: 2}
-  _achievementList: {fileID: 0}
+  _previousAchievementReference: {fileID: 0}
+  _achievementListReference: {fileID: 0}
   _customAchievementGoalAmount: 0
   _goalAchievementAmount: 0
   _isHidden: 0
@@ -40,6 +40,6 @@ MonoBehaviour:
   _currentFloatAmount: 0
   _goalFloatAmount: 0
   _collectableEnumRequirement: 1
-  _collectable: {fileID: 0}
-  _collectableList: {fileID: 11400000, guid: 84e31202b76c2324ba919d8fbd195712, type: 2}
+  _collectableReference: {fileID: 0}
+  _collectableListReference: {fileID: 11400000, guid: 84e31202b76c2324ba919d8fbd195712, type: 2}
   _minimumGoalAmount: 0
