@@ -23,32 +23,32 @@ public class CollectableObject : MonoBehaviour
     {
         if (_collectable.CollectionType == CollectionEnumType.Instantly)
         {
-            CheckInstantly(_objectId);
+            CheckInstantly();
         }
         else
         {
-            CheckOverTime(_objectId);
+            CheckOverTime();
         }
     }
-    private void CheckInstantly(string objectId)
+    private void CheckInstantly()
     {
         if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && !_collectable.IsCollected())
         {
             Collect();
             return;
         }
-        CheckMultiCollectables(objectId, false);
+        CheckMultiCollectables(false);
     }
-    private void CheckOverTime(string objectId)
+    private void CheckOverTime()
     {
         if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && _collectable.IsGoalRequirementReached())
         {
             Collect();
             return;
         }
-        CheckMultiCollectables(objectId, true);
+        CheckMultiCollectables(true);
     }
-    private void CheckMultiCollectables(string objectId, bool isGoalRequired)
+    private void CheckMultiCollectables(bool isGoalRequired)
     {
         for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
@@ -56,7 +56,7 @@ public class CollectableObject : MonoBehaviour
             {
                 continue;
             }
-            if (_collectable.IsMatchingId(i, objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReached(i)))
+            if (_collectable.IsMatchingId(i, _objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReached(i)))
             {
                 Collect(i);
                 return;

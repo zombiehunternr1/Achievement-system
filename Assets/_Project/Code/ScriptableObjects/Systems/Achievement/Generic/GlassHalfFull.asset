@@ -26,7 +26,7 @@ MonoBehaviour:
   _unlocked: 0
   _requiresPreviousAchievement: 0
   _previousAchievement: {fileID: 0}
-  _achievementList: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
+  _achievementListReference: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
   _customAchievementGoalAmount: 1
   _goalAchievementAmount: 8
   _isHidden: 0
@@ -40,8 +40,6 @@ MonoBehaviour:
   _currentFloatAmount: 0
   _goalFloatAmount: 0
   _collectableEnumRequirement: 0
-  _collectableType: {fileID: 0}
-  _collectableTypeList: {fileID: 0}
-  _collectableTypeLists: []
-  _requiresMultipleCollectableLists: 0
+  _collectable: {fileID: 0}
+  _collectableList: {fileID: 0}
   _minimumGoalAmount: 0

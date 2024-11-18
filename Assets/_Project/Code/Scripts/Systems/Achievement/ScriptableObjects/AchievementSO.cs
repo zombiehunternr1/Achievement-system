@@ -16,7 +16,7 @@ public class AchievementSO : ScriptableObject
 
     [SerializeField] private bool _requiresPreviousAchievement;
     [SerializeField] private AchievementSO _previousAchievement;
-    [SerializeField] private AchievementSOList _achievementList;
+    [SerializeField] private AchievementSOList _achievementListReference;
     [SerializeField] private bool _customAchievementGoalAmount;
     [SerializeField] private int _goalAchievementAmount;
 
@@ -137,9 +137,9 @@ public class AchievementSO : ScriptableObject
         get
         {
             int amount = 0;
-            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+            for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
             {
-                AchievementSO achievement = _achievementList.AchievementList[i];
+                AchievementSO achievement = _achievementListReference.AchievementList[i];
                 if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
                 {
                     amount++;
@@ -190,9 +190,9 @@ public class AchievementSO : ScriptableObject
             {
                 goalAmount = ActualAchievementCount;
             }
-            for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+            for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
             {
-                AchievementSO achievement = _achievementList.AchievementList[i];
+                AchievementSO achievement = _achievementListReference.AchievementList[i];
                 if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
                 {
                     continue;
@@ -380,9 +380,9 @@ public class AchievementSO : ScriptableObject
         {
             goalAmount = ActualAchievementCount;
         }
-        for (int i = 0; i < _achievementList.AchievementList.Count; i++)
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
-            AchievementSO achievement = _achievementList.AchievementList[i];
+            AchievementSO achievement = _achievementListReference.AchievementList[i];
             if (achievement.IsUnlocked && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
             {
                 currentAmount++;
