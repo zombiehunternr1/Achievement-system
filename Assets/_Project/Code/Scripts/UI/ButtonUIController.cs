@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonUIController : MonoBehaviour
 {
+    [Header("Component references")]
+    [SerializeField] private Image _holdButton1ImageReference;
+    [SerializeField] private Image _holdButton2ImageReference;
     [Header("Achievement references")]
     [SerializeField] private AchievementSO _quitAchievementReference;
     [SerializeField] private AchievementSO _hiddenAchievementReference;
@@ -14,5 +18,13 @@ public class ButtonUIController : MonoBehaviour
     public void HiddenButton()
     {
         _updateAchievementsEvent.Invoke(_hiddenAchievementReference.AchievementId, null);
+    }
+    public void HoldButton1()
+    {
+
+    }
+    public void HoldButton2()
+    {
+
     }
 }
