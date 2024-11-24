@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 239355176}
   - component: {fileID: 239355175}
   - component: {fileID: 239355174}
+  - component: {fileID: 239355177}
   - component: {fileID: 239355173}
   - component: {fileID: 239355172}
   m_Layer: 5
@@ -933,22 +934,42 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 239355173}
-          m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-          m_MethodName: EvaluateCollectionRequirement
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1078425337}
           m_TargetAssemblyTypeName: ButtonUIController, Assembly-CSharp
           m_MethodName: HoldButton2
           m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239355177}
+          m_TargetAssemblyTypeName: HoldButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButtonDown
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239355177}
+          m_TargetAssemblyTypeName: HoldButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButtonDown
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1054,6 +1075,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239355170}
   m_CullTransparentMesh: 1
+--- !u!114 &239355177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04129676e5352cd4e9d0486d3f91e7b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectableObjectReference: {fileID: 239355173}
 --- !u!1 &257462401
 GameObject:
   m_ObjectHideFlags: 0
@@ -7107,6 +7141,7 @@ GameObject:
   - component: {fileID: 1665828633}
   - component: {fileID: 1665828632}
   - component: {fileID: 1665828631}
+  - component: {fileID: 1665828634}
   - component: {fileID: 1665828630}
   - component: {fileID: 1665828629}
   m_Layer: 5
@@ -7152,10 +7187,10 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1665828630}
-          m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-          m_MethodName: EvaluateCollectionRequirement
-          m_Mode: 1
+        - m_Target: {fileID: 1078425337}
+          m_TargetAssemblyTypeName: ButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButton1
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7164,10 +7199,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1078425337}
-          m_TargetAssemblyTypeName: ButtonUIController, Assembly-CSharp
-          m_MethodName: HoldButton1
-          m_Mode: 3
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1665828634}
+          m_TargetAssemblyTypeName: HoldButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButtonDown
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1665828634}
+          m_TargetAssemblyTypeName: HoldButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButtonDown
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7273,6 +7328,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1665828627}
   m_CullTransparentMesh: 1
+--- !u!114 &1665828634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665828627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04129676e5352cd4e9d0486d3f91e7b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectableObjectReference: {fileID: 1665828630}
 --- !u!1 &1674206830
 GameObject:
   m_ObjectHideFlags: 0
