@@ -82,10 +82,10 @@ public class CollectableObject : MonoBehaviour
     {
         for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
-            if (!_collectable.IsCollectedFromList(i) &&
+            if (!_collectable.IsCollectedFromList(i) && 
                 _collectable.IsMatchingIdInList(i, _objectId) &&
                 (_collectable.CollectionType == CollectionEnumType.Instantly ||
-                 _collectable.IsGoalRequirementReachedFromList(i)))
+                _collectable.IsGoalRequirementReachedFromList(i)))
             {
                 MarkCollectedInList(i);
                 return;
