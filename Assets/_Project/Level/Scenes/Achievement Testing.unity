@@ -418,172 +418,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &114131632
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 114131633}
-  - component: {fileID: 114131638}
-  - component: {fileID: 114131637}
-  - component: {fileID: 114131636}
-  - component: {fileID: 114131635}
-  - component: {fileID: 114131634}
-  m_Layer: 5
-  m_Name: HoldButton2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &114131633
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 167271583}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &114131634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 8
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 114131635}
-          m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-          m_MethodName: CheckCollectionRequirement
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &114131635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
-  _collectable: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
-  _objectId: 60e099ac-a22d-4427-8509-f8b6827e7d4c
---- !u!114 &114131636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 114131637}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &114131637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.047013998, g: 1, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &114131638
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114131632}
-  m_CullTransparentMesh: 1
 --- !u!1 &167271582
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +448,7 @@ RectTransform:
   m_Children:
   - {fileID: 1820852992}
   - {fileID: 1325939469}
-  - {fileID: 114131633}
+  - {fileID: 239355171}
   m_Father: {fileID: 445943745}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1042,6 +876,184 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &239355170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239355171}
+  - component: {fileID: 239355176}
+  - component: {fileID: 239355175}
+  - component: {fileID: 239355174}
+  - component: {fileID: 239355173}
+  - component: {fileID: 239355172}
+  m_Layer: 5
+  m_Name: HoldButton2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &239355171
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 167271583}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &239355172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 8
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 239355173}
+          m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
+          m_MethodName: EvaluateCollectionRequirement
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1078425337}
+          m_TargetAssemblyTypeName: ButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButton2
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &239355173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da086dba6214a948ab17596e4fa1ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _updateCollectedTypeEvent: {fileID: 11400000, guid: ec8238f11231b05419ab3c1aeb7a275f, type: 2}
+  _collectable: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
+  _objectId: 8d83b586-e8cf-49ba-b61e-818d3aeda9e2
+--- !u!114 &239355174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 239355175}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &239355175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.047013998, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &239355176
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239355170}
+  m_CullTransparentMesh: 1
 --- !u!1 &257462401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1556,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 336364299}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2069,7 +2081,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 405767571}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2164,7 +2176,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 423697904}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2423,7 +2435,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 517709747}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2932,7 +2944,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 626241429}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3862,7 +3874,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 720298823}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4007,7 +4019,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 723293763}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4202,7 +4214,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 779760554}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5485,8 +5497,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee0f8202893c7741b83c4026c1e791b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _overTimeReference: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
   _holdButton1ImageReference: {fileID: 1665828632}
-  _holdButton2ImageReference: {fileID: 114131637}
+  _holdButton2ImageReference: {fileID: 239355175}
   _quitAchievementReference: {fileID: 11400000, guid: e016500edff2e5a47b17aca9a5410805, type: 2}
   _hiddenAchievementReference: {fileID: 11400000, guid: 14471e26320bb274b9700356d728522f, type: 2}
   _updateAchievementsEvent: {fileID: 11400000, guid: 376a90797c6fae8489c1aa1f3342b303, type: 2}
@@ -7141,8 +7154,20 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1665828630}
           m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-          m_MethodName: CheckCollectionRequirement
+          m_MethodName: EvaluateCollectionRequirement
           m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1078425337}
+          m_TargetAssemblyTypeName: ButtonUIController, Assembly-CSharp
+          m_MethodName: HoldButton1
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7538,7 +7563,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1734382971}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7819,7 +7844,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1740075571}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9717,7 +9742,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1959885868}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10100,7 +10125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2057875700}
         m_TargetAssemblyTypeName: CollectableObject, Assembly-CSharp
-        m_MethodName: CheckCollectionRequirement
+        m_MethodName: EvaluateCollectionRequirement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

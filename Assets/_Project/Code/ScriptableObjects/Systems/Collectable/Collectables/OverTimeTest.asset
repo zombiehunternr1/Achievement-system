@@ -24,11 +24,11 @@ MonoBehaviour:
   - _collectableId: 60e099ac-a22d-4427-8509-f8b6827e7d4c
     _isCollected: 0
     _currentAmount: 0
-    _goalAmount: 5
+    _goalAmount: 7
     _increaseSpeed: 1
-  - _collectableId: 08a652a1-c5a1-41e8-abad-9af7aaf58f96
+  - _collectableId: 8d83b586-e8cf-49ba-b61e-818d3aeda9e2
     _isCollected: 0
     _currentAmount: 0
-    _goalAmount: 7
+    _goalAmount: 5
     _increaseSpeed: 1
   _collectableCategory: 0

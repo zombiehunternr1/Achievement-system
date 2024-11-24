@@ -23,6 +23,20 @@ public class CollectableStatus
             return _isCollected;
         }
     }
+    public float CurrentAmount
+    {
+        get
+        {
+            return _currentAmount;
+        }
+    }
+    public float GoalAmount
+    {
+        get
+        {
+            return _goalAmount;
+        }
+    }
     public bool IsGoalReached
     {
         get

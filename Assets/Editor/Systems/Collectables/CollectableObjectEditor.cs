@@ -64,6 +64,7 @@ public class CollectableObjectEditor : Editor
         EditorGUILayout.ObjectField("Script", _monoScript, typeof(MonoScript), false);
         EditorGUI.EndDisabledGroup();
         serializedObject.Update();
+        EditorGUILayout.PropertyField(_updateCollectedTypeEventProp);
         EditorGUILayout.PropertyField(_collectableProp);
         if (_collectableProp.objectReferenceValue == null)
         {
@@ -73,6 +74,11 @@ public class CollectableObjectEditor : Editor
         {
             CollectableSO currentReference = (CollectableSO)_collectableProp.objectReferenceValue;
             SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
+            if (string.IsNullOrEmpty(_currentObjectId))
+            {
+                CollectableObject collectableObject = serializedObject.targetObject as CollectableObject;
+                collectableObject.CheckObjectId();
+            }
             SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
             CollectionEnumItemAmount collectionEnumType = (CollectionEnumItemAmount)collectableItemAmountProp.enumValueIndex;
             if (collectionEnumType == CollectionEnumItemAmount.SingleItem)
@@ -124,6 +130,9 @@ public class CollectableObjectEditor : Editor
                 SerializedProperty newCollectableStatus = multiCollectablesStatusProp.GetArrayElementAtIndex(multiCollectablesStatusProp.arraySize - 1);
                 newCollectableStatus.FindPropertyRelative("_collectableId").stringValue = currentId;
                 newCollectableStatus.FindPropertyRelative("_isCollected").boolValue = false;
+                newCollectableStatus.FindPropertyRelative("_currentAmount").floatValue = 0;
+                newCollectableStatus.FindPropertyRelative("_goalAmount").floatValue = 0;
+                newCollectableStatus.FindPropertyRelative("_increaseSpeed").floatValue = 0;
             }
         }
         else

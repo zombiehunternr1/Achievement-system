@@ -1,10 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class CollectableObject : MonoBehaviour
 {
     [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableSO _collectable;
-    [SerializeField] private string _objectId = System.Guid.NewGuid().ToString();
+    [SerializeField] private string _objectId;
+    
+    private static readonly Dictionary<string, CollectableObject> _collectableObjectsRegistry = new Dictionary<string, CollectableObject>();
+    private void OnEnable()
+    {
+        if (string.IsNullOrEmpty(_objectId))
+        {
+            return;
+        }
+        if (!_collectableObjectsRegistry.ContainsKey(_objectId))
+        {
+            _collectableObjectsRegistry.Add(_objectId, this);
+        }
+    }
+    private void OnDisable()
+    {
+        _collectableObjectsRegistry.Remove(_objectId);
+    }
+    private void OnValidate()
+    {
+        CheckObjectId();
+    }
     public CollectableTypeSO Collectable
     {
         get
@@ -19,46 +42,52 @@ public class CollectableObject : MonoBehaviour
             return _objectId;
         }
     }
-    public void CheckCollectionRequirement()
+    private bool IsDuplicateId()
     {
-        if (_collectable.CollectionType == CollectionEnumType.Instantly)
+        if (_collectableObjectsRegistry.TryGetValue(_objectId, out CollectableObject existingObject))
         {
-            CheckCollectInstantly();
+            return existingObject != this;
         }
-        else
+        return false;
+    }
+    public void CheckObjectId()
+    {
+        if (string.IsNullOrEmpty(_objectId) || IsDuplicateId())
         {
-            CheckCollectOverTime();
+            GenerateNewId();
         }
     }
-    private void CheckCollectInstantly()
+    public void EvaluateCollectionRequirement()
     {
-        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && !_collectable.IsCollected())
+        if (_collectable.ItemAmountType != CollectionEnumItemAmount.SingleItem)
+        {
+            EvaluateMultiItemCollection();
+            return;
+        }
+        if (_collectable.CollectionType == CollectionEnumType.Instantly && !_collectable.IsCollected())
         {
             Collect();
             return;
         }
-        CheckCollectableInList(false);
-    }
-    private void CheckCollectOverTime()
-    {
-        if (_collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && _collectable.IsGoalRequirementReached())
+        if (_collectable.CollectionType == CollectionEnumType.Overtime && !_collectable.IsGoalRequirementReached())
         {
             Collect();
-            return;
         }
-        CheckCollectableInList(true);
     }
-    private void CheckCollectableInList(bool isGoalRequired)
+    private void GenerateNewId()
+    {
+        _objectId = System.Guid.NewGuid().ToString();
+    }
+    private void EvaluateMultiItemCollection()
     {
         for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
-            if (_collectable.IsCollectedFromList(i))
+            if (!_collectable.IsCollectedFromList(i) &&
+                _collectable.IsMatchingIdInList(i, _objectId) &&
+                (_collectable.CollectionType == CollectionEnumType.Instantly ||
+                 _collectable.IsGoalRequirementReachedFromList(i)))
             {
-                continue;
-            }
-            if (_collectable.IsMatchingIdInList(i, _objectId) && (!isGoalRequired || _collectable.IsGoalRequirementReachedFromList(i)))
-            {
-                CollectFromList(i);
+                MarkCollectedInList(i);
                 return;
             }
         }
@@ -68,7 +97,7 @@ public class CollectableObject : MonoBehaviour
         _collectable.SetCollectableStatus(true);
         _updateCollectedTypeEvent.Invoke(_collectable);
     }
-    private void CollectFromList(int index)
+    private void MarkCollectedInList(int index)
     {
         _collectable.SetCollectableStatusFromList(index, true);
         _updateCollectedTypeEvent.Invoke(_collectable);

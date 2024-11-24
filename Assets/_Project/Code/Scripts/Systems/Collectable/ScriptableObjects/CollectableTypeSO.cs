@@ -28,6 +28,22 @@ public class CollectableTypeSO : ScriptableObject
             return _multiCollectablesStatus.Count;
         }
     }
+    public float CurrentAmount()
+    {
+        return _singleCollectableStatus.CurrentAmount;
+    }
+    public float CurrentAmountFromList(int index)
+    {
+        return _multiCollectablesStatus[index].CurrentAmount;
+    }
+    public float GoalAmount()
+    {
+        return _singleCollectableStatus.GoalAmount;
+    }
+    public float GoalAmountFromList(int index)
+    {
+        return _multiCollectablesStatus[index].GoalAmount;
+    }
     public string CollectableId()
     {
         return _singleCollectableStatus.CollectableId;
