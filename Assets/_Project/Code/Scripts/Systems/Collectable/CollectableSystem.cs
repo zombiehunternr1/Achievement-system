@@ -10,10 +10,10 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
     [SerializeField] private SingleEvent _checkCollectableRequestEvent;
-    public void UpdateCollectableStatus(object collectableV2Obj)
+    public void UpdateCollectableStatus(object collectableObj)
     {
-        CollectableSO collectableV2 = (CollectableSO)collectableV2Obj;
-        _checkCollectableRequestEvent.Invoke(collectableV2);
+        CollectableSO collectable = (CollectableSO)collectableObj;
+        _checkCollectableRequestEvent.Invoke(collectable);
         _updateCollectablesStatusEvent.Invoke();
         _saveGameEvent.Invoke();
     }

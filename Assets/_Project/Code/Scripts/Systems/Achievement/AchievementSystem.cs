@@ -81,9 +81,9 @@ public class AchievementSystem : MonoBehaviour
         }
         _saveGameEvent.Invoke();
     }
-    public void CheckCollectableRequest(object collectableV2Obj)
+    public void CheckCollectableRequest(object collectableObj)
     {
-        CollectableSO collectableV2 = (CollectableSO)collectableV2Obj;
+        CollectableSO collectable = (CollectableSO)collectableObj;
         Dictionary<AchievementSO, List<AchievementSO>> dependencyGraph = new Dictionary<AchievementSO, List<AchievementSO>>();
         for (int i = 0; i < _allAchievementsListReference.AchievementList.Count; i++)
         {
@@ -92,12 +92,12 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
-            if (!achievement.IsAchievementRelated(collectableV2))
+            if (!achievement.IsAchievementRelated(collectable))
             {
                 continue;
             }
             UpdateAchievementStatus(achievement);
-            if (!achievement.IsCollectableGoalReached(collectableV2))
+            if (!achievement.IsCollectableGoalReached(collectable))
             {
                 continue;
             }
