@@ -237,11 +237,26 @@ public class AchievementSO : ScriptableObject
             return GetCustomRequirementProgression();
         }
     }
+    //Probably needs some refinement
     public bool IsCollectableGoalReached(CollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
+            if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            {
+                return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
+            }
+            for (int i = 0; i < _collectableReference.MultiCollectables;  i++)
+            {
+                if (_collectableReference.IsMatchingIdInList(i, collectable.CollectableIdFromList(i)))
+                {
+                    if (!_collectableReference.IsCollectedFromList(i))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
