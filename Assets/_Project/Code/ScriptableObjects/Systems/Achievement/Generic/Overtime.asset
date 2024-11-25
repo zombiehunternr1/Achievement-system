@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
-  m_Name: OvertimeAchievement
+  m_Name: Overtime
   m_EditorClassIdentifier: 
   _achievementId: acc05a791a23e8146be17d6af038a242
   _title: Working overtime
   _description: Was it really worth it?
-  _icon: {fileID: 21300000, guid: 5f46dfb51ba8bdc428e30896c0483ae7, type: 3}
+  _icon: {fileID: 21300000, guid: 9226cf0035342ee40a3f3b8a2b14e304, type: 3}
   _soundEffect:
     Guid:
       Data1: -117677675
