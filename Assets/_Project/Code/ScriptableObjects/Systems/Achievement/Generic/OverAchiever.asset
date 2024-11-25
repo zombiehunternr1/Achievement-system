@@ -25,7 +25,7 @@ MonoBehaviour:
     Path: event:/Hidden
   _unlocked: 0
   _requiresPreviousAchievement: 1
-  _previousAchievement: {fileID: 11400000, guid: 2e3525bba62a48f41929b6a77a0f5fe3, type: 2}
+  _previousAchievementReference: {fileID: 11400000, guid: 2e3525bba62a48f41929b6a77a0f5fe3, type: 2}
   _achievementListReference: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
   _customAchievementGoalAmount: 0
   _goalAchievementAmount: 5
@@ -40,6 +40,6 @@ MonoBehaviour:
   _currentFloatAmount: 0
   _goalFloatAmount: 0
   _collectableEnumRequirement: 0
-  _collectable: {fileID: 0}
-  _collectableList: {fileID: 0}
+  _collectableReference: {fileID: 0}
+  _collectableListReference: {fileID: 0}
   _minimumGoalAmount: 0

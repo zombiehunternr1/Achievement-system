@@ -237,34 +237,19 @@ public class AchievementSO : ScriptableObject
             return GetCustomRequirementProgression();
         }
     }
-    //Probably needs some refinement
     public bool IsCollectableGoalReached(CollectableTypeSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
-            {
-                return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
-            }
-            for (int i = 0; i < _collectableReference.MultiCollectables;  i++)
-            {
-                if (_collectableReference.IsMatchingIdInList(i, collectable.CollectableIdFromList(i)))
-                {
-                    if (!_collectableReference.IsCollectedFromList(i))
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return IsItemRequirementMet(collectable);
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
-            return IsRequirementMet();
+            return IsAllCollectablesRequirementMet();
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
         {
-            return IsGoalRequirementMet(_minimumGoalAmount);
+            return IsCustomGoalRequirementMet(_minimumGoalAmount);
         }
         return false;
     }
@@ -314,7 +299,23 @@ public class AchievementSO : ScriptableObject
         }
         return collectedAmountPerCategory;
     }
-    private bool IsRequirementMet()
+    private bool IsItemRequirementMet(CollectableTypeSO collectable)
+    {
+        if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        {
+            return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
+        }
+        for (int i = 0; i < _collectableReference.MultiCollectables; i++)
+        {
+            if (!_collectableReference.IsMatchingIdInList(i, collectable.CollectableIdFromList(i)) ||
+                !_collectableReference.IsCollectedFromList(i))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    private bool IsAllCollectablesRequirementMet()
     {
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
@@ -335,7 +336,7 @@ public class AchievementSO : ScriptableObject
         }
         return true;
     }
-    private bool IsGoalRequirementMet(int goalAmount)
+    private bool IsCustomGoalRequirementMet(int goalAmount)
     {
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = GetCollectedAmountPerCategory();
         foreach (int collectableAmount in collectedAmountPerCategory.Values)
@@ -399,11 +400,27 @@ public class AchievementSO : ScriptableObject
     private string GetSingleCollectableProgression()
     {
         int currentAmount = 0;
-        if (_collectableReference.IsCollected())
+        int totalAmount;
+        if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
         {
-            currentAmount++;
+            totalAmount = 1;
+            if (_collectableReference.IsCollected())
+            {
+                currentAmount = 1;
+            }
         }
-        return GetProgressionDisplayType(currentAmount, 1);
+        else
+        {
+            totalAmount = _collectableReference.MultiCollectables;
+            for (int i = 0; i < totalAmount; i++)
+            {
+                if (_collectableReference.IsCollectedFromList(i))
+                {
+                    currentAmount++;
+                }
+            }
+        }
+        return GetProgressionDisplayType(currentAmount, totalAmount);
     }
     private string GetAllCollectablesProgression()
     {
