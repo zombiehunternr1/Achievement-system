@@ -278,6 +278,10 @@ public class AchievementSO : ScriptableObject
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
+            if (_collectableListReference.CollectablesList[i].CollectableCategory == CollectableCategoryEnum.None)
+            {
+                continue;
+            }
             if (!collectedAmountPerCategory.ContainsKey(_collectableListReference.CollectablesList[i].CollectableCategory))
             {
                 collectedAmountPerCategory[_collectableListReference.CollectablesList[i].CollectableCategory] = 0;
@@ -319,6 +323,10 @@ public class AchievementSO : ScriptableObject
     {
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
+            if (_collectableListReference.CollectablesList[i].CollectableCategory == CollectableCategoryEnum.None)
+            {
+                continue;
+            }
             if (_collectableListReference.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
                 if (!_collectableListReference.CollectablesList[i].IsCollected())
@@ -428,6 +436,10 @@ public class AchievementSO : ScriptableObject
         int totalAmount = 0;
         foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
+            if (collectable.CollectableCategory == CollectableCategoryEnum.None)
+            {
+                continue;
+            }
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
                 if (collectable.IsCollected())
@@ -453,6 +465,10 @@ public class AchievementSO : ScriptableObject
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
             CollectableCategoryEnum category = _collectableListReference.CollectablesList[i].CollectableCategory;
+            if (category == CollectableCategoryEnum.None)
+            {
+                continue;
+            }
             if (!uniqueCategories.Contains(category))
             {
                 uniqueCategories.Add(category);
