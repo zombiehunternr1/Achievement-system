@@ -77,7 +77,7 @@ public class CollectableObjectEditor : Editor
             if (string.IsNullOrEmpty(_currentObjectId))
             {
                 CollectableObject collectableObject = serializedObject.targetObject as CollectableObject;
-                collectableObject.CheckObjectId();
+                collectableObject.ValidateObjectId();
             }
             SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
             CollectionEnumItemAmount collectionEnumType = (CollectionEnumItemAmount)collectableItemAmountProp.enumValueIndex;

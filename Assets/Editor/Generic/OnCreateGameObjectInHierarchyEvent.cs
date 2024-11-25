@@ -23,7 +23,7 @@ public class OnCreateGameObjectInHierarchyEvent
                     {
                         return;
                     }
-                    newCollectableObject.CheckObjectId();
+                    newCollectableObject.ValidateObjectId();
                 break;
             }
         }
