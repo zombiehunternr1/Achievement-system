@@ -309,17 +309,12 @@ public class AchievementSystem : MonoBehaviour
         }
         _updateProgressionEvent.Invoke(gameData);
     }
-    private void LoadAchievementDataFromGameData(GameData data)
+    private void LoadAchievementDataFromGameData(GameData gameData)
     {
         foreach (AchievementSO achievement in _allAchievementsListReference.AchievementList)
         {
-            data.TotalAchievementsData.TryGetValue(achievement.AchievementId, out bool isUnlocked);
-            if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
-            {
-                data.CurrentValueData.TryGetValue(achievement.AchievementId, out float currentValue);
-                achievement.NewCurrentValue(currentValue);
-            }
-            if (isUnlocked)
+            gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO achievementDTO);
+            if (achievementDTO.IsUnlocked)
             {
                 achievement.UnlockAchievement();
             }
@@ -327,23 +322,30 @@ public class AchievementSystem : MonoBehaviour
             {
                 achievement.LockAchievement();
             }
+            if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+            {
+               achievement.NewCurrentValue(achievementDTO.CurrentAmount);
+            }
             UpdateAchievementStatus(achievement);
         }
     }
-    private void SaveAchievementDataToGameData(GameData data)
+    private void SaveAchievementDataToGameData(GameData gameData)
     {
         List<AchievementSO>.Enumerator enumAchievementsList = _allAchievementsListReference.AchievementList.GetEnumerator();
+        string achievementId;
+        string title;
+        bool isUnlocked;
+        float currentAmount;
         try
         {
             while (enumAchievementsList.MoveNext())
             {
-                string id = enumAchievementsList.Current.AchievementId;
-                bool boolValue = enumAchievementsList.Current.IsUnlocked;
-                data.SetTotalAchievementsData(id, boolValue);
-                if (enumAchievementsList.Current.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
-                {
-                    data.SetCurrentValueData(id, enumAchievementsList.Current.GetCurrentAmount);
-                }
+                AchievementSO achievement = enumAchievementsList.Current;
+                achievementId = achievement.AchievementId;
+                title = achievement.Title;
+                isUnlocked = achievement.IsUnlocked;
+                currentAmount = achievement.GetCurrentAmount;
+                gameData.SetTotalAchievementsData(achievementId, title, isUnlocked, currentAmount);
             }
         }
         finally

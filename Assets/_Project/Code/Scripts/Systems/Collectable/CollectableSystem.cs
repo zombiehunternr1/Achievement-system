@@ -55,7 +55,7 @@ public class CollectableSystem : MonoBehaviour
         {
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                gameData.CollectablesStatus.TryGetValue(collectable.CollectableId, out CollectableStatusDTO collectableStatesDTO);
+                gameData.CollectablesStatusData.TryGetValue(collectable.CollectableId, out CollectableStatusDTO collectableStatesDTO);
                 collectable.SetCollectableStatus(collectableStatesDTO.IsCollected);
                 collectable.SetCurrentAmount(collectableStatesDTO.CurrentAmount);
             }
@@ -63,7 +63,7 @@ public class CollectableSystem : MonoBehaviour
             {
                 for (int i = 0; i < collectable.MultiCollectables; i++)
                 {
-                    gameData.CollectablesStatus.TryGetValue(collectable.CollectableIdFromList(i), out CollectableStatusDTO collectableStatesDTO);
+                    gameData.CollectablesStatusData.TryGetValue(collectable.CollectableIdFromList(i), out CollectableStatusDTO collectableStatesDTO);
                     collectable.SetCollectableStatusFromList(i, collectableStatesDTO.IsCollected);
                     collectable.SetCurrentAmountFromList(i, collectableStatesDTO.CurrentAmount);
                 }
@@ -85,7 +85,7 @@ public class CollectableSystem : MonoBehaviour
                 {
                     collectableId = collectable.CollectableId;
                     isCollected = collectable.IsCollected;
-                    gameData.SetTotalCollectablesStatus(collectableId, collectable.name, isCollected, collectable.CurrentAmount);
+                    gameData.SetTotalCollectablesStatusData(collectableId, collectable.name, isCollected, collectable.CurrentAmount);
                 }
                 else
                 {
@@ -93,7 +93,7 @@ public class CollectableSystem : MonoBehaviour
                     {
                         collectableId = collectable.CollectableIdFromList(i);
                         isCollected = collectable.IsCollectedFromList(i);
-                        gameData.SetTotalCollectablesStatus(collectableId, collectable.name, isCollected, collectable.CurrentAmountFromList(i));
+                        gameData.SetTotalCollectablesStatusData(collectableId, collectable.name, isCollected, collectable.CurrentAmountFromList(i));
                     }
                 }
             }
