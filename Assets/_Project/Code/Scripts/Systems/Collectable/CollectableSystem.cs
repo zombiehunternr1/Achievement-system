@@ -53,7 +53,7 @@ public class CollectableSystem : MonoBehaviour
         {
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                gameData.TotalCollectionsData.TryGetValue(collectable.CollectableId(), out bool isCollected);
+                gameData.TotalCollectionsData.TryGetValue(collectable.CollectableId, out bool isCollected);
                 collectable.SetCollectableStatus(isCollected);
             }
             for (int i = 0; i < collectable.MultiCollectables; i++)
@@ -75,8 +75,8 @@ public class CollectableSystem : MonoBehaviour
             {
                 if (enumAllCollectables.Current.ItemAmountType == CollectionEnumItemAmount.SingleItem)
                 {
-                    collectableId = enumAllCollectables.Current.CollectableId();
-                    isCollected = enumAllCollectables.Current.IsCollected();
+                    collectableId = enumAllCollectables.Current.CollectableId;
+                    isCollected = enumAllCollectables.Current.IsCollected;
                     gameData.SetTotalCollectionsData(collectableId, isCollected);
                 }
                 else

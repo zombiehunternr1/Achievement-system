@@ -262,7 +262,7 @@ public class AchievementSO : ScriptableObject
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectableReference != null && _collectableReference.IsMatchingId(collectable.CollectableId());
+            return _collectableReference != null && _collectableReference.IsMatchingId(collectable.CollectableId);
         }
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
@@ -289,7 +289,7 @@ public class AchievementSO : ScriptableObject
         }
         foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
-            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && collectable.IsCollected())
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && collectable.IsCollected)
             {
                 collectedAmountPerCategory[collectable.CollectableCategory]++;
             }
@@ -307,7 +307,7 @@ public class AchievementSO : ScriptableObject
     {
         if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
         {
-            return _collectableReference.IsMatchingId(collectable.CollectableId()) && _collectableReference.IsCollected();
+            return _collectableReference.IsMatchingId(collectable.CollectableId) && _collectableReference.IsCollected;
         }
         for (int i = 0; i < _collectableReference.MultiCollectables; i++)
         {
@@ -329,7 +329,7 @@ public class AchievementSO : ScriptableObject
             }
             if (_collectableListReference.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                if (!_collectableListReference.CollectablesList[i].IsCollected())
+                if (!_collectableListReference.CollectablesList[i].IsCollected)
                 {
                     return false;
                 }
@@ -412,7 +412,7 @@ public class AchievementSO : ScriptableObject
         if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
         {
             totalAmount = 1;
-            if (_collectableReference.IsCollected())
+            if (_collectableReference.IsCollected)
             {
                 currentAmount = 1;
             }
@@ -442,7 +442,7 @@ public class AchievementSO : ScriptableObject
             }
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                if (collectable.IsCollected())
+                if (collectable.IsCollected)
                 {
                     currentAmount++;
                 }

@@ -25,7 +25,7 @@ public class CollectableUIHolder : MonoBehaviour
             bool isCollected = false;
             if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                isCollected = collectableObject.Collectable.IsCollected();
+                isCollected = collectableObject.Collectable.IsCollected;
             }
             else if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.MultipleItems)
             {

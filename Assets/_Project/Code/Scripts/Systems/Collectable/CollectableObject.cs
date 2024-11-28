@@ -18,12 +18,12 @@ public class CollectableObject : CollectableObjectBase
             EvaluateMultiItemCollectable();
             return;
         }
-        if (_collectable.CollectionType == CollectionEnumType.Instantly && !_collectable.IsCollected())
+        if (_collectable.CollectionType == CollectionEnumType.Instantly && !_collectable.IsCollected)
         {
             SetAsCollected();
             return;
         }
-        if (_collectable.CollectionType == CollectionEnumType.Overtime && !_collectable.IsGoalRequirementReached())
+        if (_collectable.CollectionType == CollectionEnumType.Overtime && !_collectable.IsGoalRequirementReached)
         {
             SetAsCollected();
         }

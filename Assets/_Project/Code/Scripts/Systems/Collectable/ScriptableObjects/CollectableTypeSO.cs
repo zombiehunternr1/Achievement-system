@@ -28,25 +28,34 @@ public class CollectableTypeSO : ScriptableObject
             return _multiCollectablesStatus.Count;
         }
     }
-    public float CurrentAmount()
+    public string CollectableId
     {
-        return _singleCollectableStatus.CurrentAmount;
+        get
+        {
+            return _singleCollectableStatus.CollectableId;
+        }
+    }
+    public bool IsCollected
+    {
+        get
+        {
+            return _singleCollectableStatus.IsCollected;
+        }
+    }
+    public bool IsGoalRequirementReached
+    {
+        get
+        {
+            return _singleCollectableStatus.IsGoalReached;
+        }
     }
     public float CurrentAmountFromList(int index)
     {
         return _multiCollectablesStatus[index].CurrentAmount;
     }
-    public float GoalAmount()
-    {
-        return _singleCollectableStatus.GoalAmount;
-    }
     public float GoalAmountFromList(int index)
     {
         return _multiCollectablesStatus[index].GoalAmount;
-    }
-    public string CollectableId()
-    {
-        return _singleCollectableStatus.CollectableId;
     }
     public string CollectableIdFromList(int index)
     {
@@ -60,17 +69,9 @@ public class CollectableTypeSO : ScriptableObject
     {
         return _multiCollectablesStatus[index].CollectableId.Equals(id);
     }
-    public bool IsCollected()
-    {
-        return _singleCollectableStatus.IsCollected;
-    }
     public bool IsCollectedFromList(int index)
     {
         return _multiCollectablesStatus[index].IsCollected;
-    }
-    public bool IsGoalRequirementReached()
-    {
-        return _singleCollectableStatus.IsGoalReached;
     }
     public bool IsGoalRequirementReachedFromList(int currentIdIndex)
     {
