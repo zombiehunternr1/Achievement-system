@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 [Serializable]
 public class CollectableStatus
@@ -53,5 +53,9 @@ public class CollectableStatus
     public void SetCollectableStatus(bool value)
     {
         _isCollected = value;
+    }
+    public void SetCurrentAmountValue(float value)
+    {
+        _currentAmount = value;
     }
 }

@@ -24,10 +24,12 @@ public class CollectableSystem : MonoBehaviour
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
                 collectable.SetCollectableStatus(false);
+                collectable.SetCurrentAmount(0);
             }
             for (int i = 0; i < collectable.MultiCollectables; i++)
             {
                 collectable.SetCollectableStatusFromList(i, false);
+                collectable.SetCurrentAmountFromList(i, 0);
             }
         }
         _updateCollectablesStatusEvent.Invoke();
@@ -53,13 +55,18 @@ public class CollectableSystem : MonoBehaviour
         {
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                gameData.TotalCollectionsData.TryGetValue(collectable.CollectableId, out bool isCollected);
-                collectable.SetCollectableStatus(isCollected);
+                gameData.CollectablesStatus.TryGetValue(collectable.CollectableId, out CollectableStatusDTO collectableStatesDTO);
+                collectable.SetCollectableStatus(collectableStatesDTO.IsCollected);
+                collectable.SetCurrentAmount(collectableStatesDTO.CurrentAmount);
             }
-            for (int i = 0; i < collectable.MultiCollectables; i++)
+            else
             {
-                gameData.TotalCollectionsData.TryGetValue(collectable.CollectableIdFromList(i), out bool isCollected);
-                collectable.SetCollectableStatusFromList(i, isCollected);
+                for (int i = 0; i < collectable.MultiCollectables; i++)
+                {
+                    gameData.CollectablesStatus.TryGetValue(collectable.CollectableIdFromList(i), out CollectableStatusDTO collectableStatesDTO);
+                    collectable.SetCollectableStatusFromList(i, collectableStatesDTO.IsCollected);
+                    collectable.SetCurrentAmountFromList(i, collectableStatesDTO.CurrentAmount);
+                }
             }
         }
         _updateCollectablesStatusEvent.Invoke();
@@ -73,19 +80,20 @@ public class CollectableSystem : MonoBehaviour
         {
             while (enumAllCollectables.MoveNext())
             {
-                if (enumAllCollectables.Current.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+                CollectableSO collectable = enumAllCollectables.Current;
+                if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
                 {
-                    collectableId = enumAllCollectables.Current.CollectableId;
-                    isCollected = enumAllCollectables.Current.IsCollected;
-                    gameData.SetTotalCollectionsData(collectableId, isCollected);
+                    collectableId = collectable.CollectableId;
+                    isCollected = collectable.IsCollected;
+                    gameData.SetTotalCollectablesStatus(collectableId, collectable.name, isCollected, collectable.CurrentAmount);
                 }
                 else
                 {
-                    for (int i = 0; i < enumAllCollectables.Current.MultiCollectables; i++)
+                    for (int i = 0; i < collectable.MultiCollectables; i++)
                     {
-                        collectableId = enumAllCollectables.Current.CollectableIdFromList(i);
-                        isCollected = enumAllCollectables.Current.IsCollectedFromList(i);
-                        gameData.SetTotalCollectionsData(collectableId, isCollected);
+                        collectableId = collectable.CollectableIdFromList(i);
+                        isCollected = collectable.IsCollectedFromList(i);
+                        gameData.SetTotalCollectablesStatus(collectableId, collectable.name, isCollected, collectable.CurrentAmountFromList(i));
                     }
                 }
             }

@@ -49,6 +49,13 @@ public class CollectableTypeSO : ScriptableObject
             return _singleCollectableStatus.IsGoalReached;
         }
     }
+    public float CurrentAmount
+    {
+        get
+        {
+            return _singleCollectableStatus.CurrentAmount;
+        }
+    }
     public float CurrentAmountFromList(int index)
     {
         return _multiCollectablesStatus[index].CurrentAmount;
@@ -84,5 +91,13 @@ public class CollectableTypeSO : ScriptableObject
     public void SetCollectableStatusFromList(int index, bool value)
     {
         _multiCollectablesStatus[index].SetCollectableStatus(value);
+    }
+    public void SetCurrentAmount(float value)
+    {
+        _singleCollectableStatus.SetCurrentAmountValue(value);
+    }
+    public void SetCurrentAmountFromList(int index, float value)
+    {
+        _multiCollectablesStatus[index].SetCurrentAmountValue(value);
     }
 }

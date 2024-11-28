@@ -14,8 +14,12 @@ public class ButtonUIController : MonoBehaviour
     [SerializeField] private DoubleEvent _updateAchievementsEvent;
     private void OnEnable()
     {
-        _holdButton1ImageReference.fillAmount = _overTimeReference.CurrentAmountFromList(0) / _overTimeReference.GoalAmountFromList(0);
-        _holdButton2ImageReference.fillAmount = _overTimeReference.CurrentAmountFromList(1) / _overTimeReference.GoalAmountFromList(1);
+        UpdateCollectableStatusDisplay();
+    }
+    public void UpdateCollectableStatusDisplay()
+    {
+        _holdButton1ImageReference.fillAmount = (_overTimeReference.CurrentAmountFromList(0) / _overTimeReference.GoalAmountFromList(0));
+        _holdButton2ImageReference.fillAmount = (_overTimeReference.CurrentAmountFromList(1) / _overTimeReference.GoalAmountFromList(1));
     }
     public void QuitButton()
     {
