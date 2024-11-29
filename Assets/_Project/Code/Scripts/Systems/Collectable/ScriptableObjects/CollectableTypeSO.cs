@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableTypeSO : ScriptableObject
+public abstract class CollectableTypeSO : ScriptableObject
 {
     [SerializeField] private CollectionEnumType _collectionType;
     [SerializeField] private CollectionEnumItemAmount _itemAmountType;

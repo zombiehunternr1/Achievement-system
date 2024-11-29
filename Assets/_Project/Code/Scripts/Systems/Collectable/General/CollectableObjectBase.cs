@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class CollectableObjectBase : MonoBehaviour
+public abstract class CollectableObjectBase : MonoBehaviour
 {
     [SerializeField] private string _objectId;
     private static readonly Dictionary<string, CollectableObjectBase> _collectableObjectsBaseRegistry = new Dictionary<string, CollectableObjectBase>();
