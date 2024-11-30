@@ -68,16 +68,13 @@ public class AchievementSystem : MonoBehaviour
     {
         if (_queuedAchievements.Count != 0)
         {
-            for (int i = _queuedAchievements.Count - 1; i > 0; i--)
-            {
-                _queuedAchievements.RemoveAt(i);
-            }
+            _queuedAchievements.Clear();
         }
         foreach (AchievementSO achievement in _allAchievementsListReference.AchievementList)
         {
             achievement.LockAchievement();
             achievement.NewCurrentValue(0);
-            StartCoroutine(DeplayUpdateUnlockedStatus(achievement));
+            StartCoroutine(DelayUpdateUnlockedStatus(achievement));
         }
         _saveGameEvent.Invoke();
     }
@@ -273,7 +270,7 @@ public class AchievementSystem : MonoBehaviour
     }
     #endregion
     #region Co-routines
-    private IEnumerator DeplayUpdateUnlockedStatus(AchievementSO achievement)
+    private IEnumerator DelayUpdateUnlockedStatus(AchievementSO achievement)
     {
         yield return new WaitForSeconds(0.01f);
         UpdateAchievementStatus(achievement);
