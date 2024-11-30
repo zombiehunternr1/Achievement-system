@@ -72,7 +72,7 @@ public class SaveLoadSystem : MonoBehaviour
     }
     private void InitializeSelectedProfileId()
     {
-        _selectedProfileId = _dataHandler.mostRecentlyUpdatedProfileId;
+        _selectedProfileId = _dataHandler.MostRecentlyUpdatedProfileId;
         if(_overrideSelectedProfileId)
         {
             _selectedProfileId = _profileName;

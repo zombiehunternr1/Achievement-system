@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 public class FileDataHandler
 {
@@ -39,11 +40,11 @@ public class FileDataHandler
                 }
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
-            catch(Exception e)
+            catch(Exception exceptionMessage)
             {
                 if (allowRestoreFromBackup)
                 {
-                    Debug.LogWarning("Failed to load data file. Attempting to roll back.\n" + e);
+                    Debug.LogWarning("Failed to load data file. Attempting to roll back.\n" + exceptionMessage);
                     if (AttemptRollBack(fullPath))
                     {
                         loadedData = Load(profileId, false);
@@ -51,7 +52,7 @@ public class FileDataHandler
                 }
                 else
                 {
-                    Debug.LogError("Error occured when trying to load file at path: " + fullPath + " and backup did not work.\n" + e);
+                    Debug.LogError("Error occured when trying to load file at path: " + fullPath + " and backup did not work.\n" + exceptionMessage);
                 }
             }
         }
@@ -82,7 +83,7 @@ public class FileDataHandler
         }
         return profileDictionary;
     }
-    public string mostRecentlyUpdatedProfileId
+    public string MostRecentlyUpdatedProfileId
     {
         get
         {
@@ -131,10 +132,8 @@ public class FileDataHandler
             }
             using (FileStream stream = new(fullPath, FileMode.Create))
             {
-                using (StreamWriter writer = new(stream))
-                {
-                    writer.Write(dataToStore);
-                }
+                using StreamWriter writer = new(stream);
+                writer.Write(dataToStore);
             }
             GameData verifiedGameData = Load(profileId);
             if (verifiedGameData != null)
@@ -146,9 +145,9 @@ public class FileDataHandler
                 throw new Exception("Save file could not be verified and backup could not be created!");
             }
         }
-        catch (Exception e)
+        catch (Exception exceptionMessage)
         {
-            Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + e + "!");
+            Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + exceptionMessage + "!");
         }
     }
     public void Delete(string profileId)
@@ -169,19 +168,22 @@ public class FileDataHandler
                 Debug.LogWarning("Tried to delete profile data, but data was not found at path: " + fullPath + "!");
             }
         }
-        catch (Exception e)
+        catch (Exception exceptionMessage)
         {
-            Debug.LogError("Failed to delete profile data for profile ID: " + profileId + " at path: " + fullPath + "\n" + e + "!");
+            Debug.LogError("Failed to delete profile data for profile ID: " + profileId + " at path: " + fullPath + "\n" + exceptionMessage + "!");
         }
     }
     private string EncryptDecrypt(string data)
     {
-        string modifiedData = null;
+        StringBuilder modifiedData = new StringBuilder(data.Length);
+        int keyLength = _encryptionCodeWord.Length;
         for(int i = 0; i < data.Length; i++)
         {
-            modifiedData += (char)(data[i] ^ _encryptionCodeWord[i % _encryptionCodeWord.Length]);
+            int keyIndex = i - (i / keyLength) * keyLength;
+            char encryptedChar = (char)(data[i] + _encryptionCodeWord[keyIndex]);
+            modifiedData.Append(encryptedChar);
         }
-        return modifiedData;
+        return modifiedData.ToString();
     }
     private bool AttemptRollBack(string fullPath)
     {
@@ -200,9 +202,9 @@ public class FileDataHandler
                 throw new Exception("Tried to roll back, but no backup file exists to roll back to!");
             }
         }
-        catch(Exception e)
+        catch(Exception exceptionMessage)
         {
-            Debug.LogError("Error occured when trying to roll back to backup file at: " + backupFilePath + "\n" + e + "!");
+            Debug.LogError("Error occured when trying to roll back to backup file at: " + backupFilePath + "\n" + exceptionMessage + "!");
         }
         return success;
     }
