@@ -7,7 +7,7 @@ public class GameData
 {
     [SerializeField] private long _lastUpdated;
     [SerializeField] private SerializableDictionary<string, AchievementDTO> _achievementsData;
-    [SerializeField] private SerializableDictionary<string, CollectableStatusDTO> _collectablesStatus;
+    [SerializeField] private SerializableDictionary<string, CollectableStatusDTO> _collectablesStatusData;
     public long LastUpdated
     {
         get
@@ -19,7 +19,7 @@ public class GameData
     {
         get
         {
-            return _collectablesStatus;
+            return _collectablesStatusData;
         }
     }
     public SerializableDictionary<string, AchievementDTO> AchievementsData
@@ -32,7 +32,7 @@ public class GameData
     public GameData()
     {
         _achievementsData = new SerializableDictionary<string, AchievementDTO>();
-        _collectablesStatus = new SerializableDictionary<string, CollectableStatusDTO>();
+        _collectablesStatusData = new SerializableDictionary<string, CollectableStatusDTO>();
     }
     public int PercentageAchievementsComplete
     {
@@ -57,26 +57,26 @@ public class GameData
     {
         get
         {
-            if (_collectablesStatus.Count == 0)
+            if (_collectablesStatusData.Count == 0)
             {
                 return 0;
             }
             int totalUnlocked = 0;
-            foreach(CollectableStatusDTO collectableStatus in _collectablesStatus.Values)
+            foreach(CollectableStatusDTO collectableStatus in _collectablesStatusData.Values)
             {
                 if (collectableStatus.IsCollected)
                 {
                     totalUnlocked++;
                 }
             }
-            return totalUnlocked * 100 / _collectablesStatus.Count;
+            return totalUnlocked * 100 / _collectablesStatusData.Count;
         }
     }
     public int PercentageTotalComplete
     {
         get
         {
-            int totalDataCount = _achievementsData.Count + _collectablesStatus.Count;
+            int totalDataCount = _achievementsData.Count + _collectablesStatusData.Count;
             if (totalDataCount == 0)
             {
                 return 0;
@@ -89,7 +89,7 @@ public class GameData
         get
         {
             int totalCount = 0;
-            foreach (KeyValuePair<string, CollectableStatusDTO> collectableStatusPair in _collectablesStatus)
+            foreach (KeyValuePair<string, CollectableStatusDTO> collectableStatusPair in _collectablesStatusData)
             {
                 if (collectableStatusPair.Value.IsCollected)
                 {
@@ -119,9 +119,9 @@ public class GameData
     }
     public void SetTotalCollectablesStatusData(string iDValue, string collectableName, bool isCollected, float currentAmountValue)
     {
-        _collectablesStatus[iDValue] = new CollectableStatusDTO(collectableName, isCollected, currentAmountValue);
-        _collectablesStatus[iDValue].SetCollectableName(collectableName);
-        _collectablesStatus[iDValue].SetIsCollectedValue(isCollected);
-        _collectablesStatus[iDValue].SetIsCurrentAmount(currentAmountValue);
+        _collectablesStatusData[iDValue] = new CollectableStatusDTO(collectableName, isCollected, currentAmountValue);
+        _collectablesStatusData[iDValue].SetCollectableName(collectableName);
+        _collectablesStatusData[iDValue].SetIsCollectedValue(isCollected);
+        _collectablesStatusData[iDValue].SetIsCurrentAmount(currentAmountValue);
     }
 }
