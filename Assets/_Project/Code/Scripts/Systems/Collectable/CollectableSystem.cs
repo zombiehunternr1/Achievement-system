@@ -41,15 +41,15 @@ public class CollectableSystem : MonoBehaviour
         bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
-            LoadCollectableStatusFromData(gameData);
+            LoadCollectableStatusFromGameData(gameData);
         }
         else
         {
-            SaveCollectableStatusToData(gameData);
+            SaveCollectableStatusToGameData(gameData);
         }
         _updateProgressionEvent.Invoke(gameData);
     }
-    private void LoadCollectableStatusFromData(GameData gameData)
+    private void LoadCollectableStatusFromGameData(GameData gameData)
     {
         foreach (CollectableSO collectable in _allCollectablesListReference.CollectablesList)
         {
@@ -71,7 +71,7 @@ public class CollectableSystem : MonoBehaviour
         }
         _updateCollectablesStatusEvent.Invoke();
     }
-    private void SaveCollectableStatusToData(GameData gameData)
+    private void SaveCollectableStatusToGameData(GameData gameData)
     {
         List<CollectableSO>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
         string collectableId;
