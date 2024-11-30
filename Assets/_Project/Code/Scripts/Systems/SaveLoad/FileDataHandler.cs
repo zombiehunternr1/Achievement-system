@@ -180,8 +180,16 @@ public class FileDataHandler
         for(int i = 0; i < data.Length; i++)
         {
             int keyIndex = i - (i / keyLength) * keyLength;
-            char encryptedChar = (char)(data[i] + _encryptionCodeWord[keyIndex]);
-            modifiedData.Append(encryptedChar);
+            char modifiedChar;
+            if (data[i] >= _encryptionCodeWord[keyIndex])
+            {
+                modifiedChar = (char)(data[i] - _encryptionCodeWord[keyIndex]);
+            }
+            else
+            {
+                modifiedChar = (char)(data[i] + _encryptionCodeWord[keyIndex]);
+            }
+            modifiedData.Append(modifiedChar);
         }
         return modifiedData.ToString();
     }
