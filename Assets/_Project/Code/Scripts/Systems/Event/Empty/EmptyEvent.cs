@@ -21,4 +21,3 @@ public class EmptyEvent : ScriptableObject
         _listeners.Remove(listener);
     }
 }
-
