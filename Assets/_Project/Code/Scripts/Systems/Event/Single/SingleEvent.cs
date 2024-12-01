@@ -11,7 +11,7 @@ public class SingleEvent : ScriptableObject
         {
             foreach (SingleEventBase baseEvent in listener.BaseEvents)
             {
-                if (baseEvent != null && baseEvent.EventReferenceName == name)
+                if (baseEvent != null && baseEvent.MatchesEvent(this))
                 {
                     baseEvent.Invoke(objectRef);
                 }

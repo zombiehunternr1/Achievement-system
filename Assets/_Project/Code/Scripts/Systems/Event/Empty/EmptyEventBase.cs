@@ -4,14 +4,11 @@ using UnityEngine.Events;
 [System.Serializable]
 public class EmptyEventBase
 {
-    [SerializeField] EmptyEvent _emptyEvent;
+    [SerializeField] private EmptyEvent _emptyEvent;
     [SerializeField] private UnityEvent _unityEvent;
-    public string EventReferenceName
+    public bool MatchesEvent(EmptyEvent emptyEvent)
     {
-        get
-        {
-            return _emptyEvent.name;
-        }
+        return _emptyEvent == emptyEvent;
     }
     public void Registering(EmptyListenersList listenersList)
     {

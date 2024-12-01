@@ -13,16 +13,24 @@ public class EmptyListenersList : MonoBehaviour
     }
     private void OnEnable()
     {
-        foreach(EmptyEventBase baseEvent in _baseEvents)
-        {
-            baseEvent.Registering(this);
-        }
+        UpdateRegistryList(true);
     }
     private void OnDisable()
     {
+        UpdateRegistryList(false);
+    }
+    private void UpdateRegistryList(bool isRegistering)
+    {
         foreach (EmptyEventBase baseEvent in _baseEvents)
         {
-            baseEvent.UnRegistering(this);
+            if (isRegistering)
+            {
+                baseEvent.Registering(this);
+            }
+            else
+            {
+                baseEvent.UnRegistering(this);
+            }
         }
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Empty event", menuName = "Scriptable Objects/Systems/Event/Empty event")]
 public class EmptyEvent : ScriptableObject
 {
-    private readonly HashSet<EmptyListenersList> _listeners = new HashSet<EmptyListenersList>();
+    private readonly List<EmptyListenersList> _listeners = new List<EmptyListenersList>();
     public virtual void Invoke()
     {
         foreach (EmptyListenersList listener in _listeners)
         {
             foreach (EmptyEventBase baseEvent in listener.BaseEvents)
             {
-                if (baseEvent != null && baseEvent.EventReferenceName == name)
+                if (baseEvent != null && baseEvent.MatchesEvent(this))
                 {
                     baseEvent.Invoke();
                 }
