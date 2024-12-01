@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Empty event", menuName = "Scriptable Objects/Systems/Event/Empty event")]
 public class EmptyEvent : ScriptableObject
 {
-    private readonly List<EmptyEventBase> _listeners = new List<EmptyEventBase>();
+    private readonly HashSet<EmptyEventBase> _listeners = new HashSet<EmptyEventBase>();
     public virtual void Invoke()
     {
         foreach (EmptyEventBase emptyEventBase in _listeners)
