@@ -4,13 +4,6 @@ using UnityEngine;
 public class EmptyListenersList : MonoBehaviour
 {
     [SerializeField] private List<EmptyEventBase> _baseEvents;
-    public List<EmptyEventBase> BaseEvents
-    {
-        get
-        {
-            return _baseEvents;
-        }
-    }
     private void OnEnable()
     {
         UpdateRegistryList(true);
@@ -25,11 +18,11 @@ public class EmptyListenersList : MonoBehaviour
         {
             if (isRegistering)
             {
-                baseEvent.Registering(this);
+                baseEvent.Registering();
             }
             else
             {
-                baseEvent.UnRegistering(this);
+                baseEvent.UnRegistering();
             }
         }
     }

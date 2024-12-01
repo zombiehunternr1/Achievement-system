@@ -4,26 +4,27 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Empty event", menuName = "Scriptable Objects/Systems/Event/Empty event")]
 public class EmptyEvent : ScriptableObject
 {
-    private readonly List<EmptyListenersList> _listeners = new List<EmptyListenersList>();
+    private readonly List<EmptyEventBase> _listeners = new List<EmptyEventBase>();
     public virtual void Invoke()
     {
-        foreach (EmptyListenersList listener in _listeners)
+        foreach (EmptyEventBase emptyEventBase in _listeners)
         {
-            foreach (EmptyEventBase baseEvent in listener.BaseEvents)
-            {
-                if (baseEvent != null && baseEvent.MatchesEvent(this))
-                {
-                    baseEvent.Invoke();
-                }
-            }
+            emptyEventBase.Invoke();
         }
     }
-    internal void RegisterListener(EmptyListenersList listener)
+    internal void RegisterListener(EmptyEventBase listener)
     {
-        _listeners.Add(listener);
+        if (!_listeners.Contains(listener))
+        {
+            _listeners.Add(listener);
+        }
     }
-    internal void UnregisterListener(EmptyListenersList listener)
+    internal void UnregisterListener(EmptyEventBase listener)
     {
-        _listeners.Remove(listener);
+        if (_listeners.Contains(listener))
+        {
+            _listeners.Remove(listener);
+        }
     }
 }
+

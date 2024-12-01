@@ -6,17 +6,13 @@ public class DoubleEventBase
 {
     [SerializeField] private DoubleEvent _doubleEvent;
     [SerializeField] private UnityEvent<object, object> _unityEvent;
-    public bool MatchesEvent(DoubleEvent emptyEvent)
+    public void Registering()
     {
-        return _doubleEvent == emptyEvent;
+        _doubleEvent.RegisterListener(this);
     }
-    public void Registering(DoubleListenersList listenersList)
+    public void UnRegistering()
     {
-        _doubleEvent.RegisterListener(listenersList);
-    }
-    public void UnRegistering(DoubleListenersList listenersList)
-    {
-        _doubleEvent.UnregisterListener(listenersList);
+        _doubleEvent.UnregisterListener(this);
     }
     internal void Invoke(object objectRef1, object objectRef2)
     {

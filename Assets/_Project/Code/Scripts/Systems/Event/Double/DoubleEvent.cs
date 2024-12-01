@@ -4,26 +4,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Double Event", menuName ="Scriptable Objects/Systems/Event/Double event")]
 public class DoubleEvent : ScriptableObject
 {
-    private readonly HashSet<DoubleListenersList> _listeners = new HashSet<DoubleListenersList>();
+    private readonly HashSet<DoubleEventBase> _listeners = new HashSet<DoubleEventBase>();
     public virtual void Invoke(object objectRef1, object objectRef2)
     {
-        foreach (DoubleListenersList listener in _listeners)
+        foreach (DoubleEventBase doubleEventBase in _listeners)
         {
-            foreach (DoubleEventBase baseEvent in listener.BaseEvents)
-            {
-                if (baseEvent != null && baseEvent.MatchesEvent(this))
-                {
-                    baseEvent.Invoke(objectRef1, objectRef2);
-                }
-            }
+            doubleEventBase.Invoke(objectRef1, objectRef2);
         }
     }
-    internal void RegisterListener(DoubleListenersList listener)
+    internal void RegisterListener(DoubleEventBase listener)
     {
-        _listeners.Add(listener);
+        if (!_listeners.Contains(listener))
+        {
+            _listeners.Add(listener);
+        }
     }
-    internal void UnregisterListener(DoubleListenersList listener)
+    internal void UnregisterListener(DoubleEventBase listener)
     {
-        _listeners.Remove(listener);
+        if (_listeners.Contains(listener))
+        {
+            _listeners.Remove(listener);
+        }
     }
 }

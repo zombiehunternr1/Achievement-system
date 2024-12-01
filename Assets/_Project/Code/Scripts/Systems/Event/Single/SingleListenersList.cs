@@ -4,13 +4,6 @@ using UnityEngine;
 public class SingleListenersList : MonoBehaviour
 {
     [SerializeField] private List<SingleEventBase> _baseEvents;
-    public List<SingleEventBase> BaseEvents
-    {
-        get
-        {
-            return _baseEvents;
-        }
-    }
     private void OnEnable()
     {
         UpdateRegistryList(true);
@@ -25,11 +18,11 @@ public class SingleListenersList : MonoBehaviour
         {
             if (isRegistering)
             {
-                baseEvent.Registering(this);
+                baseEvent.Registering();
             }
             else
             {
-                baseEvent.UnRegistering(this);
+                baseEvent.UnRegistering();
             }
         }
     }

@@ -6,17 +6,13 @@ public class SingleEventBase
 {
     [SerializeField] private SingleEvent _singleEvent;
     [SerializeField] private UnityEvent<object> _unityEvent;
-    public bool MatchesEvent(SingleEvent emptyEvent)
+    public void Registering()
     {
-        return _singleEvent == emptyEvent;
+        _singleEvent.RegisterListener(this);
     }
-    public void Registering(SingleListenersList listenersList)
+    public void UnRegistering()
     {
-        _singleEvent.RegisterListener(listenersList);
-    }
-    public void UnRegistering(SingleListenersList listenersList)
-    {
-        _singleEvent.UnregisterListener(listenersList);
+        _singleEvent.UnregisterListener(this);
     }
     internal void Invoke(object objectRef)
     {

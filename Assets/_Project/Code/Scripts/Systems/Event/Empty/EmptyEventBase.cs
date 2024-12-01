@@ -6,17 +6,13 @@ public class EmptyEventBase
 {
     [SerializeField] private EmptyEvent _emptyEvent;
     [SerializeField] private UnityEvent _unityEvent;
-    public bool MatchesEvent(EmptyEvent emptyEvent)
+    public void Registering()
     {
-        return _emptyEvent == emptyEvent;
+        _emptyEvent.RegisterListener(this);
     }
-    public void Registering(EmptyListenersList listenersList)
+    public void UnRegistering()
     {
-        _emptyEvent.RegisterListener(listenersList);
-    }
-    public void UnRegistering(EmptyListenersList listenersList)
-    {
-        _emptyEvent.UnregisterListener(listenersList);
+        _emptyEvent.UnregisterListener(this);
     }
     internal void Invoke()
     {
