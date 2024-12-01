@@ -14,16 +14,10 @@ public class DoubleEvent : ScriptableObject
     }
     internal void RegisterListener(DoubleEventBase listener)
     {
-        if (!_listeners.Contains(listener))
-        {
-            _listeners.Add(listener);
-        }
+        _listeners.Add(listener);
     }
     internal void UnregisterListener(DoubleEventBase listener)
     {
-        if (_listeners.Contains(listener))
-        {
-            _listeners.Remove(listener);
-        }
+        _listeners.Remove(listener);
     }
 }

@@ -14,17 +14,11 @@ public class EmptyEvent : ScriptableObject
     }
     internal void RegisterListener(EmptyEventBase listener)
     {
-        if (!_listeners.Contains(listener))
-        {
-            _listeners.Add(listener);
-        }
+        _listeners.Add(listener);
     }
     internal void UnregisterListener(EmptyEventBase listener)
     {
-        if (_listeners.Contains(listener))
-        {
-            _listeners.Remove(listener);
-        }
+        _listeners.Remove(listener);
     }
 }
 

@@ -14,16 +14,10 @@ public class SingleEvent : ScriptableObject
     }
     internal void RegisterListener(SingleEventBase listener)
     {
-        if (!_listeners.Contains(listener))
-        {
-            _listeners.Add(listener);
-        }
+        _listeners.Add(listener);
     }
     internal void UnregisterListener(SingleEventBase listener)
     {
-        if (_listeners.Contains(listener))
-        {
-            _listeners.Remove(listener);
-        }
+        _listeners.Remove(listener);
     }
 }
