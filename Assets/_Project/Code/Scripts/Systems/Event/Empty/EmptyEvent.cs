@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="Empty event", menuName = "Scriptable Objects/Systems/Event/Empty event")]
@@ -8,12 +7,15 @@ public class EmptyEvent : ScriptableObject
     private readonly HashSet<EmptyListenersList> _listeners = new HashSet<EmptyListenersList>();
     public virtual void Invoke()
     {
-        List<EmptyEventBase> targetEvents = _listeners
-            .SelectMany(listeners => listeners.BaseEvents)
-            .Where(evenref => evenref.EventReferenceName == name).ToList();
-        foreach (EmptyEventBase listener in targetEvents.Where(listener => listener != null))
+        foreach (EmptyListenersList listener in _listeners)
         {
-            listener.Invoke();
+            foreach (EmptyEventBase baseEvent in listener.BaseEvents)
+            {
+                if (baseEvent != null && baseEvent.EventReferenceName == name)
+                {
+                    baseEvent.Invoke();
+                }
+            }
         }
     }
     internal void RegisterListener(EmptyListenersList listener)
