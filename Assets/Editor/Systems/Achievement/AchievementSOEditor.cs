@@ -9,13 +9,13 @@ public class AchievementSOEditor : Editor
         _titleProp,
         _descriptionProp,
         _iconProp,
-        _unlockedProp,
+        _isUnlockedProp,
         _soundEffectProp,
         _requiresPreviousAchievementProp,
         _previousAchievementReferenceProp,
         _achievementListReferenceProp,
-        _customGoalAmountProp,
-        _goalAchievementAmountProp,
+        _hasCustomGoalAmountProp,
+        _goalAmountProp,
         _isHiddenProp,
         _showProgressionProp,
         _progressionEnumDisplayProp,
@@ -37,15 +37,15 @@ public class AchievementSOEditor : Editor
         _titleProp = serializedObject.FindProperty("_title");
         _descriptionProp = serializedObject.FindProperty("_description");
         _iconProp = serializedObject.FindProperty("_icon");
-        _unlockedProp = serializedObject.FindProperty("_unlocked");
+        _isUnlockedProp = serializedObject.FindProperty("_isUnlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
-        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requirementData._requiresPreviousAchievement");
+        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requirementData._requiresPreviousAchievementToUnlock");
         _previousAchievementReferenceProp = serializedObject.FindProperty("_requirementData._previousAchievementReference");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
-        _customGoalAmountProp = serializedObject.FindProperty("_achievementData._customGoalAmount");
-        _goalAchievementAmountProp = serializedObject.FindProperty("_achievementData._goalAchievementAmount");
+        _hasCustomGoalAmountProp = serializedObject.FindProperty("_achievementData._hasCustomGoalAmount");
+        _goalAmountProp = serializedObject.FindProperty("_achievementData._goalAmount");
         _isHiddenProp = serializedObject.FindProperty("_progressionData._isHidden");
-        _showProgressionProp = serializedObject.FindProperty("_progressionData._showProgression");
+        _showProgressionProp = serializedObject.FindProperty("_progressionData._hasProgressionDisplay");
         _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionData._progressionEnumDisplay");
         _completionEnumRequirementProp = serializedObject.FindProperty("_requirementData._completionEnumRequirement");
         _valueEnumTypeProp = serializedObject.FindProperty("_valueData._valueEnumType");
@@ -78,7 +78,7 @@ public class AchievementSOEditor : Editor
         EditorGUILayout.PropertyField(_descriptionProp);
         EditorGUILayout.PropertyField(_iconProp);
         EditorGUILayout.PropertyField(_soundEffectProp);
-        EditorGUILayout.PropertyField(_unlockedProp);
+        EditorGUILayout.PropertyField(_isUnlockedProp);
         EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
         if (_requiresPreviousAchievementProp.boolValue)
         {
@@ -146,10 +146,10 @@ public class AchievementSOEditor : Editor
             break;
             case CompletionEnumRequirement.AchievementRequirement:
                 EditorGUILayout.PropertyField(_achievementListReferenceProp);
-                EditorGUILayout.PropertyField(_customGoalAmountProp);
-                if (_customGoalAmountProp.boolValue)
+                EditorGUILayout.PropertyField(_hasCustomGoalAmountProp);
+                if (_hasCustomGoalAmountProp.boolValue)
                 {
-                    EditorGUILayout.PropertyField(_goalAchievementAmountProp);
+                    EditorGUILayout.PropertyField(_goalAmountProp);
                 }
             break;
         }

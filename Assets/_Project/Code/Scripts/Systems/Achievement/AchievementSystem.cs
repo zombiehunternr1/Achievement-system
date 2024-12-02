@@ -103,7 +103,7 @@ public class AchievementSystem : MonoBehaviour
                 dependencyGraph[achievement] = new List<AchievementSO>();
                 continue;
             }
-            if (achievement.RequiresPreviousAchievement && achievement.PreviousAchievementUnlocked)
+            if (achievement.RequiresPreviousAchievement && achievement.IsPreviousAchievementUnlocked)
             {
                 if (!dependencyGraph.ContainsKey(achievement.PreviousAchievement))
                 {
@@ -219,7 +219,7 @@ public class AchievementSystem : MonoBehaviour
         {
             achievementObject.EnableLock();
         }
-        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.ShowProgression, achievement.Progression, isHidden);
+        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.GetProgressionDisplay, isHidden);
     }
     private void CheckAchievementTypes()
     {

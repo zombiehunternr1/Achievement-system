@@ -5,7 +5,7 @@ using System;
 public class ProgressionData
 {
     [SerializeField] private bool _isHidden;
-    [SerializeField] private bool _showProgression;
+    [SerializeField] private bool _hasProgressionDisplay;
     [SerializeField] private ProgressionEnumDisplay _progressionEnumDisplay;
     public bool IsHidden
     {
@@ -14,11 +14,11 @@ public class ProgressionData
             return _isHidden;
         }
     }
-    public bool ShowProgression
+    public bool HasProgressionDisplay
     {
         get
         {
-            return _showProgression;
+            return _hasProgressionDisplay;
         }
     }
     public ProgressionEnumDisplay ProgressionEnumDisplay

@@ -28,14 +28,19 @@ MonoBehaviour:
     _requiresPreviousAchievement: 0
     _previousAchievementReference: {fileID: 0}
     _completionEnumRequirement: 3
-  _isHidden: 0
   _progressionData:
+    _isHidden: 0
     _showProgression: 1
     _progressionEnumDisplay: 1
   _achievementData:
     _achievementListReference: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
-    _customGoalAmount: 1
-    _goalAchievementAmount: 8
+    _hasCustomGoalAmount: 1
+    _goalAmount: 8
+  _collectableData:
+    _collectableEnumRequirement: 0
+    _collectableReference: {fileID: 0}
+    _collectableListReference: {fileID: 0}
+    _minimumGoalAmount: 0
   _valueData:
     _valueEnumType: 0
     _isExactAmount: 0
@@ -43,8 +48,3 @@ MonoBehaviour:
     _goalIntegerAmount: 0
     _currentFloatAmount: 0
     _goalFloatAmount: 0
-  _collectableData:
-    _collectableEnumRequirement: 0
-    _collectableReference: {fileID: 0}
-    _collectableListReference: {fileID: 0}
-    _minimumGoalAmount: 0

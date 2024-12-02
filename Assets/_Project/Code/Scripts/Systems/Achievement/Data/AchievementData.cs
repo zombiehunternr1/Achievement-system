@@ -5,8 +5,8 @@ using System;
 public class AchievementData
 {
     [SerializeField] private AchievementSOList _achievementListReference;
-    [SerializeField] private bool _customGoalAmount;
-    [SerializeField] private int _goalAchievementAmount;
+    [SerializeField] private bool _hasCustomGoalAmount;
+    [SerializeField] private int _goalAmount;
     public AchievementSOList AchievementListReference
     {
         get
@@ -14,18 +14,18 @@ public class AchievementData
             return _achievementListReference;
         }
     }
-    public bool CustomGoalAmount
+    public bool HasCustomGoalAmount
     {
         get
         {
-            return _customGoalAmount;
+            return _hasCustomGoalAmount;
         }
     }
-    public int GoalAchievementAmount
+    public int GoalAmount
     {
         get
         {
-            return _goalAchievementAmount;
+            return _goalAmount;
         }
     }
 }

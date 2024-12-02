@@ -4,14 +4,14 @@ using System;
 [Serializable]
 public class RequirementData
 {
-    [SerializeField] private bool _requiresPreviousAchievement;
+    [SerializeField] private bool _requiresPreviousAchievementToUnlock;
     [SerializeField] private AchievementSO _previousAchievementReference;
     [SerializeField] private CompletionEnumRequirement _completionEnumRequirement;
-    public bool RequiresPreviousAchievement
+    public bool RequiresPreviousAchievementToUnlock
     {
         get
         {
-            return _requiresPreviousAchievement;
+            return _requiresPreviousAchievementToUnlock;
         }
     }
     public AchievementSO PreviousAchievementReference

@@ -11,7 +11,7 @@ public class AchievementSO : ScriptableObject
     [SerializeField] private string _description;
     [SerializeField] private Sprite _icon;
     [SerializeField] private EventReference _soundEffect;
-    [SerializeField] private bool _unlocked;
+    [SerializeField] private bool _isUnlocked;
     [SerializeField] private RequirementData _requirementData;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
@@ -28,7 +28,7 @@ public class AchievementSO : ScriptableObject
     {
         get
         {
-            return _requirementData.RequiresPreviousAchievement;
+            return _requirementData.RequiresPreviousAchievementToUnlock;
         }
     }
     public string AchievementId
@@ -70,7 +70,7 @@ public class AchievementSO : ScriptableObject
     {
         get
         {
-            return _unlocked;
+            return _isUnlocked;
         }
     }
     public EventReference SoundEffect
@@ -80,7 +80,7 @@ public class AchievementSO : ScriptableObject
             return _soundEffect;
         }
     }
-    public bool PreviousAchievementUnlocked
+    public bool IsPreviousAchievementUnlocked
     {
         get
         {
@@ -94,11 +94,11 @@ public class AchievementSO : ScriptableObject
             return _progressionData.IsHidden;
         }
     }
-    public bool ShowProgression
+    public bool HasProgressionDisplay
     {
         get
         {
-            return _progressionData.ShowProgression;
+            return _progressionData.HasProgressionDisplay;
         }
     }
     public float GetCurrentAmount
@@ -112,7 +112,7 @@ public class AchievementSO : ScriptableObject
             return _valueData.CurrentFloatAmount;
         }
     }
-    private int ActualAchievementCount
+    private int GetActualAchievementCount
     {
         get
         {
@@ -162,13 +162,13 @@ public class AchievementSO : ScriptableObject
         {
             int currentAmount = 0;
             int goalAmount;
-            if (_achievementData.CustomGoalAmount)
+            if (_achievementData.HasCustomGoalAmount)
             {
-                goalAmount = _achievementData.GoalAchievementAmount;
+                goalAmount = _achievementData.GoalAmount;
             }
             else
             {
-                goalAmount = ActualAchievementCount;
+                goalAmount = GetActualAchievementCount;
             }
             for (int i = 0; i < _achievementData.AchievementListReference.AchievementList.Count; i++)
             {
@@ -190,7 +190,7 @@ public class AchievementSO : ScriptableObject
             return false;
         }
     }
-    public string Progression
+    public string GetProgressionDisplay
     {
         get
         {
@@ -364,13 +364,13 @@ public class AchievementSO : ScriptableObject
     {
         int currentAmount = 0;
         int goalAmount;
-        if (_achievementData.CustomGoalAmount)
+        if (_achievementData.HasCustomGoalAmount)
         {
-            goalAmount = _achievementData.GoalAchievementAmount;
+            goalAmount = _achievementData.GoalAmount;
         }
         else
         {
-            goalAmount = ActualAchievementCount;
+            goalAmount = GetActualAchievementCount;
         }
         foreach (AchievementSO achievement in _achievementData.AchievementListReference.AchievementList)
         {
@@ -471,11 +471,11 @@ public class AchievementSO : ScriptableObject
     }
     public void UnlockAchievement()
     {
-        _unlocked = true;
+        _isUnlocked = true;
     }
     public void LockAchievement()
     {
-        _unlocked = false;
+        _isUnlocked = false;
     }
     public void NewCurrentValue(object value)
     {
