@@ -24,22 +24,25 @@ MonoBehaviour:
       Data4: 354117730
     Path: event:/Normal
   _unlocked: 0
-  _requiresPreviousAchievement: 0
-  _previousAchievement: {fileID: 0}
-  _achievementList: {fileID: 0}
+  _requirementData:
+    _requiresPreviousAchievement: 0
+    _previousAchievementReference: {fileID: 0}
+    _completionEnumRequirement: 0
   _isHidden: 0
-  _showProgression: 0
-  _progressionEnumDisplay: 0
-  _completionEnumRequirement: 0
+  _progressionData:
+    _showProgression: 0
+    _progressionEnumDisplay: 0
+  _achievementListReference: {fileID: 0}
+  _customAchievementGoalAmount: 0
+  _goalAchievementAmount: 0
   _valueEnumType: 0
   _isExactAmount: 0
   _currentIntegerAmount: 0
   _goalIntegerAmount: 0
   _currentFloatAmount: 0
   _goalFloatAmount: 0
-  _collectableEnumRequirement: 0
-  _collectableType: {fileID: 0}
-  _collectableTypeList: {fileID: 0}
-  _collectableTypeLists: []
-  _requiresMultipleCollectableLists: 0
-  _minimumGoalAmount: 0
+  _collectableData:
+    _collectableEnumRequirement: 0
+    _collectableReference: {fileID: 0}
+    _collectableListReference: {fileID: 0}
+    _minimumGoalAmount: 0

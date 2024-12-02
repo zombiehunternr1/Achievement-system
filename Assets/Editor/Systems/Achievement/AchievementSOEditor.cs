@@ -14,7 +14,7 @@ public class AchievementSOEditor : Editor
         _requiresPreviousAchievementProp,
         _previousAchievementReferenceProp,
         _achievementListReferenceProp,
-        _customAchievementGoalAmountProp,
+        _customGoalAmountProp,
         _goalAchievementAmountProp,
         _isHiddenProp,
         _showProgressionProp,
@@ -29,7 +29,6 @@ public class AchievementSOEditor : Editor
         _collectableEnumRequirementProp,
         _collectableReferenceProp,
         _collectableListReferenceProp,
-        _requiresMultipleCollectableListsProp,
         _minimumGoalAmountProp;
     private MonoScript _monoScript;
     private void OnEnable()
@@ -40,26 +39,25 @@ public class AchievementSOEditor : Editor
         _iconProp = serializedObject.FindProperty("_icon");
         _unlockedProp = serializedObject.FindProperty("_unlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
-        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requiresPreviousAchievement");
-        _previousAchievementReferenceProp = serializedObject.FindProperty("_previousAchievementReference");
-        _achievementListReferenceProp = serializedObject.FindProperty("_achievementListReference");
-        _customAchievementGoalAmountProp = serializedObject.FindProperty("_customAchievementGoalAmount");
-        _goalAchievementAmountProp = serializedObject.FindProperty("_goalAchievementAmount");
-        _isHiddenProp = serializedObject.FindProperty("_isHidden");
-        _showProgressionProp = serializedObject.FindProperty("_showProgression");
-        _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionEnumDisplay");
-        _completionEnumRequirementProp = serializedObject.FindProperty("_completionEnumRequirement");
-        _valueEnumTypeProp = serializedObject.FindProperty("_valueEnumType");
-        _isExactAmountProp = serializedObject.FindProperty("_isExactAmount");
-        _currentIntegerAmountProp = serializedObject.FindProperty("_currentIntegerAmount");
-        _goalIntegerAmountProp = serializedObject.FindProperty("_goalIntegerAmount");
-        _currentFloatAmountProp = serializedObject.FindProperty("_currentFloatAmount");
-        _goalFloatAmountProp = serializedObject.FindProperty("_goalFloatAmount");
-        _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableEnumRequirement");
-        _collectableReferenceProp = serializedObject.FindProperty("_collectableReference");
-        _collectableListReferenceProp = serializedObject.FindProperty("_collectableListReference");
-        _requiresMultipleCollectableListsProp = serializedObject.FindProperty("_requiresMultipleCollectableLists");
-        _minimumGoalAmountProp = serializedObject.FindProperty("_minimumGoalAmount");
+        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requirementData._requiresPreviousAchievement");
+        _previousAchievementReferenceProp = serializedObject.FindProperty("_requirementData._previousAchievementReference");
+        _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
+        _customGoalAmountProp = serializedObject.FindProperty("_achievementData._customGoalAmount");
+        _goalAchievementAmountProp = serializedObject.FindProperty("_achievementData._goalAchievementAmount");
+        _isHiddenProp = serializedObject.FindProperty("_progressionData._isHidden");
+        _showProgressionProp = serializedObject.FindProperty("_progressionData._showProgression");
+        _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionData._progressionEnumDisplay");
+        _completionEnumRequirementProp = serializedObject.FindProperty("_requirementData._completionEnumRequirement");
+        _valueEnumTypeProp = serializedObject.FindProperty("_valueData._valueEnumType");
+        _isExactAmountProp = serializedObject.FindProperty("_valueData._isExactAmount");
+        _currentIntegerAmountProp = serializedObject.FindProperty("_valueData._currentIntegerAmount");
+        _goalIntegerAmountProp = serializedObject.FindProperty("_valueData._goalIntegerAmount");
+        _currentFloatAmountProp = serializedObject.FindProperty("_valueData._currentFloatAmount");
+        _goalFloatAmountProp = serializedObject.FindProperty("_valueData._goalFloatAmount");
+        _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableData._collectableEnumRequirement");
+        _collectableReferenceProp = serializedObject.FindProperty("_collectableData._collectableReference");
+        _collectableListReferenceProp = serializedObject.FindProperty("_collectableData._collectableListReference");
+        _minimumGoalAmountProp = serializedObject.FindProperty("_collectableData._minimumGoalAmount");
     }
     public override void OnInspectorGUI()
     {
@@ -85,6 +83,10 @@ public class AchievementSOEditor : Editor
         if (_requiresPreviousAchievementProp.boolValue)
         {
             EditorGUILayout.PropertyField(_previousAchievementReferenceProp);
+            if (_previousAchievementReferenceProp.objectReferenceValue == null)
+            {
+                EditorGUILayout.HelpBox("Previous achievement reference is required when 'Requires Previous Achievement' is enabled", MessageType.Warning);
+            }
         }
         else
         {
@@ -144,8 +146,8 @@ public class AchievementSOEditor : Editor
             break;
             case CompletionEnumRequirement.AchievementRequirement:
                 EditorGUILayout.PropertyField(_achievementListReferenceProp);
-                EditorGUILayout.PropertyField(_customAchievementGoalAmountProp);
-                if (_customAchievementGoalAmountProp.boolValue)
+                EditorGUILayout.PropertyField(_customGoalAmountProp);
+                if (_customGoalAmountProp.boolValue)
                 {
                     EditorGUILayout.PropertyField(_goalAchievementAmountProp);
                 }
