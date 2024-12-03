@@ -29,7 +29,7 @@ MonoBehaviour:
     _previousAchievementReference: {fileID: 0}
     _completionEnumRequirement: 0
   _progressionData:
-    _isHidden: 0
+    _isHidden: 1
     _hasProgressionDisplay: 0
     _progressionEnumDisplay: 0
   _achievementData:

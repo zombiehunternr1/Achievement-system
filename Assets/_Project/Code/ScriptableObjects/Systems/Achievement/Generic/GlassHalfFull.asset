@@ -23,14 +23,14 @@ MonoBehaviour:
       Data3: -1185649736
       Data4: 354117730
     Path: event:/Normal
-  _unlocked: 0
+  _isUnlocked: 0
   _requirementData:
-    _requiresPreviousAchievement: 0
+    _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}
     _completionEnumRequirement: 3
   _progressionData:
     _isHidden: 0
-    _showProgression: 1
+    _hasProgressionDisplay: 1
     _progressionEnumDisplay: 1
   _achievementData:
     _achievementListReference: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
