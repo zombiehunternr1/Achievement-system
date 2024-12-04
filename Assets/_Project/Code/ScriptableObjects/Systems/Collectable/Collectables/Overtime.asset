@@ -21,14 +21,14 @@ MonoBehaviour:
     _goalAmount: 0
     _increaseSpeed: 0
   _multiCollectablesStatus:
-  - _collectableId: 60e099ac-a22d-4427-8509-f8b6827e7d4c
-    _isCollected: 0
-    _currentAmount: 0
-    _goalAmount: 7
-    _increaseSpeed: 1
-  - _collectableId: 8d83b586-e8cf-49ba-b61e-818d3aeda9e2
+  - _collectableId: a20a51fc-397a-490a-b00a-450a9c57c896
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 5
+    _increaseSpeed: 1
+  - _collectableId: 073e98fa-5a53-4f67-a50d-bfbf5b53d883
+    _isCollected: 0
+    _currentAmount: 0
+    _goalAmount: 7
     _increaseSpeed: 1
   _collectableCategory: 0

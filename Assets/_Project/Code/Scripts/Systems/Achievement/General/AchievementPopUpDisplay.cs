@@ -6,7 +6,7 @@ public class AchievementPopUpDisplay : MonoBehaviour
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TextMeshProUGUI _titleText;
-    [SerializeField] private Animator _popupAnimation;
+    [SerializeField] private Animator _popupAnimatorReference;
     public void SetPopUpInfo(object iconInfoObj, object titleInfoObj)
     {
         Sprite iconInfo = (Sprite)iconInfoObj;
@@ -17,6 +17,6 @@ public class AchievementPopUpDisplay : MonoBehaviour
     public void PlayDisplayStatus(object displayStatusObj)
     {
         string displayStatus = (string)displayStatusObj;
-        _popupAnimation.Play(displayStatus);
+        _popupAnimatorReference.Play(displayStatus);
     }
 }

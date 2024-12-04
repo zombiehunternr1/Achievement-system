@@ -23,26 +23,28 @@ MonoBehaviour:
       Data3: -1185649736
       Data4: 354117730
     Path: event:/Normal
-  _unlocked: 0
+  _isUnlocked: 0
   _requirementData:
-    _requiresPreviousAchievement: 0
+    _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}
     _completionEnumRequirement: 2
-  _isHidden: 0
   _progressionData:
-    _showProgression: 0
+    _isHidden: 0
+    _hasProgressionDisplay: 0
     _progressionEnumDisplay: 0
-  _achievementListReference: {fileID: 0}
-  _customAchievementGoalAmount: 0
-  _goalAchievementAmount: 0
-  _valueEnumType: 0
-  _isExactAmount: 0
-  _currentIntegerAmount: 0
-  _goalIntegerAmount: 0
-  _currentFloatAmount: 0
-  _goalFloatAmount: 0
+  _achievementData:
+    _achievementListReference: {fileID: 0}
+    _hasCustomGoalAmount: 0
+    _goalAmount: 0
   _collectableData:
     _collectableEnumRequirement: 0
-    _collectableReference: {fileID: 11400000, guid: 193feaccbedf13c4e828093bcd401267, type: 2}
+    _collectableReference: {fileID: 11400000, guid: a0102b27425bd4d42bed4cabf2494653, type: 2}
     _collectableListReference: {fileID: 0}
     _minimumGoalAmount: 0
+  _valueData:
+    _valueEnumType: 0
+    _isExactAmount: 0
+    _currentIntegerAmount: 0
+    _goalIntegerAmount: 0
+    _currentFloatAmount: 0
+    _goalFloatAmount: 0

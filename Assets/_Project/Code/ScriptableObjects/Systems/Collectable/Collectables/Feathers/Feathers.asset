@@ -21,27 +21,27 @@ MonoBehaviour:
     _goalAmount: 0
     _increaseSpeed: 0
   _multiCollectablesStatus:
-  - _collectableId: b40a20cd-5684-423a-a2bb-17d2e861d4b9
+  - _collectableId: 135574f8-dfc3-445d-b662-524adb8c86c5
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 72d65b6e-8e44-4c4c-8499-638647e67a8a
+  - _collectableId: e7051850-a702-4cda-9702-d29be1f4fa90
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 089d6400-d6ea-41e2-a0c1-fece526f0c62
+  - _collectableId: 02e5df7b-0818-4038-97f4-355bc052c259
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: b38eef8a-05db-4040-8968-466ad563e790
+  - _collectableId: 6cf0e0f5-e6a6-4e96-9675-5ea29b01faa0
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0
     _increaseSpeed: 0
-  - _collectableId: 00294fbc-ef03-4a74-b90b-dffa433aa119
+  - _collectableId: d029a077-3f47-40ee-add7-fe4ba7407b90
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0

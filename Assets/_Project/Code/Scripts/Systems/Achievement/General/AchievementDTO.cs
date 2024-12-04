@@ -5,13 +5,13 @@ using UnityEngine;
 public class AchievementDTO
 {
     [SerializeField] private string _title;
-    [SerializeField] private bool _unlocked;
+    [SerializeField] private bool _isUnlocked;
     [SerializeField] private float _currentAmount;
     public bool IsUnlocked
     {
         get
         {
-            return _unlocked;
+            return _isUnlocked;
         }
     }
     public float CurrentAmount
@@ -24,7 +24,7 @@ public class AchievementDTO
     public AchievementDTO(string title, bool isUnlocked, float currentAmount)
     {
         _title = title;
-        _unlocked = isUnlocked;
+        _isUnlocked = isUnlocked;
         _currentAmount = currentAmount;
     }
     public void SetTitle(string title)
@@ -33,7 +33,7 @@ public class AchievementDTO
     }
     public void SetIsUnlockedValue(bool isUnlocked)
     {
-        _unlocked = isUnlocked;
+        _isUnlocked = isUnlocked;
     }
     public void SetCurrentAmount(float currentAmount)
     {

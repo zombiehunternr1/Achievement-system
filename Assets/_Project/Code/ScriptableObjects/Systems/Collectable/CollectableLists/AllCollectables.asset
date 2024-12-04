@@ -15,7 +15,7 @@ MonoBehaviour:
   _CollectablesList:
   - {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
   - {fileID: 11400000, guid: b6eae809f00b5fa498fb45a311ad187a, type: 2}
-  - {fileID: 11400000, guid: 193feaccbedf13c4e828093bcd401267, type: 2}
+  - {fileID: 11400000, guid: a0102b27425bd4d42bed4cabf2494653, type: 2}
   - {fileID: 11400000, guid: cd3bd3004dec94a4f9ff1176f0698801, type: 2}
   - {fileID: 11400000, guid: b423628dceb02154d8d2f481ed7a4e31, type: 2}
   - {fileID: 11400000, guid: 4bfbc63035846fd49a5e51f8c2e140a0, type: 2}
