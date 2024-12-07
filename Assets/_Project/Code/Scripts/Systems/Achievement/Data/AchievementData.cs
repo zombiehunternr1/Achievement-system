@@ -17,7 +17,7 @@ public class AchievementData
         }
         else
         {
-            goalAmount = GetActualAchievementCount;
+            goalAmount = GetActualAchievementCount();
         }
         foreach (AchievementSO achievement in _achievementListReference.AchievementList)
         {
@@ -42,7 +42,7 @@ public class AchievementData
         }
         else
         {
-            goalAmount = GetActualAchievementCount;
+            goalAmount = GetActualAchievementCount();
         }
         for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
@@ -63,20 +63,17 @@ public class AchievementData
         }
         return false;
     }
-    private int GetActualAchievementCount
+    private int GetActualAchievementCount()
     {
-        get
+        int amount = 0;
+        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
         {
-            int amount = 0;
-            for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+            AchievementSO achievement = _achievementListReference.AchievementList[i];
+            if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
             {
-                AchievementSO achievement = _achievementListReference.AchievementList[i];
-                if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
-                {
-                    amount++;
-                }
+                amount++;
             }
-            return amount;
         }
+        return amount;
     }
 }
