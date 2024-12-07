@@ -23,23 +23,24 @@ public class CollectableUIHolder : MonoBehaviour
                 continue;
             }
             bool isCollected = false;
-            if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            CollectableSO collectable = collectableObject.Collectable;
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                isCollected = collectableObject.Collectable.IsCollected;
+                isCollected = collectable.IsCollected;
             }
-            else if (collectableObject.Collectable.ItemAmountType == CollectionEnumItemAmount.MultipleItems)
+            else if (collectable.ItemAmountType == CollectionEnumItemAmount.MultipleItems)
             {
-                isCollected = IsMultiCollectableCollected(collectableObject);
+                isCollected = IsMultiCollectableCollected(collectableObject, collectable);
             }
             UpdateCollectableSprite(collectableSprite, isCollected);
         }
     }
-    private bool IsMultiCollectableCollected(CollectableObject collectableObject)
+    private bool IsMultiCollectableCollected(CollectableObject collectableObject, CollectableSO collectable)
     {
-        for (int i = 0; i < collectableObject.Collectable.MultiCollectables; i++)
+        for (int i = 0; i < collectable.MultiCollectables; i++)
         {
-            if (collectableObject.Collectable.IsCollectedFromList(i) && 
-                collectableObject.ObjectId == collectableObject.Collectable.CollectableIdFromList(i))
+            if (collectable.IsCollectedFromList(i) && 
+                collectableObject.ObjectId == collectable.CollectableIdFromList(i))
             {
                 return true;
             }
