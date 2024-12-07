@@ -43,7 +43,7 @@ public class AchievementSOEditor : Editor
         _previousAchievementReferenceProp = serializedObject.FindProperty("_requirementData._previousAchievementReference");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
         _hasCustomGoalAmountProp = serializedObject.FindProperty("_achievementData._hasCustomGoalAmount");
-        _goalAmountProp = serializedObject.FindProperty("_achievementData._goalAmount");
+        _goalAmountProp = serializedObject.FindProperty("_achievementData._customGoalAmount");
         _isHiddenProp = serializedObject.FindProperty("_progressionData._isHidden");
         _showProgressionProp = serializedObject.FindProperty("_progressionData._hasProgressionDisplay");
         _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionData._progressionEnumDisplay");

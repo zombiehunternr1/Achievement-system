@@ -21,11 +21,18 @@ public class ProgressionData
             return _hasProgressionDisplay;
         }
     }
-    public ProgressionEnumDisplay ProgressionEnumDisplay
+    public string GetProgressionDisplayType(float currentAmount, float goalAmount)
     {
-        get
+        if (goalAmount <= 0)
         {
-            return _progressionEnumDisplay;
+            return "Invalid goal!";
         }
+        if (_progressionEnumDisplay == ProgressionEnumDisplay.FullAmount)
+        {
+            return currentAmount + " / " + goalAmount;
+        }
+        float percentageAmount;
+        percentageAmount = Mathf.InverseLerp(0, goalAmount, currentAmount) * 100;
+        return percentageAmount + "%";
     }
 }

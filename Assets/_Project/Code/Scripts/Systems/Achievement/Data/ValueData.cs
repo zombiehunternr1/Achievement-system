@@ -17,40 +17,46 @@ public class ValueData
             return _valueEnumType;
         }
     }
-    public bool IsExactAmount
+    public float GetCurrentAmount()
     {
-        get
-        {
-            return _isExactAmount;
-        }
-    }
-    public int CurrentIntegerAmount
-    {
-        get
+        if (ValueEnumType == ValueEnumType.Integer)
         {
             return _currentIntegerAmount;
         }
+        return _currentFloatAmount;
     }
-    public int GoalIntegerAmount
+    public (float currentAmount, float goalAmount) GetAmountDisplay()
     {
-        get
+        if (_valueEnumType == ValueEnumType.Integer)
         {
-            return _goalIntegerAmount;
+            return (_currentIntegerAmount, _goalIntegerAmount);
         }
+        return (_currentFloatAmount, _goalFloatAmount);
     }
-    public float CurrentFloatAmount
+    public bool IsRequirementMet()
     {
-        get
+        if (ValueEnumType == ValueEnumType.Integer)
         {
-            return _currentFloatAmount;
+            if (_isExactAmount)
+            {
+                return _currentIntegerAmount == _goalIntegerAmount;
+            }
+            if (_currentIntegerAmount >= _goalIntegerAmount)
+            {
+                SetToIntegerGoalAmount();
+                return true;
+            }
         }
-    }
-    public float GoalFloatAmount
-    {
-        get
+        if (_isExactAmount)
         {
-            return _goalFloatAmount;
+            return _currentFloatAmount == _goalFloatAmount;
         }
+        if (_currentFloatAmount >= _goalFloatAmount)
+        {
+            SetToFloatGoalAmount();
+            return true;
+        }
+        return false;
     }
     public void SetToIntegerGoalAmount()
     {
