@@ -63,7 +63,7 @@ public class CollectableData
         }
         return CalculateMultiCollectableProgression(_collectableReference);
     }
-    public bool IsRequirementMet(CollectableTypeSO collectable)
+    public bool IsRequirementMet(CollectableSO collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
@@ -127,16 +127,8 @@ public class CollectableData
     }
     private int GetCurrentCollectedAmountPerCategory(int goalAmount)
     {
-        Dictionary<CollectableCategoryEnum, int> collectableTotalPerCategory = GetCollectableTotalPerCategory();
-        int totalCollected = 0;
-        foreach (int collectedTotalPerCategory in collectableTotalPerCategory.Values)
-        {
-            if (collectedTotalPerCategory >= goalAmount)
-            {
-                totalCollected++;
-            }
-        }
-        return totalCollected;
+        AreCategoriesMeetingGoal(goalAmount, out int totalCategoriesMeetingGoal);
+        return totalCategoriesMeetingGoal;
     }
     private int GetUniqueCategoryCount()
     {
@@ -169,61 +161,59 @@ public class CollectableData
         }
         return (currentAmount, totalAmount);
     }
-    private bool IsItemRequirementMet(CollectableTypeSO collectable)
+    private bool AreCategoriesMeetingGoal(int goalAmount, out int totalCategoriesMeetingGoal)
     {
-        if (_collectableReference.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        totalCategoriesMeetingGoal = 0;
+        Dictionary<CollectableCategoryEnum, int> collectableTotals = GetCollectableTotalPerCategory();
+        foreach (int total in  collectableTotals.Values)
         {
-            return _collectableReference.IsMatchingId(collectable.CollectableId) && _collectableReference.IsCollected;
+            if (total >= goalAmount)
+            {
+                totalCategoriesMeetingGoal++;
+            }
+            else if (goalAmount > 0)
+            {
+                return false;
+            }
         }
-        for (int i = 0; i < _collectableReference.MultiCollectables; i++)
+        return goalAmount <= 0 || totalCategoriesMeetingGoal > 0;
+    }
+    private bool AreRequirementsMetForCollectable(CollectableSO collectable)
+    {
+        if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
         {
-            if (!_collectableReference.IsMatchingIdInList(i, collectable.CollectableIdFromList(i)) ||
-                !_collectableReference.IsCollectedFromList(i))
+            return collectable.IsCollected;
+        }
+        for (int i = 0; i < collectable.MultiCollectables; i++)
+        {
+            if (!collectable.IsCollectedFromList(i))
             {
                 return false;
             }
         }
         return true;
     }
+    private bool IsItemRequirementMet(CollectableSO collectable)
+    {
+        return AreRequirementsMetForCollectable(collectable) && _collectableReference.IsMatchingId(collectable.CollectableId);
+    }
     private bool AreAllCollectablesRequirementMet()
     {
-        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
+        foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
-            if (_collectableListReference.CollectablesList[i].CollectableCategory == CollectableCategoryEnum.None)
+            if (collectable.CollectableCategory == CollectableCategoryEnum.None)
             {
                 continue;
             }
-            if (_collectableListReference.CollectablesList[i].ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            if (!AreRequirementsMetForCollectable(collectable))
             {
-                if (!_collectableListReference.CollectablesList[i].IsCollected)
-                {
-                    return false;
-                }
-            }
-            for (int j = 0; j < _collectableListReference.CollectablesList[i].MultiCollectables; j++)
-            {
-                if (!_collectableListReference.CollectablesList[i].IsCollectedFromList(j))
-                {
-                    return false;
-                }
+                return false;
             }
         }
         return true;
     }
     private bool IsCustomGoalRequirementMet(int goalAmount)
     {
-        if (goalAmount < 0)
-        {
-            return false;
-        }
-        Dictionary<CollectableCategoryEnum, int> collectableTotalPerCategory = GetCollectableTotalPerCategory();
-        foreach (int collectedTotalPerCategory in collectableTotalPerCategory.Values)
-        {
-            if (collectedTotalPerCategory < goalAmount)
-            {
-                return false;
-            }
-        }
-        return true;
+        return AreCategoriesMeetingGoal(goalAmount, out _);
     }
 }

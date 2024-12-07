@@ -4,7 +4,7 @@ public class CollectableObject : CollectableObjectBase
 {
     [SerializeField] private SingleEvent _updateCollectedTypeEvent;
     [SerializeField] private CollectableSO _collectable;
-    public CollectableTypeSO Collectable
+    public CollectableSO Collectable
     {
         get
         {
