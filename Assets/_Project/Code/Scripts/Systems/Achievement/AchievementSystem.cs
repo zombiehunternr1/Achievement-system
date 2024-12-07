@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using System.Threading.Tasks;
 
 public class AchievementSystem : MonoBehaviour
 {
@@ -291,13 +290,12 @@ public class AchievementSystem : MonoBehaviour
     }
     #endregion
     #region Saving & Loading
-    public async void UpdateData(object gameDataObj, object isLoadingObj)
+    public void UpdateData(object gameDataObj, object isLoadingObj)
     {
         GameData gameData = (GameData)gameDataObj;
         bool isLoading = (bool)isLoadingObj;
         if (isLoading)
         {
-            await Task.Yield();
             LoadAchievementDataFromGameData(gameData);
         }
         else

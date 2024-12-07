@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-
     [Header("File Storage Config")]
     [SerializeField] private string _fileName;
     [SerializeField] private bool _useEncryption;
@@ -16,7 +16,8 @@ public class SaveLoadSystem : MonoBehaviour
     [SerializeField] private string _profileName = "Game Data";
     [Header("Event references")]
     [SerializeField] private EmptyEvent _resetEvent;
-    [SerializeField] private DoubleEvent _updateStorageDataEvent;
+    [SerializeField] private DoubleEvent _updateAchievementDataEvent;
+    [SerializeField] private DoubleEvent _updateCollectableDataEvent;
     [SerializeField] private SingleEvent _updateProgressionEvent;
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class SaveLoadSystem : MonoBehaviour
         _resetEvent.Invoke();
         SaveGame();
     }
-    public void LoadGame()
+    public async void LoadGame()
     {
         if(_disableDataPersistence)
         {
@@ -52,7 +53,7 @@ public class SaveLoadSystem : MonoBehaviour
         {
             return;
         }
-        _updateStorageDataEvent.Invoke(_gameData, true);
+        await LoadAllSystems();
         _updateProgressionEvent.Invoke(_gameData);
     }
     public void SaveGame()
@@ -67,7 +68,7 @@ public class SaveLoadSystem : MonoBehaviour
         }
         _gameData.SetLastUpdated(System.DateTime.Now.ToBinary());
         _dataHandler.Save(_gameData, _selectedProfileId);
-        _updateStorageDataEvent.Invoke(_gameData, false);
+        SaveAllSystems();
         _updateProgressionEvent.Invoke(_gameData);
     }
     private void InitializeSelectedProfileId()
@@ -78,6 +79,17 @@ public class SaveLoadSystem : MonoBehaviour
             _selectedProfileId = _profileName;
             Debug.LogWarning("Overrode selected profile ID with test ID: " + _profileName);
         }
+    }
+    private async Task LoadAllSystems()
+    {
+        _updateCollectableDataEvent.Invoke(_gameData, true);
+        await Task.Yield();
+        _updateAchievementDataEvent.Invoke(_gameData, true);
+    }
+    private void SaveAllSystems()
+    {
+        _updateCollectableDataEvent.Invoke(_gameData, false);
+        _updateAchievementDataEvent.Invoke(_gameData, false);
     }
     private void OnApplicationQuit()
     {

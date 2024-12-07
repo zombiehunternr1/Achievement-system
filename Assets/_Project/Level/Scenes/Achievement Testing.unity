@@ -2705,7 +2705,8 @@ MonoBehaviour:
   _overrideSelectedProfileId: 1
   _profileName: Game Data
   _resetEvent: {fileID: 11400000, guid: dab13b6c33f24674da729675bf1cb079, type: 2}
-  _updateStorageDataEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+  _updateAchievementDataEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+  _updateCollectableDataEvent: {fileID: 11400000, guid: adb045a264476ef4688db6f034cc2210, type: 2}
   _updateProgressionEvent: {fileID: 11400000, guid: 40c4c02c09df40e4e8a1dfb46b64f6c4, type: 2}
 --- !u!114 &535528401
 MonoBehaviour:
@@ -5982,7 +5983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseEvents:
-  - _doubleEvent: {fileID: 11400000, guid: 410db480e5c1a294f8cfd8fc33e6c071, type: 2}
+  - _doubleEvent: {fileID: 11400000, guid: adb045a264476ef4688db6f034cc2210, type: 2}
     _unityEvent:
       m_PersistentCalls:
         m_Calls:
