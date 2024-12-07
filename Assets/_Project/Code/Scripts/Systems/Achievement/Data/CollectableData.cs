@@ -71,7 +71,7 @@ public class CollectableData
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
         {
-            return IsAllCollectablesRequirementMet();
+            return AreAllCollectablesRequirementMet();
         }
         if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
         {
@@ -97,28 +97,29 @@ public class CollectableData
     private Dictionary<CollectableCategoryEnum, int> GetCollectableTotalPerCategory()
     {
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
-        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
+
+        foreach (var collectable in _collectableListReference.CollectablesList)
         {
-            if (_collectableListReference.CollectablesList[i].CollectableCategory == CollectableCategoryEnum.None)
+            if (collectable.CollectableCategory == CollectableCategoryEnum.None)
             {
                 continue;
             }
-            if (!collectedAmountPerCategory.ContainsKey(_collectableListReference.CollectablesList[i].CollectableCategory))
+            if (!collectedAmountPerCategory.ContainsKey(collectable.CollectableCategory))
             {
-                collectedAmountPerCategory[_collectableListReference.CollectablesList[i].CollectableCategory] = 0;
+                collectedAmountPerCategory[collectable.CollectableCategory] = 0;
             }
-        }
-        foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
-        {
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && collectable.IsCollected)
             {
                 collectedAmountPerCategory[collectable.CollectableCategory]++;
             }
-            for (int i = 0; i < collectable.MultiCollectables; i++)
+            else
             {
-                if (collectable.IsCollectedFromList(i))
+                for (int i = 0; i < collectable.MultiCollectables; i++)
                 {
-                    collectedAmountPerCategory[collectable.CollectableCategory]++;
+                    if (collectable.IsCollectedFromList(i))
+                    {
+                        collectedAmountPerCategory[collectable.CollectableCategory]++;
+                    }
                 }
             }
         }
@@ -184,7 +185,7 @@ public class CollectableData
         }
         return true;
     }
-    private bool IsAllCollectablesRequirementMet()
+    private bool AreAllCollectablesRequirementMet()
     {
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
