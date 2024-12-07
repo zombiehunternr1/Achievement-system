@@ -10,18 +10,10 @@ public class AchievementData
     public (int currentAmount, int totalAmount) GetProgressionDisplay()
     {
         int currentAmount = 0;
-        int goalAmount;
-        if (_hasCustomGoalAmount)
-        {
-            goalAmount = _customGoalAmount;
-        }
-        else
-        {
-            goalAmount = GetActualAchievementCount();
-        }
+        int goalAmount = GetGoalAmount();
         foreach (AchievementSO achievement in _achievementListReference.AchievementList)
         {
-            if (achievement.IsUnlocked && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+            if (IsEligibleForProgress(achievement) && achievement.IsUnlocked)
             {
                 currentAmount++;
                 if (currentAmount >= goalAmount)
@@ -35,45 +27,42 @@ public class AchievementData
     public bool IsRequirementMet()
     {
         int currentAmount = 0;
-        int goalAmount;
-        if (_hasCustomGoalAmount)
+        int goalAmount = GetGoalAmount();
+        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
         {
-            goalAmount = _customGoalAmount;
-        }
-        else
-        {
-            goalAmount = GetActualAchievementCount();
-        }
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
-        {
-            AchievementSO achievement = _achievementListReference.AchievementList[i];
-            if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement)
+            if (IsEligibleForProgress(achievement) && achievement.IsUnlocked)
             {
-                continue;
-            }
-            if (!achievement.IsUnlocked)
-            {
-                continue;
-            }
-            currentAmount++;
-            if (currentAmount >= goalAmount)
-            {
-                return true;
+                currentAmount++;
+                if (currentAmount >= goalAmount)
+                {
+                    return true;
+                }
             }
         }
         return false;
     }
+    private int GetGoalAmount()
+    {
+        if (_hasCustomGoalAmount)
+        {
+            return _customGoalAmount;
+        }
+        return GetActualAchievementCount();
+    }
     private int GetActualAchievementCount()
     {
         int amount = 0;
-        for (int i = 0; i < _achievementListReference.AchievementList.Count; i++)
+        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
         {
-            AchievementSO achievement = _achievementListReference.AchievementList[i];
-            if (achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement)
+            if (IsEligibleForProgress(achievement))
             {
                 amount++;
             }
         }
         return amount;
+    }
+    private bool IsEligibleForProgress(AchievementSO achievement)
+    {
+        return achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement;
     }
 }
