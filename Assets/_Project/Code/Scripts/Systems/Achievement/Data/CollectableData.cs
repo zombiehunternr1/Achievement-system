@@ -83,16 +83,20 @@ public class CollectableData
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
-            return _collectableReference != null && _collectableReference.IsMatchingId(collectable.CollectableId);
-        }
-        for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
-        {
-            if (_collectableListReference.CollectablesList.Contains(collectable))
+            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
             {
-                return true;
+                return _collectableReference != null && _collectableReference.IsMatchingId(collectable.CollectableId);
             }
+            for (int i = 0; i < _collectableReference.MultiCollectables; i++)
+            {
+                if (_collectableReference.IsMatchingIdInList(i, collectable.CollectableIdFromList(i)))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
+        return _collectableListReference.CollectablesList.Contains(collectable);
     }
     private Dictionary<CollectableCategoryEnum, int> GetCollectableTotalPerCategory()
     {
