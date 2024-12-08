@@ -102,19 +102,19 @@ public class CollectableData
     {
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
 
-        foreach (var collectable in _collectableListReference.CollectablesList)
+        foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
             if (collectable.CollectableCategory == CollectableCategoryEnum.None)
             {
                 continue;
             }
-            if (!collectedAmountPerCategory.ContainsKey(collectable.CollectableCategory))
+            if (!collectedAmountPerCategory.TryGetValue(collectable.CollectableCategory, out int currentAmount))
             {
-                collectedAmountPerCategory[collectable.CollectableCategory] = 0;
+                currentAmount = 0;
             }
             if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem && collectable.IsCollected)
             {
-                collectedAmountPerCategory[collectable.CollectableCategory]++;
+                currentAmount++;
             }
             else
             {
@@ -122,10 +122,11 @@ public class CollectableData
                 {
                     if (collectable.IsCollectedFromList(i))
                     {
-                        collectedAmountPerCategory[collectable.CollectableCategory]++;
+                        currentAmount++;
                     }
                 }
             }
+            collectedAmountPerCategory[collectable.CollectableCategory] = currentAmount;
         }
         return collectedAmountPerCategory;
     }
@@ -140,11 +141,7 @@ public class CollectableData
         for (int i = 0; i < _collectableListReference.CollectablesList.Count; i++)
         {
             CollectableCategoryEnum category = _collectableListReference.CollectablesList[i].CollectableCategory;
-            if (category == CollectableCategoryEnum.None)
-            {
-                continue;
-            }
-            if (!uniqueCategories.Contains(category))
+            if (category != CollectableCategoryEnum.None)
             {
                 uniqueCategories.Add(category);
             }
