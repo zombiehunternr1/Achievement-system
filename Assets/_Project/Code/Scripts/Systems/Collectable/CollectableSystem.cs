@@ -53,49 +53,19 @@ public class CollectableSystem : MonoBehaviour
     {
         foreach (CollectableSO collectable in _allCollectablesListReference.CollectablesList)
         {
-            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
-            {
-                gameData.CollectablesStatusData.TryGetValue(collectable.CollectableId, out CollectableStatusDTO collectableStatesDTO);
-                collectable.SetCollectableStatus(collectableStatesDTO.IsCollected);
-                collectable.SetCurrentAmount(collectableStatesDTO.CurrentAmount);
-            }
-            else
-            {
-                for (int i = 0; i < collectable.MultiCollectables; i++)
-                {
-                    gameData.CollectablesStatusData.TryGetValue(collectable.CollectableIdFromList(i), out CollectableStatusDTO collectableStatesDTO);
-                    collectable.SetCollectableStatusFromList(i, collectableStatesDTO.IsCollected);
-                    collectable.SetCurrentAmountFromList(i, collectableStatesDTO.CurrentAmount);
-                }
-            }
+            collectable.LoadCollectableStatus(gameData);
         }
         _updateCollectablesStatusEvent.Invoke();
     }
     private void SaveCollectableStatusToGameData(GameData gameData)
     {
         List<CollectableSO>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
-        string collectableId;
-        bool isCollected;
         try
         {
             while (enumAllCollectables.MoveNext())
             {
                 CollectableSO collectable = enumAllCollectables.Current;
-                if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
-                {
-                    collectableId = collectable.CollectableId;
-                    isCollected = collectable.IsCollected;
-                    gameData.SetTotalCollectablesStatusData(collectableId, collectable.name, isCollected, collectable.CurrentAmount);
-                }
-                else
-                {
-                    for (int i = 0; i < collectable.MultiCollectables; i++)
-                    {
-                        collectableId = collectable.CollectableIdFromList(i);
-                        isCollected = collectable.IsCollectedFromList(i);
-                        gameData.SetTotalCollectablesStatusData(collectableId, collectable.name, isCollected, collectable.CurrentAmountFromList(i));
-                    }
-                }
+                collectable.SaveCollectableStatus(gameData);
             }
         }
         finally

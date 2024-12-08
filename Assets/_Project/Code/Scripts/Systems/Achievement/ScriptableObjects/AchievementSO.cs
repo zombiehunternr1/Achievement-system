@@ -197,4 +197,28 @@ public class AchievementSO : ScriptableObject
     {
         _valueData.SetNewValue(value);
     }
+    public void LoadAchievementStatus(AchievementDTO achievementDTO)
+    {
+        if (achievementDTO.IsUnlocked)
+        {
+            UnlockAchievement();
+        }
+        else
+        {
+            LockAchievement();
+        }
+        if (CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+        {
+            NewCurrentValue(achievementDTO.CurrentAmount);
+        }
+    }
+    public void SaveAchievementStatus(GameData gameData)
+    {
+        gameData.SetTotalAchievementsData(
+            _achievementId,
+            _title,
+            _isUnlocked,
+            GetCurrentAmount
+        );
+    }
 }

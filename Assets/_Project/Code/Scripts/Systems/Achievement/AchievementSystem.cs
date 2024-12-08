@@ -309,38 +309,19 @@ public class AchievementSystem : MonoBehaviour
         foreach (AchievementSO achievement in _allAchievementsListReference.AchievementList)
         {
             gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO achievementDTO);
-            if (achievementDTO.IsUnlocked)
-            {
-                achievement.UnlockAchievement();
-            }
-            else
-            {
-                achievement.LockAchievement();
-            }
-            if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
-            {
-               achievement.NewCurrentValue(achievementDTO.CurrentAmount);
-            }
+            achievement.LoadAchievementStatus(achievementDTO);
             UpdateAchievementStatus(achievement);
         }
     }
     private void SaveAchievementDataToGameData(GameData gameData)
     {
         List<AchievementSO>.Enumerator enumAchievementsList = _allAchievementsListReference.AchievementList.GetEnumerator();
-        string achievementId;
-        string title;
-        bool isUnlocked;
-        float currentAmount;
         try
         {
             while (enumAchievementsList.MoveNext())
             {
                 AchievementSO achievement = enumAchievementsList.Current;
-                achievementId = achievement.AchievementId;
-                title = achievement.Title;
-                isUnlocked = achievement.IsUnlocked;
-                currentAmount = achievement.GetCurrentAmount;
-                gameData.SetTotalAchievementsData(achievementId, title, isUnlocked, currentAmount);
+                achievement.SaveAchievementStatus(gameData);;
             }
         }
         finally
