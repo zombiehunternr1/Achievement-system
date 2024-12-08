@@ -72,7 +72,7 @@ public class AchievementSystem : MonoBehaviour
         foreach (AchievementSO achievement in _allAchievementsListReference.AchievementList)
         {
             achievement.LockAchievement();
-            achievement.NewCurrentValue(0);
+            achievement.SetCurrentValue(0);
             StartCoroutine(DelayUpdateUnlockedStatus(achievement));
         }
         _saveGameEvent.Invoke();
@@ -174,7 +174,7 @@ public class AchievementSystem : MonoBehaviour
     }
     private void HandleValueUpdate(AchievementSO achievement, object valueObj)
     {
-        achievement.NewCurrentValue(valueObj);
+        achievement.SetCurrentValue(valueObj);
         if (achievement.IsValueGoalReached)
         {
             UnlockAchievement(achievement);

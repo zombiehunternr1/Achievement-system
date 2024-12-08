@@ -1,16 +1,8 @@
-using FMODUnity;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Systems/Achievements/Achievement")]
-public class AchievementSO : ScriptableObject
+public class AchievementSO : AchievementTypeSO
 {
-    [UniqueIdentifier]
-    [SerializeField] private string _achievementId;
-    [SerializeField] private string _title;
-    [SerializeField] private string _description;
-    [SerializeField] private Sprite _icon;
-    [SerializeField] private EventReference _soundEffect;
-    [SerializeField] private bool _isUnlocked;
     [SerializeField] private RequirementData _requirementData;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
@@ -30,53 +22,11 @@ public class AchievementSO : ScriptableObject
             return _requirementData.RequiresPreviousAchievementToUnlock;
         }
     }
-    public string AchievementId
-    {
-        get
-        {
-            return _achievementId;
-        }
-    }
-    public string Title
-    {
-        get
-        {
-            return _title;
-        }
-    }
-    public string Description
-    {
-        get
-        {
-            return _description;
-        }
-    }
-    public Sprite Icon
-    {
-        get
-        {
-            return _icon;
-        }
-    }
     public CompletionEnumRequirement CompletionEnumRequirement
     {
         get
         {
             return _requirementData.CompletionEnumRequirement;
-        }
-    }
-    public bool IsUnlocked
-    {
-        get
-        {
-            return _isUnlocked;
-        }
-    }
-    public EventReference SoundEffect
-    {
-        get
-        {
-            return _soundEffect;
         }
     }
     public bool IsPreviousAchievementUnlocked
@@ -135,15 +85,8 @@ public class AchievementSO : ScriptableObject
                     return GetValueRequirementProgression();
                 case CompletionEnumRequirement.AchievementRequirement:
                     return GetAchievementProgression();
-            }
-            switch (_collectableData.CollectableEnumRequirement)
-            {
-                case CollectableEnumRequirement.SingleCollectable:
-                    return GetSingleCollectableProgression();
-                case CollectableEnumRequirement.AllCollectables:
-                    return GetAllCollectablesProgression();
                 default:
-                    return GetCustomRequirementProgression();
+                    return GetCollectableProgression();
             }
         }
     }
@@ -175,6 +118,18 @@ public class AchievementSO : ScriptableObject
         (int currentAmount, int goalAmount) = _achievementData.GetProgressionDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
     }
+    private string GetCollectableProgression()
+    {
+        switch (_collectableData.CollectableEnumRequirement)
+        {
+            case CollectableEnumRequirement.SingleCollectable:
+                return GetSingleCollectableProgression();
+            case CollectableEnumRequirement.AllCollectables:
+                return GetAllCollectablesProgression();
+            default:
+                return GetCustomRequirementProgression();
+        }
+    }
     private string GetSingleCollectableProgression()
     {
         (int currentAmount, int totalAmount) = _collectableData.GetSingleProgressionDisplay();
@@ -185,17 +140,9 @@ public class AchievementSO : ScriptableObject
         (int currentAmount, int totalAmount) = _collectableData.GetAllProgressionDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
     }
-    public void UnlockAchievement()
+    public void SetCurrentValue(object value)
     {
-        _isUnlocked = true;
-    }
-    public void LockAchievement()
-    {
-        _isUnlocked = false;
-    }
-    public void NewCurrentValue(object value)
-    {
-        _valueData.SetNewValue(value);
+        _valueData.SetValue(value);
     }
     public void LoadAchievementStatus(AchievementDTO achievementDTO)
     {
@@ -209,15 +156,15 @@ public class AchievementSO : ScriptableObject
         }
         if (CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
         {
-            NewCurrentValue(achievementDTO.CurrentAmount);
+            SetCurrentValue(achievementDTO.CurrentAmount);
         }
     }
     public void SaveAchievementStatus(GameData gameData)
     {
         gameData.SetTotalAchievementsData(
-            _achievementId,
-            _title,
-            _isUnlocked,
+            AchievementId,
+            Title,
+            IsUnlocked,
             GetCurrentAmount
         );
     }

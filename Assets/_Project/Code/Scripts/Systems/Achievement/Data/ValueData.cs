@@ -66,7 +66,7 @@ public class ValueData
     {
         _currentFloatAmount = _goalFloatAmount;
     }
-    public void SetNewValue(object value)
+    public void SetValue(object value)
     {
         if (_valueEnumType == ValueEnumType.Integer)
         {
