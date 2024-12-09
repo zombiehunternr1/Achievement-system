@@ -11,7 +11,6 @@ public class FileDataHandler
     private bool _useEncryption = false;
     private readonly string _encryptionCodeWord = "word";
     private readonly string _backupExtension = ".bak";
-
     public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
     {
         _dataDirPath = dataDirPath;
