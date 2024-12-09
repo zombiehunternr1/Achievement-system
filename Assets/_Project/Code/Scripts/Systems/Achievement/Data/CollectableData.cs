@@ -101,7 +101,6 @@ public class CollectableData
     private Dictionary<CollectableCategoryEnum, int> GetCollectableTotalPerCategory()
     {
         Dictionary<CollectableCategoryEnum, int> collectedAmountPerCategory = new Dictionary<CollectableCategoryEnum, int>();
-
         foreach (CollectableSO collectable in _collectableListReference.CollectablesList)
         {
             if (collectable.CollectableCategory == CollectableCategoryEnum.None)
