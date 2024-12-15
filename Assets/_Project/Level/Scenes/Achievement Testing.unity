@@ -876,6 +876,161 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &236876450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 236876452}
+  - component: {fileID: 236876453}
+  - component: {fileID: 236876451}
+  m_Layer: 0
+  m_Name: TestObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &236876451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236876450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc64a76e0ec2c84fbedb88626a0b9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseEvents:
+  - _eventPackage: {fileID: 11400000, guid: e665773096847a241ac3d352c8f778bc, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: EmptyPackageEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: e72cb99ce0ea0da4eab3af9d2d880565, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: SinglePackageEvent
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: 24a16c0b16427e640ac1a109e73074c0, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: WhatATest
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: Suprise
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: 27411e7bcb9551547aa6629e206dd057, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: Doubles
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: f06a875f0cdb92a46b30bf03e4d4d6fd, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 236876453}
+          m_TargetAssemblyTypeName: TestScript, Assembly-CSharp
+          m_MethodName: RandomTest
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!4 &236876452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236876450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &236876453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236876450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7afe825b7aa0624490683d174c6cef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _emptyPackage: {fileID: 11400000, guid: e665773096847a241ac3d352c8f778bc, type: 2}
+  _singlePackage: {fileID: 11400000, guid: e72cb99ce0ea0da4eab3af9d2d880565, type: 2}
+  _multiPackage: {fileID: 11400000, guid: 24a16c0b16427e640ac1a109e73074c0, type: 2}
+  _doublesPackage: {fileID: 11400000, guid: 27411e7bcb9551547aa6629e206dd057, type: 2}
+  _randomPackage: {fileID: 11400000, guid: f06a875f0cdb92a46b30bf03e4d4d6fd, type: 2}
 --- !u!1 &239355170
 GameObject:
   m_ObjectHideFlags: 0
@@ -10886,3 +11041,4 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1675812338}
+  - {fileID: 236876452}
