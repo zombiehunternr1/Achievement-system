@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,9 @@ public class EventPackageEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
+        EventPackage package = (EventPackage)target;
+        GUILayout.Label("Assigned GameObject(s):", EditorStyles.boldLabel);
+        ShowAssignedGameObjects(package);
         if (!Application.isPlaying)
         {
             GUILayout.Label("<b>Listeners are not available outside of play mode.</b>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
@@ -22,7 +26,6 @@ public class EventPackageEditor : Editor
             GUILayout.Label("No listeners field found!");
             return;
         }
-        EventPackage package = (EventPackage)target;
         HashSet<EventPackageBase> listeners = (HashSet<EventPackageBase>)listenersField.GetValue(package);
         if (listeners == null || listeners.Count == 0)
         {
@@ -33,6 +36,81 @@ public class EventPackageEditor : Editor
         {
             string listenersDescription = GetListenersDescription(listener);
             GUILayout.Label(listenersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
+        }
+    }
+    private void ShowAssignedGameObjects(EventPackage package)
+    {
+        // Find all root GameObjects in the scene
+        List<GameObject> allGameObjects = GetAllGameObjectsInScene();
+
+        // Collect assigned GameObjects that reference the EventPackage
+        List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, package);
+
+        // Display the assigned GameObjects
+        DisplayAssignedGameObjects(assignedGameObjects);
+    }
+    private List<GameObject> GetAllGameObjectsInScene()
+    {
+        List<GameObject> allGameObjects = new List<GameObject>();
+        foreach (GameObject scene in EditorSceneManager.GetActiveScene().GetRootGameObjects())
+        {
+            allGameObjects.Add(scene);
+            // Collect all child GameObjects
+            CollectChildren(scene.transform, ref allGameObjects);
+        }
+        return allGameObjects;
+    }
+    private List<string> GetAssignedGameObjects(List<GameObject> allGameObjects, EventPackage package)
+    {
+        var assignedGameObjects = new List<string>();
+        // Iterate through all GameObjects and check for components that reference the EventPackage
+        foreach (GameObject gameObject in allGameObjects)
+        {
+            var assigned = CheckForEventPackageReference(gameObject, package);
+            if (assigned)
+            {
+                assignedGameObjects.Add(gameObject.name);
+            }
+        }
+        return assignedGameObjects;
+    }
+    private bool CheckForEventPackageReference(GameObject gameObject, EventPackage package)
+    {
+        foreach (MonoBehaviour monoBehaviour in gameObject.GetComponents<MonoBehaviour>())
+        {
+            foreach (FieldInfo field in monoBehaviour.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                if (field.FieldType == typeof(EventPackage) && field.GetValue(monoBehaviour) as EventPackage == package)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private void DisplayAssignedGameObjects(List<string> assignedGameObjects)
+    {
+        if (assignedGameObjects.Count == 0)
+        {
+            GUILayout.Label("No GameObjects with this EventPackage found!");
+        }
+        else
+        {
+            foreach (string objName in assignedGameObjects)
+            {
+                GUILayout.Label("- " + objName);
+            }
+        }
+    }
+    private void CollectChildren(Transform parent, ref List<GameObject> allGameObjects)
+    {
+        foreach (Transform child in parent)
+        {
+            allGameObjects.Add(child.gameObject);
+            if (child.childCount > 0)
+            {
+                CollectChildren(child, ref allGameObjects);
+            }
         }
     }
     private string GetListenersDescription(EventPackageBase listener)
