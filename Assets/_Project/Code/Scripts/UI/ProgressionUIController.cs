@@ -10,9 +10,9 @@ public class ProgressionUIController : MonoBehaviour
     [SerializeField] Slider _collectionProgressionSlider;
     [SerializeField] TextMeshProUGUI _achievementProgressionText;
     [SerializeField] Slider _achievementProgressionSlider;
-    public void UpdateUIDisplay(object gameDataObj)
+    public void UpdateUIDisplay(EventData eventData)
     {
-        GameData gameData = (GameData)gameDataObj;
+        GameData gameData = EventPackageExtractor.ExtractEventData<GameData>(eventData);
         _totalCompletionProgressionText.text = gameData.PercentageTotalComplete.ToString() + "%";
         _totalCompletionProgressionSlider.maxValue = 100;
         _totalCompletionProgressionSlider.value = gameData.PercentageTotalComplete;
@@ -23,13 +23,12 @@ public class ProgressionUIController : MonoBehaviour
         _achievementProgressionSlider.maxValue = 100;
         _achievementProgressionSlider.value = gameData.PercentageAchievementsComplete;
     }
-    public void UpdateData(object gameDataObj, object isLoadingObj)
+    public void UpdateData(EventData eventData)
     {
-        GameData gameData = (GameData)gameDataObj;
-        bool isLoading = (bool)isLoadingObj;
+        bool isLoading = EventPackageExtractor.ExtractEventData<bool>(eventData);
         if (isLoading)
         {
-            UpdateUIDisplay(gameData);
+            UpdateUIDisplay(eventData);
         }
     }
 }

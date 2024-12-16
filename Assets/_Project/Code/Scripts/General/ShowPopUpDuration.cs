@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ShowPopUpDuration : StateMachineBehaviour
 {
-    [SerializeField] private EmptyEvent _startAchievementPopupCooldown;
+    [SerializeField] private EventPackage _startAchievementPopupCooldown;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _startAchievementPopupCooldown.Invoke();
+        EventPackageFactory.BuildAndInvoke(_startAchievementPopupCooldown);
     }
 }

@@ -9,10 +9,10 @@ public class AchievementSystem : MonoBehaviour
     [Header("Achievement list reference")]
     [SerializeField] private AchievementSOList _allAchievementsListReference;
     [Header("Event references")]
-    [SerializeField] private SingleEvent _playPopUpDisplayStatusEvent;
-    [SerializeField] private DoubleEvent _setAchievementPopUpInfoEvent;
-    [SerializeField] private EmptyEvent _saveGameEvent;
-    [SerializeField] private SingleEvent _updateProgressionEvent;
+    [SerializeField] private EventPackage _playPopUpDisplayStatus;
+    [SerializeField] private EventPackage _setAchievementPopUpInfo;
+    [SerializeField] private EventPackage _updateProgression;
+    [SerializeField] private EventPackage _saveGame;
     [Header("Component & Settings references")]
     [SerializeField] private int _displayPopupTime = 5;
     [SerializeField] private RectTransform _achievementContainerRect;
@@ -75,11 +75,11 @@ public class AchievementSystem : MonoBehaviour
             achievement.SetCurrentValue(0);
             StartCoroutine(DelayUpdateUnlockedStatus(achievement));
         }
-        _saveGameEvent.Invoke();
+        EventPackageFactory.BuildAndInvoke(_saveGame);
     }
-    public void CheckCollectableRequest(object collectableObj)
+    public void CheckCollectableRequest(EventData eventData)
     {
-        CollectableSO collectable = (CollectableSO)collectableObj;
+        CollectableSO collectable = EventPackageExtractor.ExtractEventData<CollectableSO>(eventData);
         Dictionary<AchievementSO, List<AchievementSO>> dependencyGraph = new Dictionary<AchievementSO, List<AchievementSO>>();
         for (int i = 0; i < _allAchievementsListReference.AchievementList.Count; i++)
         {
@@ -117,10 +117,15 @@ public class AchievementSystem : MonoBehaviour
         {
             UnlockAchievement(sortedAchievements[i]);
         }
-    }
-    public void UpdateRecievedAchievement(object achievementIDObj, object valueObj)
+    } 
+    public void UpdateRecievedAchievement(EventData eventData)
     {
-        string achievementID = (string)achievementIDObj;
+        string achievementID = EventPackageExtractor.ExtractEventData<string>(eventData);
+        object valueObj = null;
+        if (EventPackageExtractor.ContainsData(eventData))
+        {
+            valueObj = EventPackageExtractor.ExtractAdditionalData(eventData);
+        }
         AchievementSO achievement = FindAchievementById(achievementID);
         if (achievement == null)
         {
@@ -191,7 +196,7 @@ public class AchievementSystem : MonoBehaviour
             return;
         }
         achievement.UnlockAchievement();
-        _saveGameEvent.Invoke();
+        EventPackageFactory.BuildAndInvoke(_saveGame);
         UpdateAchievementStatus(achievement);
         AddToQueueDisplay(achievement);
         CheckAchievementTypes();
@@ -260,8 +265,8 @@ public class AchievementSystem : MonoBehaviour
     }
     private void DisplayPopUpAchievement(AchievementSO achievement)
     {
-        _setAchievementPopUpInfoEvent.Invoke(achievement.Icon, achievement.Title);
-        _playPopUpDisplayStatusEvent.Invoke("Displaying");
+        EventPackageFactory.BuildAndInvoke(_setAchievementPopUpInfo, achievement.Icon, achievement.Title);
+        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Displaying");
         _soundEffect = RuntimeManager.CreateInstance(achievement.SoundEffect);
         RuntimeManager.AttachInstanceToGameObject(_soundEffect, transform);
         _soundEffect.start();
@@ -277,7 +282,7 @@ public class AchievementSystem : MonoBehaviour
     private IEnumerator PopupCooldown()
     {
         yield return new WaitForSeconds(_displayPopupTime);
-        _playPopUpDisplayStatusEvent.Invoke("Hiding");
+        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Hiding");
         yield return new WaitForSeconds(1.5f);
         if (_queuedAchievements.Count != 0)
         {
@@ -290,10 +295,10 @@ public class AchievementSystem : MonoBehaviour
     }
     #endregion
     #region Saving & Loading
-    public void UpdateData(object gameDataObj, object isLoadingObj)
+    public void UpdateData(EventData eventData)
     {
-        GameData gameData = (GameData)gameDataObj;
-        bool isLoading = (bool)isLoadingObj;
+        GameData gameData = EventPackageExtractor.ExtractEventData<GameData>(eventData);
+        bool isLoading = EventPackageExtractor.ExtractEventData<bool>(eventData);
         if (isLoading)
         {
             LoadAchievementDataFromGameData(gameData);
@@ -302,7 +307,7 @@ public class AchievementSystem : MonoBehaviour
         {
             SaveAchievementDataToGameData(gameData);
         }
-        _updateProgressionEvent.Invoke(gameData);
+        EventPackageFactory.BuildAndInvoke(_updateProgression, gameData);
     }
     private void LoadAchievementDataFromGameData(GameData gameData)
     {

@@ -15,10 +15,10 @@ public class SaveLoadSystem : MonoBehaviour
     [SerializeField] private bool _overrideSelectedProfileId = false;
     [SerializeField] private string _profileName = "Game Data";
     [Header("Event references")]
-    [SerializeField] private EmptyEvent _resetEvent;
-    [SerializeField] private DoubleEvent _updateAchievementDataEvent;
-    [SerializeField] private DoubleEvent _updateCollectableDataEvent;
-    [SerializeField] private SingleEvent _updateProgressionEvent;
+    [SerializeField] private EventPackage _resetGame;
+    [SerializeField] private EventPackage _updateAchievementData;
+    [SerializeField] private EventPackage _updateCollectableData;
+    [SerializeField] private EventPackage _updateProgression;
     private void Awake()
     {
         if (_disableDataPersistence)
@@ -35,7 +35,7 @@ public class SaveLoadSystem : MonoBehaviour
     public void NewGame()
     {
         _gameData = new GameData();
-        _resetEvent.Invoke();
+        EventPackageFactory.BuildAndInvoke(_resetGame);
         SaveGame();
     }
     public async void LoadGame()
@@ -54,7 +54,7 @@ public class SaveLoadSystem : MonoBehaviour
             return;
         }
         await LoadAllSystems();
-        _updateProgressionEvent.Invoke(_gameData);
+        EventPackageFactory.BuildAndInvoke(_updateProgression, _gameData);
     }
     public void SaveGame()
     {
@@ -67,9 +67,9 @@ public class SaveLoadSystem : MonoBehaviour
             Debug.LogWarning("No data was found! A new game needs to be started before data can be saved!");
         }
         _gameData.SetLastUpdated(System.DateTime.Now.ToBinary());
-        _dataHandler.Save(_gameData, _selectedProfileId);
         SaveAllSystems();
-        _updateProgressionEvent.Invoke(_gameData);
+        _dataHandler.Save(_gameData, _selectedProfileId);
+        EventPackageFactory.BuildAndInvoke (_updateProgression, _gameData);
     }
     private void InitializeSelectedProfileId()
     {
@@ -82,14 +82,14 @@ public class SaveLoadSystem : MonoBehaviour
     }
     private async Task LoadAllSystems()
     {
-        _updateCollectableDataEvent.Invoke(_gameData, true);
+        EventPackageFactory.BuildAndInvoke(_updateCollectableData, _gameData, true);
         await Task.Yield();
-        _updateAchievementDataEvent.Invoke(_gameData, true);
+        EventPackageFactory.BuildAndInvoke(_updateAchievementData, _gameData, true);
     }
     private void SaveAllSystems()
     {
-        _updateCollectableDataEvent.Invoke(_gameData, false);
-        _updateAchievementDataEvent.Invoke(_gameData, false);
+        EventPackageFactory.BuildAndInvoke(_updateCollectableData, _gameData, false);
+        EventPackageFactory.BuildAndInvoke(_updateAchievementData, _gameData, false);
     }
     private void OnApplicationQuit()
     {

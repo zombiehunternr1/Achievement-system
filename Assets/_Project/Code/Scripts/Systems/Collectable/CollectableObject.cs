@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollectableObject : CollectableObjectBase
 {
-    [SerializeField] private SingleEvent _updateCollectedTypeEvent;
+    [SerializeField] private EventPackage _updateCollectedType;
     [SerializeField] private CollectableSO _collectable;
     public CollectableSO Collectable
     {
@@ -45,11 +45,11 @@ public class CollectableObject : CollectableObjectBase
     private void SetAsCollected()
     {
         _collectable.SetCollectableStatus(true);
-        _updateCollectedTypeEvent.Invoke(_collectable);
+        EventPackageFactory.BuildAndInvoke(_updateCollectedType, _collectable);
     }
     private void SetAsCollectedInList(int index)
     {
         _collectable.SetCollectableStatusFromList(index, true);
-        _updateCollectedTypeEvent.Invoke(_collectable);
+        EventPackageFactory.BuildAndInvoke(_updateCollectedType, _collectable);
     }
 }

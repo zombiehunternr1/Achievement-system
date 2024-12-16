@@ -6,16 +6,16 @@ public class CollectableSystem : MonoBehaviour
     [Header("Collectable references")]
     [SerializeField] private CollectableListSO _allCollectablesListReference;
     [Header("Event references")]
-    [SerializeField] private EmptyEvent _saveGameEvent;
-    [SerializeField] private EmptyEvent _updateCollectablesStatusEvent;
-    [SerializeField] private SingleEvent _updateProgressionEvent;
-    [SerializeField] private SingleEvent _checkCollectableRequestEvent;
-    public void UpdateCollectableStatus(object collectableObj)
+    [SerializeField] private EventPackage _checkCollectableRequest;
+    [SerializeField] private EventPackage _updateCollectablesStatus;
+    [SerializeField] private EventPackage _updateProgression;
+    [SerializeField] private EventPackage _saveGame;
+    public void UpdateCollectable(EventData eventData)
     {
-        CollectableSO collectable = (CollectableSO)collectableObj;
-        _checkCollectableRequestEvent.Invoke(collectable);
-        _updateCollectablesStatusEvent.Invoke();
-        _saveGameEvent.Invoke();
+        CollectableSO collectable = EventPackageExtractor.ExtractEventData<CollectableSO>(eventData);
+        EventPackageFactory.BuildAndInvoke(_checkCollectableRequest, collectable);
+        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
+        EventPackageFactory.BuildAndInvoke(_saveGame);
     }
     public void ResetAllCollectables()
     {
@@ -32,13 +32,13 @@ public class CollectableSystem : MonoBehaviour
                 collectable.SetCurrentAmountFromList(i, 0);
             }
         }
-        _updateCollectablesStatusEvent.Invoke();
+        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
     }
     #region Saving & Loading
-    public void UpdateData(object gameDataObj, object isLoadingObj)
+    public void UpdateData(EventData eventData)
     {
-        GameData gameData = (GameData)gameDataObj;
-        bool isLoading = (bool)isLoadingObj;
+        GameData gameData = EventPackageExtractor.ExtractEventData<GameData>(eventData);
+        bool isLoading = EventPackageExtractor.ExtractEventData<bool>(eventData);
         if (isLoading)
         {
             LoadCollectableStatusFromGameData(gameData);
@@ -47,7 +47,7 @@ public class CollectableSystem : MonoBehaviour
         {
             SaveCollectableStatusToGameData(gameData);
         }
-        _updateProgressionEvent.Invoke(gameData);
+        EventPackageFactory.BuildAndInvoke(_updateProgression, gameData);
     }
     private void LoadCollectableStatusFromGameData(GameData gameData)
     {
@@ -55,7 +55,7 @@ public class CollectableSystem : MonoBehaviour
         {
             collectable.LoadCollectableStatus(gameData);
         }
-        _updateCollectablesStatusEvent.Invoke();
+        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus, gameData);
     }
     private void SaveCollectableStatusToGameData(GameData gameData)
     {

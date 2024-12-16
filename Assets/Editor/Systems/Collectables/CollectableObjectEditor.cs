@@ -53,7 +53,7 @@ public class CollectableObjectEditor : Editor
     }
     private void OnEnable()
     {
-        _updateCollectedTypeEventProp = serializedObject.FindProperty("_updateCollectedTypeEvent");
+        _updateCollectedTypeEventProp = serializedObject.FindProperty("_updateCollectedType");
         _collectableProp = serializedObject.FindProperty("_collectable");
         _currentObjectId = serializedObject.FindProperty("_objectId").stringValue;
     }
