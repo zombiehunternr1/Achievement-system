@@ -42,10 +42,8 @@ public class EventPackageEditor : Editor
     {
         // Find all root GameObjects in the scene
         List<GameObject> allGameObjects = GetAllGameObjectsInScene();
-
         // Collect assigned GameObjects that reference the EventPackage
         List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, package);
-
         // Display the assigned GameObjects
         DisplayAssignedGameObjects(assignedGameObjects);
     }
