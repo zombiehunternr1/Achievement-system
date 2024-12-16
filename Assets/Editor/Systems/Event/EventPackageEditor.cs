@@ -70,10 +70,10 @@ public class EventPackageEditor : Editor
     }
     private List<string> GetAssignedGameObjects(List<GameObject> allGameObjects, EventPackage package)
     {
-        var assignedGameObjects = new List<string>();
+        List<string> assignedGameObjects = new List<string>();
         foreach (GameObject gameObject in allGameObjects)
         {
-            var assigned = CheckForEventPackageReference(gameObject, package);
+            bool assigned = CheckForEventPackageReference(gameObject, package);
             if (assigned)
             {
                 assignedGameObjects.Add(gameObject.name);
@@ -147,7 +147,7 @@ public class EventPackageEditor : Editor
             }
             groupedMethods[targetName].Add(methodName);
         }
-        foreach (var entry in groupedMethods)
+        foreach (KeyValuePair<string, List<string>> entry in groupedMethods)
         {
             description += "- " + entry.Key + "\n";
             for (int i = 0; i < entry.Value.Count; i++)
@@ -168,7 +168,7 @@ public class EventPackageEditor : Editor
     private bool IsLastEntry(Dictionary<string, List<string>> groupedMethods, string currentKey)
     {
         int count = 0;
-        foreach (var key in groupedMethods.Keys)
+        foreach (string key in groupedMethods.Keys)
         {
             count++;
             if (key == currentKey)
