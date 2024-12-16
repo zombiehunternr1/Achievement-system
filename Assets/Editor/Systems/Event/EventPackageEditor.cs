@@ -12,7 +12,7 @@ public class EventPackageEditor : Editor
     {
         base.OnInspectorGUI();
         EventPackage package = (EventPackage)target;
-        GUILayout.Label("Assigned GameObject(s):", EditorStyles.boldLabel);
+        GUILayout.Label("<b>Assigned GameObject(s):</b>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
         ShowAssignedGameObjects(package);
         if (!Application.isPlaying)
         {
@@ -40,12 +40,23 @@ public class EventPackageEditor : Editor
     }
     private void ShowAssignedGameObjects(EventPackage package)
     {
-        // Find all root GameObjects in the scene
         List<GameObject> allGameObjects = GetAllGameObjectsInScene();
-        // Collect assigned GameObjects that reference the EventPackage
         List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, package);
-        // Display the assigned GameObjects
         DisplayAssignedGameObjects(assignedGameObjects);
+    }
+    private void DisplayAssignedGameObjects(List<string> assignedGameObjects)
+    {
+        if (assignedGameObjects.Count == 0)
+        {
+            GUILayout.Label("No GameObjects with this EventPackage found!");
+        }
+        else
+        {
+            foreach (string objName in assignedGameObjects)
+            {
+                GUILayout.Label("- " + objName);
+            }
+        }
     }
     private List<GameObject> GetAllGameObjectsInScene()
     {
@@ -53,7 +64,6 @@ public class EventPackageEditor : Editor
         foreach (GameObject scene in EditorSceneManager.GetActiveScene().GetRootGameObjects())
         {
             allGameObjects.Add(scene);
-            // Collect all child GameObjects
             CollectChildren(scene.transform, ref allGameObjects);
         }
         return allGameObjects;
@@ -61,7 +71,6 @@ public class EventPackageEditor : Editor
     private List<string> GetAssignedGameObjects(List<GameObject> allGameObjects, EventPackage package)
     {
         var assignedGameObjects = new List<string>();
-        // Iterate through all GameObjects and check for components that reference the EventPackage
         foreach (GameObject gameObject in allGameObjects)
         {
             var assigned = CheckForEventPackageReference(gameObject, package);
@@ -85,20 +94,6 @@ public class EventPackageEditor : Editor
             }
         }
         return false;
-    }
-    private void DisplayAssignedGameObjects(List<string> assignedGameObjects)
-    {
-        if (assignedGameObjects.Count == 0)
-        {
-            GUILayout.Label("No GameObjects with this EventPackage found!");
-        }
-        else
-        {
-            foreach (string objName in assignedGameObjects)
-            {
-                GUILayout.Label("- " + objName);
-            }
-        }
     }
     private void CollectChildren(Transform parent, ref List<GameObject> allGameObjects)
     {
@@ -125,7 +120,7 @@ public class EventPackageEditor : Editor
         UnityEvent<EventData> unityEvent = (UnityEvent<EventData>)unityEventField.GetValue(listener);
         if (unityEvent == null)
         {
-            return "UnityEvents is null!";
+            return "UnityEvent is null!";
         }
         if (unityEvent.GetPersistentEventCount() == 0)
         {
@@ -145,28 +140,42 @@ public class EventPackageEditor : Editor
             {
                 targetName = "GameObject reference is null!";
             }
-            if (!string.IsNullOrEmpty(unityEvent.GetPersistentMethodName(i)))
-            {
-                methodName = unityEvent.GetPersistentMethodName(i);
-            }
-            else
-            {
-                methodName = "Method name not found!";
-            }
+            methodName = unityEvent.GetPersistentMethodName(i) ?? "Method name not found!";
             if (!groupedMethods.ContainsKey(targetName))
             {
                 groupedMethods[targetName] = new List<string>();
             }
             groupedMethods[targetName].Add(methodName);
         }
-        foreach (KeyValuePair<string, List<string>> entry in groupedMethods)
+        foreach (var entry in groupedMethods)
         {
-            description += "<b>-" + entry.Key + "</b>\n";
-            foreach (string method in entry.Value)
+            description += "- " + entry.Key + "\n";
+            for (int i = 0; i < entry.Value.Count; i++)
             {
-                description += "\t - <b>Method:</b> " + method + "\n";
+                description += "\t - Method: " + entry.Value[i];
+                if (i < entry.Value.Count - 1)
+                {
+                    description += "\n";
+                }
+            }
+            if (!IsLastEntry(groupedMethods, entry.Key))
+            {
+                description += "\n";
             }
         }
         return description;
+    }
+    private bool IsLastEntry(Dictionary<string, List<string>> groupedMethods, string currentKey)
+    {
+        int count = 0;
+        foreach (var key in groupedMethods.Keys)
+        {
+            count++;
+            if (key == currentKey)
+            {
+                break;
+            }
+        }
+        return count == groupedMethods.Keys.Count;
     }
 }
