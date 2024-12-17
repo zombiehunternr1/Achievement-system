@@ -11,52 +11,14 @@ public class EventPackageEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        EventPackage package = (EventPackage)target;
-        ShowAssignedGameObjects(package);
-        if (!Application.isPlaying)
-        {
-            GUILayout.Label("<color=#ffe900><b>Listeners are not available outside of play mode.</b></color>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
-            return;
-        }
-        GUILayout.Label("Listeners:", EditorStyles.boldLabel);
-        FieldInfo listenersField = typeof(EventPackage).GetField("_listeners", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (listenersField == null)
-        {
-            GUILayout.Label("No listeners field found!");
-            return;
-        }
-        HashSet<EventPackageBase> listeners = (HashSet<EventPackageBase>)listenersField.GetValue(package);
-        if (listeners == null || listeners.Count == 0)
-        {
-            GUILayout.Label("No listeners registered!");
-            return;
-        }
-        foreach (EventPackageBase listener in listeners)
-        {
-            string listenersDescription = GetListenersDescription(listener);
-            GUILayout.Label(listenersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
-        }
+        EventPackage eventPackage = (EventPackage)target;
+        ShowAssignedGameObjects(eventPackage);
     }
     private void ShowAssignedGameObjects(EventPackage package)
     {
         List<GameObject> allGameObjects = GetAllGameObjectsInScene();
         List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, package);
-        DisplayAssignedGameObjects(assignedGameObjects);
-    }
-    private void DisplayAssignedGameObjects(List<string> assignedGameObjects)
-    {
-        if (assignedGameObjects.Count == 0)
-        {
-            GUILayout.Label("<color=#ffe900><b>No GameObjects with this EventPackage found!<b></color>", new GUIStyle(EditorStyles.boldLabel) { richText = true});
-        }
-        else
-        {
-            GUILayout.Label("<b>Assigned in GameObject(s):</b>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
-            foreach (string objName in assignedGameObjects)
-            {
-                GUILayout.Label("- " + objName);
-            }
-        }
+        DisplayAssignedGameObjects(assignedGameObjects, package);
     }
     private List<GameObject> GetAllGameObjectsInScene()
     {
@@ -67,6 +29,17 @@ public class EventPackageEditor : Editor
             CollectChildren(scene.transform, ref allGameObjects);
         }
         return allGameObjects;
+    }
+    private void CollectChildren(Transform parent, ref List<GameObject> allGameObjects)
+    {
+        foreach (Transform child in parent)
+        {
+            allGameObjects.Add(child.gameObject);
+            if (child.childCount > 0)
+            {
+                CollectChildren(child, ref allGameObjects);
+            }
+        }
     }
     private List<string> GetAssignedGameObjects(List<GameObject> allGameObjects, EventPackage package)
     {
@@ -95,15 +68,47 @@ public class EventPackageEditor : Editor
         }
         return false;
     }
-    private void CollectChildren(Transform parent, ref List<GameObject> allGameObjects)
+    private void DisplayAssignedGameObjects(List<string> assignedGameObjects, EventPackage eventPackage)
     {
-        foreach (Transform child in parent)
+        if (assignedGameObjects.Count == 0)
         {
-            allGameObjects.Add(child.gameObject);
-            if (child.childCount > 0)
+            GUILayout.Label("<color=#ffe900><b>No GameObject(s) with this EventPackage found!<b></color>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
+            return;
+        }
+        else
+        {
+            GUILayout.Label("<b>Assigned in GameObject(s):</b>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
+            foreach (string objName in assignedGameObjects)
             {
-                CollectChildren(child, ref allGameObjects);
+                GUILayout.Label("- " + objName);
             }
+            ShowAssignedListeners(eventPackage);
+        }
+    }
+    private void ShowAssignedListeners(EventPackage eventPackage)
+    {
+        if (!Application.isPlaying)
+        {
+            GUILayout.Label("<color=#ffe900><b>Listeners are not available outside of play mode.</b></color>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
+            return;
+        }
+        GUILayout.Label("Listeners:", EditorStyles.boldLabel);
+        FieldInfo listenersField = typeof(EventPackage).GetField("_listeners", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (listenersField == null)
+        {
+            GUILayout.Label("No listeners field found!");
+            return;
+        }
+        HashSet<EventPackageBase> listeners = (HashSet<EventPackageBase>)listenersField.GetValue(eventPackage);
+        if (listeners == null || listeners.Count == 0)
+        {
+            GUILayout.Label("No listeners registered!");
+            return;
+        }
+        foreach (EventPackageBase listener in listeners)
+        {
+            string listenersDescription = GetListenersDescription(listener);
+            GUILayout.Label(listenersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
         }
     }
     private string GetListenersDescription(EventPackageBase listener)
