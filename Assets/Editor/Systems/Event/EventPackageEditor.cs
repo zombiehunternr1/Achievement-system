@@ -12,11 +12,10 @@ public class EventPackageEditor : Editor
     {
         base.OnInspectorGUI();
         EventPackage package = (EventPackage)target;
-        GUILayout.Label("<b>Assigned GameObject(s):</b>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
         ShowAssignedGameObjects(package);
         if (!Application.isPlaying)
         {
-            GUILayout.Label("<b>Listeners are not available outside of play mode.</b>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
+            GUILayout.Label("<color=#ffe900><b>Listeners are not available outside of play mode.</b></color>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
             return;
         }
         GUILayout.Label("Listeners:", EditorStyles.boldLabel);
@@ -48,10 +47,11 @@ public class EventPackageEditor : Editor
     {
         if (assignedGameObjects.Count == 0)
         {
-            GUILayout.Label("No GameObjects with this EventPackage found!");
+            GUILayout.Label("<color=#ffe900><b>No GameObjects with this EventPackage found!<b></color>", new GUIStyle(EditorStyles.boldLabel) { richText = true});
         }
         else
         {
+            GUILayout.Label("<b>Assigned in GameObject(s):</b>", new GUIStyle(EditorStyles.boldLabel) { richText = true });
             foreach (string objName in assignedGameObjects)
             {
                 GUILayout.Label("- " + objName);
