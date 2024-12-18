@@ -11,14 +11,14 @@ public class EventPackageEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        EventPackage eventPackage = (EventPackage)target;
-        ShowAssignedGameObjects(eventPackage);
+        ShowAssignedGameObjects();
     }
-    private void ShowAssignedGameObjects(EventPackage package)
+    private void ShowAssignedGameObjects()
     {
+        EventPackage eventPackage = (EventPackage)target;
         List<GameObject> allGameObjects = GetAllGameObjectsInScene();
-        List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, package);
-        DisplayAssignedGameObjects(assignedGameObjects, package);
+        List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, eventPackage);
+        DisplayAssignedGameObjects(assignedGameObjects, eventPackage);
     }
     private List<GameObject> GetAllGameObjectsInScene()
     {
