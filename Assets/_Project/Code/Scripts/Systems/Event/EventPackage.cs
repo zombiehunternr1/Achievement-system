@@ -9,10 +9,7 @@ public class EventPackage : ScriptableObject
     {
         foreach (EventPackageBase eventPackageBase in _listeners)
         {
-            if (eventDataPackage.HasKey(eventPackageBase.EventKey))
-            {
-                eventPackageBase.Invoke(eventDataPackage);
-            }
+            eventPackageBase.Invoke(eventDataPackage);
         }
     }
     internal void RegisterListener(EventPackageBase listener)
