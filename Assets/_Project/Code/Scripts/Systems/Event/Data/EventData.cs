@@ -14,7 +14,7 @@ public class EventData
         {
             return _data[key];
         }
-        return null;
+        return new Dictionary<Type, object>();
     }
     public void AddData(params object[] values)
     {
@@ -63,7 +63,7 @@ public class EventData
         //Handles null or empty values by storing them as an object type. This allows it for events to invoke without parameters
         if (values == null || values.Length == 0)
         {
-            _data[key][typeof(object)] = values;
+            _data[key][typeof(object)] = null;
             return;
         }
         foreach (object value in values)

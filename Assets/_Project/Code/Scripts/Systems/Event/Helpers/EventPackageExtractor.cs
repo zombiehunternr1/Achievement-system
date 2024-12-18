@@ -6,43 +6,33 @@ public class EventPackageExtractor
 {
     public static bool ContainsData(EventData eventData)
     {
-        if (eventData == null || eventData.GetKey().Length <= 1)
-        {
-            return false;
-        }
-        return true;
+        return eventData != null && eventData.GetKey().Length > 1;
     }
     public static object ExtractAdditionalData(EventData eventData)
     {
         try
         {
             string key = eventData.GetKey();
-            if (!eventData.HasKey(key))
+            if (!eventData.HasKey(key) || eventData.GetDataForKey(key).Count <= 1)
             {
                 return null;
             }
-            Dictionary<Type, object> innerDict = eventData.GetDataForKey(key);
-            if (innerDict.Count <= 1)
+            foreach (KeyValuePair<Type, object> entry in eventData.GetDataForKey(key))
             {
-                return null;
-            }
-            foreach (KeyValuePair<Type, object> entry in innerDict)
-            {
-                if (entry.Key == typeof(string))
+                if (entry.Key != typeof(string))
                 {
-                    continue;
-                }
-                if (entry.Value is List<object> list && list.Count > 0)
-                {
-                    return list[0];
-                }
-                return entry.Value;
+                    if (entry.Value is List<object> list && list.Count > 0)
+                    {
+                        return list[0];
+                    }
+                    return entry.Value;
+                }             
             }
             return null;
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Debug.LogError("Failed to extract second data: " + ex.Message);
+            Debug.LogError("Failed to extract second data: " + e.Message);
             return null;
         }
     }
