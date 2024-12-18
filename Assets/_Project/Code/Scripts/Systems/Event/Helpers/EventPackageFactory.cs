@@ -19,10 +19,6 @@ public class EventPackageFactory
         {
             package.AddData(data);
         }
-        else
-        {
-            Debug.LogWarning("No data provided for package " +  eventPackage.name + ".");
-        }
         eventPackage.Invoke(package);
     }
 }
