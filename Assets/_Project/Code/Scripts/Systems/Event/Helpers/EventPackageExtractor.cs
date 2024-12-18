@@ -19,14 +19,15 @@ public class EventPackageExtractor
             }
             foreach (KeyValuePair<Type, object> entry in eventData.GetDataForKey(key))
             {
-                if (entry.Key != typeof(string))
+                if (entry.Key == typeof(string))
                 {
-                    if (entry.Value is List<object> list && list.Count > 0)
-                    {
-                        return list[0];
-                    }
-                    return entry.Value;
-                }             
+                    continue;
+                }
+                if (entry.Value is List<object> list && list.Count > 0)
+                {
+                    return list[0];
+                }
+                return entry.Value;
             }
             return null;
         }
