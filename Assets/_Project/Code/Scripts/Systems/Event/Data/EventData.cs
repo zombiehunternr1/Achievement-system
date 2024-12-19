@@ -10,9 +10,9 @@ public class EventData
     }
     public Dictionary<Type, object> GetDataForKey(string key)
     {
-        if (_data.ContainsKey(key))
+        if (_data.TryGetValue(key, out Dictionary<Type, object> typeObjectData))
         {
-            return _data[key];
+            return typeObjectData;
         }
         return new Dictionary<Type, object>();
     }
@@ -23,22 +23,20 @@ public class EventData
     public T GetData<T>(string key)
     {
         //Check if the key and the type exist in the dictionary
-        if (!_data.ContainsKey(key) || !_data[key].ContainsKey(typeof(T)))
+        if (_data.TryGetValue(key, out var typeDict) && typeDict.TryGetValue(typeof(T), out var storedValue))
         {
-            return default;
-        }
-        object storedValue = _data[key][typeof(T)];
-        //If the stored value is a list with items, return the first item and remove it
-        if (storedValue is List<object> list && list.Count > 0)
-        {
-            object value = list[0];
-            list.RemoveAt(0);
-            return (T)value;
-        }
-        //If the stored value is of the expected type, return it directly
-        if (storedValue is T singleValue)
-        {
-            return singleValue;
+            //If the stored value is a list with items, return the first item and remove it
+            if (storedValue is List<object> list && list.Count > 0)
+            {
+                var value = list[0];
+                list.RemoveAt(0);
+                return (T)value;
+            }
+            //If the stored value is of the expected type, return it directly
+            if (storedValue is T singleValue)
+            {
+                return singleValue;
+            }
         }
         return default;
     }
