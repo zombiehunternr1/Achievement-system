@@ -23,12 +23,12 @@ public class EventData
     public T GetData<T>(string key)
     {
         //Check if the key and the type exist in the dictionary
-        if (_data.TryGetValue(key, out var typeDict) && typeDict.TryGetValue(typeof(T), out var storedValue))
+        if (_data.TryGetValue(key, out Dictionary<Type, object> typeDict) && typeDict.TryGetValue(typeof(T), out object storedValue))
         {
             //If the stored value is a list with items, return the first item and remove it
             if (storedValue is List<object> list && list.Count > 0)
             {
-                var value = list[0];
+                Object value = list[0];
                 list.RemoveAt(0);
                 return (T)value;
             }
