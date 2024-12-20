@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventPackageListenersList : MonoBehaviour
+public class EventPackageListeners : MonoBehaviour
 {
     [SerializeField] private List<EventPackageBase> _baseEvents;
     private void OnEnable()
