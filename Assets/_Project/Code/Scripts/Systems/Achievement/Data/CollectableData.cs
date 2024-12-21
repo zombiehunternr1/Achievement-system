@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class CollectableData
 {
     [SerializeField] private CollectableEnumRequirement _collectableEnumRequirement;
-    [SerializeField] private CollectableAsset _collectableReference;
+    [SerializeField] private CollectableItem _collectableReference;
     [SerializeField] private CollectableList _collectableListReference;
     [Tooltip("This value is for the minimum amount required per collectable type in the list")]
     [SerializeField] private int _minimumGoalAmount;
@@ -27,7 +27,7 @@ public class CollectableData
     {
         int currentAmount = 0;
         int totalAmount = 0;
-        foreach (CollectableAsset collectable in _collectableListReference.CollectablesList)
+        foreach (CollectableItem collectable in _collectableListReference.CollectablesList)
         {
             if (collectable.CollectableCategory == CollectibleType.None)
             {
@@ -63,7 +63,7 @@ public class CollectableData
         }
         return CalculateMultiCollectableProgression(_collectableReference);
     }
-    public bool IsRequirementMet(CollectableAsset collectable)
+    public bool IsRequirementMet(CollectableItem collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
@@ -79,7 +79,7 @@ public class CollectableData
         }
         return false;
     }
-    public bool IsRelatedToAchievement(CollectableAsset collectable)
+    public bool IsRelatedToAchievement(CollectableItem collectable)
     {
         if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
         {
@@ -101,7 +101,7 @@ public class CollectableData
     private Dictionary<CollectibleType, int> GetCollectableTotalPerCategory()
     {
         Dictionary<CollectibleType, int> collectedAmountPerCategory = new Dictionary<CollectibleType, int>();
-        foreach (CollectableAsset collectable in _collectableListReference.CollectablesList)
+        foreach (CollectableItem collectable in _collectableListReference.CollectablesList)
         {
             if (collectable.CollectableCategory == CollectibleType.None)
             {
@@ -155,7 +155,7 @@ public class CollectableData
         }
         return uniqueCategories.Count;
     }
-    private (int currentAmount, int totalAmount) CalculateMultiCollectableProgression(CollectableAsset collectable)
+    private (int currentAmount, int totalAmount) CalculateMultiCollectableProgression(CollectableItem collectable)
     {
         int currentAmount = 0;
         int totalAmount = collectable.MultiCollectables;
@@ -181,7 +181,7 @@ public class CollectableData
         }
         return true;
     }
-    private bool AreRequirementsMetForCollectable(CollectableAsset collectable)
+    private bool AreRequirementsMetForCollectable(CollectableItem collectable)
     {
         if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
         {
@@ -196,13 +196,13 @@ public class CollectableData
         }
         return true;
     }
-    private bool IsItemRequirementMet(CollectableAsset collectable)
+    private bool IsItemRequirementMet(CollectableItem collectable)
     {
         return AreRequirementsMetForCollectable(collectable) && _collectableReference.IsMatchingId(collectable.CollectableId);
     }
     private bool AreAllCollectablesRequirementMet()
     {
-        foreach (CollectableAsset collectable in _collectableListReference.CollectablesList)
+        foreach (CollectableItem collectable in _collectableListReference.CollectablesList)
         {
             if (collectable.CollectableCategory == CollectibleType.None)
             {

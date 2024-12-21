@@ -79,7 +79,7 @@ public class AchievementSystem : MonoBehaviour
     }
     public void CheckCollectableRequest(EventData eventData)
     {
-        CollectableAsset collectable = EventPackageExtractor.ExtractEventData<CollectableAsset>(eventData);
+        CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
         Dictionary<AchievementSO, List<AchievementSO>> dependencyGraph = new Dictionary<AchievementSO, List<AchievementSO>>();
         for (int i = 0; i < _allAchievementsListReference.AchievementList.Count; i++)
         {

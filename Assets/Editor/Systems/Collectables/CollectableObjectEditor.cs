@@ -20,11 +20,11 @@ public class CollectableObjectEditor : Editor
         }
         return -1;
     }
-    private bool ShouldReplaceReference(CollectableAsset reference, string currentId)
+    private bool ShouldReplaceReference(CollectableItem reference, string currentId)
     {
         return IsReferenceAssignedToAnotherObject(reference, currentId);
     }
-    private bool IsReferenceAssignedToAnotherObject(CollectableAsset reference, string currentId)
+    private bool IsReferenceAssignedToAnotherObject(CollectableItem reference, string currentId)
     {
         CollectableObject[] allCollectables = Resources.FindObjectsOfTypeAll<CollectableObject>();
         foreach (CollectableObject collectable in allCollectables)
@@ -42,11 +42,11 @@ public class CollectableObjectEditor : Editor
         }
         return false;
     }
-    private bool IsReferenceAMatchWith(SerializedProperty collectableProp, CollectableAsset reference, string currentId)
+    private bool IsReferenceAMatchWith(SerializedProperty collectableProp, CollectableItem reference, string currentId)
     {
         if (collectableProp.objectReferenceValue == reference)
         {
-            CollectableAsset collectable = (CollectableAsset)collectableProp.objectReferenceValue;
+            CollectableItem collectable = (CollectableItem)collectableProp.objectReferenceValue;
             return collectable != null && collectable.CollectableId == reference.CollectableId && collectable.CollectableId != currentId;
         }
         return false;
@@ -72,7 +72,7 @@ public class CollectableObjectEditor : Editor
         }
         else
         {
-            CollectableAsset currentReference = (CollectableAsset)_collectableProp.objectReferenceValue;
+            CollectableItem currentReference = (CollectableItem)_collectableProp.objectReferenceValue;
             SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
             if (string.IsNullOrEmpty(_currentObjectId))
             {
@@ -92,7 +92,7 @@ public class CollectableObjectEditor : Editor
         }
         serializedObject.ApplyModifiedProperties();
     }
-    private void HandleSingleItem(CollectableAsset currentReference, SerializedObject collectableSOSerialized)
+    private void HandleSingleItem(CollectableItem currentReference, SerializedObject collectableSOSerialized)
     {
         if (string.IsNullOrEmpty(currentReference.CollectableId))
         {
@@ -118,7 +118,7 @@ public class CollectableObjectEditor : Editor
             }
         }
     }
-    private void HandleMultipleItems(CollectableAsset currentReference, SerializedObject collectableSerialized, string currentId)
+    private void HandleMultipleItems(CollectableItem currentReference, SerializedObject collectableSerialized, string currentId)
     {
         SerializedProperty multiCollectablesStatusProp = collectableSerialized.FindProperty("_multiCollectablesStatus");
         int index = GetIdFromList(multiCollectablesStatusProp, currentId);
@@ -144,7 +144,7 @@ public class CollectableObjectEditor : Editor
         }
         collectableSerialized.ApplyModifiedProperties();
     }
-    private void SetCollectableIDInScriptableObject(CollectableAsset collectable, SerializedObject collectableSerialized, string currentId)
+    private void SetCollectableIDInScriptableObject(CollectableItem collectable, SerializedObject collectableSerialized, string currentId)
     {
         SerializedProperty singleCollectableStatusProp = collectableSerialized.FindProperty("_singleCollectableStatus");
         SerializedProperty collectableIdProp = singleCollectableStatusProp.FindPropertyRelative("_collectableId");
@@ -156,7 +156,7 @@ public class CollectableObjectEditor : Editor
             AssetDatabase.SaveAssets();
         }
     }
-    private void ClearCollectableIDInScriptableObject(CollectableAsset collectable, SerializedObject collectableSerialized)
+    private void ClearCollectableIDInScriptableObject(CollectableItem collectable, SerializedObject collectableSerialized)
     {
         if (collectable != null)
         {

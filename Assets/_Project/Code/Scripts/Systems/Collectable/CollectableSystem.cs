@@ -12,14 +12,14 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private EventPackage _saveGame;
     public void UpdateCollectable(EventData eventData)
     {
-        CollectableAsset collectable = EventPackageExtractor.ExtractEventData<CollectableAsset>(eventData);
+        CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
         EventPackageFactory.BuildAndInvoke(_checkCollectableRequest, collectable);
         EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
         EventPackageFactory.BuildAndInvoke(_saveGame);
     }
     public void ResetAllCollectables()
     {
-        foreach (CollectableAsset collectable in _allCollectablesListReference.CollectablesList)
+        foreach (CollectableItem collectable in _allCollectablesListReference.CollectablesList)
         {
             if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
             {
@@ -51,7 +51,7 @@ public class CollectableSystem : MonoBehaviour
     }
     private void LoadCollectableStatusFromGameData(GameData gameData)
     {
-        foreach (CollectableAsset collectable in _allCollectablesListReference.CollectablesList)
+        foreach (CollectableItem collectable in _allCollectablesListReference.CollectablesList)
         {
             collectable.LoadCollectableStatus(gameData);
         }
@@ -59,12 +59,12 @@ public class CollectableSystem : MonoBehaviour
     }
     private void SaveCollectableStatusToGameData(GameData gameData)
     {
-        List<CollectableAsset>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
+        List<CollectableItem>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
         try
         {
             while (enumAllCollectables.MoveNext())
             {
-                CollectableAsset collectable = enumAllCollectables.Current;
+                CollectableItem collectable = enumAllCollectables.Current;
                 collectable.SaveCollectableStatus(gameData);
             }
         }

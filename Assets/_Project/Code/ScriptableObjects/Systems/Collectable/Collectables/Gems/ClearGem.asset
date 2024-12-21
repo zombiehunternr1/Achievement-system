@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a3e5ff958f29d4bae7e9faa785965b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e25882def770544a96a27e83304113f, type: 3}
   m_Name: ClearGem
   m_EditorClassIdentifier: 
   _collectionType: 0

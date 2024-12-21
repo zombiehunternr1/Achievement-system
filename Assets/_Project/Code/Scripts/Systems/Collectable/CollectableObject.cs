@@ -3,8 +3,8 @@ using UnityEngine;
 public class CollectableObject : CollectableObjectBase
 {
     [SerializeField] private EventPackage _updateCollectedType;
-    [SerializeField] private CollectableAsset _collectable;
-    public CollectableAsset Collectable
+    [SerializeField] private CollectableItem _collectable;
+    public CollectableItem Collectable
     {
         get
         {

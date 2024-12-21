@@ -38,7 +38,7 @@ MonoBehaviour:
     _customGoalAmount: 0
   _collectableData:
     _collectableEnumRequirement: 0
-    _collectableReference: {fileID: 11400000, guid: a0102b27425bd4d42bed4cabf2494653, type: 2}
+    _collectableReference: {fileID: 11400000, guid: 2a9b14cfe3afaf64f8224bae0a1181b3, type: 2}
     _collectableListReference: {fileID: 0}
     _minimumGoalAmount: 0
   _valueData:

@@ -23,7 +23,7 @@ public class CollectableUIHolder : MonoBehaviour
                 continue;
             }
             bool isCollected = false;
-            CollectableAsset collectable = collectableObject.Collectable;
+            CollectableItem collectable = collectableObject.Collectable;
             if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
             {
                 isCollected = collectable.IsCollected;
@@ -35,7 +35,7 @@ public class CollectableUIHolder : MonoBehaviour
             UpdateCollectableSprite(collectableSprite, isCollected);
         }
     }
-    private bool IsMultiCollectableCollected(CollectableObject collectableObject, CollectableAsset collectable)
+    private bool IsMultiCollectableCollected(CollectableObject collectableObject, CollectableItem collectable)
     {
         for (int i = 0; i < collectable.MultiCollectables; i++)
         {

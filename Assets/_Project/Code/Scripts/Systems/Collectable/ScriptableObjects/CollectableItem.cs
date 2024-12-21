@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Collectable", menuName = "Scriptable Objects/Systems/Collectables/Collectable")]
-public class CollectableAsset : CollectableBase
+[CreateAssetMenu(fileName = "Collectable", menuName = "Scriptable Objects/Systems/Collectables/Collectable item")]
+public class CollectableItem : CollectableBase
 {
     [SerializeField] private CollectibleType _collectableCategory;
     public CollectibleType CollectableCategory

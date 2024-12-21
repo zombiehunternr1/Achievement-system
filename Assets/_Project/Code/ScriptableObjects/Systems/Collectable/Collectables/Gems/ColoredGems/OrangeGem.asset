@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a3e5ff958f29d4bae7e9faa785965b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e25882def770544a96a27e83304113f, type: 3}
   m_Name: OrangeGem
   m_EditorClassIdentifier: 
   _collectionType: 0
   _itemAmountType: 0
   _singleCollectableStatus:
-    _collectableId: 5836f32b-b3dd-425e-9f71-15625bd6e4a3
+    _collectableId: 00cc3984-1255-4fe7-b58e-824f37f490b4
     _isCollected: 0
     _currentAmount: 0
     _goalAmount: 0

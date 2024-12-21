@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-[CustomEditor(typeof(CollectableAsset))]
+[CustomEditor(typeof(CollectableItem))]
 public class CollectableSOEditor : Editor
 {
     private SerializedProperty

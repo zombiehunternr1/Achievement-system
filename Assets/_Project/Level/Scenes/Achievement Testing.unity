@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 073e98fa-5a53-4f67-a50d-bfbf5b53d883
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
+  _collectable: {fileID: 11400000, guid: 4c6fd29b40e1ebd4c8327cdac2427e4d, type: 2}
 --- !u!114 &239355174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 5836f32b-b3dd-425e-9f71-15625bd6e4a3
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 118a3e3a256c6ff438d6b6f665f518c2, type: 2}
+  _collectable: {fileID: 11400000, guid: 29103749d1ada4d4ea2b21045a4cfaa2, type: 2}
 --- !u!114 &626241430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5521,7 +5521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee0f8202893c7741b83c4026c1e791b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overTimeReference: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
+  _overTimeReference: {fileID: 11400000, guid: 4c6fd29b40e1ebd4c8327cdac2427e4d, type: 2}
   _holdButton1ImageReference: {fileID: 1665828632}
   _holdButton2ImageReference: {fileID: 239355175}
   _quitAchievementReference: {fileID: 11400000, guid: e016500edff2e5a47b17aca9a5410805, type: 2}
@@ -7224,7 +7224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: a20a51fc-397a-490a-b00a-450a9c57c896
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: e9ab9328d9b9e74488663ff0a3ffe791, type: 2}
+  _collectable: {fileID: 11400000, guid: 4c6fd29b40e1ebd4c8327cdac2427e4d, type: 2}
 --- !u!114 &1665828631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7844,7 +7844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 1c802653-ca06-4f7c-b6b6-f1bfa981255f
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: a0102b27425bd4d42bed4cabf2494653, type: 2}
+  _collectable: {fileID: 11400000, guid: 2a9b14cfe3afaf64f8224bae0a1181b3, type: 2}
 --- !u!114 &1740075572
 MonoBehaviour:
   m_ObjectHideFlags: 0

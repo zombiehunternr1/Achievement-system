@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AllCollectables
   m_EditorClassIdentifier: 
   _CollectablesList:
-  - {fileID: 11400000, guid: 118a3e3a256c6ff438d6b6f665f518c2, type: 2}
-  - {fileID: 11400000, guid: a0102b27425bd4d42bed4cabf2494653, type: 2}
+  - {fileID: 11400000, guid: 2a9b14cfe3afaf64f8224bae0a1181b3, type: 2}
+  - {fileID: 11400000, guid: 29103749d1ada4d4ea2b21045a4cfaa2, type: 2}
+  - {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
   - {fileID: 11400000, guid: cd3bd3004dec94a4f9ff1176f0698801, type: 2}
   - {fileID: 11400000, guid: b423628dceb02154d8d2f481ed7a4e31, type: 2}
   - {fileID: 11400000, guid: 4bfbc63035846fd49a5e51f8c2e140a0, type: 2}
   - {fileID: 11400000, guid: b533288f135b5bc4f866215bfebfba8b, type: 2}
   - {fileID: 11400000, guid: cdd4cdbc96706d049a12794646ff339e, type: 2}
-  - {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
