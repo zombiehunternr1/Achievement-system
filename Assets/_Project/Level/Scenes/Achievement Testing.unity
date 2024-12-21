@@ -1630,7 +1630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: e7051850-a702-4cda-9702-d29be1f4fa90
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
+  _collectable: {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
 --- !u!114 &336364300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,7 +2250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 02e5df7b-0818-4038-97f4-355bc052c259
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
+  _collectable: {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
 --- !u!114 &423697905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 5836f32b-b3dd-425e-9f71-15625bd6e4a3
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: b6eae809f00b5fa498fb45a311ad187a, type: 2}
+  _collectable: {fileID: 11400000, guid: 118a3e3a256c6ff438d6b6f665f518c2, type: 2}
 --- !u!114 &626241430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3949,7 +3949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 6cf0e0f5-e6a6-4e96-9675-5ea29b01faa0
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
+  _collectable: {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
 --- !u!114 &720298824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4094,7 +4094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: 135574f8-dfc3-445d-b662-524adb8c86c5
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
+  _collectable: {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
 --- !u!114 &723293764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5922,7 +5922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36c4f58579e0a6428fd01740b7104ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allCollectablesListReference: {fileID: 11400000, guid: 84e31202b76c2324ba919d8fbd195712, type: 2}
+  _allCollectablesListReference: {fileID: 11400000, guid: a18b6635a861d4143ae8a608f5d12013, type: 2}
   _checkCollectableRequest: {fileID: 11400000, guid: 156baaf47ef7d3846ba4c813956ca9f3, type: 2}
   _updateCollectablesStatus: {fileID: 11400000, guid: edbc66f0387d9904999dd25407905752, type: 2}
   _updateProgression: {fileID: 11400000, guid: b9684fd31128a984d9a9c0dc4076d64f, type: 2}
@@ -10182,7 +10182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectId: d029a077-3f47-40ee-add7-fe4ba7407b90
   _updateCollectedType: {fileID: 11400000, guid: f8e8c46dde95a9b44ade116ccf75911a, type: 2}
-  _collectable: {fileID: 11400000, guid: 1d347211ae780e2439b811a2ffd5057a, type: 2}
+  _collectable: {fileID: 11400000, guid: 96dd24e407a361644b1f7bb2d07cdcdc, type: 2}
 --- !u!114 &2057875701
 MonoBehaviour:
   m_ObjectHideFlags: 0

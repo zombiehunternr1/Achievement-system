@@ -20,11 +20,11 @@ public class CollectableObjectEditor : Editor
         }
         return -1;
     }
-    private bool ShouldReplaceReference(CollectableSO reference, string currentId)
+    private bool ShouldReplaceReference(CollectableAsset reference, string currentId)
     {
         return IsReferenceAssignedToAnotherObject(reference, currentId);
     }
-    private bool IsReferenceAssignedToAnotherObject(CollectableSO reference, string currentId)
+    private bool IsReferenceAssignedToAnotherObject(CollectableAsset reference, string currentId)
     {
         CollectableObject[] allCollectables = Resources.FindObjectsOfTypeAll<CollectableObject>();
         foreach (CollectableObject collectable in allCollectables)
@@ -42,11 +42,11 @@ public class CollectableObjectEditor : Editor
         }
         return false;
     }
-    private bool IsReferenceAMatchWith(SerializedProperty collectableProp, CollectableSO reference, string currentId)
+    private bool IsReferenceAMatchWith(SerializedProperty collectableProp, CollectableAsset reference, string currentId)
     {
         if (collectableProp.objectReferenceValue == reference)
         {
-            CollectableSO collectable = (CollectableSO)collectableProp.objectReferenceValue;
+            CollectableAsset collectable = (CollectableAsset)collectableProp.objectReferenceValue;
             return collectable != null && collectable.CollectableId == reference.CollectableId && collectable.CollectableId != currentId;
         }
         return false;
@@ -72,7 +72,7 @@ public class CollectableObjectEditor : Editor
         }
         else
         {
-            CollectableSO currentReference = (CollectableSO)_collectableProp.objectReferenceValue;
+            CollectableAsset currentReference = (CollectableAsset)_collectableProp.objectReferenceValue;
             SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
             if (string.IsNullOrEmpty(_currentObjectId))
             {
@@ -80,8 +80,8 @@ public class CollectableObjectEditor : Editor
                 collectableObject.ValidateObjectId();
             }
             SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
-            CollectionEnumItemAmount collectionEnumType = (CollectionEnumItemAmount)collectableItemAmountProp.enumValueIndex;
-            if (collectionEnumType == CollectionEnumItemAmount.SingleItem)
+            CollectionItemAmount collectionEnumType = (CollectionItemAmount)collectableItemAmountProp.enumValueIndex;
+            if (collectionEnumType == CollectionItemAmount.SingleItem)
             {
                 HandleSingleItem(currentReference, collectableSOSerialized);
             }
@@ -92,7 +92,7 @@ public class CollectableObjectEditor : Editor
         }
         serializedObject.ApplyModifiedProperties();
     }
-    private void HandleSingleItem(CollectableSO currentReference, SerializedObject collectableSOSerialized)
+    private void HandleSingleItem(CollectableAsset currentReference, SerializedObject collectableSOSerialized)
     {
         if (string.IsNullOrEmpty(currentReference.CollectableId))
         {
@@ -118,7 +118,7 @@ public class CollectableObjectEditor : Editor
             }
         }
     }
-    private void HandleMultipleItems(CollectableSO currentReference, SerializedObject collectableSerialized, string currentId)
+    private void HandleMultipleItems(CollectableAsset currentReference, SerializedObject collectableSerialized, string currentId)
     {
         SerializedProperty multiCollectablesStatusProp = collectableSerialized.FindProperty("_multiCollectablesStatus");
         int index = GetIdFromList(multiCollectablesStatusProp, currentId);
@@ -144,7 +144,7 @@ public class CollectableObjectEditor : Editor
         }
         collectableSerialized.ApplyModifiedProperties();
     }
-    private void SetCollectableIDInScriptableObject(CollectableSO collectable, SerializedObject collectableSerialized, string currentId)
+    private void SetCollectableIDInScriptableObject(CollectableAsset collectable, SerializedObject collectableSerialized, string currentId)
     {
         SerializedProperty singleCollectableStatusProp = collectableSerialized.FindProperty("_singleCollectableStatus");
         SerializedProperty collectableIdProp = singleCollectableStatusProp.FindPropertyRelative("_collectableId");
@@ -156,7 +156,7 @@ public class CollectableObjectEditor : Editor
             AssetDatabase.SaveAssets();
         }
     }
-    private void ClearCollectableIDInScriptableObject(CollectableSO collectable, SerializedObject collectableSerialized)
+    private void ClearCollectableIDInScriptableObject(CollectableAsset collectable, SerializedObject collectableSerialized)
     {
         if (collectable != null)
         {

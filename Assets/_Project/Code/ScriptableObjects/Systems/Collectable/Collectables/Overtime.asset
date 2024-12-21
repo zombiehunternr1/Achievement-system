@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da02d696a879d7044bc26013e8cc151b, type: 3}
+  m_Script: {fileID: 11500000, guid: d6a3e5ff958f29d4bae7e9faa785965b, type: 3}
   m_Name: Overtime
   m_EditorClassIdentifier: 
   _collectionType: 1
@@ -24,11 +24,11 @@ MonoBehaviour:
   - _collectableId: a20a51fc-397a-490a-b00a-450a9c57c896
     _isCollected: 0
     _currentAmount: 0
-    _goalAmount: 5
+    _goalAmount: 7
     _increaseSpeed: 1
   - _collectableId: 073e98fa-5a53-4f67-a50d-bfbf5b53d883
     _isCollected: 0
     _currentAmount: 0
-    _goalAmount: 7
+    _goalAmount: 5
     _increaseSpeed: 1
   _collectableCategory: 0

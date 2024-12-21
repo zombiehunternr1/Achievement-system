@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ButtonUIController : MonoBehaviour
 {
-    [SerializeField] private CollectableSO _overTimeReference;
+    [SerializeField] private CollectableAsset _overTimeReference;
     [Header("Component references")]
     [SerializeField] private Image _holdButton1ImageReference;
     [SerializeField] private Image _holdButton2ImageReference;

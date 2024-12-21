@@ -23,19 +23,19 @@ public class CollectableUIHolder : MonoBehaviour
                 continue;
             }
             bool isCollected = false;
-            CollectableSO collectable = collectableObject.Collectable;
-            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            CollectableAsset collectable = collectableObject.Collectable;
+            if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
             {
                 isCollected = collectable.IsCollected;
             }
-            else if (collectable.ItemAmountType == CollectionEnumItemAmount.MultipleItems)
+            else if (collectable.ItemAmountType == CollectionItemAmount.MultipleItems)
             {
                 isCollected = IsMultiCollectableCollected(collectableObject, collectable);
             }
             UpdateCollectableSprite(collectableSprite, isCollected);
         }
     }
-    private bool IsMultiCollectableCollected(CollectableObject collectableObject, CollectableSO collectable)
+    private bool IsMultiCollectableCollected(CollectableObject collectableObject, CollectableAsset collectable)
     {
         for (int i = 0; i < collectable.MultiCollectables; i++)
         {

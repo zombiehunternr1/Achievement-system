@@ -1,4 +1,4 @@
-public enum CollectableCategoryEnum
+public enum CollectibleType
 {
     None,
     Feathers,

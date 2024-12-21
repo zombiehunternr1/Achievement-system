@@ -1,4 +1,4 @@
-public enum CollectionEnumItemAmount
+public enum CollectionItemAmount
 {
     SingleItem,
     MultipleItems

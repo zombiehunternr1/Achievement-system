@@ -90,11 +90,11 @@ public class AchievementSO : AchievementTypeSO
             }
         }
     }
-    public bool IsCollectableGoalReached(CollectableSO collectable)
+    public bool IsCollectableGoalReached(CollectableAsset collectable)
     {
         return _collectableData.IsRequirementMet(collectable);
     }
-    public bool IsAchievementRelated(CollectableSO collectable)
+    public bool IsAchievementRelated(CollectableAsset collectable)
     {
         if (_requirementData.CompletionEnumRequirement == CompletionEnumRequirement.NoRequirement ||
             _requirementData.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)

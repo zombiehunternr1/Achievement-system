@@ -3,8 +3,8 @@ using UnityEngine;
 public class CollectableObject : CollectableObjectBase
 {
     [SerializeField] private EventPackage _updateCollectedType;
-    [SerializeField] private CollectableSO _collectable;
-    public CollectableSO Collectable
+    [SerializeField] private CollectableAsset _collectable;
+    public CollectableAsset Collectable
     {
         get
         {
@@ -13,17 +13,17 @@ public class CollectableObject : CollectableObjectBase
     }
     public void EvaluateCollectionRequirement()
     {
-        if (_collectable.ItemAmountType != CollectionEnumItemAmount.SingleItem)
+        if (_collectable.ItemAmountType != CollectionItemAmount.SingleItem)
         {
             EvaluateMultiItemCollectable();
             return;
         }
-        if (_collectable.CollectionType == CollectionEnumType.Instantly && !_collectable.IsCollected)
+        if (_collectable.CollectionType == ProcessingType.Instantly && !_collectable.IsCollected)
         {
             SetAsCollected();
             return;
         }
-        if (_collectable.CollectionType == CollectionEnumType.Overtime && !_collectable.IsGoalRequirementReached)
+        if (_collectable.CollectionType == ProcessingType.Overtime && !_collectable.IsGoalRequirementReached)
         {
             SetAsCollected();
         }
@@ -34,7 +34,7 @@ public class CollectableObject : CollectableObjectBase
         {
             if (!_collectable.IsCollectedFromList(i) && 
                 _collectable.IsMatchingIdInList(i, ObjectId) &&
-                (_collectable.CollectionType == CollectionEnumType.Instantly ||
+                (_collectable.CollectionType == ProcessingType.Instantly ||
                 _collectable.IsGoalRequirementReachedFromList(i)))
             {
                 SetAsCollectedInList(i);

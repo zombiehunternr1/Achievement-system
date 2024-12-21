@@ -35,11 +35,11 @@ MonoBehaviour:
   _achievementData:
     _achievementListReference: {fileID: 0}
     _hasCustomGoalAmount: 0
-    _goalAmount: 0
+    _customGoalAmount: 0
   _collectableData:
     _collectableEnumRequirement: 2
     _collectableReference: {fileID: 0}
-    _collectableListReference: {fileID: 11400000, guid: 84e31202b76c2324ba919d8fbd195712, type: 2}
+    _collectableListReference: {fileID: 11400000, guid: a18b6635a861d4143ae8a608f5d12013, type: 2}
     _minimumGoalAmount: 1
   _valueData:
     _valueEnumType: 0

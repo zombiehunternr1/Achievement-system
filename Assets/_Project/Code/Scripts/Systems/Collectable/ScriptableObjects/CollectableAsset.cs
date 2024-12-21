@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CollectableSO", menuName = "Scriptable Objects/Systems/Collectables/Collectable")]
-public class CollectableSO : CollectableTypeSO
+[CreateAssetMenu(fileName = "Collectable", menuName = "Scriptable Objects/Systems/Collectables/Collectable")]
+public class CollectableAsset : CollectableBase
 {
-    [SerializeField] private CollectableCategoryEnum _collectableCategory;
-    public CollectableCategoryEnum CollectableCategory
+    [SerializeField] private CollectibleType _collectableCategory;
+    public CollectibleType CollectableCategory
     {
         get
         {
@@ -13,7 +13,7 @@ public class CollectableSO : CollectableTypeSO
     }
     public void LoadCollectableStatus(GameData gameData)
     {
-        if (ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        if (ItemAmountType == CollectionItemAmount.SingleItem)
         {
             LoadSingleCollectableStatus(gameData);
         }
@@ -24,7 +24,7 @@ public class CollectableSO : CollectableTypeSO
     }
     public void SaveCollectableStatus(GameData gameData)
     {
-        if (ItemAmountType == CollectionEnumItemAmount.SingleItem)
+        if (ItemAmountType == CollectionItemAmount.SingleItem)
         {
             SaveSingleCollectableStatus(gameData);
         }

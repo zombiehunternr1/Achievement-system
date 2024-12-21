@@ -4,7 +4,7 @@ using UnityEngine;
 public class CollectableSystem : MonoBehaviour
 {
     [Header("Collectable references")]
-    [SerializeField] private CollectableListSO _allCollectablesListReference;
+    [SerializeField] private CollectableList _allCollectablesListReference;
     [Header("Event references")]
     [SerializeField] private EventPackage _checkCollectableRequest;
     [SerializeField] private EventPackage _updateCollectablesStatus;
@@ -12,16 +12,16 @@ public class CollectableSystem : MonoBehaviour
     [SerializeField] private EventPackage _saveGame;
     public void UpdateCollectable(EventData eventData)
     {
-        CollectableSO collectable = EventPackageExtractor.ExtractEventData<CollectableSO>(eventData);
+        CollectableAsset collectable = EventPackageExtractor.ExtractEventData<CollectableAsset>(eventData);
         EventPackageFactory.BuildAndInvoke(_checkCollectableRequest, collectable);
         EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
         EventPackageFactory.BuildAndInvoke(_saveGame);
     }
     public void ResetAllCollectables()
     {
-        foreach (CollectableSO collectable in _allCollectablesListReference.CollectablesList)
+        foreach (CollectableAsset collectable in _allCollectablesListReference.CollectablesList)
         {
-            if (collectable.ItemAmountType == CollectionEnumItemAmount.SingleItem)
+            if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
             {
                 collectable.SetCollectableStatus(false);
                 collectable.SetCurrentAmount(0);
@@ -51,7 +51,7 @@ public class CollectableSystem : MonoBehaviour
     }
     private void LoadCollectableStatusFromGameData(GameData gameData)
     {
-        foreach (CollectableSO collectable in _allCollectablesListReference.CollectablesList)
+        foreach (CollectableAsset collectable in _allCollectablesListReference.CollectablesList)
         {
             collectable.LoadCollectableStatus(gameData);
         }
@@ -59,12 +59,12 @@ public class CollectableSystem : MonoBehaviour
     }
     private void SaveCollectableStatusToGameData(GameData gameData)
     {
-        List<CollectableSO>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
+        List<CollectableAsset>.Enumerator enumAllCollectables = _allCollectablesListReference.CollectablesList.GetEnumerator();
         try
         {
             while (enumAllCollectables.MoveNext())
             {
-                CollectableSO collectable = enumAllCollectables.Current;
+                CollectableAsset collectable = enumAllCollectables.Current;
                 collectable.SaveCollectableStatus(gameData);
             }
         }

@@ -35,7 +35,7 @@ MonoBehaviour:
   _achievementData:
     _achievementListReference: {fileID: 0}
     _hasCustomGoalAmount: 0
-    _goalAmount: 0
+    _customGoalAmount: 0
   _collectableData:
     _collectableEnumRequirement: 0
     _collectableReference: {fileID: 11400000, guid: 4bfbc63035846fd49a5e51f8c2e140a0, type: 2}

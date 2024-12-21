@@ -1,4 +1,4 @@
-public enum CollectionEnumType
+public enum ProcessingType
 {
     Instantly,
     Overtime

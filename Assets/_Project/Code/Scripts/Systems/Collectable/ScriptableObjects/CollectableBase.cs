@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CollectableTypeSO : ScriptableObject
+public abstract class CollectableBase : ScriptableObject
 {
-    [SerializeField] private CollectionEnumType _collectionType;
-    [SerializeField] private CollectionEnumItemAmount _itemAmountType;
+    [SerializeField] private ProcessingType _collectionType;
+    [SerializeField] private CollectionItemAmount _itemAmountType;
     [SerializeField] private CollectableStatus _singleCollectableStatus;
     [SerializeField] private List<CollectableStatus> _multiCollectablesStatus;
-    public CollectionEnumType CollectionType
+    public ProcessingType CollectionType
     {
         get
         {
             return _collectionType;
         }
     }
-    public CollectionEnumItemAmount ItemAmountType
+    public CollectionItemAmount ItemAmountType
     {
         get
         {

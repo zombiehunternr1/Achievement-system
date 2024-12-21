@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-[CustomEditor(typeof(CollectableSO))]
+[CustomEditor(typeof(CollectableAsset))]
 public class CollectableSOEditor : Editor
 {
     private SerializedProperty
@@ -52,10 +52,10 @@ public class CollectableSOEditor : Editor
         EditorGUI.LabelField(new Rect(rect.x + labelWidth + fieldWidth + 5, rect.y, checkboxWidth, EditorGUIUtility.singleLineHeight), "Is Collected:");
         EditorGUI.PropertyField(new Rect(rect.x + labelWidth + fieldWidth + checkboxWidth + 5, rect.y, isCollectedWidth, EditorGUIUtility.singleLineHeight),
                                 element.FindPropertyRelative("_isCollected"), GUIContent.none);
-        CollectionEnumType collectionEnumType = (CollectionEnumType)_collectionTypeProp.enumValueIndex;
+        ProcessingType collectionEnumType = (ProcessingType)_collectionTypeProp.enumValueIndex;
         switch (collectionEnumType)
         {
-            case CollectionEnumType.Overtime:
+            case ProcessingType.Overtime:
                 rect.y += EditorGUIUtility.singleLineHeight + 4;
                 _multiCollectablesList.elementHeight = EditorGUIUtility.singleLineHeight * 5 + 10;
                 EditorGUI.LabelField(new Rect(rect.x, rect.y, labelWidth + 10, EditorGUIUtility.singleLineHeight), "Current Amount:");
@@ -70,7 +70,7 @@ public class CollectableSOEditor : Editor
                 EditorGUI.PropertyField(new Rect(rect.x + (labelWidth + 10), rect.y, fieldWidth, EditorGUIUtility.singleLineHeight),
                                         element.FindPropertyRelative("_increaseSpeed"), GUIContent.none);
                 break;
-            case CollectionEnumType.Instantly:
+            case ProcessingType.Instantly:
                 _multiCollectablesList.elementHeight = EditorGUIUtility.singleLineHeight;
                 break;
         }
@@ -85,31 +85,31 @@ public class CollectableSOEditor : Editor
         EditorGUILayout.PropertyField(_collectableCategoryProp);
         EditorGUILayout.PropertyField(_collectionTypeProp);
         EditorGUILayout.PropertyField(_itemAmountTypeProp);
-        CollectionEnumType collectionEnumType = (CollectionEnumType)_collectionTypeProp.enumValueIndex;
-        CollectionEnumItemAmount collectionItemAmount = (CollectionEnumItemAmount)_itemAmountTypeProp.enumValueIndex;
+        ProcessingType collectionEnumType = (ProcessingType)_collectionTypeProp.enumValueIndex;
+        CollectionItemAmount collectionItemAmount = (CollectionItemAmount)_itemAmountTypeProp.enumValueIndex;
         switch (collectionEnumType)
         {
-            case CollectionEnumType.Instantly:
+            case ProcessingType.Instantly:
                 switch (collectionItemAmount)
                 {
-                    case CollectionEnumItemAmount.SingleItem:
+                    case CollectionItemAmount.SingleItem:
                         _multiCollectablesStatusProp.arraySize = 0;
                         EditorGUI.BeginDisabledGroup(true);
                         EditorGUILayout.PropertyField(_collectableIdProp, new GUIContent("Collectable ID"));
                         EditorGUI.EndDisabledGroup();
                         EditorGUILayout.PropertyField(_isCollectedProp);
                         break;
-                    case CollectionEnumItemAmount.MultipleItems:
+                    case CollectionItemAmount.MultipleItems:
                         _collectableIdProp.stringValue = string.Empty;
                         _isCollectedProp.boolValue = false;
                         _multiCollectablesList.DoLayoutList();
                         break;
                 }
                 break;
-            case CollectionEnumType.Overtime:
+            case ProcessingType.Overtime:
                 switch (collectionItemAmount)
                 {
-                    case CollectionEnumItemAmount.SingleItem:
+                    case CollectionItemAmount.SingleItem:
                         _multiCollectablesStatusProp.arraySize = 0;
                         EditorGUI.BeginDisabledGroup(true);
                         EditorGUILayout.PropertyField(_collectableIdProp, new GUIContent("Collectable ID"));
@@ -122,7 +122,7 @@ public class CollectableSOEditor : Editor
                         EditorGUILayout.PropertyField(_goalAmountProp);
                         EditorGUILayout.PropertyField(_increaseSpeedProp);
                         break;
-                    case CollectionEnumItemAmount.MultipleItems:
+                    case CollectionItemAmount.MultipleItems:
                         _collectableIdProp.stringValue = string.Empty;
                         _isCollectedProp.boolValue = false;
                         _multiCollectablesList.DoLayoutList();
