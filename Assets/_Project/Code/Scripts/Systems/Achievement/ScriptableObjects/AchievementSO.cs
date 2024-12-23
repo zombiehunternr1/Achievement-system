@@ -22,11 +22,11 @@ public class AchievementSO : AchievementTypeSO
             return _requirementData.RequiresPreviousAchievementToUnlock;
         }
     }
-    public CompletionEnumRequirement CompletionEnumRequirement
+    public CompletionRequirementType CompletionEnumRequirement
     {
         get
         {
-            return _requirementData.CompletionEnumRequirement;
+            return _requirementData.CompletionRequirement;
         }
     }
     public bool IsPreviousAchievementUnlocked
@@ -71,19 +71,19 @@ public class AchievementSO : AchievementTypeSO
             return _achievementData.IsRequirementMet();
         }
     }
-    public string GetProgressionDisplay
+    public string ProgressionDisplay
     {
         get
         {
-            if (_requirementData.CompletionEnumRequirement == CompletionEnumRequirement.NoRequirement)
+            if (_requirementData.CompletionRequirement == CompletionRequirementType.NoRequirement)
             {
                 return string.Empty;
             }
-            switch (_requirementData.CompletionEnumRequirement)
+            switch (_requirementData.CompletionRequirement)
             {
-                case CompletionEnumRequirement.ValueRequirement:
+                case CompletionRequirementType.ValueRequirement:
                     return GetValueRequirementProgression();
-                case CompletionEnumRequirement.AchievementRequirement:
+                case CompletionRequirementType.AchievementRequirement:
                     return GetAchievementProgression();
                 default:
                     return GetCollectableProgression();
@@ -96,8 +96,8 @@ public class AchievementSO : AchievementTypeSO
     }
     public bool IsAchievementRelated(CollectableItem collectable)
     {
-        if (_requirementData.CompletionEnumRequirement == CompletionEnumRequirement.NoRequirement ||
-            _requirementData.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+        if (_requirementData.CompletionRequirement == CompletionRequirementType.NoRequirement ||
+            _requirementData.CompletionRequirement == CompletionRequirementType.ValueRequirement)
         {
             return false;
         }
@@ -120,11 +120,11 @@ public class AchievementSO : AchievementTypeSO
     }
     private string GetCollectableProgression()
     {
-        switch (_collectableData.CollectableEnumRequirement)
+        switch (_collectableData.CollectableRequirement)
         {
-            case CollectableEnumRequirement.SingleCollectable:
+            case CollectableRequirementType.SingleCollectable:
                 return GetSingleCollectableProgression();
-            case CollectableEnumRequirement.AllCollectables:
+            case CollectableRequirementType.AllCollectables:
                 return GetAllCollectablesProgression();
             default:
                 return GetCustomRequirementProgression();
@@ -154,7 +154,7 @@ public class AchievementSO : AchievementTypeSO
         {
             LockAchievement();
         }
-        if (CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+        if (CompletionEnumRequirement == CompletionRequirementType.ValueRequirement)
         {
             SetCurrentValue(achievementDTO.CurrentAmount);
         }

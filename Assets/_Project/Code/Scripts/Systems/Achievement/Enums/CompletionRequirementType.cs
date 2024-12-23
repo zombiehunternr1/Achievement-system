@@ -1,4 +1,4 @@
-public enum CompletionEnumRequirement
+public enum CompletionRequirementType
 {
     NoRequirement,
     ValueRequirement,

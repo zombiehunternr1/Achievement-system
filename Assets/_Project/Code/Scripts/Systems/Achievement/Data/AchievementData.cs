@@ -63,6 +63,6 @@ public class AchievementData
     }
     private bool IsEligibleForProgress(AchievementSO achievement)
     {
-        return achievement != null && achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement;
+        return achievement != null && achievement.CompletionEnumRequirement != CompletionRequirementType.AchievementRequirement;
     }
 }

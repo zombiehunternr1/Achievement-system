@@ -84,7 +84,7 @@ public class AchievementSystem : MonoBehaviour
         for (int i = 0; i < _allAchievementsListReference.AchievementList.Count; i++)
         {
             AchievementSO achievement = _allAchievementsListReference.AchievementList[i];
-            if (achievement.IsUnlocked || achievement.CompletionEnumRequirement != CompletionEnumRequirement.CollectableRequirement)
+            if (achievement.IsUnlocked || achievement.CompletionEnumRequirement != CompletionRequirementType.CollectableRequirement)
             {
                 continue;
             }
@@ -165,13 +165,13 @@ public class AchievementSystem : MonoBehaviour
         {
             return;
         }
-        if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.NoRequirement ||
-            achievement.CompletionEnumRequirement == CompletionEnumRequirement.AchievementRequirement && achievement.IsAchievementGoalReached)
+        if (achievement.CompletionEnumRequirement == CompletionRequirementType.NoRequirement ||
+            achievement.CompletionEnumRequirement == CompletionRequirementType.AchievementRequirement && achievement.IsAchievementGoalReached)
         {
             UnlockAchievement(achievement);
             return;
         }
-        if (achievement.CompletionEnumRequirement == CompletionEnumRequirement.ValueRequirement)
+        if (achievement.CompletionEnumRequirement == CompletionRequirementType.ValueRequirement)
         {
             HandleValueUpdate(achievement, valueObj);
             return;
@@ -223,14 +223,14 @@ public class AchievementSystem : MonoBehaviour
         {
             achievementObject.EnableLock();
         }
-        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.GetProgressionDisplay, isHidden);
+        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.ProgressionDisplay, isHidden);
     }
     private void CheckAchievementTypes()
     {
         for (int i =0; i < _allAchievementsListReference.AchievementList.Count; i++)
         {
             AchievementSO achievement = _allAchievementsListReference.AchievementList[i];
-            if (achievement.CompletionEnumRequirement != CompletionEnumRequirement.AchievementRequirement || achievement.IsUnlocked)
+            if (achievement.CompletionEnumRequirement != CompletionRequirementType.AchievementRequirement || achievement.IsUnlocked)
             {
                 continue;
             }

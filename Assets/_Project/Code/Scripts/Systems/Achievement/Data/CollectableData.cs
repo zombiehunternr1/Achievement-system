@@ -5,16 +5,16 @@ using System.Collections.Generic;
 [Serializable]
 public class CollectableData
 {
-    [SerializeField] private CollectableEnumRequirement _collectableEnumRequirement;
+    [SerializeField] private CollectableRequirementType _collectableRequirement;
     [SerializeField] private CollectableItem _collectableReference;
     [SerializeField] private CollectableList _collectableListReference;
     [Tooltip("This value is for the minimum amount required per collectable type in the list")]
     [SerializeField] private int _minimumGoalAmount;
-    public CollectableEnumRequirement CollectableEnumRequirement
+    public CollectableRequirementType CollectableRequirement
     {
         get
         {
-            return _collectableEnumRequirement;
+            return _collectableRequirement;
         }
     }
     public (int currentAmount, int totalAmount) GetCustomAmountDisplay()
@@ -65,15 +65,15 @@ public class CollectableData
     }
     public bool IsRequirementMet(CollectableItem collectable)
     {
-        if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
+        if (_collectableRequirement == CollectableRequirementType.SingleCollectable)
         {
             return IsItemRequirementMet(collectable);
         }
-        if (_collectableEnumRequirement == CollectableEnumRequirement.AllCollectables)
+        if (_collectableRequirement == CollectableRequirementType.AllCollectables)
         {
             return AreAllCollectablesRequirementMet();
         }
-        if (_collectableEnumRequirement == CollectableEnumRequirement.Custom)
+        if (_collectableRequirement == CollectableRequirementType.Custom)
         {
             return IsCustomGoalRequirementMet(_minimumGoalAmount);
         }
@@ -81,7 +81,7 @@ public class CollectableData
     }
     public bool IsRelatedToAchievement(CollectableItem collectable)
     {
-        if (_collectableEnumRequirement == CollectableEnumRequirement.SingleCollectable)
+        if (_collectableRequirement == CollectableRequirementType.SingleCollectable)
         {
             if (collectable.ItemAmountType == CollectionItemAmount.SingleItem)
             {

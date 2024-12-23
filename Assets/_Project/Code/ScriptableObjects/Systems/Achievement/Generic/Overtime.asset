@@ -27,7 +27,7 @@ MonoBehaviour:
   _requirementData:
     _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}
-    _completionEnumRequirement: 2
+    _completionRequirement: 2
   _progressionData:
     _isHidden: 0
     _hasProgressionDisplay: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     _collectableListReference: {fileID: 0}
     _minimumGoalAmount: 0
   _valueData:
-    _valueEnumType: 0
+    _valueType: 0
     _isExactAmount: 0
     _currentIntegerAmount: 0
     _goalIntegerAmount: 0

@@ -1,4 +1,4 @@
-public enum CollectableEnumRequirement
+public enum CollectableRequirementType
 {
     SingleCollectable,
     AllCollectables,

@@ -27,7 +27,7 @@ MonoBehaviour:
   _requirementData:
     _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}
-    _completionEnumRequirement: 2
+    _completionRequirement: 2
   _progressionData:
     _isHidden: 0
     _hasProgressionDisplay: 1
@@ -37,12 +37,12 @@ MonoBehaviour:
     _hasCustomGoalAmount: 0
     _customGoalAmount: 0
   _collectableData:
-    _collectableEnumRequirement: 1
+    _collectableRequirement: 1
     _collectableReference: {fileID: 0}
     _collectableListReference: {fileID: 11400000, guid: 8c4c54811a55f174f95a451c4af3222c, type: 2}
     _minimumGoalAmount: 0
   _valueData:
-    _valueEnumType: 0
+    _valueType: 0
     _isExactAmount: 0
     _currentIntegerAmount: 0
     _goalIntegerAmount: 0

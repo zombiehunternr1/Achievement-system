@@ -4,22 +4,22 @@ using UnityEngine;
 [Serializable]
 public class ValueData
 {
-    [SerializeField] private ValueEnumType _valueEnumType;
+    [SerializeField] private NumericValueType _valueType;
     [SerializeField] private bool _isExactAmount;
     [SerializeField] private int _currentIntegerAmount;
     [SerializeField] private int _goalIntegerAmount;
     [SerializeField] private float _currentFloatAmount;
     [SerializeField] private float _goalFloatAmount;
-    public ValueEnumType ValueEnumType
+    public NumericValueType ValueEnumType
     {
         get
         {
-            return _valueEnumType;
+            return _valueType;
         }
     }
     public float GetCurrentAmount()
     {
-        if (ValueEnumType == ValueEnumType.Integer)
+        if (ValueEnumType == NumericValueType.Integer)
         {
             return _currentIntegerAmount;
         }
@@ -27,7 +27,7 @@ public class ValueData
     }
     public (float currentAmount, float goalAmount) GetAmountDisplay()
     {
-        if (_valueEnumType == ValueEnumType.Integer)
+        if (_valueType == NumericValueType.Integer)
         {
             return (_currentIntegerAmount, _goalIntegerAmount);
         }
@@ -35,7 +35,7 @@ public class ValueData
     }
     public bool IsRequirementMet()
     {
-        if (ValueEnumType == ValueEnumType.Integer)
+        if (ValueEnumType == NumericValueType.Integer)
         {
             if (_isExactAmount)
             {
@@ -68,7 +68,7 @@ public class ValueData
     }
     public void SetValue(object value)
     {
-        if (_valueEnumType == ValueEnumType.Integer)
+        if (_valueType == NumericValueType.Integer)
         {
             _currentIntegerAmount = Convert.ToInt32(value);
         }

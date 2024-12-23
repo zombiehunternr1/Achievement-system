@@ -6,7 +6,7 @@ public class RequirementData
 {
     [SerializeField] private bool _requiresPreviousAchievementToUnlock;
     [SerializeField] private AchievementSO _previousAchievementReference;
-    [SerializeField] private CompletionEnumRequirement _completionEnumRequirement;
+    [SerializeField] private CompletionRequirementType _completionRequirement;
     public bool RequiresPreviousAchievementToUnlock
     {
         get
@@ -21,11 +21,11 @@ public class RequirementData
             return _previousAchievementReference;
         }
     }
-    public CompletionEnumRequirement CompletionEnumRequirement
+    public CompletionRequirementType CompletionRequirement
     {
         get
         {
-            return _completionEnumRequirement;
+            return _completionRequirement;
         }
     }
 }

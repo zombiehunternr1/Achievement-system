@@ -6,7 +6,7 @@ public class ProgressionData
 {
     [SerializeField] private bool _isHidden;
     [SerializeField] private bool _hasProgressionDisplay;
-    [SerializeField] private ProgressionEnumDisplay _progressionEnumDisplay;
+    [SerializeField] private ProgressionDisplayFormat _progressionEnumDisplay;
     public bool IsHidden
     {
         get
@@ -27,7 +27,7 @@ public class ProgressionData
         {
             return "Invalid goal!";
         }
-        if (_progressionEnumDisplay == ProgressionEnumDisplay.FullAmount)
+        if (_progressionEnumDisplay == ProgressionDisplayFormat.FullAmount)
         {
             return currentAmount + " / " + goalAmount;
         }

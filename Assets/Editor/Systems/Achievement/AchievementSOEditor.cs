@@ -47,14 +47,14 @@ public class AchievementSOEditor : Editor
         _isHiddenProp = serializedObject.FindProperty("_progressionData._isHidden");
         _showProgressionProp = serializedObject.FindProperty("_progressionData._hasProgressionDisplay");
         _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionData._progressionEnumDisplay");
-        _completionEnumRequirementProp = serializedObject.FindProperty("_requirementData._completionEnumRequirement");
-        _valueEnumTypeProp = serializedObject.FindProperty("_valueData._valueEnumType");
+        _completionEnumRequirementProp = serializedObject.FindProperty("_requirementData._completionRequirement");
+        _valueEnumTypeProp = serializedObject.FindProperty("_valueData._valueType");
         _isExactAmountProp = serializedObject.FindProperty("_valueData._isExactAmount");
         _currentIntegerAmountProp = serializedObject.FindProperty("_valueData._currentIntegerAmount");
         _goalIntegerAmountProp = serializedObject.FindProperty("_valueData._goalIntegerAmount");
         _currentFloatAmountProp = serializedObject.FindProperty("_valueData._currentFloatAmount");
         _goalFloatAmountProp = serializedObject.FindProperty("_valueData._goalFloatAmount");
-        _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableData._collectableEnumRequirement");
+        _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableData._collectableRequirement");
         _collectableReferenceProp = serializedObject.FindProperty("_collectableData._collectableReference");
         _collectableListReferenceProp = serializedObject.FindProperty("_collectableData._collectableListReference");
         _minimumGoalAmountProp = serializedObject.FindProperty("_collectableData._minimumGoalAmount");
@@ -106,45 +106,45 @@ public class AchievementSOEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Completion settings", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_completionEnumRequirementProp);
-        CompletionEnumRequirement completionEnumType = (CompletionEnumRequirement)_completionEnumRequirementProp.enumValueIndex;
-        ValueEnumType valueEnumType = (ValueEnumType)_valueEnumTypeProp.enumValueIndex;
-        CollectableEnumRequirement collectableEnumRequirement = (CollectableEnumRequirement)_collectableEnumRequirementProp.enumValueIndex;
+        CompletionRequirementType completionEnumType = (CompletionRequirementType)_completionEnumRequirementProp.enumValueIndex;
+        NumericValueType valueEnumType = (NumericValueType)_valueEnumTypeProp.enumValueIndex;
+        CollectableRequirementType collectableEnumRequirement = (CollectableRequirementType)_collectableEnumRequirementProp.enumValueIndex;
         switch (completionEnumType)
         {
-            case CompletionEnumRequirement.NoRequirement:
+            case CompletionRequirementType.NoRequirement:
             break;
-            case CompletionEnumRequirement.ValueRequirement:
+            case CompletionRequirementType.ValueRequirement:
                 EditorGUILayout.PropertyField(_valueEnumTypeProp);
                 EditorGUILayout.PropertyField(_isExactAmountProp);
                 switch (valueEnumType)
                 {
-                    case ValueEnumType.Integer:
+                    case NumericValueType.Integer:
                         EditorGUILayout.PropertyField(_currentIntegerAmountProp);
                         EditorGUILayout.PropertyField(_goalIntegerAmountProp);
                     break;
-                    case ValueEnumType.Float:
+                    case NumericValueType.Float:
                         EditorGUILayout.PropertyField(_currentFloatAmountProp);
                         EditorGUILayout.PropertyField (_goalFloatAmountProp);
                     break;
                 }
             break;
-            case CompletionEnumRequirement.CollectableRequirement:
+            case CompletionRequirementType.CollectableRequirement:
                 EditorGUILayout.PropertyField(_collectableEnumRequirementProp);
                 switch (collectableEnumRequirement)
                 {
-                    case CollectableEnumRequirement.SingleCollectable:
+                    case CollectableRequirementType.SingleCollectable:
                         EditorGUILayout.PropertyField(_collectableReferenceProp);
                     break;
-                    case CollectableEnumRequirement.AllCollectables:
+                    case CollectableRequirementType.AllCollectables:
                         EditorGUILayout.PropertyField(_collectableListReferenceProp);
                     break;
-                    case CollectableEnumRequirement.Custom:
+                    case CollectableRequirementType.Custom:
                         EditorGUILayout.PropertyField(_collectableListReferenceProp);
                         EditorGUILayout.PropertyField(_minimumGoalAmountProp);
                     break;
                 }
             break;
-            case CompletionEnumRequirement.AchievementRequirement:
+            case CompletionRequirementType.AchievementRequirement:
                 EditorGUILayout.PropertyField(_achievementListReferenceProp);
                 EditorGUILayout.PropertyField(_hasCustomGoalAmountProp);
                 if (_hasCustomGoalAmountProp.boolValue)
