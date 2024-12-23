@@ -2,11 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AchievementObject : MonoBehaviour
+public class AchievementObject : AchievementDisplayBase
 {
-    [SerializeField] private Image _icon;
     [SerializeField] private Image _locked;
-    [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private TextMeshProUGUI _descriptionText;
     [SerializeField] private RectTransform _progressBarRect;
     [SerializeField] private TextMeshProUGUI _progressText;
@@ -25,14 +23,12 @@ public class AchievementObject : MonoBehaviour
     {
         if (isHidden)
         {
-            _icon.sprite = _hiddenAchievementSprite;
-            _titleText.text = HiddenText;
+            SetIconAndTitle(_hiddenAchievementSprite, HiddenText);
             _descriptionText.text = HiddenText;
         }
         else
         {
-            _icon.sprite = icon;
-            _titleText.text = title;
+            SetIconAndTitle(icon, title);
             _descriptionText.text = description;
         }
         ProgressDisplay(displayProgression, Progression);
@@ -44,12 +40,12 @@ public class AchievementObject : MonoBehaviour
     public void UnlockAchievement()
     {
         _locked.enabled = false;
-        _icon.color = new Color32(255, 255, 255, 255);
+        SetIconColor(new Color32(255, 255, 255, 255));
     }
     public void EnableLock()
     {
         _locked.enabled = true;
-        _icon.color = new Color32(125,125,125, 255);
+        SetIconColor(new Color32(125, 125, 125, 255));
     }
     public void DisableLock()
     {

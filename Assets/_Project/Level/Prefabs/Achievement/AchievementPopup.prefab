@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 7444233282688323646}
   - component: {fileID: 7483805170991544509}
   - component: {fileID: 7444233282688323643}
-  - component: {fileID: 6362771983624499379}
-  - component: {fileID: 5795354678373286488}
   m_Layer: 5
   m_Name: AchievementPopup
   m_TagString: Untagged
@@ -115,67 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac7df3558369bd44bf75720dbf33b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tierBackground: {fileID: 7444233282688323646}
   _icon: {fileID: 7444233283003177978}
-  _titleText: {fileID: 7444233283147877131}
-  _popupAnimation: {fileID: 7483805170991544509}
---- !u!114 &6362771983624499379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7444233282688323640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9df2a74e01cbe4c94294d04c0557dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvents:
-  - _singleEvent: {fileID: 11400000, guid: 76f85149e04554842afbde61d547e323, type: 2}
-    _unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7444233282688323643}
-          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-          m_MethodName: PlayDisplayStatus
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &5795354678373286488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7444233282688323640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f870cb4d59cb52345bdb1581a8890865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseEvents:
-  - _doubleEvent: {fileID: 11400000, guid: 3242eb86ea49d584aab24ce1cfedb66d, type: 2}
-    _unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7444233282688323643}
-          m_TargetAssemblyTypeName: AchievementPopUpDisplay, Assembly-CSharp
-          m_MethodName: SetPopUpInfo
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  _title: {fileID: 7444233283147877131}
+  _popupAnimatorReference: {fileID: 0}
 --- !u!1 &7444233283003177972
 GameObject:
   m_ObjectHideFlags: 0

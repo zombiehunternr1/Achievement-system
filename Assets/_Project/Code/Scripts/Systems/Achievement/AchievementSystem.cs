@@ -151,6 +151,7 @@ public class AchievementSystem : MonoBehaviour
             }
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
             achievementObject.SetAchievementId(achievement.AchievementId);
+            achievementObject.SetRewardTier(achievement.RewardTier);
             _achievementObjects.Add(achievementObject);
             if (achievement.IsHidden)
             {
@@ -265,7 +266,7 @@ public class AchievementSystem : MonoBehaviour
     }
     private void DisplayPopUpAchievement(AchievementType achievement)
     {
-        EventPackageFactory.BuildAndInvoke(_setAchievementPopUpInfo, achievement.Icon, achievement.Title);
+        EventPackageFactory.BuildAndInvoke(_setAchievementPopUpInfo, achievement.Icon, achievement.Title, achievement.RewardTier);
         EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Displaying");
         _soundEffect = RuntimeManager.CreateInstance(achievement.SoundEffect);
         RuntimeManager.AttachInstanceToGameObject(_soundEffect, transform);

@@ -10539,8 +10539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac7df3558369bd44bf75720dbf33b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tierBackground: {fileID: 5026759234846229987}
   _icon: {fileID: 5026759235730460199}
-  _titleText: {fileID: 5026759235317325526}
+  _title: {fileID: 5026759235317325526}
   _popupAnimatorReference: {fileID: 4996261618011942240}
 --- !u!114 &5026759234846229995
 MonoBehaviour:

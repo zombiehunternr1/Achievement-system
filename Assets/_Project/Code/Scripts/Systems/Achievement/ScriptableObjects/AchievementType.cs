@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AchievementType", menuName = "Scriptable Objects/Systems/Achievements/Achievement type")]
 public class AchievementType : AchievementBase
 {
+    [SerializeField] private RewardTier _rewardTier;
     [SerializeField] private RequirementData _requirementData;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
@@ -27,6 +28,13 @@ public class AchievementType : AchievementBase
         get
         {
             return _requirementData.CompletionRequirement;
+        }
+    }
+    public RewardTier RewardTier
+    {
+        get
+        {
+            return _rewardTier;
         }
     }
     public bool IsPreviousAchievementUnlocked

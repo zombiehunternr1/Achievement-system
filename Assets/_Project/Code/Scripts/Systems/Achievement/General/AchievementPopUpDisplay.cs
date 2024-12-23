@@ -1,18 +1,15 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class AchievementPopUpDisplay : MonoBehaviour
+public class AchievementPopUpDisplay : AchievementDisplayBase
 {
-    [SerializeField] private Image _icon;
-    [SerializeField] private TextMeshProUGUI _titleText;
     [SerializeField] private Animator _popupAnimatorReference;
     public void SetPopUpInfo(EventData eventData)
     {
         Sprite iconInfo = EventPackageExtractor.ExtractEventData<Sprite>(eventData);
         string titleInfo = EventPackageExtractor.ExtractEventData<string>(eventData);
-        _icon.sprite = iconInfo;
-        _titleText.text = titleInfo;
+        RewardTier rewardTier = EventPackageExtractor.ExtractEventData<RewardTier>(eventData);
+        SetIconAndTitle(iconInfo, titleInfo);
+        SetRewardTier(rewardTier);
     }
     public void PlayDisplayStatus(EventData eventData)
     {

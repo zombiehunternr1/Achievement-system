@@ -351,7 +351,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -752,9 +752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e3072869af2a84aae4d7e073fb4d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tierBackground: {fileID: 6327427209851351371}
   _icon: {fileID: 6327427208152939151}
+  _title: {fileID: 6327427208314415742}
   _locked: {fileID: 8544135770306773092}
-  _titleText: {fileID: 6327427208314415742}
   _descriptionText: {fileID: 6327427209884805135}
   _progressBarRect: {fileID: 216452195271163709}
   _progressText: {fileID: 2532356550875762227}
@@ -874,7 +875,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1

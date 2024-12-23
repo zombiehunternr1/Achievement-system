@@ -24,6 +24,7 @@ MonoBehaviour:
       Data4: 354117730
     Path: event:/Normal
   _isUnlocked: 0
+  _rewardTier: 1
   _requirementData:
     _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}

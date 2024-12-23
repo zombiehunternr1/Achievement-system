@@ -11,6 +11,7 @@ public class AchievementTypeEditor : Editor
         _iconProp,
         _isUnlockedProp,
         _soundEffectProp,
+        _rewardTierProp,
         _requiresPreviousAchievementProp,
         _previousAchievementReferenceProp,
         _achievementListReferenceProp,
@@ -39,6 +40,7 @@ public class AchievementTypeEditor : Editor
         _iconProp = serializedObject.FindProperty("_icon");
         _isUnlockedProp = serializedObject.FindProperty("_isUnlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
+        _rewardTierProp = serializedObject.FindProperty("_rewardTier");
         _requiresPreviousAchievementProp = serializedObject.FindProperty("_requirementData._requiresPreviousAchievementToUnlock");
         _previousAchievementReferenceProp = serializedObject.FindProperty("_requirementData._previousAchievementReference");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
@@ -77,6 +79,7 @@ public class AchievementTypeEditor : Editor
         EditorGUILayout.PropertyField(_titleProp);
         EditorGUILayout.PropertyField(_descriptionProp);
         EditorGUILayout.PropertyField(_iconProp);
+        EditorGUILayout.PropertyField(_rewardTierProp);
         EditorGUILayout.PropertyField(_soundEffectProp);
         EditorGUILayout.PropertyField(_isUnlockedProp);
         EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
