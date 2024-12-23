@@ -5,8 +5,8 @@ public abstract class CollectableBase : ScriptableObject
 {
     [SerializeField] private ProcessingType _collectionType;
     [SerializeField] private CollectionItemAmount _itemAmountType;
-    [SerializeField] private CollectableStatus _singleCollectableStatus;
-    [SerializeField] private List<CollectableStatus> _multiCollectablesStatus;
+    [SerializeField] private CollectableState _singleCollectableStatus;
+    [SerializeField] private List<CollectableState> _multiCollectablesStatus;
     public ProcessingType CollectionType
     {
         get

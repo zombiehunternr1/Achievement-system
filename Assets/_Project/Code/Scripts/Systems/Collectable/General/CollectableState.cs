@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class CollectableStatus
+public class CollectableState
 {
     [SerializeField] private string _collectableId;
     [SerializeField] private bool _isCollected;
