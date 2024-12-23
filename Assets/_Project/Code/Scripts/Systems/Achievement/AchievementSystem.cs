@@ -151,7 +151,6 @@ public class AchievementSystem : MonoBehaviour
             }
             AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
             achievementObject.SetAchievementId(achievement.AchievementId);
-            achievementObject.SetRewardTier(achievement.RewardTier);
             _achievementObjects.Add(achievementObject);
             if (achievement.IsHidden)
             {
@@ -224,7 +223,7 @@ public class AchievementSystem : MonoBehaviour
         {
             achievementObject.EnableLock();
         }
-        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.ProgressionDisplay, isHidden);
+        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.ProgressionDisplay, achievement.RewardTier, isHidden);
     }
     private void CheckAchievementTypes()
     {

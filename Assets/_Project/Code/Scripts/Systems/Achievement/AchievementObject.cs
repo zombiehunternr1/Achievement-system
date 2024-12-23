@@ -19,7 +19,7 @@ public class AchievementObject : AchievementDisplayBase
             return _achievementId;
         }
     }
-    public void SetAchievementData(Sprite icon, string title, string description, bool displayProgression, string Progression, bool isHidden)
+    public void SetAchievementData(Sprite icon, string title, string description, bool displayProgression, string Progression, RewardTier rewardTier, bool isHidden)
     {
         if (isHidden)
         {
@@ -28,6 +28,7 @@ public class AchievementObject : AchievementDisplayBase
         }
         else
         {
+            SetRewardTier(rewardTier);
             SetIconAndTitle(icon, title);
             _descriptionText.text = description;
         }
