@@ -1,7 +1,7 @@
 using FMODUnity;
 using UnityEngine;
 
-public abstract class AchievementTypeSO : ScriptableObject
+public abstract class AchievementBase : ScriptableObject
 {
     [UniqueIdentifier]
     [SerializeField] private string _achievementId;

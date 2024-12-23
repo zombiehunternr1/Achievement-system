@@ -1,14 +1,14 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Achievement", menuName = "Scriptable Objects/Systems/Achievements/Achievement")]
-public class AchievementSO : AchievementTypeSO
+[CreateAssetMenu(fileName = "AchievementType", menuName = "Scriptable Objects/Systems/Achievements/Achievement type")]
+public class AchievementType : AchievementBase
 {
     [SerializeField] private RequirementData _requirementData;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
     [SerializeField] private CollectableData _collectableData;
     [SerializeField] private ValueData _valueData;
-    public AchievementSO PreviousAchievement
+    public AchievementType PreviousAchievement
     {
         get
         {

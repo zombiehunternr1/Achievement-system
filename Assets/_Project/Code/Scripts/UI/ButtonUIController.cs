@@ -8,8 +8,8 @@ public class ButtonUIController : MonoBehaviour
     [SerializeField] private Image _holdButton1ImageReference;
     [SerializeField] private Image _holdButton2ImageReference;
     [Header("Achievement references")]
-    [SerializeField] private AchievementSO _quitAchievementReference;
-    [SerializeField] private AchievementSO _hiddenAchievementReference;
+    [SerializeField] private AchievementType _quitAchievementReference;
+    [SerializeField] private AchievementType _hiddenAchievementReference;
     [Header("Event references")]
     [SerializeField] private EventPackage _updateAchievements;
     private void OnEnable()

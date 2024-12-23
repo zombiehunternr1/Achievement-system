@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 551cb7dd4a3aaca48837c98f289fed10, type: 3}
   m_Name: OverAchiever
   m_EditorClassIdentifier: 
   _achievementId: 090a39aec01363c4695f8961fa7f0f98
   _title: All achievements
-  _description: Unlocked all achievements
+  _description: Unlock all achievements
   _icon: {fileID: 21300000, guid: cb94b7e2b29450b4381767d4a0dc8b51, type: 3}
   _soundEffect:
     Guid:
@@ -37,7 +37,7 @@ MonoBehaviour:
     _hasCustomGoalAmount: 0
     _customGoalAmount: 0
   _collectableData:
-    _collectableEnumRequirement: 0
+    _collectableRequirement: 0
     _collectableReference: {fileID: 0}
     _collectableListReference: {fileID: 0}
     _minimumGoalAmount: 0

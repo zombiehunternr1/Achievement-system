@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85995b76e2bd59140824d0a7d3d5d9b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 551cb7dd4a3aaca48837c98f289fed10, type: 3}
   m_Name: HiddenBabyYoda
   m_EditorClassIdentifier: 
-  _achievementId: 14471e26320bb274b9700356d728522f
+  _achievementId: adf9166ff7d757b4fb062566820e58c1
   _title: You were looking for me?
   _description: You found the hidden baby Yoda!
   _icon: {fileID: 21300000, guid: 7c7d3b986298ba5478f02395c484953c, type: 3}
@@ -27,7 +27,7 @@ MonoBehaviour:
   _requirementData:
     _requiresPreviousAchievementToUnlock: 0
     _previousAchievementReference: {fileID: 0}
-    _completionEnumRequirement: 0
+    _completionRequirement: 0
   _progressionData:
     _isHidden: 1
     _hasProgressionDisplay: 0
@@ -35,14 +35,14 @@ MonoBehaviour:
   _achievementData:
     _achievementListReference: {fileID: 0}
     _hasCustomGoalAmount: 0
-    _goalAmount: 0
+    _customGoalAmount: 0
   _collectableData:
-    _collectableEnumRequirement: 0
+    _collectableRequirement: 0
     _collectableReference: {fileID: 0}
     _collectableListReference: {fileID: 0}
     _minimumGoalAmount: 0
   _valueData:
-    _valueEnumType: 0
+    _valueType: 0
     _isExactAmount: 0
     _currentIntegerAmount: 0
     _goalIntegerAmount: 0

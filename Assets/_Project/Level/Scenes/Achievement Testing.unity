@@ -5344,7 +5344,7 @@ MonoBehaviour:
   _floatInputText: {fileID: 672545898}
   _integerInputText: {fileID: 1850466131}
   _floatAchievementReference: {fileID: 11400000, guid: b8be9a8989033e34a9183a6535f0d93f, type: 2}
-  _integerAchievementReference: {fileID: 11400000, guid: ab07899b780dd09428e83cd085489964, type: 2}
+  _integerAchievementReference: {fileID: 11400000, guid: a8813cd70fc041b46843e55c15a1e523, type: 2}
   _updateAchievements: {fileID: 11400000, guid: ab4c4be09fe2b7145a7fbcd055ca56ef, type: 2}
 --- !u!114 &1003648426
 MonoBehaviour:
@@ -5525,7 +5525,7 @@ MonoBehaviour:
   _holdButton1ImageReference: {fileID: 1665828632}
   _holdButton2ImageReference: {fileID: 239355175}
   _quitAchievementReference: {fileID: 11400000, guid: e016500edff2e5a47b17aca9a5410805, type: 2}
-  _hiddenAchievementReference: {fileID: 11400000, guid: 14471e26320bb274b9700356d728522f, type: 2}
+  _hiddenAchievementReference: {fileID: 11400000, guid: adf9166ff7d757b4fb062566820e58c1, type: 2}
   _updateAchievements: {fileID: 11400000, guid: ab4c4be09fe2b7145a7fbcd055ca56ef, type: 2}
 --- !u!114 &1078425339
 MonoBehaviour:

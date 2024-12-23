@@ -4,14 +4,14 @@ using System;
 [Serializable]
 public class AchievementData
 {
-    [SerializeField] private AchievementSOList _achievementListReference;
+    [SerializeField] private AchievementTypeList _achievementListReference;
     [SerializeField] private bool _hasCustomGoalAmount;
     [SerializeField] private int _customGoalAmount;
     public (int currentAmount, int totalAmount) GetProgressionDisplay()
     {
         int currentAmount = 0;
         int goalAmount = GetGoalAmount();
-        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
+        foreach (AchievementType achievement in _achievementListReference.AllAchievements)
         {
             if (IsEligibleForProgress(achievement) && achievement.IsUnlocked)
             {
@@ -28,7 +28,7 @@ public class AchievementData
     {
         int currentAmount = 0;
         int goalAmount = GetGoalAmount();
-        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
+        foreach (AchievementType achievement in _achievementListReference.AllAchievements)
         {
             if (IsEligibleForProgress(achievement) && achievement.IsUnlocked)
             {
@@ -52,7 +52,7 @@ public class AchievementData
     private int GetActualAchievementCount()
     {
         int amount = 0;
-        foreach (AchievementSO achievement in _achievementListReference.AchievementList)
+        foreach (AchievementType achievement in _achievementListReference.AllAchievements)
         {
             if (IsEligibleForProgress(achievement))
             {
@@ -61,7 +61,7 @@ public class AchievementData
         }
         return amount;
     }
-    private bool IsEligibleForProgress(AchievementSO achievement)
+    private bool IsEligibleForProgress(AchievementType achievement)
     {
         return achievement != null && achievement.CompletionEnumRequirement != CompletionRequirementType.AchievementRequirement;
     }

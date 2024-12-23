@@ -5,7 +5,7 @@ using System;
 public class RequirementData
 {
     [SerializeField] private bool _requiresPreviousAchievementToUnlock;
-    [SerializeField] private AchievementSO _previousAchievementReference;
+    [SerializeField] private AchievementType _previousAchievementReference;
     [SerializeField] private CompletionRequirementType _completionRequirement;
     public bool RequiresPreviousAchievementToUnlock
     {
@@ -14,7 +14,7 @@ public class RequirementData
             return _requiresPreviousAchievementToUnlock;
         }
     }
-    public AchievementSO PreviousAchievementReference
+    public AchievementType PreviousAchievementReference
     {
         get
         {

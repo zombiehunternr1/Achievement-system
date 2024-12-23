@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AchievementSO)), CanEditMultipleObjects]
-public class AchievementSOEditor : Editor
+[CustomEditor(typeof(AchievementType)), CanEditMultipleObjects]
+public class AchievementTypeEditor : Editor
 {
     private SerializedProperty
         _achievementIdProp,

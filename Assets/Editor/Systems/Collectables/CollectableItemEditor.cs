@@ -3,7 +3,7 @@ using UnityEditorInternal;
 using UnityEngine;
 
 [CustomEditor(typeof(CollectableItem))]
-public class CollectableSOEditor : Editor
+public class CollectableItemEditor : Editor
 {
     private SerializedProperty
        _collectableIdProp,

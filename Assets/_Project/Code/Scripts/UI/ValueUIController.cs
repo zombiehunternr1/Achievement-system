@@ -7,8 +7,8 @@ public class ValueUIController : MonoBehaviour
     [SerializeField] private TMP_InputField _floatInputText;
     [SerializeField] private TMP_InputField _integerInputText;
     [Header("Achievement references")]
-    [SerializeField] private AchievementSO _floatAchievementReference;
-    [SerializeField] private AchievementSO _integerAchievementReference;
+    [SerializeField] private AchievementType _floatAchievementReference;
+    [SerializeField] private AchievementType _integerAchievementReference;
     [Header("Event references")]
     [SerializeField] private EventPackage _updateAchievements;
     public void SubmitFloatValue()
