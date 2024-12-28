@@ -4,20 +4,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    private readonly HashSet<EventPackageHandler> _listeners = new HashSet<EventPackageHandler>();
+    private readonly HashSet<EventPackageHandler> _eventHandlers = new HashSet<EventPackageHandler>();
     public virtual void Invoke(EventData eventDataPackage)
     {
-        foreach (EventPackageHandler eventPackageBase in _listeners)
+        foreach (EventPackageHandler eventPackageHandler in _eventHandlers)
         {
-            eventPackageBase.Invoke(eventDataPackage);
+            eventPackageHandler.Invoke(eventDataPackage);
         }
     }
-    internal void RegisterListener(EventPackageHandler listener)
+    internal void RegisterEventHandler(EventPackageHandler eventPackageHandler)
     {
-        _listeners.Add(listener);
+        _eventHandlers.Add(eventPackageHandler);
     }
-    internal void UnregisterListener(EventPackageHandler listener)
+    internal void UnregisterEventHandler(EventPackageHandler eventPackageHandler)
     {
-        _listeners.Remove(listener);
+        _eventHandlers.Remove(eventPackageHandler);
     }
 }

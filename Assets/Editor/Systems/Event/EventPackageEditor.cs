@@ -82,54 +82,54 @@ public class EventPackageEditor : Editor
             {
                 GUILayout.Label("- " + objName);
             }
-            ShowAssignedListeners(eventPackage);
+            ShowAssignedHandlers(eventPackage);
         }
     }
-    private void ShowAssignedListeners(EventPackage eventPackage)
+    private void ShowAssignedHandlers(EventPackage eventPackage)
     {
         if (!Application.isPlaying)
         {
-            GUILayout.Label("<color=#ffe900><b>Listeners are not available outside of play mode.</b></color>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
+            GUILayout.Label("<color=#ffe900><b>Handlers are not available outside of play mode.</b></color>", new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
             return;
         }
-        GUILayout.Label("Listeners:", EditorStyles.boldLabel);
-        FieldInfo listenersField = typeof(EventPackage).GetField("_listeners", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (listenersField == null)
+        GUILayout.Label("Handlers:", EditorStyles.boldLabel);
+        FieldInfo handlersField = typeof(EventPackage).GetField("_eventHandlers", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (handlersField == null)
         {
-            GUILayout.Label("No listeners field found!");
+            GUILayout.Label("No handlers field found!");
             return;
         }
-        HashSet<EventPackageHandler> listeners = (HashSet<EventPackageHandler>)listenersField.GetValue(eventPackage);
-        if (listeners == null || listeners.Count == 0)
+        HashSet<EventPackageHandler> handlers = (HashSet<EventPackageHandler>)handlersField.GetValue(eventPackage);
+        if (handlers == null || handlers.Count == 0)
         {
-            GUILayout.Label("No listeners registered!");
+            GUILayout.Label("No Handlers registered!");
             return;
         }
-        foreach (EventPackageHandler listener in listeners)
+        foreach (EventPackageHandler handler in handlers)
         {
-            string listenersDescription = GetListenersDescription(listener);
-            GUILayout.Label(listenersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
+            string handlersDescription = CreateHandlerDescription(handler);
+            GUILayout.Label(handlersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
         }
     }
-    private string GetListenersDescription(EventPackageHandler listener)
+    private string CreateHandlerDescription(EventPackageHandler eventPackageHandler)
     {
-        if (listener == null)
+        if (eventPackageHandler == null)
         {
-            return "Null Listener!";
+            return "Null handler!";
         }
         FieldInfo unityEventField = typeof(EventPackageHandler).GetField("_unityEvent", BindingFlags.NonPublic | BindingFlags.Instance);
         if (unityEventField == null)
         {
             return "No Unity Event field found!";
         }
-        UnityEvent<EventData> unityEvent = (UnityEvent<EventData>)unityEventField.GetValue(listener);
+        UnityEvent<EventData> unityEvent = (UnityEvent<EventData>)unityEventField.GetValue(eventPackageHandler);
         if (unityEvent == null)
         {
             return "UnityEvent is null!";
         }
         if (unityEvent.GetPersistentEventCount() == 0)
         {
-            return "No listeners attached!";
+            return "No handlers attached!";
         }
         string description = string.Empty;
         Dictionary<string, List<string>> groupedMethods = new Dictionary<string, List<string>>();

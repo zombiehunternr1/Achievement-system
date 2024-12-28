@@ -9,11 +9,11 @@ public class EventPackageHandler
     [SerializeField] private UnityEvent<EventData> _unityEvent;
     public void Registering()
     {
-        _eventPackage.RegisterListener(this);
+        _eventPackage.RegisterEventHandler(this);
     }
     public void UnRegistering()
     {
-        _eventPackage.UnregisterListener(this);
+        _eventPackage.UnregisterEventHandler(this);
     }
     internal void Invoke(EventData eventDataPackage)
     {
