@@ -99,25 +99,25 @@ public class EventPackageEditor : Editor
             GUILayout.Label("No listeners field found!");
             return;
         }
-        HashSet<EventPackageBase> listeners = (HashSet<EventPackageBase>)listenersField.GetValue(eventPackage);
+        HashSet<EventPackageHandler> listeners = (HashSet<EventPackageHandler>)listenersField.GetValue(eventPackage);
         if (listeners == null || listeners.Count == 0)
         {
             GUILayout.Label("No listeners registered!");
             return;
         }
-        foreach (EventPackageBase listener in listeners)
+        foreach (EventPackageHandler listener in listeners)
         {
             string listenersDescription = GetListenersDescription(listener);
             GUILayout.Label(listenersDescription, new GUIStyle(EditorStyles.wordWrappedLabel) { richText = true });
         }
     }
-    private string GetListenersDescription(EventPackageBase listener)
+    private string GetListenersDescription(EventPackageHandler listener)
     {
         if (listener == null)
         {
             return "Null Listener!";
         }
-        FieldInfo unityEventField = typeof(EventPackageBase).GetField("_unityEvent", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo unityEventField = typeof(EventPackageHandler).GetField("_unityEvent", BindingFlags.NonPublic | BindingFlags.Instance);
         if (unityEventField == null)
         {
             return "No Unity Event field found!";

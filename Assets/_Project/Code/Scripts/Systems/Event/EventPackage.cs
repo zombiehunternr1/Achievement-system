@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PackageEvent", menuName = "Scriptable Objects/Systems/Event/Package event")]
+[CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    private readonly HashSet<EventPackageBase> _listeners = new HashSet<EventPackageBase>();
+    private readonly HashSet<EventPackageHandler> _listeners = new HashSet<EventPackageHandler>();
     public virtual void Invoke(EventData eventDataPackage)
     {
-        foreach (EventPackageBase eventPackageBase in _listeners)
+        foreach (EventPackageHandler eventPackageBase in _listeners)
         {
             eventPackageBase.Invoke(eventDataPackage);
         }
     }
-    internal void RegisterListener(EventPackageBase listener)
+    internal void RegisterListener(EventPackageHandler listener)
     {
         _listeners.Add(listener);
     }
-    internal void UnregisterListener(EventPackageBase listener)
+    internal void UnregisterListener(EventPackageHandler listener)
     {
         _listeners.Remove(listener);
     }

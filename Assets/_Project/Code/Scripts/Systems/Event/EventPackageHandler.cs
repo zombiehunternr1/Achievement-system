@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System;
 
 [Serializable]
-public class EventPackageBase
+public class EventPackageHandler
 {
     [SerializeField] private EventPackage _eventPackage;
     [SerializeField] private UnityEvent<EventData> _unityEvent;

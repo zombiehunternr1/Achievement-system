@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventPackageListeners : MonoBehaviour
+public class EventPackageRegistry : MonoBehaviour
 {
-    [SerializeField] private List<EventPackageBase> _baseEvents;
+    [SerializeField] private List<EventPackageHandler> _eventPackageHandlers;
     private void OnEnable()
     {
         UpdateRegisteryList(true);
@@ -14,15 +14,15 @@ public class EventPackageListeners : MonoBehaviour
     }
     private void UpdateRegisteryList(bool isRegistering)
     {
-        foreach (EventPackageBase eventDataPackage in _baseEvents)
+        foreach (EventPackageHandler eventPackageHandler in _eventPackageHandlers)
         {
             if (isRegistering)
             {
-                eventDataPackage.Registering();
+                eventPackageHandler.Registering();
             }
             else
             {
-                eventDataPackage.UnRegistering();
+                eventPackageHandler.UnRegistering();
             }
         }
     }
