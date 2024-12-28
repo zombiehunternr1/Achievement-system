@@ -40,7 +40,7 @@ public class AchievementObject : AchievementDisplayBase
     }
     public void UnlockAchievement()
     {
-        _locked.enabled = false;
+        DisableLock();
         SetIconColor(new Color32(255, 255, 255, 255));
     }
     public void EnableLock()

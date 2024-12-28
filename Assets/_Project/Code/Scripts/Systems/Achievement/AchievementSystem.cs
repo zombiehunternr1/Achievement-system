@@ -223,7 +223,15 @@ public class AchievementSystem : MonoBehaviour
         {
             achievementObject.EnableLock();
         }
-        achievementObject.SetAchievementData(achievement.Icon, achievement.Title, achievement.Description, achievement.HasProgressionDisplay, achievement.ProgressionDisplay, achievement.RewardTier, isHidden);
+        achievementObject.SetAchievementData(
+            achievement.Icon,
+            achievement.Title,
+            achievement.Description,
+            achievement.HasProgressionDisplay,
+            achievement.ProgressionDisplay, 
+            achievement.RewardTier,
+            isHidden
+        );
     }
     private void CheckAchievementTypes()
     {
