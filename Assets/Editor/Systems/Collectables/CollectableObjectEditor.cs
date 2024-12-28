@@ -73,30 +73,30 @@ public class CollectableObjectEditor : Editor
         else
         {
             CollectableItem currentReference = (CollectableItem)_collectableProp.objectReferenceValue;
-            SerializedObject collectableSOSerialized = new SerializedObject(currentReference);
+            SerializedObject collectableItemSerialized = new SerializedObject(currentReference);
             if (string.IsNullOrEmpty(_currentObjectId))
             {
                 CollectableObject collectableObject = serializedObject.targetObject as CollectableObject;
                 collectableObject.ValidateObjectId();
             }
-            SerializedProperty collectableItemAmountProp = collectableSOSerialized.FindProperty("_itemAmountType");
+            SerializedProperty collectableItemAmountProp = collectableItemSerialized.FindProperty("_itemAmountType");
             CollectionItemAmount collectionEnumType = (CollectionItemAmount)collectableItemAmountProp.enumValueIndex;
             if (collectionEnumType == CollectionItemAmount.SingleItem)
             {
-                HandleSingleItem(currentReference, collectableSOSerialized);
+                HandleSingleItem(currentReference, collectableItemSerialized);
             }
             else
             {
-                HandleMultipleItems(currentReference, collectableSOSerialized, _currentObjectId);
+                HandleMultipleItems(currentReference, collectableItemSerialized, _currentObjectId);
             }
         }
         serializedObject.ApplyModifiedProperties();
     }
-    private void HandleSingleItem(CollectableItem currentReference, SerializedObject collectableSOSerialized)
+    private void HandleSingleItem(CollectableItem currentReference, SerializedObject collectableItemSerialized)
     {
         if (string.IsNullOrEmpty(currentReference.CollectableId))
         {
-            SetCollectableIDInScriptableObject(currentReference, collectableSOSerialized, _currentObjectId);
+            SetCollectableIDInScriptableObject(currentReference, collectableItemSerialized, _currentObjectId);
         }
         else
         {
@@ -105,7 +105,7 @@ public class CollectableObjectEditor : Editor
                 if (GUILayout.Button("Clear Reference"))
                 {
                     _collectableProp.objectReferenceValue = null;
-                    ClearCollectableIDInScriptableObject(currentReference, collectableSOSerialized);
+                    ClearCollectableIDInScriptableObject(currentReference, collectableItemSerialized);
                 }
             }
             if (ShouldReplaceReference(currentReference, _currentObjectId))
@@ -113,14 +113,14 @@ public class CollectableObjectEditor : Editor
                 if (GUILayout.Button("Replace Reference"))
                 {
                     _collectableProp.objectReferenceValue = currentReference;
-                    SetCollectableIDInScriptableObject(currentReference, collectableSOSerialized, _currentObjectId);
+                    SetCollectableIDInScriptableObject(currentReference, collectableItemSerialized, _currentObjectId);
                 }
             }
         }
     }
-    private void HandleMultipleItems(CollectableItem currentReference, SerializedObject collectableSerialized, string currentId)
+    private void HandleMultipleItems(CollectableItem currentReference, SerializedObject collectableItemSerialized, string currentId)
     {
-        SerializedProperty multiCollectablesStatusProp = collectableSerialized.FindProperty("_multiCollectablesStatus");
+        SerializedProperty multiCollectablesStatusProp = collectableItemSerialized.FindProperty("_multiCollectablesStatus");
         int index = GetIdFromList(multiCollectablesStatusProp, currentId);
         if (index == -1)
         {
@@ -142,7 +142,7 @@ public class CollectableObjectEditor : Editor
                 multiCollectablesStatusProp.DeleteArrayElementAtIndex(index);
             }
         }
-        collectableSerialized.ApplyModifiedProperties();
+        collectableItemSerialized.ApplyModifiedProperties();
     }
     private void SetCollectableIDInScriptableObject(CollectableItem collectable, SerializedObject collectableSerialized, string currentId)
     {
