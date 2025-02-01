@@ -9,12 +9,12 @@ public class EventPackageFactory
             Debug.LogError("EventPackage cannot be null!");
             return;
         }
-        if (string.IsNullOrEmpty(eventPackage.name))
+        if (string.IsNullOrEmpty(eventPackage.PackageKey))
         {
             Debug.LogError("Package key cannot be null or empty!");
             return;
         }
-        EventData package = new EventData(eventPackage.name);
+        EventData package = new EventData(eventPackage.PackageKey);
         if (data != null && data.Length > 0)
         {
             package.AddData(data);
