@@ -28,6 +28,22 @@ public class EventData
         }
         return default;
     }
+    public void Clear()
+    {
+        foreach (string key in _data.Keys)
+        {
+            foreach (Queue<object> queue in _data[key].Values)
+            {
+                queue.Clear();
+            }
+        }
+        _data.Clear();
+    }
+    public void Reset(string packageKey)
+    {
+        Clear();
+        ValidateKey(packageKey);
+    }
     public string GetKey()
     {
         return _packageKey;
@@ -48,10 +64,15 @@ public class EventData
     {
         if (values == null || values.Length == 0)
         {
+            if (!_data.ContainsKey(key))
+            {
+                _data[key] = new Dictionary<Type, Queue<object>>();
+            }
             if (!_data[key].ContainsKey(typeof(object)))
             {
                 _data[key][typeof(object)] = new Queue<object>();
             }
+            _data[key][typeof(object)].Enqueue(null);
             return;
         }
         foreach (object value in values)

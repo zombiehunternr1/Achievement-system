@@ -13,7 +13,7 @@ public class EventPackageExtractor
         try
         {
             string key = eventData.GetKey();
-            if (!eventData.HasKey(key) || eventData.GetDataForKey(key).Count <= 1)
+            if (!eventData.HasKey(key) || eventData.GetDataForKey(key).Count == 0)
             {
                 return null;
             }
@@ -27,7 +27,6 @@ public class EventPackageExtractor
                 {
                     return queue.Peek();
                 }
-                return entry.Value;
             }
             return null;
         }

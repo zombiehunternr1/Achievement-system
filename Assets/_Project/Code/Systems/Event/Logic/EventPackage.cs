@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    private string _packageKey = System.Guid.NewGuid().ToString();
+    [SerializeField] private string _packageKey = System.Guid.NewGuid().ToString();
     public string PackageKey
     {
         get
@@ -18,6 +18,17 @@ public class EventPackage : ScriptableObject
         foreach (EventPackageHandler eventPackageHandler in _eventHandlers)
         {
             eventPackageHandler.Invoke(eventDataPackage);
+        }
+    }
+    public virtual void InvokeBatch(List<EventData> eventDataPackages)
+    {
+        for (int i = 0; i < eventDataPackages.Count; i++)
+        {
+            EventData eventData = eventDataPackages[i];
+            foreach (EventPackageHandler eventPackageHandler in _eventHandlers)
+            {
+                eventPackageHandler.Invoke(eventData);
+            }
         }
     }
     internal void RegisterEventHandler(EventPackageHandler eventPackageHandler)

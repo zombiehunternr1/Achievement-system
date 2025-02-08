@@ -7,7 +7,7 @@ public class EventPackageHandler
 {
     [SerializeField] private EventPackage _eventPackage;
     [SerializeField] private UnityEvent<EventData> _unityEvent;
-    public void Registering()
+    public void Register()
     {
         if (_eventPackage == null)
         {
@@ -16,7 +16,7 @@ public class EventPackageHandler
         }
         _eventPackage.RegisterEventHandler(this);
     }
-    public void UnRegistering()
+    public void Unregister()
     {
         if (_eventPackage != null)
         {
