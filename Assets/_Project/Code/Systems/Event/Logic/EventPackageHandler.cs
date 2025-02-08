@@ -9,11 +9,19 @@ public class EventPackageHandler
     [SerializeField] private UnityEvent<EventData> _unityEvent;
     public void Registering()
     {
+        if (_eventPackage == null)
+        {
+            Debug.LogError("EventPackage reference is missing!");
+            return;
+        }
         _eventPackage.RegisterEventHandler(this);
     }
     public void UnRegistering()
     {
-        _eventPackage.UnregisterEventHandler(this);
+        if (_eventPackage != null)
+        {
+            _eventPackage.UnregisterEventHandler(this);
+        }
     }
     internal void Invoke(EventData eventDataPackage)
     {

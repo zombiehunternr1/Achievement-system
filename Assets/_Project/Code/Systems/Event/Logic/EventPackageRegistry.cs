@@ -16,6 +16,10 @@ public class EventPackageRegistry : MonoBehaviour
     {
         foreach (EventPackageHandler eventPackageHandler in _eventPackageHandlers)
         {
+            if (eventPackageHandler == null)
+            {
+                continue;
+            }
             if (isRegistering)
             {
                 eventPackageHandler.Registering();

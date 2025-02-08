@@ -17,15 +17,15 @@ public class EventPackageExtractor
             {
                 return null;
             }
-            foreach (KeyValuePair<Type, object> entry in eventData.GetDataForKey(key))
+            foreach (KeyValuePair<Type, Queue<object>> entry in eventData.GetDataForKey(key))
             {
                 if (entry.Key == typeof(string))
                 {
                     continue;
                 }
-                if (entry.Value is List<object> list && list.Count > 0)
+                if (entry.Value is Queue<object> queue && queue.Count > 0)
                 {
-                    return list[0];
+                    return queue.Peek();
                 }
                 return entry.Value;
             }
