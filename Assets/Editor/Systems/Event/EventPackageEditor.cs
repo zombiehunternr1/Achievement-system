@@ -16,7 +16,7 @@ public class EventPackageEditor : Editor
     private void ShowAssignedGameObjects()
     {
         EventPackage eventPackage = (EventPackage)target;
-        EditorGUILayout.LabelField("Package Key", eventPackage.PackageKey);
+        EditorGUILayout.LabelField("Package Key", eventPackage.PackageKey.ToString());
         List<GameObject> allGameObjects = GetAllGameObjectsInScene();
         List<string> assignedGameObjects = GetAssignedGameObjects(allGameObjects, eventPackage);
         DisplayAssignedGameObjects(assignedGameObjects, eventPackage);

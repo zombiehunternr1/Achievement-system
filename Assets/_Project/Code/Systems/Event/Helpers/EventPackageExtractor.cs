@@ -6,13 +6,13 @@ public class EventPackageExtractor
 {
     public static bool ContainsData(EventData eventData)
     {
-        return eventData != null && eventData.GetKey().Length > 1;
+        return eventData != null && eventData.GetKey() > 0;
     }
     public static object ExtractAdditionalData(EventData eventData)
     {
         try
         {
-            string key = eventData.GetKey();
+            ulong key = eventData.GetKey();
             if (!eventData.HasKey(key) || eventData.GetDataForKey(key).Count == 0)
             {
                 return null;

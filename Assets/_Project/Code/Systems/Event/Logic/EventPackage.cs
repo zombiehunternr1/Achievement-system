@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    [SerializeField] private string _packageKey = System.Guid.NewGuid().ToString();
-    public string PackageKey
+    private ulong _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
+    public ulong PackageKey
     {
         get
         {

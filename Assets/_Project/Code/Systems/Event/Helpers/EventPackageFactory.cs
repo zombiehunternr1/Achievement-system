@@ -9,7 +9,7 @@ public class EventPackageFactory
             Debug.LogError("EventPackage cannot be null!");
             return;
         }
-        if (string.IsNullOrEmpty(eventPackage.PackageKey))
+        if (eventPackage.PackageKey == 0)
         {
             Debug.LogError("Package key cannot be null or empty!");
             return;

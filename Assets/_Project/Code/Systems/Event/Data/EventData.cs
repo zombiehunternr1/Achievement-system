@@ -2,25 +2,25 @@ using System;
 using System.Collections.Generic;
 public class EventData
 {
-    private readonly Dictionary<string, Dictionary<Type, Queue<object>>> _data = new Dictionary<string, Dictionary<Type, Queue<object>>>();
-    private string _packageKey;
-    public EventData (string packageKey)
+    private readonly Dictionary<ulong, Dictionary<Type, Queue<object>>> _data = new Dictionary<ulong, Dictionary<Type, Queue<object>>>();
+    private ulong _packageKey;
+    public EventData (ulong packageKey)
     {
         ValidateKey(packageKey);
     }
-    public Dictionary<Type, Queue<object>> GetDataForKey(string key)
+    public Dictionary<Type, Queue<object>> GetDataForKey(ulong key)
     {
         if (_data.TryGetValue(key, out Dictionary<Type, Queue<object>> typeData))
         {
             return typeData;
         }
-        return new Dictionary<Type, Queue<object>>();
+        return null;
     }
     public void AddData(params object[] values)
     {
         StoreDataToDictionary(_packageKey, values);
     }
-    public T GetData<T>(string key)
+    public T GetData<T>(ulong key)
     {
         if (_data.TryGetValue(key, out Dictionary<Type, Queue<object>> typeDict) && typeDict.TryGetValue(typeof(T), out Queue<object> queue) && queue.Count > 0)
         {
@@ -30,29 +30,22 @@ public class EventData
     }
     public void Clear()
     {
-        foreach (string key in _data.Keys)
-        {
-            foreach (Queue<object> queue in _data[key].Values)
-            {
-                queue.Clear();
-            }
-        }
         _data.Clear();
     }
-    public void Reset(string packageKey)
+    public void Reset(ulong packageKey)
     {
         Clear();
         ValidateKey(packageKey);
     }
-    public string GetKey()
+    public ulong GetKey()
     {
         return _packageKey;
     }
-    public bool HasKey(string key)
+    public bool HasKey(ulong key)
     {
         return _data.ContainsKey(key);
     }
-    private void ValidateKey(string key)
+    private void ValidateKey(ulong key)
     {
         _packageKey = key;
         if (!_data.ContainsKey(key))
@@ -60,19 +53,21 @@ public class EventData
             _data[key] = new Dictionary<Type, Queue<object>>();
         }
     }
-    private void StoreDataToDictionary(string key, object[] values)
+    private void StoreDataToDictionary(ulong key, object[] values)
     {
+        if (!_data.TryGetValue(key, out Dictionary<Type, Queue<object>> typeDict))
+        {
+            typeDict = new Dictionary<Type, Queue<object>>();
+            _data[key] = typeDict;
+        }
         if (values == null || values.Length == 0)
         {
-            if (!_data.ContainsKey(key))
+            if(!typeDict.TryGetValue(typeof(object), out Queue<object> queue))
             {
-                _data[key] = new Dictionary<Type, Queue<object>>();
+                queue = new Queue<object>();
+                typeDict[typeof(object)] = queue;
             }
-            if (!_data[key].ContainsKey(typeof(object)))
-            {
-                _data[key][typeof(object)] = new Queue<object>();
-            }
-            _data[key][typeof(object)].Enqueue(null);
+            queue.Enqueue(null);
             return;
         }
         foreach (object value in values)
@@ -86,11 +81,12 @@ public class EventData
             {
                 valueType = value.GetType();
             }
-            if (!_data[key].ContainsKey(valueType))
+            if (!typeDict.TryGetValue(valueType, out Queue<object> valueQueue))
             {
-                _data[key][valueType] = new Queue<object>();
+                valueQueue = new Queue<object>();
+                typeDict[valueType] = valueQueue;
             }
-            _data[key][valueType].Enqueue(value);
+            valueQueue.Enqueue(value);
         }       
     }
 }
