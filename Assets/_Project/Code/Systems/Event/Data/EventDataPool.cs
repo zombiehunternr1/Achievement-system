@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public static class EventDataPool
 {
-    private static readonly Stack<EventData> _pool = new Stack<EventData>(32);
+    private static readonly Stack<EventData> _pool = new Stack<EventData>(64);
     public static EventData GetEventData(ulong packageKey)
     {
         if (_pool.Count > 0)
