@@ -20,17 +20,6 @@ public class EventPackage : ScriptableObject
             eventPackageHandler.Invoke(eventDataPackage);
         }
     }
-    public virtual void InvokeBatch(List<EventData> eventDataPackages)
-    {
-        for (int i = 0; i < eventDataPackages.Count; i++)
-        {
-            EventData eventData = eventDataPackages[i];
-            foreach (EventPackageHandler eventPackageHandler in _eventHandlers)
-            {
-                eventPackageHandler.Invoke(eventData);
-            }
-        }
-    }
     internal void RegisterEventHandler(EventPackageHandler eventPackageHandler)
     {
         _eventHandlers.Add(eventPackageHandler);
