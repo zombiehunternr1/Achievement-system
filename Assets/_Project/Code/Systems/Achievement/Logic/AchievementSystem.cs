@@ -65,10 +65,7 @@ public class AchievementSystem : MonoBehaviour
     }
     public void ResetAllAchievements()
     {
-        if (_queuedAchievements.Count != 0)
-        {
-            _queuedAchievements.Clear();
-        }
+        _queuedAchievements.Clear();
         foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
         {
             achievement.LockAchievement();
