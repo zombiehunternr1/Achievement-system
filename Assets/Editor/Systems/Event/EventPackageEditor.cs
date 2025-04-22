@@ -146,7 +146,14 @@ public class EventPackageEditor : Editor
             {
                 targetName = "GameObject reference is null!";
             }
-            methodName = unityEvent.GetPersistentMethodName(i) ?? "Method name not found!";
+            if (unityEvent.GetPersistentMethodName(i) != null)
+            {
+                methodName = unityEvent.GetPersistentMethodName(i);
+            }
+            else
+            {
+                methodName = "Method name not found!";
+            }
             if (!groupedMethods.ContainsKey(targetName))
             {
                 groupedMethods[targetName] = new List<string>();
