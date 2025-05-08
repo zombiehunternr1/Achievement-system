@@ -9,7 +9,14 @@ public class EventPackage : ScriptableObject
     {
         get
         {
-           return _packageKey;
+            return _packageKey;
+        }
+    }
+    private void Awake()
+    {
+        if (_packageKey == 0)
+        {
+            _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
         }
     }
     private readonly HashSet<EventPackageHandler> _eventHandlers = new HashSet<EventPackageHandler>();
