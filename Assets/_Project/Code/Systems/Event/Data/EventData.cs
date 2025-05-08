@@ -4,10 +4,6 @@ public class EventData
 {
     private readonly Dictionary<ulong, Dictionary<Type, Queue<object>>> _data = new Dictionary<ulong, Dictionary<Type, Queue<object>>>();
     private ulong _packageKey;
-    public EventData (ulong packageKey)
-    {
-        ValidateKey(packageKey);
-    }
     public Dictionary<Type, Queue<object>> GetDataForKey(ulong key)
     {
         if (_data.TryGetValue(key, out Dictionary<Type, Queue<object>> typeData))

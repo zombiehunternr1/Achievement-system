@@ -14,7 +14,7 @@ public class EventPackageFactory
             Debug.LogError("Package key cannot be null or empty!");
             return;
         }
-        EventData package = EventDataPool.GetEventData(eventPackage.PackageKey);
+        EventDataPool.GetEventData(eventPackage.PackageKey, out EventData package);
         try
         {
             if (data != null && data.Length > 0)
