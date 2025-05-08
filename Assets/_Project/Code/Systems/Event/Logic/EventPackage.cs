@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    private ulong _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
+    private ulong _packageKey;
     public ulong PackageKey
     {
         get
@@ -12,14 +12,11 @@ public class EventPackage : ScriptableObject
             return _packageKey;
         }
     }
+    private readonly HashSet<EventPackageHandler> _eventHandlers = new HashSet<EventPackageHandler>();
     private void Awake()
     {
-        if (_packageKey == 0)
-        {
-            _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
-        }
+        _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
     }
-    private readonly HashSet<EventPackageHandler> _eventHandlers = new HashSet<EventPackageHandler>();
     public virtual void Invoke(EventData eventDataPackage)
     {
         foreach (EventPackageHandler eventPackageHandler in _eventHandlers)
