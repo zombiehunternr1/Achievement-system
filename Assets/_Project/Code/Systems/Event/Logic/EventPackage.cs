@@ -4,20 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EventPackage", menuName = "Scriptable Objects/Systems/Event/Event package")]
 public class EventPackage : ScriptableObject
 {
-    private static ulong _packageCounter = 1;
-    private ulong _packageKey = 0; 
+    private ulong _packageKey = (ulong)System.Guid.NewGuid().GetHashCode();
     public ulong PackageKey
     {
         get
         {
-            return _packageKey;
-        }
-    }
-    private void Awake()
-    {
-        if (_packageKey == 0)
-        {
-            _packageKey = _packageCounter++;
+           return _packageKey;
         }
     }
     private readonly HashSet<EventPackageHandler> _eventHandlers = new HashSet<EventPackageHandler>();
