@@ -55,6 +55,30 @@ public class AchievementSystem : MonoBehaviour
         sortedList.Reverse();
         return sortedList;
     }
+    private bool ShouldSkipAchievement(AchievementType achievement, CollectableItem collectable)
+    {
+        return achievement.IsUnlocked
+            || achievement.CompletionEnumRequirement != CompletionRequirementType.CollectableRequirement
+            || !achievement.IsAchievementRelated(collectable);
+    }
+    private void AddToDependencyGraph(Dictionary<AchievementType, List<AchievementType>> graph, AchievementType achievement)
+    {
+        if (achievement.RequiresPreviousAchievement && achievement.PreviousAchievement != null)
+        {
+            if (!graph.ContainsKey(achievement.PreviousAchievement))
+            {
+                graph[achievement.PreviousAchievement] = new List<AchievementType>();
+            }    
+            graph[achievement.PreviousAchievement].Add(achievement);
+        }
+        else
+        {
+            if (!graph.ContainsKey(achievement))
+            {
+                graph[achievement] = new List<AchievementType>();
+            }
+        }
+    }
     private void Awake()
     {
         SetupAchievementDisplay();
@@ -78,43 +102,28 @@ public class AchievementSystem : MonoBehaviour
     {
         CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
         Dictionary<AchievementType, List<AchievementType>> dependencyGraph = new Dictionary<AchievementType, List<AchievementType>>();
-        for (int i = 0; i < _allAchievementsListReference.AllAchievements.Count; i++)
+
+        foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
         {
-            AchievementType achievement = _allAchievementsListReference.AllAchievements[i];
-            if (achievement.IsUnlocked || achievement.CompletionEnumRequirement != CompletionRequirementType.CollectableRequirement)
-            {
-                continue;
-            }
-            if (!achievement.IsAchievementRelated(collectable))
+            if (ShouldSkipAchievement(achievement, collectable))
             {
                 continue;
             }
             UpdateAchievementStatus(achievement);
+
             if (!achievement.IsCollectableGoalReached(collectable))
             {
                 continue;
             }
-            if (!dependencyGraph.ContainsKey(achievement))
-            {
-                dependencyGraph[achievement] = new List<AchievementType>();
-                continue;
-            }
-            if (achievement.RequiresPreviousAchievement && achievement.IsPreviousAchievementUnlocked)
-            {
-                if (!dependencyGraph.ContainsKey(achievement.PreviousAchievement))
-                {
-                    dependencyGraph[achievement.PreviousAchievement] = new List<AchievementType>();
-                }
-                continue;
-            }
-            dependencyGraph[achievement.PreviousAchievement].Add(achievement);
+            AddToDependencyGraph(dependencyGraph, achievement);
         }
+
         List<AchievementType> sortedAchievements = TopologicalSort(dependencyGraph);
-        for (int i = 0; i < sortedAchievements.Count; i++)
+        foreach (AchievementType achievement in sortedAchievements)
         {
-            UnlockAchievement(sortedAchievements[i]);
+            UnlockAchievement(achievement);
         }
-    } 
+    }
     public void UpdateRecievedAchievement(EventData eventData)
     {
         string achievementID = EventPackageExtractor.ExtractEventData<string>(eventData);
