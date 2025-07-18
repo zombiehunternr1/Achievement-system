@@ -289,7 +289,6 @@ MonoBehaviour:
     HasValue: 0
   displaySortOrder: 0
   childIdentifiers:
-  - de700ef3f37a49b58a57ae3addf01ad9
   - c88d16e5272a4e241b0ef0ac2e53b73d
   - 46fbfdf3fc43db0458918377fd40293e
   - b7716510a1f36934c87976f3a81dbf3d
@@ -299,6 +298,7 @@ MonoBehaviour:
   - 0f8eb3f400726694eb47beb1a9f94ce8
   - 2c5177b11d81d824dbb064f9ac8527da
   - e7a046c753c3c3d4aacc91f6597f310d
+  - de700ef3f37a49b58a57ae3addf01ad9
   codecChannels:
     Value: []
     HasValue: 0
@@ -317,8 +317,9 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../FMOD projects/Custom achievement system/Achievement SFX.fspro
-  sourceBankPath: ../../FMOD projects/Custom achievement system/Build
+  sourceProjectPath: ../../../FMOD projects/Custom achievement system/Achievement
+    SFX.fspro
+  sourceBankPath: ../../../FMOD projects/Custom achievement system/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -357,7 +358,6 @@ MonoBehaviour:
   HideSetupWizard: 1
   LastEventReferenceScanVersion: 131621
   Platforms:
-  - {fileID: 8601367410880741856}
   - {fileID: -6810593918768485872}
   - {fileID: -5854997471858911179}
   - {fileID: -231115070229805137}
@@ -368,6 +368,7 @@ MonoBehaviour:
   - {fileID: 2833436529824135770}
   - {fileID: 5472485774833086306}
   - {fileID: 8123529943822381830}
+  - {fileID: 8601367410880741856}
   - {fileID: 9167253225416258461}
   MigratedPlatforms: 0c000000150000000b0000000a0000000900000012000000080000000500000006000000020000000100000000000000
 --- !u!114 &1280043519676131840
