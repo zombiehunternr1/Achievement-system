@@ -75,11 +75,9 @@ public class AchievementSystem : MonoBehaviour
     private void Start()
     {
         EventPackageFactory.BuildAndInvoke(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
-        //SetupAchievementDisplay(); // Is a function inside achievementUI
     }
     public void ResetAllAchievements()
     {
-        //_queuedAchievements.Clear(); // Can only be done in the achievementUI
         foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
         {
             achievement.LockAchievement();
@@ -99,7 +97,6 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
-            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
             if (!achievement.IsCollectableGoalReached(collectable))
             {
@@ -158,7 +155,6 @@ public class AchievementSystem : MonoBehaviour
         }
         else
         {
-            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
@@ -170,10 +166,8 @@ public class AchievementSystem : MonoBehaviour
         }
         achievement.UnlockAchievement();
         EventPackageFactory.BuildAndInvoke(_saveGame);
-        //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
         EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         EventPackageFactory.BuildAndInvoke(_achievementUnlockedUI, achievement);
-        //AddToQueueDisplay(achievement); // Is a function inside achievementUI
         CheckAchievementTypes();
     }
 
@@ -192,7 +186,6 @@ public class AchievementSystem : MonoBehaviour
                 UnlockAchievement(achievement);
                 return;
             }
-            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
@@ -203,7 +196,6 @@ public class AchievementSystem : MonoBehaviour
     private IEnumerator DelayUpdateUnlockedStatus(AchievementType achievement)
     {
         yield return new WaitForSeconds(0.01f);
-        //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
         EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
     }
     #endregion
@@ -228,7 +220,6 @@ public class AchievementSystem : MonoBehaviour
         {
             gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO achievementDTO);
             achievement.LoadAchievementStatus(achievementDTO);
-            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
