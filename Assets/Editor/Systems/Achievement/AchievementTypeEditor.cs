@@ -12,8 +12,6 @@ public class AchievementTypeEditor : Editor
         _isUnlockedProp,
         _soundEffectProp,
         _rewardTierProp,
-        _requiresPreviousAchievementProp,
-        _previousAchievementReferenceProp,
         _achievementListReferenceProp,
         _hasCustomGoalAmountProp,
         _goalAmountProp,
@@ -41,15 +39,13 @@ public class AchievementTypeEditor : Editor
         _isUnlockedProp = serializedObject.FindProperty("_isUnlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
         _rewardTierProp = serializedObject.FindProperty("_rewardTier");
-        _requiresPreviousAchievementProp = serializedObject.FindProperty("_requirementData._requiresPreviousAchievementToUnlock");
-        _previousAchievementReferenceProp = serializedObject.FindProperty("_requirementData._previousAchievementReference");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
         _hasCustomGoalAmountProp = serializedObject.FindProperty("_achievementData._hasCustomGoalAmount");
         _goalAmountProp = serializedObject.FindProperty("_achievementData._customGoalAmount");
         _isHiddenProp = serializedObject.FindProperty("_progressionData._isHidden");
         _showProgressionProp = serializedObject.FindProperty("_progressionData._hasProgressionDisplay");
         _progressionEnumDisplayProp = serializedObject.FindProperty("_progressionData._progressionEnumDisplay");
-        _completionEnumRequirementProp = serializedObject.FindProperty("_requirementData._completionRequirement");
+        _completionEnumRequirementProp = serializedObject.FindProperty("_completionRequirement");
         _valueEnumTypeProp = serializedObject.FindProperty("_valueData._valueType");
         _isExactAmountProp = serializedObject.FindProperty("_valueData._isExactAmount");
         _currentIntegerAmountProp = serializedObject.FindProperty("_valueData._currentIntegerAmount");
@@ -82,19 +78,6 @@ public class AchievementTypeEditor : Editor
         EditorGUILayout.PropertyField(_rewardTierProp);
         EditorGUILayout.PropertyField(_soundEffectProp);
         EditorGUILayout.PropertyField(_isUnlockedProp);
-        EditorGUILayout.PropertyField(_requiresPreviousAchievementProp);
-        if (_requiresPreviousAchievementProp.boolValue)
-        {
-            EditorGUILayout.PropertyField(_previousAchievementReferenceProp);
-            if (_previousAchievementReferenceProp.objectReferenceValue == null)
-            {
-                EditorGUILayout.HelpBox("Previous achievement reference is required when 'Requires Previous Achievement' is enabled", MessageType.Warning);
-            }
-        }
-        else
-        {
-            _previousAchievementReferenceProp.objectReferenceValue = null;
-        }
         EditorGUILayout.PropertyField(_isHiddenProp);
         if (!_isHiddenProp.boolValue)
         {

@@ -4,30 +4,16 @@ using UnityEngine;
 public class AchievementType : AchievementBase
 {
     [SerializeField] private RewardTier _rewardTier;
-    [SerializeField] private RequirementData _requirementData;
+    [SerializeField] private CompletionRequirementType _completionRequirement;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
     [SerializeField] private CollectableData _collectableData;
     [SerializeField] private ValueData _valueData;
-    public AchievementType PreviousAchievement
-    {
-        get
-        {
-            return _requirementData.PreviousAchievementReference;
-        }
-    }
-    public bool RequiresPreviousAchievement
-    {
-        get
-        {
-            return _requirementData.RequiresPreviousAchievementToUnlock;
-        }
-    }
     public CompletionRequirementType CompletionEnumRequirement
     {
         get
         {
-            return _requirementData.CompletionRequirement;
+            return _completionRequirement;
         }
     }
     public RewardTier RewardTier
@@ -35,13 +21,6 @@ public class AchievementType : AchievementBase
         get
         {
             return _rewardTier;
-        }
-    }
-    public bool IsPreviousAchievementUnlocked
-    {
-        get
-        {
-            return _requirementData.PreviousAchievementReference.IsUnlocked;
         }
     }
     public bool IsHidden
@@ -83,11 +62,11 @@ public class AchievementType : AchievementBase
     {
         get
         {
-            if (_requirementData.CompletionRequirement == CompletionRequirementType.NoRequirement)
+            if (_completionRequirement == CompletionRequirementType.NoRequirement)
             {
                 return string.Empty;
             }
-            switch (_requirementData.CompletionRequirement)
+            switch (_completionRequirement)
             {
                 case CompletionRequirementType.ValueRequirement:
                     return GetValueRequirementProgression();
@@ -104,8 +83,8 @@ public class AchievementType : AchievementBase
     }
     public bool IsAchievementRelated(CollectableItem collectable)
     {
-        if (_requirementData.CompletionRequirement == CompletionRequirementType.NoRequirement ||
-            _requirementData.CompletionRequirement == CompletionRequirementType.ValueRequirement)
+        if (_completionRequirement == CompletionRequirementType.NoRequirement ||
+            _completionRequirement == CompletionRequirementType.ValueRequirement)
         {
             return false;
         }

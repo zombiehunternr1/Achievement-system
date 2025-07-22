@@ -25,10 +25,7 @@ MonoBehaviour:
     Path: event:/Normal
   _isUnlocked: 0
   _rewardTier: 2
-  _requirementData:
-    _requiresPreviousAchievementToUnlock: 0
-    _previousAchievementReference: {fileID: 0}
-    _completionRequirement: 2
+  _completionRequirement: 2
   _progressionData:
     _isHidden: 0
     _hasProgressionDisplay: 1

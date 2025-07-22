@@ -54,24 +54,6 @@ public class AchievementSystem : MonoBehaviour
             || achievement.CompletionEnumRequirement != CompletionRequirementType.CollectableRequirement
             || !achievement.IsAchievementRelated(collectable);
     }
-    private void AddToDependencyGraph(Dictionary<AchievementType, List<AchievementType>> graph, AchievementType achievement)
-    {
-        if (achievement.RequiresPreviousAchievement && achievement.PreviousAchievement != null)
-        {
-            if (!graph.ContainsKey(achievement.PreviousAchievement))
-            {
-                graph[achievement.PreviousAchievement] = new List<AchievementType>();
-            }    
-            graph[achievement.PreviousAchievement].Add(achievement);
-        }
-        else
-        {
-            if (!graph.ContainsKey(achievement))
-            {
-                graph[achievement] = new List<AchievementType>();
-            }
-        }
-    }
     private void Start()
     {
         EventPackageFactory.BuildAndInvoke(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
@@ -102,7 +84,10 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
-            AddToDependencyGraph(dependencyGraph, achievement);
+            if (!dependencyGraph.ContainsKey(achievement))
+            {
+                dependencyGraph[achievement] = new List<AchievementType>();
+            }
         }
 
         List<AchievementType> sortedAchievements = TopologicalSort(dependencyGraph);
