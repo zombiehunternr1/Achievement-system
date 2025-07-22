@@ -4577,6 +4577,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 869330440}
+  - component: {fileID: 869330461}
   - component: {fileID: 869330439}
   - component: {fileID: 869330460}
   m_Layer: 0
@@ -4599,13 +4600,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allAchievementsListReference: {fileID: 11400000, guid: 32868580b934e7b45a3e761334a0e790, type: 2}
-  _playPopUpDisplayStatus: {fileID: 11400000, guid: f7117d4adeafea549a78139088c5c824, type: 2}
-  _setAchievementPopUpInfo: {fileID: 11400000, guid: e6a26648777aca0468109cc6114e9055, type: 2}
+  _setupAchievementUI: {fileID: 11400000, guid: c7f7bc3b769334a47b4e8347b042e678, type: 2}
+  _updateAchievementUIStatus: {fileID: 11400000, guid: 78be0265d92fccf41a3a47feb897d91b, type: 2}
+  _achievementUnlockedUI: {fileID: 11400000, guid: f051b3b8407470443bd82b8fc1f1e976, type: 2}
   _updateProgression: {fileID: 11400000, guid: b9684fd31128a984d9a9c0dc4076d64f, type: 2}
   _saveGame: {fileID: 11400000, guid: 5325a5d61e0bd2b41b1fe47b5acaecdd, type: 2}
-  _displayPopupTime: 5
-  _achievementContainerRect: {fileID: 1756146404}
-  _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
 --- !u!4 &869330440
 Transform:
   m_ObjectHideFlags: 0
@@ -4638,8 +4637,8 @@ MonoBehaviour:
     _unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 869330439}
-          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+        - m_Target: {fileID: 869330461}
+          m_TargetAssemblyTypeName: AchievementUI, Assembly-CSharp
           m_MethodName: StartPopupCooldown
           m_Mode: 1
           m_Arguments:
@@ -4657,6 +4656,18 @@ MonoBehaviour:
         - m_Target: {fileID: 869330439}
           m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
           m_MethodName: ResetAllAchievements
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 869330461}
+          m_TargetAssemblyTypeName: AchievementUI, Assembly-CSharp
+          m_MethodName: ClearAchievementQueue
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4714,6 +4725,71 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: 78be0265d92fccf41a3a47feb897d91b, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330461}
+          m_TargetAssemblyTypeName: AchievementUI, Assembly-CSharp
+          m_MethodName: UpdateAchievementStatus
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: c7f7bc3b769334a47b4e8347b042e678, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330461}
+          m_TargetAssemblyTypeName: AchievementUI, Assembly-CSharp
+          m_MethodName: SetupAchievementDisplay
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _eventPackage: {fileID: 11400000, guid: f051b3b8407470443bd82b8fc1f1e976, type: 2}
+    _unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 869330461}
+          m_TargetAssemblyTypeName: AchievementUI, Assembly-CSharp
+          m_MethodName: AchievementUnlocked
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &869330461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404ce4afa19dc374cb8bfb461ef44894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playPopUpDisplayStatus: {fileID: 11400000, guid: f7117d4adeafea549a78139088c5c824, type: 2}
+  _setAchievementPopUpInfo: {fileID: 11400000, guid: e6a26648777aca0468109cc6114e9055, type: 2}
+  _displayPopupTime: 5
+  _achievementContainerRect: {fileID: 1756146404}
+  _achievementPrefabContainer: {fileID: 6294732766776728015, guid: 9e07bb79bd3673e46a4f8df9c6ba7b64, type: 3}
 --- !u!1 &930332463
 GameObject:
   m_ObjectHideFlags: 0

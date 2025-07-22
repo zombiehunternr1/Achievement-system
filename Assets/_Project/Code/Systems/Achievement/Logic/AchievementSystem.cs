@@ -1,25 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMOD.Studio;
-using FMODUnity;
 
 public class AchievementSystem : MonoBehaviour
 {
     [Header("Achievement list reference")]
     [SerializeField] private AchievementTypeList _allAchievementsListReference;
     [Header("Event references")]
-    [SerializeField] private EventPackage _playPopUpDisplayStatus;
-    [SerializeField] private EventPackage _setAchievementPopUpInfo;
+    [SerializeField] private EventPackage _setupAchievementUI;
+    [SerializeField] private EventPackage _updateAchievementUIStatus;
+    [SerializeField] private EventPackage _achievementUnlockedUI;
     [SerializeField] private EventPackage _updateProgression;
     [SerializeField] private EventPackage _saveGame;
-    [Header("Component & Settings references")]
-    [SerializeField] private int _displayPopupTime = 5;
-    [SerializeField] private RectTransform _achievementContainerRect;
-    [SerializeField] private AchievementObject _achievementPrefabContainer;
-    private List<AchievementObject> _achievementObjects = new List<AchievementObject>();
-    private List<AchievementType> _queuedAchievements = new List<AchievementType>();
-    private EventInstance _soundEffect;
+   
     private AchievementType FindAchievementById(string achievementID)
     {
         for (int i = 0; i < _allAchievementsListReference.AllAchievements.Count; i++)
@@ -79,17 +72,14 @@ public class AchievementSystem : MonoBehaviour
             }
         }
     }
-    private void Awake()
+    private void Start()
     {
-        SetupAchievementDisplay();
-    }
-    public void StartPopupCooldown()
-    {
-        StartCoroutine(PopupCooldown());
+        EventPackageFactory.BuildAndInvoke(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
+        //SetupAchievementDisplay(); // Is a function inside achievementUI
     }
     public void ResetAllAchievements()
     {
-        _queuedAchievements.Clear();
+        //_queuedAchievements.Clear(); // Can only be done in the achievementUI
         foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
         {
             achievement.LockAchievement();
@@ -109,8 +99,8 @@ public class AchievementSystem : MonoBehaviour
             {
                 continue;
             }
-            UpdateAchievementStatus(achievement);
-
+            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+            EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
             if (!achievement.IsCollectableGoalReached(collectable))
             {
                 continue;
@@ -140,31 +130,7 @@ public class AchievementSystem : MonoBehaviour
         }
         CheckAchievementRequirementStatus(achievement, valueObj);
     }
-    private void SetupAchievementDisplay()
-    {
-        if (_allAchievementsListReference.AllAchievements.Count == 0)
-        {
-            Debug.LogWarning("The list of achievements to unlock is empty!");
-            return;
-        }
-        for (int i = 0; i < _allAchievementsListReference.AllAchievements.Count; i++)
-        {
-            AchievementType achievement = _allAchievementsListReference.AllAchievements[i];
-            if (achievement == null)
-            {
-                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
-                continue;
-            }
-            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
-            achievementObject.SetAchievementId(achievement.AchievementId);
-            _achievementObjects.Add(achievementObject);
-            if (achievement.IsHidden)
-            {
-                achievementObject.DisableLock();
-            }
-            UpdateAchievementObject(i, achievement, achievement.IsHidden);
-        }
-    }
+
     private void CheckAchievementRequirementStatus(AchievementType achievement, object valueObj)
     {
         if (achievement.IsUnlocked)
@@ -192,53 +158,26 @@ public class AchievementSystem : MonoBehaviour
         }
         else
         {
-            UpdateAchievementStatus(achievement);
+            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+            EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
     private void UnlockAchievement(AchievementType achievement)
     {
-        if (_queuedAchievements.Contains(achievement))
+        if (achievement.IsUnlocked)
         {
             return;
         }
         achievement.UnlockAchievement();
         EventPackageFactory.BuildAndInvoke(_saveGame);
-        UpdateAchievementStatus(achievement);
-        AddToQueueDisplay(achievement);
+        //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+        EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
+        EventPackageFactory.BuildAndInvoke(_achievementUnlockedUI, achievement);
+        //AddToQueueDisplay(achievement); // Is a function inside achievementUI
         CheckAchievementTypes();
     }
-    private void UpdateAchievementStatus(AchievementType achievement)
-    {
-        int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
-        if (objectIndex == -1)
-        {
-            Debug.LogWarning("No corresponding achievement object found with achievement: " + achievement.Title + "!");
-            return;
-        }
-        bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
-        UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
-    }
-    private void UpdateAchievementObject(int objectIndex, AchievementType achievement, bool isHidden)
-    {
-        AchievementObject achievementObject = _achievementObjects[objectIndex];
-        if (achievement.IsUnlocked)
-        {
-            achievementObject.UnlockAchievement();
-        }
-        else if (!achievement.IsHidden)
-        {
-            achievementObject.EnableLock();
-        }
-        achievementObject.SetAchievementData(
-            achievement.Icon,
-            achievement.Title,
-            achievement.Description,
-            achievement.HasProgressionDisplay,
-            achievement.ProgressionDisplay, 
-            achievement.RewardTier,
-            isHidden
-        );
-    }
+
+
     private void CheckAchievementTypes()
     {
         for (int i =0; i < _allAchievementsListReference.AllAchievements.Count; i++)
@@ -253,59 +192,19 @@ public class AchievementSystem : MonoBehaviour
                 UnlockAchievement(achievement);
                 return;
             }
-            UpdateAchievementStatus(achievement);
+            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+            EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
     #region Achievement display
-    private void AddToQueueDisplay(AchievementType achievement)
-    {
-        if (_queuedAchievements.Count == 0)
-        {
-            _queuedAchievements.Add(achievement);
-            DisplayPopUpAchievement(achievement);
-        }
-        else
-        {
-            _queuedAchievements.Add(achievement);
-        }
-    }
-    private void DisplayNextinQueue()
-    {
-        _queuedAchievements.RemoveAt(0);
-        if (_queuedAchievements.Count != 0)
-        {
-            DisplayPopUpAchievement(_queuedAchievements[0]);
-        }
-    }
-    private void DisplayPopUpAchievement(AchievementType achievement)
-    {
-        EventPackageFactory.BuildAndInvoke(_setAchievementPopUpInfo, achievement.Icon, achievement.Title, achievement.RewardTier);
-        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Displaying");
-        _soundEffect = RuntimeManager.CreateInstance(achievement.SoundEffect);
-        RuntimeManager.AttachInstanceToGameObject(_soundEffect, transform);
-        _soundEffect.start();
-        _soundEffect.release();
-    }
+
     #endregion
     #region Co-routines
     private IEnumerator DelayUpdateUnlockedStatus(AchievementType achievement)
     {
         yield return new WaitForSeconds(0.01f);
-        UpdateAchievementStatus(achievement);
-    }
-    private IEnumerator PopupCooldown()
-    {
-        yield return new WaitForSeconds(_displayPopupTime);
-        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Hiding");
-        yield return new WaitForSeconds(1.5f);
-        if (_queuedAchievements.Count != 0)
-        {
-            DisplayNextinQueue();
-        }
-        else
-        {
-            StopAllCoroutines();
-        }
+        //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+        EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
     }
     #endregion
     #region Saving & Loading
@@ -329,7 +228,8 @@ public class AchievementSystem : MonoBehaviour
         {
             gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO achievementDTO);
             achievement.LoadAchievementStatus(achievementDTO);
-            UpdateAchievementStatus(achievement);
+            //UpdateAchievementStatus(achievement); // Is a function inside achievementUI
+            EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
     private void SaveAchievementDataToGameData(GameData gameData)
