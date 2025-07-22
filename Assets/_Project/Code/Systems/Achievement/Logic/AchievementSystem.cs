@@ -127,7 +127,6 @@ public class AchievementSystem : MonoBehaviour
         }
         CheckAchievementRequirementStatus(achievement, valueObj);
     }
-
     private void CheckAchievementRequirementStatus(AchievementType achievement, object valueObj)
     {
         if (achievement.IsUnlocked)
@@ -170,8 +169,6 @@ public class AchievementSystem : MonoBehaviour
         EventPackageFactory.BuildAndInvoke(_achievementUnlockedUI, achievement);
         CheckAchievementTypes();
     }
-
-
     private void CheckAchievementTypes()
     {
         for (int i =0; i < _allAchievementsListReference.AllAchievements.Count; i++)
@@ -189,9 +186,6 @@ public class AchievementSystem : MonoBehaviour
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
         }
     }
-    #region Achievement display
-
-    #endregion
     #region Co-routines
     private IEnumerator DelayUpdateUnlockedStatus(AchievementType achievement)
     {

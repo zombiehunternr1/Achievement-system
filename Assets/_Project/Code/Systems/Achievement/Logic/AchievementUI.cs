@@ -61,7 +61,6 @@ public class AchievementUI : MonoBehaviour
         bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
         UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
     }
-
     public void AchievementUnlocked(EventData eventData)
     {
         AchievementType achievement = EventPackageExtractor.ExtractEventData<AchievementType>(eventData);
