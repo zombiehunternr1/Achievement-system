@@ -64,8 +64,7 @@ public class CollectableSystem : MonoBehaviour
         {
             while (enumAllCollectables.MoveNext())
             {
-                CollectableItem collectable = enumAllCollectables.Current;
-                collectable.SaveCollectableStatus(gameData);
+                enumAllCollectables.Current.SaveCollectableStatus(gameData);
             }
         }
         finally

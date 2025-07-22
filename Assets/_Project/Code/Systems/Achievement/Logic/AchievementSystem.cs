@@ -209,8 +209,7 @@ public class AchievementSystem : MonoBehaviour
         {
             while (enumAchievementsList.MoveNext())
             {
-                AchievementType achievement = enumAchievementsList.Current;
-                achievement.SaveAchievementStatus(gameData);;
+                enumAchievementsList.Current.SaveAchievementStatus(gameData);
             }
         }
         finally
