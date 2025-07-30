@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 [CustomEditor(typeof(AchievementType)), CanEditMultipleObjects]
@@ -28,7 +29,9 @@ public class AchievementTypeEditor : Editor
         _collectableEnumRequirementProp,
         _collectableReferenceProp,
         _collectableListReferenceProp,
-        _minimumGoalAmountProp;
+        _minimumGoalAmountProp,
+        _isUnlockAfterAchievementProp,
+        _unlockAfterAchievementsProp;
     private MonoScript _monoScript;
     private void OnEnable()
     {
@@ -56,6 +59,8 @@ public class AchievementTypeEditor : Editor
         _collectableReferenceProp = serializedObject.FindProperty("_collectableData._collectableReference");
         _collectableListReferenceProp = serializedObject.FindProperty("_collectableData._collectableListReference");
         _minimumGoalAmountProp = serializedObject.FindProperty("_collectableData._minimumGoalAmount");
+        _isUnlockAfterAchievementProp = serializedObject.FindProperty("_isUnlockedAfterAchievement");
+        _unlockAfterAchievementsProp = serializedObject.FindProperty("_unlockAfterAchievements");
     }
     public override void OnInspectorGUI()
     {
@@ -138,6 +143,20 @@ public class AchievementTypeEditor : Editor
                     EditorGUILayout.PropertyField(_goalAmountProp);
                 }
             break;
+        }
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(_isUnlockAfterAchievementProp);
+        if (_isUnlockAfterAchievementProp.boolValue)
+        {
+            EditorGUILayout.PropertyField(_unlockAfterAchievementsProp);
+        }
+        else
+        {
+            if (_unlockAfterAchievementsProp.isArray)
+            {
+                while (_unlockAfterAchievementsProp.arraySize > 0)
+                    _unlockAfterAchievementsProp.DeleteArrayElementAtIndex(0);
+            }
         }
         serializedObject.ApplyModifiedProperties();
     }

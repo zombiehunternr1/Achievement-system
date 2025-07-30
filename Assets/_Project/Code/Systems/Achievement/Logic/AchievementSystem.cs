@@ -71,28 +71,62 @@ public class AchievementSystem : MonoBehaviour
     public void CheckCollectableRequest(EventData eventData)
     {
         CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
-        Dictionary<AchievementType, List<AchievementType>> dependencyGraph = new Dictionary<AchievementType, List<AchievementType>>();
 
-        foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
+        List<AchievementType> triggeredAchievements = new List<AchievementType>();
+
+        foreach (var achievement in _allAchievementsListReference.AllAchievements)
         {
             if (ShouldSkipAchievement(achievement, collectable))
-            {
                 continue;
-            }
+
             EventPackageFactory.BuildAndInvoke(_updateAchievementUIStatus, achievement);
-            if (!achievement.IsCollectableGoalReached(collectable))
-            {
-                continue;
-            }
+
+            if (achievement.IsCollectableGoalReached(collectable))
+                triggeredAchievements.Add(achievement);
+        }
+
+        Dictionary<AchievementType, List<AchievementType>> dependencyGraph = new();
+
+        foreach (var achievement in triggeredAchievements)
+        {
             if (!dependencyGraph.ContainsKey(achievement))
-            {
                 dependencyGraph[achievement] = new List<AchievementType>();
+
+            foreach (var maybeDependent in _allAchievementsListReference.AllAchievements)
+            {
+                if (!maybeDependent.IsUnlockedAfterAchievement || maybeDependent.IsUnlocked)
+                    continue;
+
+                if (maybeDependent.UnlockAfterAchievements.Contains(achievement))
+                {
+                    if (!dependencyGraph.ContainsKey(maybeDependent))
+                    {
+                        dependencyGraph[maybeDependent] = new List<AchievementType>();
+                    }
+
+                    if (!dependencyGraph[achievement].Contains(maybeDependent))
+                    {
+                        dependencyGraph[achievement].Add(maybeDependent);
+                    }
+                }
             }
         }
 
-        List<AchievementType> sortedAchievements = TopologicalSort(dependencyGraph);
-        foreach (AchievementType achievement in sortedAchievements)
+        List<AchievementType> sorted = TopologicalSort(dependencyGraph);
+        foreach (AchievementType achievement in sorted)
         {
+            if (achievement.CompletionEnumRequirement == CompletionRequirementType.CollectableRequirement && !achievement.IsCollectableGoalReached(collectable))
+            {
+                continue;
+            }
+            if (achievement.CompletionEnumRequirement == CompletionRequirementType.ValueRequirement && !achievement.IsValueGoalReached)
+            {
+                continue;
+            }
+            if (achievement.CompletionEnumRequirement == CompletionRequirementType.AchievementRequirement && !achievement.IsAchievementGoalReached)
+            {
+                continue;
+            }
             UnlockAchievement(achievement);
         }
     }

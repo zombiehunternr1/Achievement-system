@@ -46,3 +46,6 @@ MonoBehaviour:
     _goalIntegerAmount: 0
     _currentFloatAmount: 0
     _goalFloatAmount: 0
+  _isUnlockedAfterAchievement: 1
+  _unlockAfterAchievements:
+  - {fileID: 11400000, guid: 19f0cbca6133f374bbca5695b3dac085, type: 2}

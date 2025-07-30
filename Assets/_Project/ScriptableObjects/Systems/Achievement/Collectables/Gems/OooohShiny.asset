@@ -46,3 +46,11 @@ MonoBehaviour:
     _goalIntegerAmount: 0
     _currentFloatAmount: 0
     _goalFloatAmount: 0
+  _isUnlockedAfterAchievement: 1
+  _unlockAfterAchievements:
+  - {fileID: 11400000, guid: 3a5b8601ecaf6ee469753d58ecfdd72a, type: 2}
+  - {fileID: 11400000, guid: 0272f11a357e61143a735e24b402a0c2, type: 2}
+  - {fileID: 11400000, guid: 582e6b073569d0842879483943d50eda, type: 2}
+  - {fileID: 11400000, guid: 9c757ed23d066384ebf190c2a8a7fd4a, type: 2}
+  - {fileID: 11400000, guid: e5539495a79e22643af248c080320e88, type: 2}
+  - {fileID: 11400000, guid: 178cf82c0873d4942a5c00f8337b3e6d, type: 2}

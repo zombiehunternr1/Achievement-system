@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AchievementType", menuName = "Scriptable Objects/Systems/Achievements/Achievement type")]
@@ -9,6 +10,22 @@ public class AchievementType : AchievementBase
     [SerializeField] private AchievementData _achievementData;
     [SerializeField] private CollectableData _collectableData;
     [SerializeField] private ValueData _valueData;
+    [SerializeField] private bool _isUnlockedAfterAchievement;
+    [SerializeField] private List<AchievementType> _unlockAfterAchievements;
+    public List<AchievementType> UnlockAfterAchievements
+    {
+        get
+        {
+            return _unlockAfterAchievements;
+        }
+    }
+    public bool IsUnlockedAfterAchievement
+    {
+        get
+        {
+            return _isUnlockedAfterAchievement;
+        }
+    }
     public CompletionRequirementType CompletionEnumRequirement
     {
         get

@@ -46,3 +46,5 @@ MonoBehaviour:
     _goalIntegerAmount: 0
     _currentFloatAmount: 0
     _goalFloatAmount: 0
+  _isUnlockAfterAchievement: 0
+  _unlockAfterAchievements: []
