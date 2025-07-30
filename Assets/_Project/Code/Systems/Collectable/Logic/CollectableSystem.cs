@@ -13,9 +13,9 @@ public class CollectableSystem : MonoBehaviour
     public void UpdateCollectable(EventData eventData)
     {
         CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
-        EventPackageFactory.BuildAndInvoke(_checkCollectableRequest, collectable);
-        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
-        EventPackageFactory.BuildAndInvoke(_saveGame);
+        ExecuteEventPackage(_checkCollectableRequest, collectable);
+        ExecuteEventPackage(_updateCollectablesStatus);
+        ExecuteEventPackage(_saveGame);
     }
     public void ResetAllCollectables()
     {
@@ -32,7 +32,7 @@ public class CollectableSystem : MonoBehaviour
                 collectable.SetCurrentAmountFromList(i, 0);
             }
         }
-        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus);
+        ExecuteEventPackage(_updateCollectablesStatus);
     }
     #region Saving & Loading
     public void UpdateData(EventData eventData)
@@ -47,7 +47,11 @@ public class CollectableSystem : MonoBehaviour
         {
             SaveCollectableStatusToGameData(gameData);
         }
-        EventPackageFactory.BuildAndInvoke(_updateProgression, gameData);
+        ExecuteEventPackage(_updateProgression, gameData);
+    }
+    private void ExecuteEventPackage(EventPackage package, object arg = null)
+    {
+        EventPackageFactory.BuildAndInvoke(package, arg);
     }
     private void LoadCollectableStatusFromGameData(GameData gameData)
     {
@@ -55,7 +59,7 @@ public class CollectableSystem : MonoBehaviour
         {
             collectable.LoadCollectableStatus(gameData);
         }
-        EventPackageFactory.BuildAndInvoke(_updateCollectablesStatus, gameData);
+        ExecuteEventPackage(_updateCollectablesStatus, gameData);
     }
     private void SaveCollectableStatusToGameData(GameData gameData)
     {
