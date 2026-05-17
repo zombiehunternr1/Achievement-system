@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d0065b55ece114bbab9ac43a0b18f6, type: 3}
+  m_Script: {fileID: 11500000, guid: d803c0bf96ac34a488dc60640e23701b, type: 3}
   m_Name: LoadGame
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventChannel
