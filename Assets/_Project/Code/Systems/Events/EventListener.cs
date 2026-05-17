@@ -12,7 +12,17 @@ public class EventListener
     {
         if (_channel == null)
         {
-            Debug.LogError("[EventListener] Channel reference is missing on " + context.name, context);
+            string contextName = "Unknown Object";
+
+            if (context != null)
+            {
+                contextName = context.name;
+            }
+
+            Debug.LogError(
+                "[EventListener] Channel reference is missing on " + contextName,
+                context
+            );
             return;
         }
 
