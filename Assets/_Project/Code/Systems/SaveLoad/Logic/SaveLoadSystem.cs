@@ -47,15 +47,25 @@ public class SaveLoadSystem : MonoBehaviour
         SaveGame();
     }
 
-    public async void LoadGame()
+    public void LoadGame()
     {
-        if (_disableDataPersistence) return;
+        if (_disableDataPersistence)
+        {
+            return;
+        }
+        // Start async load of saved game state (fire-and-forget)
+        // It will automatically clear itself after it finishes
+        _ = LoadGameAsync();
+    }
 
+    private async Task LoadGameAsync()
+    {
         _gameData = _dataHandler.Load(_selectedProfileId);
 
         if (_gameData == null && _initializeDataIfNull)
         {
             NewGame();
+            return;
         }
 
         if (_gameData == null)
@@ -64,7 +74,6 @@ public class SaveLoadSystem : MonoBehaviour
         }
 
         await LoadAllSystems();
-
         EventDispatcher.Raise(_updateProgression, _gameData);
     }
 

@@ -29,10 +29,9 @@ public class FileDataHandler
         {
             try
             {
-                string dataToLoad = "";
                 using FileStream stream = new(fullPath, FileMode.Open);
                 using StreamReader reader = new(stream);
-                dataToLoad = reader.ReadToEnd();
+                string dataToLoad = reader.ReadToEnd();
                 if (_useEncryption)
                 {
                     dataToLoad = EncryptDecrypt(dataToLoad);
@@ -86,7 +85,7 @@ public class FileDataHandler
     {
         get
         {
-            string mostRecentlyprofileId = null;
+            string mostRecentlyProfileId = null;
             Dictionary<string, GameData> profilesGameData = LoadAllProfiles();
             foreach(KeyValuePair<string, GameData> pair in profilesGameData)
             {
@@ -96,21 +95,21 @@ public class FileDataHandler
                 {
                     continue;
                 }
-                if(mostRecentlyprofileId == null)
+                if(mostRecentlyProfileId == null)
                 {
-                    mostRecentlyprofileId = profileId;
+                    mostRecentlyProfileId = profileId;
                 }
                 else
                 {
-                    DateTime mostRecentDataTime = DateTime.FromBinary(profilesGameData[mostRecentlyprofileId].LastUpdated);
+                    DateTime mostRecentDataTime = DateTime.FromBinary(profilesGameData[mostRecentlyProfileId].LastUpdated);
                     DateTime newDataTime = DateTime.FromBinary(gameData.LastUpdated);
                     if(newDataTime > mostRecentDataTime)
                     {
-                        mostRecentlyprofileId = profileId;
+                        mostRecentlyProfileId = profileId;
                     }
                 }
             }
-            return mostRecentlyprofileId;
+            return mostRecentlyProfileId;
         }
     }
     public void Save(GameData data, string profileId)

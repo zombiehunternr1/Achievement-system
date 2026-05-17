@@ -28,16 +28,4 @@ public class CollectableStatusDTO
         _currentAmount = currentAmount;
 
     }
-    public void SetCollectableName(string collectableName)
-    {
-        _collectableName = collectableName;
-    }
-    public void SetIsCollectedValue(bool isCollected)
-    {
-        _isCollected = isCollected;
-    }
-    public void SetIsCurrentAmount(float currentAmount)
-    {
-        _currentAmount = currentAmount;
-    }
 }

@@ -211,7 +211,9 @@ public class AchievementSystem : MonoBehaviour
     private void SaveAchievementDataToGameData(GameData gameData)
     {
         foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
+        {
             achievement.SaveAchievementStatus(gameData);
+        }
     }
 
     #endregion
@@ -227,7 +229,9 @@ public class AchievementSystem : MonoBehaviour
             AchievementType achievement = allAchievements[i];
 
             if (achievement != null && achievement.AchievementId == achievementID)
+            {
                 return achievement;
+            }
         }
 
         return null;
@@ -240,19 +244,26 @@ public class AchievementSystem : MonoBehaviour
 
         void Visit(AchievementType node)
         {
-            if (visited.Contains(node)) return;
+            if (visited.Contains(node))
+            {
+                return;
+            }
 
             visited.Add(node);
 
             List<AchievementType> neighbors = dependencyGraph[node];
             for (int i = 0; i < neighbors.Count; i++)
+            {
                 Visit(neighbors[i]);
+            }
 
             sortedList.Add(node);
         }
 
         foreach (AchievementType achievement in dependencyGraph.Keys)
+        {
             Visit(achievement);
+        }
 
         sortedList.Reverse();
         return sortedList;

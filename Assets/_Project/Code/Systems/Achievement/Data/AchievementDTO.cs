@@ -27,16 +27,4 @@ public class AchievementDTO
         _isUnlocked = isUnlocked;
         _currentAmount = currentAmount;
     }
-    public void SetTitle(string title)
-    {
-        _title = title;
-    }
-    public void SetIsUnlockedValue(bool isUnlocked)
-    {
-        _isUnlocked = isUnlocked;
-    }
-    public void SetCurrentAmount(float currentAmount)
-    {
-        _currentAmount = currentAmount;
-    }
 }
