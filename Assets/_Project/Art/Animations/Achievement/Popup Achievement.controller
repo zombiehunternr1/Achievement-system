@@ -28,7 +28,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &-6994505534299362945
 AnimatorStateMachine:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -64,7 +64,7 @@ AnimatorController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Popup Achievement
-  serializedVersion: 5
+  serializedVersion: 6
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
@@ -79,6 +79,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+  m_EvaluateTransitionsOnStart: 0
 --- !u!1101 &5653537926567811822
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cd8bb034d48f249974ad1bf6c26c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startAchievementPopupCooldown: {fileID: 11400000, guid: 7a490c644185c9d49993c7b34730aebc, type: 2}
+  _startAchievementPopupCooldown: {fileID: 11400000, guid: ae776d20762305f438f60b2ef79cf59d, type: 2}
 --- !u!1102 &6616351335180905835
 AnimatorState:
   serializedVersion: 6

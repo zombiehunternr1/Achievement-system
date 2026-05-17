@@ -6,73 +6,95 @@ using UnityEngine;
 
 public class AchievementUI : MonoBehaviour
 {
-    [SerializeField] private EventPackage _playPopUpDisplayStatus;
-    [SerializeField] private EventPackage _setAchievementPopUpInfo;
+    [Header("Event Channels")]
+    [SerializeField] private EventChannel _setAchievementPopUpInfo;
+    [SerializeField] private EventChannel _playPopUpDisplayStatus;
+
+    [Header("Display Settings")]
     [SerializeField] private int _displayPopupTime = 5;
+
+    [Header("UI References")]
     [SerializeField] private RectTransform _achievementContainerRect;
     [SerializeField] private AchievementObject _achievementPrefabContainer;
-    private List<AchievementObject> _achievementObjects = new List<AchievementObject>();
-    private List<AchievementType> _queuedAchievements = new List<AchievementType>();
+
+    private readonly List<AchievementObject> _achievementObjects = new List<AchievementObject>();
+    private readonly List<AchievementType> _queuedAchievements = new List<AchievementType>();
     private EventInstance _soundEffect;
+
+    public void SetupAchievementDisplay(EventPayload payload)
+    {
+        List<AchievementType> allAchievements = EventReader.Get<List<AchievementType>>(payload);
+
+        if (allAchievements == null || allAchievements.Count == 0)
+        {
+            Debug.LogWarning("[AchievementUI] Achievement list is empty or missing.");
+            return;
+        }
+
+        for (int i = 0; i < allAchievements.Count; i++)
+        {
+            AchievementType achievement = allAchievements[i];
+
+            if (achievement == null)
+            {
+                Debug.LogWarning($"[AchievementUI] Missing reference at element {i} in the achievement list.");
+                continue;
+            }
+
+            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
+            achievementObject.SetAchievementId(achievement.AchievementId);
+            _achievementObjects.Add(achievementObject);
+
+            if (achievement.IsHidden)
+            {
+                achievementObject.DisableLock();
+            }
+
+            UpdateAchievementObject(i, achievement, achievement.IsHidden);
+        }
+    }
+
+    public void UpdateAchievementStatus(EventPayload payload)
+    {
+        AchievementType achievement = EventReader.Get<AchievementType>(payload);
+        int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
+
+        if (objectIndex == -1)
+        {
+            Debug.LogWarning($"[AchievementUI] No achievement object found matching: {achievement.Title}");
+            return;
+        }
+
+        bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
+        UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
+    }
+
+    public void AchievementUnlocked(EventPayload payload)
+    {
+        AchievementType achievement = EventReader.Get<AchievementType>(payload);
+
+        if (_queuedAchievements.Exists(a => a.AchievementId == achievement.AchievementId))
+        {
+            return;
+        }
+
+        AddToQueueDisplay(achievement);
+    }
 
     public void StartPopupCooldown()
     {
         StartCoroutine(PopupCooldown());
     }
+
     public void ClearAchievementQueue()
     {
         _queuedAchievements.Clear();
     }
-    public void SetupAchievementDisplay(EventData eventData)
-    {
-        List<AchievementType> allAchievements = EventPackageExtractor.ExtractEventData<List<AchievementType>>(eventData);
-        if (allAchievements.Count == 0)
-        {
-            Debug.LogWarning("The list of achievements to unlock is empty!");
-            return;
-        }
-        for (int i = 0; i < allAchievements.Count; i++)
-        {
-            AchievementType achievement = allAchievements[i];
-            if (achievement == null)
-            {
-                Debug.LogWarning("There is a missing reference at element " + i + " in the achievements to unlock list");
-                continue;
-            }
-            AchievementObject achievementObject = Instantiate(_achievementPrefabContainer, _achievementContainerRect);
-            achievementObject.SetAchievementId(achievement.AchievementId);
-            _achievementObjects.Add(achievementObject);
-            if (achievement.IsHidden)
-            {
-                achievementObject.DisableLock();
-            }
-            UpdateAchievementObject(i, achievement, achievement.IsHidden);
-        }
-    }
-    public void UpdateAchievementStatus(EventData eventData)
-    {
-        AchievementType achievement = EventPackageExtractor.ExtractEventData<AchievementType>(eventData);
-        int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
-        if (objectIndex == -1)
-        {
-            Debug.LogWarning("No corresponding achievement object found with achievement: " + achievement.Title + "!");
-            return;
-        }
-        bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
-        UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
-    }
-    public void AchievementUnlocked(EventData eventData)
-    {
-        AchievementType achievement = EventPackageExtractor.ExtractEventData<AchievementType>(eventData);
-        if (_queuedAchievements.Exists(a => a.AchievementId == achievement.AchievementId))
-        {
-            return;
-        }
-        AddToQueueDisplay(achievement);
-    }
+
     private void UpdateAchievementObject(int objectIndex, AchievementType achievement, bool isHidden)
     {
         AchievementObject achievementObject = _achievementObjects[objectIndex];
+
         if (achievement.IsUnlocked)
         {
             achievementObject.UnlockAchievement();
@@ -81,6 +103,7 @@ public class AchievementUI : MonoBehaviour
         {
             achievementObject.EnableLock();
         }
+
         achievementObject.SetAchievementData(
             achievement.Icon,
             achievement.Title,
@@ -91,43 +114,47 @@ public class AchievementUI : MonoBehaviour
             isHidden
         );
     }
+
     private void AddToQueueDisplay(AchievementType achievement)
     {
-        if (_queuedAchievements.Count == 0)
+        _queuedAchievements.Add(achievement);
+
+        if (_queuedAchievements.Count == 1)
         {
-            _queuedAchievements.Add(achievement);
             DisplayPopUpAchievement(achievement);
         }
-        else
-        {
-            _queuedAchievements.Add(achievement);
-        }
     }
-    private void DisplayNextinQueue()
+
+    private void DisplayNextInQueue()
     {
         _queuedAchievements.RemoveAt(0);
-        if (_queuedAchievements.Count != 0)
+
+        if (_queuedAchievements.Count > 0)
         {
             DisplayPopUpAchievement(_queuedAchievements[0]);
         }
     }
+
     private void DisplayPopUpAchievement(AchievementType achievement)
     {
-        EventPackageFactory.BuildAndInvoke(_setAchievementPopUpInfo, achievement.Icon, achievement.Title, achievement.RewardTier);
-        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Displaying");
+        EventDispatcher.Raise(_setAchievementPopUpInfo, achievement.Icon, achievement.Title, achievement.RewardTier);
+        EventDispatcher.Raise(_playPopUpDisplayStatus, "Displaying");
+
         _soundEffect = RuntimeManager.CreateInstance(achievement.SoundEffect);
         RuntimeManager.AttachInstanceToGameObject(_soundEffect, transform);
         _soundEffect.start();
         _soundEffect.release();
     }
+
     private IEnumerator PopupCooldown()
     {
         yield return new WaitForSeconds(_displayPopupTime);
-        EventPackageFactory.BuildAndInvoke(_playPopUpDisplayStatus, "Hiding");
+        EventDispatcher.Raise(_playPopUpDisplayStatus, "Hiding");
         yield return new WaitForSeconds(1.5f);
-        if (_queuedAchievements.Count != 0)
+
+        if (_queuedAchievements.Count > 0)
         {
-            DisplayNextinQueue();
+            DisplayNextInQueue();
         }
         else
         {

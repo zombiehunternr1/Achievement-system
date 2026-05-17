@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class SaveLoadMenu : MonoBehaviour
 {
-    [SerializeField] private EventPackage _newGame;
-    [SerializeField] private EventPackage _saveGame;
-    [SerializeField] private EventPackage _loadGame;
+    [SerializeField] private EventChannel _newGame;
+    [SerializeField] private EventChannel _saveGame;
+    [SerializeField] private EventChannel _loadGame;
     public void NewGame()
     {
-        EventPackageFactory.BuildAndInvoke(_newGame);
+        EventDispatcher.Raise(_newGame);
     }
     public void SaveGame()
     {
-        EventPackageFactory.BuildAndInvoke(_saveGame);
+        EventDispatcher.Raise(_saveGame);
     }
     public void LoadGame()
     {
-        EventPackageFactory.BuildAndInvoke(_loadGame);
+        EventDispatcher.Raise(_loadGame);
     }
 }

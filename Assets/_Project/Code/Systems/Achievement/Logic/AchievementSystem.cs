@@ -4,95 +4,19 @@ using UnityEngine;
 
 public class AchievementSystem : MonoBehaviour
 {
-    [Header("Achievement list reference")]
+    [Header("Achievement List Reference")]
     [SerializeField] private AchievementTypeList _allAchievementsListReference;
 
-    [Header("Event references")]
-    [SerializeField] private EventPackage _setupAchievementUI;
-    [SerializeField] private EventPackage _updateAchievementUIStatus;
-    [SerializeField] private EventPackage _achievementUnlockedUI;
-    [SerializeField] private EventPackage _updateProgression;
-    [SerializeField] private EventPackage _saveGame;
-    private AchievementType FindAchievementById(string achievementID)
-    {
-        List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
+    [Header("Event Channels")]
+    [SerializeField] private EventChannel _setupAchievementUI;
+    [SerializeField] private EventChannel _updateAchievementUIStatus;
+    [SerializeField] private EventChannel _achievementUnlockedUI;
+    [SerializeField] private EventChannel _updateProgression;
+    [SerializeField] private EventChannel _saveGame;
 
-        for (int i = 0; i < allAchievements.Count; i++)
-        {
-            AchievementType achievement = allAchievements[i];
-
-            if (achievement != null && achievement.AchievementId == achievementID)
-            {
-                return achievement;
-            }
-        }
-
-        return null;
-    }
-
-    private List<AchievementType> TopologicalSort(Dictionary<AchievementType, List<AchievementType>> dependencyGraph)
-    {
-        List<AchievementType> sortedList = new List<AchievementType>();
-        HashSet<AchievementType> visited = new HashSet<AchievementType>();
-
-        void Visit(AchievementType achievement)
-        {
-            if (!visited.Contains(achievement))
-            {
-                visited.Add(achievement);
-
-                List<AchievementType> neighbors = dependencyGraph[achievement];
-
-                for (int i = 0; i < neighbors.Count; i++)
-                {
-                    Visit(neighbors[i]);
-                }
-
-                sortedList.Add(achievement);
-            }
-        }
-
-        foreach (AchievementType achievement in dependencyGraph.Keys)
-        {
-            Visit(achievement);
-        }
-
-        sortedList.Reverse();
-        return sortedList;
-    }
-    private bool IsEligibleForUnlock(AchievementType achievement, object context = null)
-    {
-        if (achievement.IsUnlocked)
-        {
-            return false;
-        }
-
-        switch (achievement.CompletionEnumRequirement)
-        {
-            case CompletionRequirementType.NoRequirement:
-                {
-                    return true;
-                }
-            case CompletionRequirementType.ValueRequirement:
-                {
-                    achievement.SetCurrentValue(context);
-                    return achievement.IsValueGoalReached;
-                }
-            case CompletionRequirementType.CollectableRequirement:
-                {
-                    return achievement.IsCollectableGoalReached((CollectableItem)context);
-                }
-            case CompletionRequirementType.AchievementRequirement:
-                {
-                    return achievement.IsAchievementGoalReached;
-                }
-        }
-
-        return false;
-    }
     private void Start()
     {
-        ExecuteEventPackage(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
+        EventDispatcher.Raise(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
     }
 
     public void ResetAllAchievements()
@@ -107,12 +31,12 @@ public class AchievementSystem : MonoBehaviour
             StartCoroutine(DelayUpdateUnlockedStatus(achievement));
         }
 
-        ExecuteEventPackage(_saveGame);
+        EventDispatcher.Raise(_saveGame);
     }
 
-    public void CheckCollectableRequest(EventData eventData)
+    public void CheckCollectableRequest(EventPayload payload)
     {
-        CollectableItem collectable = EventPackageExtractor.ExtractEventData<CollectableItem>(eventData);
+        CollectableItem collectable = EventReader.Get<CollectableItem>(payload);
         List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
         List<AchievementType> triggeredAchievements = new List<AchievementType>();
 
@@ -130,7 +54,7 @@ public class AchievementSystem : MonoBehaviour
                 continue;
             }
 
-            ExecuteEventPackage(_updateAchievementUIStatus, achievement);
+            EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
 
             if (achievement.IsCollectableGoalReached(collectable))
             {
@@ -186,33 +110,25 @@ public class AchievementSystem : MonoBehaviour
         }
     }
 
-    public void UpdateRecievedAchievement(EventData eventData)
+    public void UpdateReceivedAchievement(EventPayload payload)
     {
-        string achievementID = EventPackageExtractor.ExtractEventData<string>(eventData);
-        object valueObj = null;
-
-        if (EventPackageExtractor.ContainsData(eventData))
-        {
-            valueObj = EventPackageExtractor.ExtractAdditionalData(eventData);
-        }
-
-        AchievementType achievement = FindAchievementById(achievementID);
+        AchievementTrigger trigger = EventReader.Get<AchievementTrigger>(payload);
+        AchievementType achievement = FindAchievementById(trigger.Id);
 
         if (achievement == null)
         {
-            Debug.LogWarning("Couldn't find the achievement in the list with ID: " + achievementID);
+            Debug.LogWarning("Couldn't find achievement with ID: " + trigger.Id);
             return;
         }
 
-        if (IsEligibleForUnlock(achievement, valueObj))
+        if (IsEligibleForUnlock(achievement, trigger.Value))
         {
             UnlockAchievement(achievement);
         }
         else
-        {
-            ExecuteEventPackage(_updateAchievementUIStatus, achievement);
-        }
+            EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
     }
+
     private void UnlockAchievement(AchievementType achievement)
     {
         if (achievement.IsUnlocked)
@@ -221,9 +137,9 @@ public class AchievementSystem : MonoBehaviour
         }
 
         achievement.UnlockAchievement();
-        ExecuteEventPackage(_saveGame);
-        ExecuteEventPackage(_updateAchievementUIStatus, achievement);
-        ExecuteEventPackage(_achievementUnlockedUI, achievement);
+        EventDispatcher.Raise(_saveGame);
+        EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
+        EventDispatcher.Raise(_achievementUnlockedUI, achievement);
         CheckPendingAchievementUnlocks();
     }
 
@@ -246,27 +162,26 @@ public class AchievementSystem : MonoBehaviour
                 return;
             }
 
-            ExecuteEventPackage(_updateAchievementUIStatus, achievement);
+            EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
         }
     }
-    private void ExecuteEventPackage(EventPackage package, object arg = null)
-    {
-        EventPackageFactory.BuildAndInvoke(package, arg);
-    }
 
-    #region Co-routines
+    #region Coroutines
+
     private IEnumerator DelayUpdateUnlockedStatus(AchievementType achievement)
     {
         yield return new WaitForSeconds(0.01f);
-        ExecuteEventPackage(_updateAchievementUIStatus, achievement);
+        EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
     }
+
     #endregion
 
     #region Saving & Loading
-    public void UpdateData(EventData eventData)
+
+    public void UpdateData(EventPayload payload)
     {
-        GameData gameData = EventPackageExtractor.ExtractEventData<GameData>(eventData);
-        bool isLoading = EventPackageExtractor.ExtractEventData<bool>(eventData);
+        GameData gameData = EventReader.Get<GameData>(payload);
+        bool isLoading = EventReader.Get<bool>(payload);
 
         if (isLoading)
         {
@@ -277,7 +192,7 @@ public class AchievementSystem : MonoBehaviour
             SaveAchievementDataToGameData(gameData);
         }
 
-        ExecuteEventPackage(_updateProgression, gameData);
+        EventDispatcher.Raise(_updateProgression, gameData);
     }
 
     private void LoadAchievementDataFromGameData(GameData gameData)
@@ -289,25 +204,77 @@ public class AchievementSystem : MonoBehaviour
             AchievementType achievement = allAchievements[i];
             gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO achievementDTO);
             achievement.LoadAchievementStatus(achievementDTO);
-            ExecuteEventPackage(_updateAchievementUIStatus, achievement);
+            EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
         }
     }
 
     private void SaveAchievementDataToGameData(GameData gameData)
     {
-        List<AchievementType>.Enumerator enumerator = _allAchievementsListReference.AllAchievements.GetEnumerator();
-
-        try
-        {
-            while (enumerator.MoveNext())
-            {
-                enumerator.Current.SaveAchievementStatus(gameData);
-            }
-        }
-        finally
-        {
-            enumerator.Dispose();
-        }
+        foreach (AchievementType achievement in _allAchievementsListReference.AllAchievements)
+            achievement.SaveAchievementStatus(gameData);
     }
+
+    #endregion
+
+    #region Helpers
+
+    private AchievementType FindAchievementById(string achievementID)
+    {
+        List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
+
+        for (int i = 0; i < allAchievements.Count; i++)
+        {
+            AchievementType achievement = allAchievements[i];
+
+            if (achievement != null && achievement.AchievementId == achievementID)
+                return achievement;
+        }
+
+        return null;
+    }
+
+    private List<AchievementType> TopologicalSort(Dictionary<AchievementType, List<AchievementType>> dependencyGraph)
+    {
+        List<AchievementType> sortedList = new List<AchievementType>();
+        HashSet<AchievementType> visited = new HashSet<AchievementType>();
+
+        void Visit(AchievementType node)
+        {
+            if (visited.Contains(node)) return;
+
+            visited.Add(node);
+
+            List<AchievementType> neighbors = dependencyGraph[node];
+            for (int i = 0; i < neighbors.Count; i++)
+                Visit(neighbors[i]);
+
+            sortedList.Add(node);
+        }
+
+        foreach (AchievementType achievement in dependencyGraph.Keys)
+            Visit(achievement);
+
+        sortedList.Reverse();
+        return sortedList;
+    }
+
+    private bool IsEligibleForUnlock(AchievementType achievement, object context = null)
+    {
+        if (achievement.IsUnlocked)
+        {
+            return false;
+        }
+
+        switch (achievement.CompletionEnumRequirement)
+        {
+            case CompletionRequirementType.NoRequirement: return true;
+            case CompletionRequirementType.ValueRequirement: achievement.SetCurrentValue(context); return achievement.IsValueGoalReached;
+            case CompletionRequirementType.CollectableRequirement: return achievement.IsCollectableGoalReached((CollectableItem)context);
+            case CompletionRequirementType.AchievementRequirement: return achievement.IsAchievementGoalReached;
+        }
+
+        return false;
+    }
+
     #endregion
 }

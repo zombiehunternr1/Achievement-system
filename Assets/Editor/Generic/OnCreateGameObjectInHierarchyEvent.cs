@@ -17,7 +17,7 @@ public class OnCreateGameObjectInHierarchyEvent
             {
                 case ObjectChangeKind.CreateGameObjectHierarchy:
                     stream.GetCreateGameObjectHierarchyEvent(i, out CreateGameObjectHierarchyEventArgs createGameObjectHierarchyEventArgs);
-                    GameObject newGameObject = EditorUtility.InstanceIDToObject(createGameObjectHierarchyEventArgs.instanceId) as GameObject;
+                    GameObject newGameObject = EditorUtility.EntityIdToObject(createGameObjectHierarchyEventArgs.entityId) as GameObject;
                     CollectableObject newCollectableObject = newGameObject.GetComponent<CollectableObject>();
                     if (newCollectableObject == null)
                     {

@@ -11,7 +11,7 @@ public class ButtonUIController : MonoBehaviour
     [SerializeField] private AchievementType _quitAchievementReference;
     [SerializeField] private AchievementType _hiddenAchievementReference;
     [Header("Event references")]
-    [SerializeField] private EventPackage _updateAchievements;
+    [SerializeField] private EventChannel _updateAchievements;
     private void OnEnable()
     {
         UpdateCollectableStatusDisplay();
@@ -23,11 +23,11 @@ public class ButtonUIController : MonoBehaviour
     }
     public void QuitButton()
     {
-        EventPackageFactory.BuildAndInvoke(_updateAchievements, _quitAchievementReference.AchievementId);
+        EventDispatcher.Raise(_updateAchievements, new AchievementTrigger(_quitAchievementReference.AchievementId));
     }
     public void HiddenButton()
     {
-        EventPackageFactory.BuildAndInvoke(_updateAchievements, _hiddenAchievementReference.AchievementId);
+        EventDispatcher.Raise(_updateAchievements, new AchievementTrigger(_hiddenAchievementReference.AchievementId));
     }
     public void HoldButton1(int index)
     {

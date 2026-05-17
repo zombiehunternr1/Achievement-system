@@ -6,7 +6,8 @@ public class UniqueIdentifierDrawerEditor : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        string assetPath = AssetDatabase.GetAssetPath(property.serializedObject.targetObject.GetInstanceID());
+        var entityId = property.serializedObject.targetObject.GetEntityId();
+        string assetPath = AssetDatabase.GetAssetPath(entityId);
         string uniqueID = AssetDatabase.AssetPathToGUID(assetPath);
         property.stringValue = uniqueID;
         Rect textFieldPosition = position;
