@@ -110,12 +110,12 @@ public class GameData
     {
         _lastUpdated = value;
     }
-    public void SetTotalAchievementsData(string iDValue, string achievementTitle, bool isUnlocked, float currentAmount)
+    public void SetTotalAchievementsData(string idValue, string achievementTitle, bool isUnlocked, float currentAmount)
     {
-        _achievementsData[iDValue] = new AchievementDTO(achievementTitle, isUnlocked, currentAmount);
+        _achievementsData[idValue] = new AchievementDTO(achievementTitle, isUnlocked, currentAmount);
     }
-    public void SetTotalCollectablesStatusData(string iDValue, string collectableName, bool isCollected, float currentAmountValue)
+    public void SetTotalCollectablesStatusData(string idValue, string collectableName, bool isCollected, float currentAmountValue)
     {
-        _collectablesStatusData[iDValue] = new CollectableStatusDTO(collectableName, isCollected, currentAmountValue);
+        _collectablesStatusData[idValue] = new CollectableStatusDTO(collectableName, isCollected, currentAmountValue);
     }
 }
