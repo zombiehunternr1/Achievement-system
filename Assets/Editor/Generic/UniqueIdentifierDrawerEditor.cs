@@ -9,9 +9,14 @@ public class UniqueIdentifierDrawerEditor : PropertyDrawer
         var entityId = property.serializedObject.targetObject.GetEntityId();
         string assetPath = AssetDatabase.GetAssetPath(entityId);
         string uniqueID = AssetDatabase.AssetPathToGUID(assetPath);
-        property.stringValue = uniqueID;
+
+        if (property.stringValue != uniqueID)
+        {
+            property.stringValue = uniqueID;
+        }
+
         Rect textFieldPosition = position;
         textFieldPosition.height = 16;
-        EditorGUI.LabelField(position, label, new GUIContent(property.stringValue));
+        EditorGUI.LabelField(textFieldPosition, label, new GUIContent(property.stringValue));
     }
 }
