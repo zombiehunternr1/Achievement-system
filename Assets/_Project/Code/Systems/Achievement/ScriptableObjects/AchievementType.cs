@@ -12,6 +12,7 @@ public class AchievementType : AchievementBase
     [SerializeField] private ValueData _valueData;
     [SerializeField] private bool _isUnlockedAfterAchievement;
     [SerializeField] private List<AchievementType> _unlockAfterAchievements;
+
     public List<AchievementType> UnlockAfterAchievements
     {
         get
@@ -19,6 +20,7 @@ public class AchievementType : AchievementBase
             return _unlockAfterAchievements;
         }
     }
+
     public bool IsUnlockedAfterAchievement
     {
         get
@@ -26,6 +28,7 @@ public class AchievementType : AchievementBase
             return _isUnlockedAfterAchievement;
         }
     }
+
     public CompletionRequirementType CompletionEnumRequirement
     {
         get
@@ -33,6 +36,7 @@ public class AchievementType : AchievementBase
             return _completionRequirement;
         }
     }
+
     public RewardTier RewardTier
     {
         get
@@ -40,6 +44,7 @@ public class AchievementType : AchievementBase
             return _rewardTier;
         }
     }
+
     public bool IsHidden
     {
         get
@@ -47,6 +52,7 @@ public class AchievementType : AchievementBase
             return _progressionData.IsHidden;
         }
     }
+
     public bool HasProgressionDisplay
     {
         get
@@ -54,13 +60,15 @@ public class AchievementType : AchievementBase
             return _progressionData.HasProgressionDisplay;
         }
     }
-    public float GetCurrentAmount
+
+    public float CurrentAmount
     {
         get
         {
             return _valueData.GetCurrentAmount();
         }
     }
+
     public bool IsValueGoalReached
     {
         get
@@ -68,6 +76,7 @@ public class AchievementType : AchievementBase
             return _valueData.IsRequirementMet();
         }
     }
+
     public bool IsAchievementGoalReached
     {
         get
@@ -75,6 +84,7 @@ public class AchievementType : AchievementBase
             return _achievementData.IsRequirementMet();
         }
     }
+
     public string ProgressionDisplay
     {
         get
@@ -83,6 +93,7 @@ public class AchievementType : AchievementBase
             {
                 return string.Empty;
             }
+
             switch (_completionRequirement)
             {
                 case CompletionRequirementType.ValueRequirement:
@@ -94,10 +105,12 @@ public class AchievementType : AchievementBase
             }
         }
     }
+
     public bool IsCollectableGoalReached(CollectableItem collectable)
     {
         return _collectableData.IsRequirementMet(collectable);
     }
+
     public bool IsAchievementRelated(CollectableItem collectable)
     {
         if (_completionRequirement == CompletionRequirementType.NoRequirement ||
@@ -105,23 +118,66 @@ public class AchievementType : AchievementBase
         {
             return false;
         }
+
         return _collectableData.IsRelatedToAchievement(collectable);
     }
+
+    public void SetCurrentValue(object value)
+    {
+        _valueData.SetValue(value);
+    }
+
+    public void LoadAchievementStatus(AchievementDTO achievementDTO)
+    {
+        if (achievementDTO == null)
+        {
+            LockAchievement();
+            return;
+        }
+
+        if (achievementDTO.IsUnlocked)
+        {
+            UnlockAchievement();
+        }
+        else
+        {
+            LockAchievement();
+        }
+
+        if (CompletionEnumRequirement == CompletionRequirementType.ValueRequirement)
+        {
+            SetCurrentValue(achievementDTO.CurrentAmount);
+        }
+    }
+
+    public void SaveAchievementStatus(GameData gameData)
+    {
+        gameData.SetTotalAchievementsData(
+            AchievementId,
+            Title,
+            IsUnlocked,
+            CurrentAmount
+        );
+    }
+
     private string GetCustomRequirementProgression()
     {
         (int currentAmount, int totalAmount) = _collectableData.GetCustomAmountDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
     }
+
     private string GetValueRequirementProgression()
     {
         (float currentAmount, float goalAmount) = _valueData.GetAmountDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
     }
+
     private string GetAchievementProgression()
     {
         (int currentAmount, int goalAmount) = _achievementData.GetProgressionDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
     }
+
     private string GetCollectableProgression()
     {
         switch (_collectableData.CollectableRequirement)
@@ -134,42 +190,16 @@ public class AchievementType : AchievementBase
                 return GetCustomRequirementProgression();
         }
     }
+
     private string GetSingleCollectableProgression()
     {
         (int currentAmount, int totalAmount) = _collectableData.GetSingleProgressionDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
     }
+
     private string GetAllCollectablesProgression()
     {
         (int currentAmount, int totalAmount) = _collectableData.GetAllProgressionDisplay();
         return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-    }
-    public void SetCurrentValue(object value)
-    {
-        _valueData.SetValue(value);
-    }
-    public void LoadAchievementStatus(AchievementDTO achievementDTO)
-    {
-        if (achievementDTO.IsUnlocked)
-        {
-            UnlockAchievement();
-        }
-        else
-        {
-            LockAchievement();
-        }
-        if (CompletionEnumRequirement == CompletionRequirementType.ValueRequirement)
-        {
-            SetCurrentValue(achievementDTO.CurrentAmount);
-        }
-    }
-    public void SaveAchievementStatus(GameData gameData)
-    {
-        gameData.SetTotalAchievementsData(
-            AchievementId,
-            Title,
-            IsUnlocked,
-            GetCurrentAmount
-        );
     }
 }
