@@ -31,8 +31,7 @@ public class ProgressionData
         {
             return currentAmount + " / " + goalAmount;
         }
-        float percentageAmount;
-        percentageAmount = Mathf.InverseLerp(0, goalAmount, currentAmount) * 100;
+        float percentageAmount = Mathf.InverseLerp(0, goalAmount, currentAmount) * 100;
         return percentageAmount + "%";
     }
 }

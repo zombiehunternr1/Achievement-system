@@ -126,7 +126,9 @@ public class AchievementSystem : MonoBehaviour
             UnlockAchievement(achievement);
         }
         else
+        {
             EventDispatcher.Raise(_updateAchievementUIStatus, achievement);
+        }
     }
 
     private void UnlockAchievement(AchievementType achievement)

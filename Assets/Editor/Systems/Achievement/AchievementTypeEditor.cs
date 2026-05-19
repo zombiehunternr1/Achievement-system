@@ -65,14 +65,7 @@ public class AchievementTypeEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUI.BeginDisabledGroup(true);
-        if (target as MonoBehaviour != null)
-        {
-            _monoScript = MonoScript.FromMonoBehaviour((MonoBehaviour)target);
-        }
-        else
-        {
-            _monoScript = MonoScript.FromScriptableObject((ScriptableObject)target);
-        }
+        _monoScript = MonoScript.FromScriptableObject((ScriptableObject)target);
         EditorGUILayout.ObjectField("Script", _monoScript, GetType(), false);
         EditorGUI.EndDisabledGroup();
         serializedObject.Update();
@@ -154,8 +147,10 @@ public class AchievementTypeEditor : Editor
         {
             if (_unlockAfterAchievementsProp.isArray)
             {
-                while (_unlockAfterAchievementsProp.arraySize > 0)
-                    _unlockAfterAchievementsProp.DeleteArrayElementAtIndex(0);
+                if (_unlockAfterAchievementsProp.arraySize > 0)
+                {
+                    _unlockAfterAchievementsProp.ClearArray();
+                }
             }
         }
         serializedObject.ApplyModifiedProperties();
