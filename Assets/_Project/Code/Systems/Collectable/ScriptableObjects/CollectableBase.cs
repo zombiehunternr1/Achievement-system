@@ -7,6 +7,7 @@ public abstract class CollectableBase : ScriptableObject
     [SerializeField] private CollectionItemAmount _itemAmountType;
     [SerializeField] private CollectableState _singleCollectableStatus;
     [SerializeField] private List<CollectableState> _multiCollectablesStatus;
+
     public ProcessingType CollectionType
     {
         get
@@ -14,6 +15,7 @@ public abstract class CollectableBase : ScriptableObject
             return _collectionType;
         }
     }
+
     public CollectionItemAmount ItemAmountType
     {
         get
@@ -21,6 +23,7 @@ public abstract class CollectableBase : ScriptableObject
             return _itemAmountType;
         }
     }
+
     public int MultiCollectables
     {
         get
@@ -28,6 +31,7 @@ public abstract class CollectableBase : ScriptableObject
             return _multiCollectablesStatus.Count;
         }
     }
+
     public string CollectableId
     {
         get
@@ -35,6 +39,7 @@ public abstract class CollectableBase : ScriptableObject
             return _singleCollectableStatus.CollectableId;
         }
     }
+
     public bool IsCollected
     {
         get
@@ -42,6 +47,7 @@ public abstract class CollectableBase : ScriptableObject
             return _singleCollectableStatus.IsCollected;
         }
     }
+
     public bool IsGoalRequirementReached
     {
         get
@@ -49,6 +55,7 @@ public abstract class CollectableBase : ScriptableObject
             return _singleCollectableStatus.IsGoalReached;
         }
     }
+
     public float CurrentAmount
     {
         get
@@ -56,46 +63,67 @@ public abstract class CollectableBase : ScriptableObject
             return _singleCollectableStatus.CurrentAmount;
         }
     }
+
     public float CurrentAmountFromList(int index)
     {
         return _multiCollectablesStatus[index].CurrentAmount;
     }
+
     public float GoalAmountFromList(int index)
     {
         return _multiCollectablesStatus[index].GoalAmount;
     }
+
     public string CollectableIdFromList(int index)
     {
         return _multiCollectablesStatus[index].CollectableId;
     }
+
     public bool IsMatchingId(string id)
     {
         return _singleCollectableStatus.CollectableId.Equals(id);
     }
+
     public bool IsMatchingIdInList(int index, string id)
     {
         return _multiCollectablesStatus[index].CollectableId.Equals(id);
     }
+
     public bool IsCollectedFromList(int index)
     {
         return _multiCollectablesStatus[index].IsCollected;
     }
-    public bool IsGoalRequirementReachedFromList(int currentIdIndex)
+
+    public bool IsGoalRequirementReachedFromList(int index)
     {
-        return _multiCollectablesStatus[currentIdIndex].IsGoalReached;
+        return _multiCollectablesStatus[index].IsGoalReached;
     }
+
+    public void AdvanceSingleProgress(float deltaTime)
+    {
+        _singleCollectableStatus.AdvanceProgress(deltaTime);
+    }
+
+    public void AdvanceMultiProgress(int index, float deltaTime)
+    {
+        _multiCollectablesStatus[index].AdvanceProgress(deltaTime);
+    }
+
     public void SetCollectableStatus(bool value)
     {
         _singleCollectableStatus.SetCollectableStatus(value);
     }
+
     public void SetCollectableStatusFromList(int index, bool value)
     {
         _multiCollectablesStatus[index].SetCollectableStatus(value);
     }
+
     public void SetCurrentAmount(float value)
     {
         _singleCollectableStatus.SetCurrentAmountValue(value);
     }
+
     public void SetCurrentAmountFromList(int index, float value)
     {
         _multiCollectablesStatus[index].SetCurrentAmountValue(value);

@@ -6010,7 +6010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36c4f58579e0a6428fd01740b7104ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allCollectablesListReference: {fileID: 11400000, guid: a18b6635a861d4143ae8a608f5d12013, type: 2}
+  _allCollectablesListReference: {fileID: 11400000, guid: 88fd27b1fda6fff44996a708495693cf, type: 2}
   _checkCollectableRequest: {fileID: 11400000, guid: fc9ea0dce9050474c9fdd221b087e423, type: 2}
   _updateCollectablesStatus: {fileID: 11400000, guid: 84f128e9881535844be83463b9b42a8b, type: 2}
   _updateProgression: {fileID: 11400000, guid: a7e0f0aeeda2473439be3aa36ecce13c, type: 2}

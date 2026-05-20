@@ -37,7 +37,7 @@ MonoBehaviour:
   _collectableData:
     _collectableRequirement: 1
     _collectableReference: {fileID: 0}
-    _collectableListReference: {fileID: 11400000, guid: 8c4c54811a55f174f95a451c4af3222c, type: 2}
+    _collectableListReference: {fileID: 11400000, guid: 19ce57d8808fda543b3747398e89023a, type: 2}
     _minimumGoalAmount: 0
   _valueData:
     _valueType: 0
@@ -46,3 +46,5 @@ MonoBehaviour:
     _goalIntegerAmount: 0
     _currentFloatAmount: 0
     _goalFloatAmount: 0
+  _isUnlockedAfterAchievement: 0
+  _unlockAfterAchievements: []

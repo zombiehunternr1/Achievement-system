@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bbe2f97d34688a479685fdd47028695, type: 3}
   m_Name: AllGems
-  m_EditorClassIdentifier: 
-  _CollectablesList:
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableList
+  _collectablesList:
   - {fileID: 11400000, guid: 2a9b14cfe3afaf64f8224bae0a1181b3, type: 2}
   - {fileID: 11400000, guid: 29103749d1ada4d4ea2b21045a4cfaa2, type: 2}
   - {fileID: 11400000, guid: cd3bd3004dec94a4f9ff1176f0698801, type: 2}

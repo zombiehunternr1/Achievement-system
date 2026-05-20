@@ -37,7 +37,7 @@ MonoBehaviour:
   _collectableData:
     _collectableRequirement: 2
     _collectableReference: {fileID: 0}
-    _collectableListReference: {fileID: 11400000, guid: a18b6635a861d4143ae8a608f5d12013, type: 2}
+    _collectableListReference: {fileID: 11400000, guid: 88fd27b1fda6fff44996a708495693cf, type: 2}
     _minimumGoalAmount: 1
   _valueData:
     _valueType: 0

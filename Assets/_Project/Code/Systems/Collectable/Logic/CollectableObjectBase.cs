@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 public abstract class CollectableObjectBase : MonoBehaviour
 {
     [SerializeField] private string _objectId;
-    private static readonly Dictionary<string, CollectableObjectBase> _collectableObjectsBaseRegistry = new Dictionary<string, CollectableObjectBase>();
+
+    private static readonly Dictionary<string, CollectableObjectBase> _collectableObjectsBaseRegistry
+        = new Dictionary<string, CollectableObjectBase>();
+
     public string ObjectId
     {
         get
@@ -13,29 +16,36 @@ public abstract class CollectableObjectBase : MonoBehaviour
             return _objectId;
         }
     }
+
     private void OnEnable()
     {
         if (string.IsNullOrEmpty(_objectId))
         {
             return;
         }
+
         if (!_collectableObjectsBaseRegistry.ContainsKey(_objectId))
         {
             _collectableObjectsBaseRegistry.Add(_objectId, this);
         }
     }
+
     private void OnDisable()
     {
         _collectableObjectsBaseRegistry.Remove(_objectId);
     }
+
     private void OnValidate()
     {
         ValidateObjectId();
     }
+
     private bool IsDuplicateId()
     {
-        return _collectableObjectsBaseRegistry.TryGetValue(_objectId, out CollectableObjectBase existingObject) && existingObject != this;
+        return _collectableObjectsBaseRegistry.TryGetValue(_objectId, out CollectableObjectBase existingObject)
+            && existingObject != this;
     }
+
     public void ValidateObjectId()
     {
         if (string.IsNullOrEmpty(_objectId) || IsDuplicateId())
@@ -43,6 +53,7 @@ public abstract class CollectableObjectBase : MonoBehaviour
             GenerateNewId();
         }
     }
+
     private void GenerateNewId()
     {
         _objectId = System.Guid.NewGuid().ToString();

@@ -9,6 +9,7 @@ public class CollectableState
     [SerializeField] private float _currentAmount;
     [SerializeField] private float _goalAmount;
     [SerializeField] private float _increaseSpeed;
+
     public string CollectableId
     {
         get
@@ -16,6 +17,7 @@ public class CollectableState
             return _collectableId;
         }
     }
+
     public bool IsCollected
     {
         get
@@ -23,6 +25,7 @@ public class CollectableState
             return _isCollected;
         }
     }
+
     public float CurrentAmount
     {
         get
@@ -30,6 +33,7 @@ public class CollectableState
             return _currentAmount;
         }
     }
+
     public float GoalAmount
     {
         get
@@ -37,23 +41,31 @@ public class CollectableState
             return _goalAmount;
         }
     }
+
     public bool IsGoalReached
     {
         get
         {
-            if (_currentAmount >= _goalAmount)
-            {
-                _currentAmount = _goalAmount;
-                return true;
-            }
-            _currentAmount += Time.deltaTime * _increaseSpeed;
-            return false;
+            return _currentAmount >= _goalAmount;
         }
     }
+
+    public void AdvanceProgress(float deltaTime)
+    {
+        if (_currentAmount >= _goalAmount)
+        {
+            _currentAmount = _goalAmount;
+            return;
+        }
+
+        _currentAmount += deltaTime * _increaseSpeed;
+    }
+
     public void SetCollectableStatus(bool value)
     {
         _isCollected = value;
     }
+
     public void SetCurrentAmountValue(float value)
     {
         _currentAmount = value;

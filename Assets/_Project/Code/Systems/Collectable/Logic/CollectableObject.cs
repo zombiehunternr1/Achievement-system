@@ -24,9 +24,14 @@ public class CollectableObject : CollectableObjectBase
             return;
         }
 
-        if (_collectable.CollectionType == ProcessingType.Overtime && !_collectable.IsGoalRequirementReached)
+        if (_collectable.CollectionType == ProcessingType.Overtime)
         {
-            SetAsCollected();
+            _collectable.AdvanceSingleProgress(Time.deltaTime);
+
+            if (!_collectable.IsGoalRequirementReached)
+            {
+                SetAsCollected();
+            }
         }
     }
 
@@ -34,13 +39,26 @@ public class CollectableObject : CollectableObjectBase
     {
         for (int i = 0; i < _collectable.MultiCollectables; i++)
         {
-            if (!_collectable.IsCollectedFromList(i) &&
-                _collectable.IsMatchingIdInList(i, ObjectId) &&
-                (_collectable.CollectionType == ProcessingType.Instantly ||
-                 _collectable.IsGoalRequirementReachedFromList(i)))
+            if (_collectable.IsCollectedFromList(i) || !_collectable.IsMatchingIdInList(i, ObjectId))
+            {
+                continue;
+            }
+
+            if (_collectable.CollectionType == ProcessingType.Instantly)
             {
                 SetAsCollectedInList(i);
                 return;
+            }
+
+            if (_collectable.CollectionType == ProcessingType.Overtime)
+            {
+                _collectable.AdvanceMultiProgress(i, Time.deltaTime);
+
+                if (_collectable.IsGoalRequirementReachedFromList(i))
+                {
+                    SetAsCollectedInList(i);
+                    return;
+                }
             }
         }
     }
