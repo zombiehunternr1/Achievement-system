@@ -10,7 +10,6 @@ public class AchievementTypeEditor : Editor
         _titleProp,
         _descriptionProp,
         _iconProp,
-        _isUnlockedProp,
         _soundEffectProp,
         _rewardTierProp,
         _achievementListReferenceProp,
@@ -32,14 +31,15 @@ public class AchievementTypeEditor : Editor
         _minimumGoalAmountProp,
         _isUnlockAfterAchievementProp,
         _unlockAfterAchievementsProp;
+
     private MonoScript _monoScript;
+
     private void OnEnable()
     {
         _achievementIdProp = serializedObject.FindProperty("_achievementId");
         _titleProp = serializedObject.FindProperty("_title");
         _descriptionProp = serializedObject.FindProperty("_description");
         _iconProp = serializedObject.FindProperty("_icon");
-        _isUnlockedProp = serializedObject.FindProperty("_isUnlocked");
         _soundEffectProp = serializedObject.FindProperty("_soundEffect");
         _rewardTierProp = serializedObject.FindProperty("_rewardTier");
         _achievementListReferenceProp = serializedObject.FindProperty("_achievementData._achievementListReference");
@@ -62,97 +62,111 @@ public class AchievementTypeEditor : Editor
         _isUnlockAfterAchievementProp = serializedObject.FindProperty("_isUnlockedAfterAchievement");
         _unlockAfterAchievementsProp = serializedObject.FindProperty("_unlockAfterAchievements");
     }
+
     public override void OnInspectorGUI()
     {
-        EditorGUI.BeginDisabledGroup(true);
         _monoScript = MonoScript.FromScriptableObject((ScriptableObject)target);
+        EditorGUI.BeginDisabledGroup(true);
         EditorGUILayout.ObjectField("Script", _monoScript, GetType(), false);
         EditorGUI.EndDisabledGroup();
+
         serializedObject.Update();
+
         EditorGUILayout.PropertyField(_achievementIdProp);
         EditorGUILayout.PropertyField(_titleProp);
         EditorGUILayout.PropertyField(_descriptionProp);
         EditorGUILayout.PropertyField(_iconProp);
         EditorGUILayout.PropertyField(_rewardTierProp);
         EditorGUILayout.PropertyField(_soundEffectProp);
-        EditorGUILayout.PropertyField(_isUnlockedProp);
         EditorGUILayout.PropertyField(_isHiddenProp);
+
         if (!_isHiddenProp.boolValue)
         {
             EditorGUI.indentLevel++;
             EditorGUILayout.PropertyField(_showProgressionProp);
+
             if (_showProgressionProp.boolValue)
             {
                 EditorGUILayout.PropertyField(_progressionEnumDisplayProp);
             }
+
             EditorGUI.indentLevel--;
         }
+
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Completion settings", EditorStyles.boldLabel);
         EditorGUILayout.PropertyField(_completionEnumRequirementProp);
-        CompletionRequirementType completionEnumType = (CompletionRequirementType)_completionEnumRequirementProp.enumValueIndex;
-        NumericValueType valueEnumType = (NumericValueType)_valueEnumTypeProp.enumValueIndex;
-        CollectableRequirementType collectableEnumRequirement = (CollectableRequirementType)_collectableEnumRequirementProp.enumValueIndex;
+
+        CompletionRequirementType completionEnumType =
+            (CompletionRequirementType)_completionEnumRequirementProp.enumValueIndex;
+        NumericValueType valueEnumType =
+            (NumericValueType)_valueEnumTypeProp.enumValueIndex;
+        CollectableRequirementType collectableEnumRequirement =
+            (CollectableRequirementType)_collectableEnumRequirementProp.enumValueIndex;
+
         switch (completionEnumType)
         {
             case CompletionRequirementType.NoRequirement:
-            break;
+                break;
+
             case CompletionRequirementType.ValueRequirement:
                 EditorGUILayout.PropertyField(_valueEnumTypeProp);
                 EditorGUILayout.PropertyField(_isExactAmountProp);
+
                 switch (valueEnumType)
                 {
                     case NumericValueType.Integer:
                         EditorGUILayout.PropertyField(_currentIntegerAmountProp);
                         EditorGUILayout.PropertyField(_goalIntegerAmountProp);
-                    break;
+                        break;
                     case NumericValueType.Float:
                         EditorGUILayout.PropertyField(_currentFloatAmountProp);
-                        EditorGUILayout.PropertyField (_goalFloatAmountProp);
-                    break;
+                        EditorGUILayout.PropertyField(_goalFloatAmountProp);
+                        break;
                 }
-            break;
+                break;
+
             case CompletionRequirementType.CollectableRequirement:
                 EditorGUILayout.PropertyField(_collectableEnumRequirementProp);
+
                 switch (collectableEnumRequirement)
                 {
                     case CollectableRequirementType.SingleCollectable:
                         EditorGUILayout.PropertyField(_collectableReferenceProp);
-                    break;
+                        break;
                     case CollectableRequirementType.AllCollectables:
                         EditorGUILayout.PropertyField(_collectableListReferenceProp);
-                    break;
+                        break;
                     case CollectableRequirementType.Custom:
                         EditorGUILayout.PropertyField(_collectableListReferenceProp);
                         EditorGUILayout.PropertyField(_minimumGoalAmountProp);
-                    break;
+                        break;
                 }
-            break;
+                break;
+
             case CompletionRequirementType.AchievementRequirement:
                 EditorGUILayout.PropertyField(_achievementListReferenceProp);
                 EditorGUILayout.PropertyField(_hasCustomGoalAmountProp);
+
                 if (_hasCustomGoalAmountProp.boolValue)
                 {
                     EditorGUILayout.PropertyField(_goalAmountProp);
                 }
-            break;
+                break;
         }
+
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(_isUnlockAfterAchievementProp);
+
         if (_isUnlockAfterAchievementProp.boolValue)
         {
             EditorGUILayout.PropertyField(_unlockAfterAchievementsProp);
         }
-        else
+        else if (_unlockAfterAchievementsProp.arraySize > 0)
         {
-            if (_unlockAfterAchievementsProp.isArray)
-            {
-                if (_unlockAfterAchievementsProp.arraySize > 0)
-                {
-                    _unlockAfterAchievementsProp.ClearArray();
-                }
-            }
+            _unlockAfterAchievementsProp.ClearArray();
         }
+
         serializedObject.ApplyModifiedProperties();
     }
 }

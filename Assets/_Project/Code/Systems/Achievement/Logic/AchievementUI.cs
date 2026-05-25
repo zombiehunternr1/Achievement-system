@@ -21,6 +21,7 @@ public class AchievementUI : MonoBehaviour
     private readonly List<AchievementType> _queuedAchievements = new List<AchievementType>();
     private EventInstance _soundEffect;
 
+    // Receives List<AchievementType> — unchanged from original
     public void SetupAchievementDisplay(EventPayload payload)
     {
         List<AchievementType> allAchievements = EventReader.Get<List<AchievementType>>(payload);
@@ -50,13 +51,17 @@ public class AchievementUI : MonoBehaviour
                 achievementObject.DisableLock();
             }
 
-            UpdateAchievementObject(i, achievement, achievement.IsHidden);
+            // Initial state — locked. LoadAchievementDataFromGameData fires RaiseUIStatus
+            // for every achievement, which sends AchievementStatusPayload to UpdateAchievementStatus
+            UpdateAchievementObject(i, achievement, false, string.Empty, achievement.IsHidden);
         }
     }
 
+    // Now receives AchievementStatusPayload — isUnlocked and progression come from runtime state
     public void UpdateAchievementStatus(EventPayload payload)
     {
-        AchievementType achievement = EventReader.Get<AchievementType>(payload);
+        AchievementStatusPayload status = EventReader.Get<AchievementStatusPayload>(payload);
+        AchievementType achievement = status.Achievement;
         int objectIndex = _achievementObjects.FindIndex(obj => obj.AchievementId == achievement.AchievementId);
 
         if (objectIndex == -1)
@@ -65,20 +70,21 @@ public class AchievementUI : MonoBehaviour
             return;
         }
 
-        bool shouldDisplayAsHidden = !achievement.IsUnlocked && achievement.IsHidden;
-        UpdateAchievementObject(objectIndex, achievement, shouldDisplayAsHidden);
+        bool shouldDisplayAsHidden = !status.IsUnlocked && achievement.IsHidden;
+        UpdateAchievementObject(objectIndex, achievement, status.IsUnlocked, status.ProgressionDisplay, shouldDisplayAsHidden);
     }
 
+    // Now receives AchievementStatusPayload
     public void AchievementUnlocked(EventPayload payload)
     {
-        AchievementType achievement = EventReader.Get<AchievementType>(payload);
+        AchievementStatusPayload status = EventReader.Get<AchievementStatusPayload>(payload);
 
-        if (_queuedAchievements.Exists(a => a.AchievementId == achievement.AchievementId))
+        if (_queuedAchievements.Exists(a => a.AchievementId == status.Achievement.AchievementId))
         {
             return;
         }
 
-        AddToQueueDisplay(achievement);
+        AddToQueueDisplay(status.Achievement);
     }
 
     public void StartPopupCooldown()
@@ -91,11 +97,12 @@ public class AchievementUI : MonoBehaviour
         _queuedAchievements.Clear();
     }
 
-    private void UpdateAchievementObject(int objectIndex, AchievementType achievement, bool isHidden)
+    private void UpdateAchievementObject(int objectIndex, AchievementType achievement,
+        bool isUnlocked, string progressionDisplay, bool isHidden)
     {
         AchievementObject achievementObject = _achievementObjects[objectIndex];
 
-        if (achievement.IsUnlocked)
+        if (isUnlocked)
         {
             achievementObject.UnlockAchievement();
         }
@@ -109,7 +116,7 @@ public class AchievementUI : MonoBehaviour
             achievement.Title,
             achievement.Description,
             achievement.HasProgressionDisplay,
-            achievement.ProgressionDisplay,
+            progressionDisplay,
             achievement.RewardTier,
             isHidden
         );

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,95 +16,47 @@ public class AchievementType : AchievementBase
 
     public List<AchievementType> UnlockAfterAchievements
     {
-        get
-        {
-            return _unlockAfterAchievements;
-        }
+        get { return _unlockAfterAchievements; }
     }
 
     public bool IsUnlockedAfterAchievement
     {
-        get
-        {
-            return _isUnlockedAfterAchievement;
-        }
+        get { return _isUnlockedAfterAchievement; }
     }
 
     public CompletionRequirementType CompletionEnumRequirement
     {
-        get
-        {
-            return _completionRequirement;
-        }
+        get { return _completionRequirement; }
     }
 
     public RewardTier RewardTier
     {
-        get
-        {
-            return _rewardTier;
-        }
+        get { return _rewardTier; }
     }
 
     public bool IsHidden
     {
-        get
-        {
-            return _progressionData.IsHidden;
-        }
+        get { return _progressionData.IsHidden; }
     }
 
     public bool HasProgressionDisplay
     {
-        get
-        {
-            return _progressionData.HasProgressionDisplay;
-        }
+        get { return _progressionData.HasProgressionDisplay; }
     }
 
     public float CurrentAmount
     {
-        get
-        {
-            return _valueData.GetCurrentAmount();
-        }
+        get { return _valueData.GetCurrentAmount(); }
     }
 
     public bool IsValueGoalReached
     {
-        get
-        {
-            return _valueData.IsRequirementMet();
-        }
+        get { return _valueData.IsRequirementMet(); }
     }
 
-    public bool IsAchievementGoalReached
+    public bool IsAchievementGoalReached(Func<string, bool> isUnlocked)
     {
-        get
-        {
-            return _achievementData.IsRequirementMet();
-        }
-    }
-
-    public string ProgressionDisplay
-    {
-        get
-        {
-            if (_completionRequirement == CompletionRequirementType.NoRequirement)
-            {
-                return string.Empty;
-            }
-
-            switch (_completionRequirement)
-            {
-                case CompletionRequirementType.ValueRequirement:
-                    return GetValueRequirementProgression();
-                case CompletionRequirementType.AchievementRequirement:
-                    return GetAchievementProgression();
-                default:
-                    return GetCollectableProgression();
-            }
-        }
+        return _achievementData.IsRequirementMet(isUnlocked);
     }
 
     public bool IsCollectableGoalReached(CollectableItem collectable)
@@ -127,21 +80,33 @@ public class AchievementType : AchievementBase
         _valueData.SetValue(value);
     }
 
+    public string GetProgressionDisplay(Func<string, bool> isUnlocked)
+    {
+        if (_completionRequirement == CompletionRequirementType.NoRequirement)
+        {
+            return string.Empty;
+        }
+
+        switch (_completionRequirement)
+        {
+            case CompletionRequirementType.ValueRequirement:
+                (float currentVal, float goalVal) = _valueData.GetAmountDisplay();
+                return _progressionData.GetProgressionDisplayType(currentVal, goalVal);
+
+            case CompletionRequirementType.AchievementRequirement:
+                (int currentAch, int goalAch) = _achievementData.GetProgressionDisplay(isUnlocked);
+                return _progressionData.GetProgressionDisplayType(currentAch, goalAch);
+
+            default:
+                return GetCollectableProgression();
+        }
+    }
+
     public void LoadAchievementStatus(AchievementDTO achievementDTO)
     {
         if (achievementDTO == null)
         {
-            LockAchievement();
             return;
-        }
-
-        if (achievementDTO.IsUnlocked)
-        {
-            UnlockAchievement();
-        }
-        else
-        {
-            LockAchievement();
         }
 
         if (CompletionEnumRequirement == CompletionRequirementType.ValueRequirement)
@@ -150,12 +115,12 @@ public class AchievementType : AchievementBase
         }
     }
 
-    public void SaveAchievementStatus(GameData gameData)
+    public void SaveAchievementStatus(GameData gameData, bool isUnlocked)
     {
         gameData.SetTotalAchievementsData(
             AchievementId,
             Title,
-            IsUnlocked,
+            isUnlocked,
             CurrentAmount
         );
     }
@@ -166,40 +131,20 @@ public class AchievementType : AchievementBase
         return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
     }
 
-    private string GetValueRequirementProgression()
-    {
-        (float currentAmount, float goalAmount) = _valueData.GetAmountDisplay();
-        return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
-    }
-
-    private string GetAchievementProgression()
-    {
-        (int currentAmount, int goalAmount) = _achievementData.GetProgressionDisplay();
-        return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
-    }
-
     private string GetCollectableProgression()
     {
         switch (_collectableData.CollectableRequirement)
         {
             case CollectableRequirementType.SingleCollectable:
-                return GetSingleCollectableProgression();
+                (int singleCurrent, int singleTotal) = _collectableData.GetSingleProgressionDisplay();
+                return _progressionData.GetProgressionDisplayType(singleCurrent, singleTotal);
+
             case CollectableRequirementType.AllCollectables:
-                return GetAllCollectablesProgression();
+                (int allCurrent, int allTotal) = _collectableData.GetAllProgressionDisplay();
+                return _progressionData.GetProgressionDisplayType(allCurrent, allTotal);
+
             default:
                 return GetCustomRequirementProgression();
         }
-    }
-
-    private string GetSingleCollectableProgression()
-    {
-        (int currentAmount, int totalAmount) = _collectableData.GetSingleProgressionDisplay();
-        return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-    }
-
-    private string GetAllCollectablesProgression()
-    {
-        (int currentAmount, int totalAmount) = _collectableData.GetAllProgressionDisplay();
-        return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
     }
 }
