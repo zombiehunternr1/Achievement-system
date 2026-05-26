@@ -15,15 +15,27 @@ public class AchievementSystem : MonoBehaviour
     [SerializeField] private EventChannel _updateProgression;
     [SerializeField] private EventChannel _saveGame;
 
-    // Runtime unlock state — no longer stored in ScriptableObjects
     private readonly Dictionary<string, bool> _unlockedState = new Dictionary<string, bool>();
 
     public bool IsUnlocked(string achievementId)
-        => _unlockedState.TryGetValue(achievementId, out bool value) && value;
+    {
+        if (_unlockedState.TryGetValue(achievementId, out bool value))
+        {
+            return value;
+        }
+
+        return false;
+    }
 
     private void Start()
     {
         EventDispatcher.Raise(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
+    }
+
+    // Used by CollectableAchievementBridge to iterate achievements without exposing the field directly
+    public List<AchievementType> GetAllAchievements()
+    {
+        return _allAchievementsListReference.AllAchievements;
     }
 
     public void ResetAllAchievements()
@@ -41,83 +53,7 @@ public class AchievementSystem : MonoBehaviour
         EventDispatcher.Raise(_saveGame);
     }
 
-    public void CheckCollectableRequest(EventPayload payload)
-    {
-        CollectableItem collectable = EventReader.Get<CollectableItem>(payload);
-        List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
-        List<AchievementType> triggeredAchievements = new List<AchievementType>();
-
-        for (int i = 0; i < allAchievements.Count; i++)
-        {
-            AchievementType achievement = allAchievements[i];
-
-            if (IsUnlocked(achievement.AchievementId) ||
-                achievement.CompletionEnumRequirement != CompletionRequirementType.CollectableRequirement)
-            {
-                continue;
-            }
-
-            if (!achievement.IsAchievementRelated(collectable))
-            {
-                continue;
-            }
-
-            RaiseUIStatus(achievement);
-
-            if (achievement.IsCollectableGoalReached(collectable))
-            {
-                triggeredAchievements.Add(achievement);
-            }
-        }
-
-        Dictionary<AchievementType, List<AchievementType>> dependencyGraph =
-            new Dictionary<AchievementType, List<AchievementType>>();
-
-        for (int i = 0; i < triggeredAchievements.Count; i++)
-        {
-            AchievementType achievement = triggeredAchievements[i];
-
-            if (!dependencyGraph.ContainsKey(achievement))
-            {
-                dependencyGraph[achievement] = new List<AchievementType>();
-            }
-
-            for (int j = 0; j < allAchievements.Count; j++)
-            {
-                AchievementType maybeDependent = allAchievements[j];
-
-                if (!maybeDependent.IsUnlockedAfterAchievement || IsUnlocked(maybeDependent.AchievementId))
-                {
-                    continue;
-                }
-
-                if (maybeDependent.UnlockAfterAchievements.Contains(achievement))
-                {
-                    if (!dependencyGraph.ContainsKey(maybeDependent))
-                    {
-                        dependencyGraph[maybeDependent] = new List<AchievementType>();
-                    }
-
-                    if (!dependencyGraph[achievement].Contains(maybeDependent))
-                    {
-                        dependencyGraph[achievement].Add(maybeDependent);
-                    }
-                }
-            }
-        }
-
-        List<AchievementType> sorted = TopologicalSort(dependencyGraph);
-
-        for (int i = 0; i < sorted.Count; i++)
-        {
-            AchievementType achievement = sorted[i];
-
-            if (IsEligibleForUnlock(achievement, collectable))
-            {
-                UnlockAchievement(achievement);
-            }
-        }
-    }
+    // CheckCollectableRequest has moved to CollectableAchievementBridge
 
     public void UpdateReceivedAchievement(EventPayload payload)
     {
@@ -140,6 +76,36 @@ public class AchievementSystem : MonoBehaviour
         }
     }
 
+    // ProcessTriggeredAchievements — context parameter removed, confirmed list used to split logic
+    public void ProcessTriggeredAchievements(List<AchievementType> confirmedAchievements)
+    {
+        List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
+
+        Dictionary<AchievementType, List<AchievementType>> dependencyGraph =
+            BuildDependencyGraph(confirmedAchievements, allAchievements);
+
+        List<AchievementType> sorted = TopologicalSort(dependencyGraph);
+
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            AchievementType achievement = sorted[i];
+
+            if (confirmedAchievements.Contains(achievement))
+            {
+                // Eligibility already confirmed by the bridge — unlock directly
+                UnlockAchievement(achievement);
+            }
+            else
+            {
+                // Chain dependent — check eligibility within the core system
+                if (IsEligibleForUnlock(achievement))
+                {
+                    UnlockAchievement(achievement);
+                }
+            }
+        }
+    }
+
     private void UnlockAchievement(AchievementType achievement)
     {
         if (IsUnlocked(achievement.AchievementId))
@@ -152,7 +118,9 @@ public class AchievementSystem : MonoBehaviour
         EventDispatcher.Raise(_saveGame);
         RaiseUIStatus(achievement);
         EventDispatcher.Raise(_achievementUnlockedUI,
-            new AchievementStatusPayload(achievement, true,
+            new AchievementStatusPayload(
+                achievement,
+                true,
                 achievement.GetProgressionDisplay(IsUnlocked)));
 
         CheckPendingAchievementUnlocks();
@@ -182,7 +150,7 @@ public class AchievementSystem : MonoBehaviour
         }
     }
 
-    private void RaiseUIStatus(AchievementType achievement)
+    public void RaiseUIStatus(AchievementType achievement)
     {
         EventDispatcher.Raise(_updateAchievementUIStatus,
             new AchievementStatusPayload(
@@ -229,12 +197,15 @@ public class AchievementSystem : MonoBehaviour
             AchievementType achievement = allAchievements[i];
             gameData.AchievementsData.TryGetValue(achievement.AchievementId, out AchievementDTO dto);
 
-            // Restore unlock state into runtime dictionary
-            _unlockedState[achievement.AchievementId] = dto != null && dto.IsUnlocked;
+            bool isUnlocked = false;
 
-            // Restore value progress into the SO's ValueData (unchanged)
+            if (dto != null)
+            {
+                isUnlocked = dto.IsUnlocked;
+            }
+
+            _unlockedState[achievement.AchievementId] = isUnlocked;
             achievement.LoadAchievementStatus(dto);
-
             RaiseUIStatus(achievement);
         }
     }
@@ -276,11 +247,15 @@ public class AchievementSystem : MonoBehaviour
 
         void Visit(AchievementType node)
         {
-            if (visited.Contains(node)) return;
+            if (visited.Contains(node))
+            {
+                return;
+            }
 
             visited.Add(node);
 
             List<AchievementType> neighbors = dependencyGraph[node];
+
             for (int i = 0; i < neighbors.Count; i++)
             {
                 Visit(neighbors[i]);
@@ -298,6 +273,50 @@ public class AchievementSystem : MonoBehaviour
         return sortedList;
     }
 
+    private Dictionary<AchievementType, List<AchievementType>> BuildDependencyGraph(
+        List<AchievementType> triggeredAchievements,
+        List<AchievementType> allAchievements)
+    {
+        Dictionary<AchievementType, List<AchievementType>> dependencyGraph =
+            new Dictionary<AchievementType, List<AchievementType>>();
+
+        for (int i = 0; i < triggeredAchievements.Count; i++)
+        {
+            AchievementType achievement = triggeredAchievements[i];
+
+            if (!dependencyGraph.ContainsKey(achievement))
+            {
+                dependencyGraph[achievement] = new List<AchievementType>();
+            }
+
+            for (int j = 0; j < allAchievements.Count; j++)
+            {
+                AchievementType maybeDependent = allAchievements[j];
+
+                if (!maybeDependent.IsUnlockedAfterAchievement || IsUnlocked(maybeDependent.AchievementId))
+                {
+                    continue;
+                }
+
+                if (maybeDependent.UnlockAfterAchievements.Contains(achievement))
+                {
+                    if (!dependencyGraph.ContainsKey(maybeDependent))
+                    {
+                        dependencyGraph[maybeDependent] = new List<AchievementType>();
+                    }
+
+                    if (!dependencyGraph[achievement].Contains(maybeDependent))
+                    {
+                        dependencyGraph[achievement].Add(maybeDependent);
+                    }
+                }
+            }
+        }
+
+        return dependencyGraph;
+    }
+
+    // IsEligibleForUnlock — CollectableRequirement case removed, context now optional
     private bool IsEligibleForUnlock(AchievementType achievement, object context = null)
     {
         if (IsUnlocked(achievement.AchievementId))
@@ -308,14 +327,23 @@ public class AchievementSystem : MonoBehaviour
         switch (achievement.CompletionEnumRequirement)
         {
             case CompletionRequirementType.NoRequirement:
-                return true;
+                {
+                    return true;
+                }
             case CompletionRequirementType.ValueRequirement:
-                achievement.SetCurrentValue(context);
-                return achievement.IsValueGoalReached;
-            case CompletionRequirementType.CollectableRequirement:
-                return achievement.IsCollectableGoalReached((CollectableItem)context);
+                {
+                    if (context != null)
+                    {
+                        achievement.SetCurrentValue(context);
+                    }
+
+                    return achievement.IsValueGoalReached;
+                }
             case CompletionRequirementType.AchievementRequirement:
-                return achievement.IsAchievementGoalReached(IsUnlocked);
+                {
+                    return achievement.IsAchievementGoalReached(IsUnlocked);
+                }
+                // CollectableRequirement removed — handled entirely by CollectableAchievementBridge
         }
 
         return false;

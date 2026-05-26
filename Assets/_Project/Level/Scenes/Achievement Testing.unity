@@ -4589,6 +4589,7 @@ GameObject:
   - component: {fileID: 869330440}
   - component: {fileID: 869330461}
   - component: {fileID: 869330439}
+  - component: {fileID: 869330463}
   - component: {fileID: 869330462}
   m_Layer: 0
   m_Name: AchievementSystem
@@ -4708,8 +4709,8 @@ MonoBehaviour:
     _response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 869330439}
-          m_TargetAssemblyTypeName: AchievementSystem, Assembly-CSharp
+        - m_Target: {fileID: 869330463}
+          m_TargetAssemblyTypeName: CollectableAchievementBridge, Assembly-CSharp
           m_MethodName: CheckCollectableRequest
           m_Mode: 0
           m_Arguments:
@@ -4800,6 +4801,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &869330463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869330438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47dfe060b15ff047b534ea7ab154908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableAchievementBridge
+  _achievementSystem: {fileID: 869330439}
 --- !u!1 &930332463
 GameObject:
   m_ObjectHideFlags: 0
