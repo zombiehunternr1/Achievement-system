@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,14 +25,12 @@ public class AchievementTypeEditor : Editor
         _goalIntegerAmountProp,
         _currentFloatAmountProp,
         _goalFloatAmountProp,
-        _collectableEnumRequirementProp,
-        _collectableReferenceProp,
-        _collectableListReferenceProp,
-        _minimumGoalAmountProp,
         _isUnlockAfterAchievementProp,
-        _unlockAfterAchievementsProp;
+        _unlockAfterAchievementsProp,
+        _requirementExtensionProp;
 
     private MonoScript _monoScript;
+    private bool _hasRequirementExtension;
 
     private void OnEnable()
     {
@@ -54,12 +53,30 @@ public class AchievementTypeEditor : Editor
         _goalIntegerAmountProp = serializedObject.FindProperty("_valueData._goalIntegerAmount");
         _currentFloatAmountProp = serializedObject.FindProperty("_valueData._currentFloatAmount");
         _goalFloatAmountProp = serializedObject.FindProperty("_valueData._goalFloatAmount");
-        _collectableEnumRequirementProp = serializedObject.FindProperty("_collectableData._collectableRequirement");
-        _collectableReferenceProp = serializedObject.FindProperty("_collectableData._collectableReference");
-        _collectableListReferenceProp = serializedObject.FindProperty("_collectableData._collectableListReference");
-        _minimumGoalAmountProp = serializedObject.FindProperty("_collectableData._minimumGoalAmount");
         _isUnlockAfterAchievementProp = serializedObject.FindProperty("_isUnlockedAfterAchievement");
         _unlockAfterAchievementsProp = serializedObject.FindProperty("_unlockAfterAchievements");
+
+        _requirementExtensionProp = FindRequirementExtensionProperty();
+        _hasRequirementExtension = _requirementExtensionProp != null;
+    }
+
+    private SerializedProperty FindRequirementExtensionProperty()
+    {
+        FieldInfo[] fields = target.GetType().GetFields(
+            BindingFlags.NonPublic | BindingFlags.Instance);
+
+        foreach (FieldInfo field in fields)
+        {
+            object[] attributes = field.GetCustomAttributes(
+                typeof(AchievementRequirementDataAttribute), true);
+
+            if (attributes.Length > 0)
+            {
+                return serializedObject.FindProperty(field.Name);
+            }
+        }
+
+        return null;
     }
 
     public override void OnInspectorGUI()
@@ -100,8 +117,6 @@ public class AchievementTypeEditor : Editor
             (CompletionRequirementType)_completionEnumRequirementProp.enumValueIndex;
         NumericValueType valueEnumType =
             (NumericValueType)_valueEnumTypeProp.enumValueIndex;
-        CollectableRequirementType collectableEnumRequirement =
-            (CollectableRequirementType)_collectableEnumRequirementProp.enumValueIndex;
 
         switch (completionEnumType)
         {
@@ -134,27 +149,19 @@ public class AchievementTypeEditor : Editor
                 }
             case CompletionRequirementType.CollectableRequirement:
                 {
-                    EditorGUILayout.PropertyField(_collectableEnumRequirementProp);
-
-                    switch (collectableEnumRequirement)
+                    if (!_hasRequirementExtension)
                     {
-                        case CollectableRequirementType.SingleCollectable:
-                            {
-                                EditorGUILayout.PropertyField(_collectableReferenceProp);
-                                break;
-                            }
-                        case CollectableRequirementType.AllCollectables:
-                            {
-                                EditorGUILayout.PropertyField(_collectableListReferenceProp);
-                                break;
-                            }
-                        case CollectableRequirementType.Custom:
-                            {
-                                EditorGUILayout.PropertyField(_collectableListReferenceProp);
-                                EditorGUILayout.PropertyField(_minimumGoalAmountProp);
-                                break;
-                            }
+                        EditorGUILayout.HelpBox(
+                            "No requirement extension found. Tag a field on AchievementType with [AchievementRequirementData] to configure it here.",
+                            MessageType.Info);
+
+                        break;
                     }
+
+                    // The CollectableDataDrawer handles all conditional rendering inside this field
+                    EditorGUILayout.PropertyField(
+                        _requirementExtensionProp,
+                        new GUIContent("Requirement"));
 
                     break;
                 }

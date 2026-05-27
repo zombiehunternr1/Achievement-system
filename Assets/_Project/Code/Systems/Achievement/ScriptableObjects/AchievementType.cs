@@ -9,6 +9,7 @@ public class AchievementType : AchievementBase
     [SerializeField] private CompletionRequirementType _completionRequirement;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
+    [AchievementRequirementData]
     [SerializeField] private CollectableData _collectableData;
     [SerializeField] private ValueData _valueData;
     [SerializeField] private bool _isUnlockedAfterAchievement;
