@@ -22,18 +22,19 @@ public class CollectableAchievementBridge : MonoBehaviour
                 continue;
             }
 
-            if (!achievement.IsAchievementRelated(collectable))
+            if (!achievement.CollectableRequirementData.IsRelatedToAchievement(collectable))
             {
                 continue;
             }
 
             _achievementSystem.RaiseUIStatus(achievement);
 
-            if (achievement.IsCollectableGoalReached(collectable))
+            if (achievement.CollectableRequirementData.IsRequirementMet(collectable))
             {
                 triggeredAchievements.Add(achievement);
             }
         }
+
         _achievementSystem.ProcessTriggeredAchievements(triggeredAchievements);
     }
 }

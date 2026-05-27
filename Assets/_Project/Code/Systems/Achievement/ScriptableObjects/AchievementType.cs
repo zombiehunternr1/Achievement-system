@@ -16,63 +16,81 @@ public class AchievementType : AchievementBase
 
     public List<AchievementType> UnlockAfterAchievements
     {
-        get { return _unlockAfterAchievements; }
+        get
+        {
+            return _unlockAfterAchievements;
+        }
     }
 
     public bool IsUnlockedAfterAchievement
     {
-        get { return _isUnlockedAfterAchievement; }
+        get
+        {
+            return _isUnlockedAfterAchievement;
+        }
     }
 
     public CompletionRequirementType CompletionEnumRequirement
     {
-        get { return _completionRequirement; }
+        get
+        {
+            return _completionRequirement;
+        }
     }
 
     public RewardTier RewardTier
     {
-        get { return _rewardTier; }
+        get
+        {
+            return _rewardTier;
+        }
     }
 
     public bool IsHidden
     {
-        get { return _progressionData.IsHidden; }
+        get
+        {
+            return _progressionData.IsHidden;
+        }
     }
 
     public bool HasProgressionDisplay
     {
-        get { return _progressionData.HasProgressionDisplay; }
+        get
+        {
+            return _progressionData.HasProgressionDisplay;
+        }
     }
 
     public float CurrentAmount
     {
-        get { return _valueData.GetCurrentAmount(); }
+        get
+        {
+            return _valueData.GetCurrentAmount();
+        }
     }
 
     public bool IsValueGoalReached
     {
-        get { return _valueData.IsRequirementMet(); }
+        get
+        {
+            return _valueData.IsRequirementMet();
+        }
+    }
+
+    // Exposed so the bridge can read collectable requirement data directly.
+    // AchievementType itself never references CollectableItem — the bridge handles that.
+    public CollectableData CollectableRequirementData
+    {
+        get
+        {
+            return _collectableData;
+        }
     }
 
     public bool IsAchievementGoalReached(Func<string, bool> isUnlocked)
     {
         return _achievementData.IsRequirementMet(isUnlocked);
-    }
-
-    public bool IsCollectableGoalReached(CollectableItem collectable)
-    {
-        return _collectableData.IsRequirementMet(collectable);
-    }
-
-    public bool IsAchievementRelated(CollectableItem collectable)
-    {
-        if (_completionRequirement == CompletionRequirementType.NoRequirement ||
-            _completionRequirement == CompletionRequirementType.ValueRequirement)
-        {
-            return false;
-        }
-
-        return _collectableData.IsRelatedToAchievement(collectable);
     }
 
     public void SetCurrentValue(object value)
@@ -90,15 +108,19 @@ public class AchievementType : AchievementBase
         switch (_completionRequirement)
         {
             case CompletionRequirementType.ValueRequirement:
-                (float currentVal, float goalVal) = _valueData.GetAmountDisplay();
-                return _progressionData.GetProgressionDisplayType(currentVal, goalVal);
-
+                {
+                    (float currentAmount, float goalAmount) = _valueData.GetAmountDisplay();
+                    return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
+                }
             case CompletionRequirementType.AchievementRequirement:
-                (int currentAch, int goalAch) = _achievementData.GetProgressionDisplay(isUnlocked);
-                return _progressionData.GetProgressionDisplayType(currentAch, goalAch);
-
+                {
+                    (int currentAmount, int goalAmount) = _achievementData.GetProgressionDisplay(isUnlocked);
+                    return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
+                }
             default:
-                return GetCollectableProgression();
+                {
+                    return GetCollectableProgression();
+                }
         }
     }
 
@@ -125,26 +147,25 @@ public class AchievementType : AchievementBase
         );
     }
 
-    private string GetCustomRequirementProgression()
-    {
-        (int currentAmount, int totalAmount) = _collectableData.GetCustomAmountDisplay();
-        return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-    }
-
     private string GetCollectableProgression()
     {
         switch (_collectableData.CollectableRequirement)
         {
             case CollectableRequirementType.SingleCollectable:
-                (int singleCurrent, int singleTotal) = _collectableData.GetSingleProgressionDisplay();
-                return _progressionData.GetProgressionDisplayType(singleCurrent, singleTotal);
-
+                {
+                    (int currentAmount, int totalAmount) = _collectableData.GetSingleProgressionDisplay();
+                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
+                }
             case CollectableRequirementType.AllCollectables:
-                (int allCurrent, int allTotal) = _collectableData.GetAllProgressionDisplay();
-                return _progressionData.GetProgressionDisplayType(allCurrent, allTotal);
-
+                {
+                    (int currentAmount, int totalAmount) = _collectableData.GetAllProgressionDisplay();
+                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
+                }
             default:
-                return GetCustomRequirementProgression();
+                {
+                    (int currentAmount, int totalAmount) = _collectableData.GetCustomAmountDisplay();
+                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
+                }
         }
     }
 }

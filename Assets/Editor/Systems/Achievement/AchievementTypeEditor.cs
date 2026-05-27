@@ -1,5 +1,4 @@
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 [CustomEditor(typeof(AchievementType)), CanEditMultipleObjects]
@@ -107,52 +106,70 @@ public class AchievementTypeEditor : Editor
         switch (completionEnumType)
         {
             case CompletionRequirementType.NoRequirement:
-                break;
-
+                {
+                    break;
+                }
             case CompletionRequirementType.ValueRequirement:
-                EditorGUILayout.PropertyField(_valueEnumTypeProp);
-                EditorGUILayout.PropertyField(_isExactAmountProp);
-
-                switch (valueEnumType)
                 {
-                    case NumericValueType.Integer:
-                        EditorGUILayout.PropertyField(_currentIntegerAmountProp);
-                        EditorGUILayout.PropertyField(_goalIntegerAmountProp);
-                        break;
-                    case NumericValueType.Float:
-                        EditorGUILayout.PropertyField(_currentFloatAmountProp);
-                        EditorGUILayout.PropertyField(_goalFloatAmountProp);
-                        break;
-                }
-                break;
+                    EditorGUILayout.PropertyField(_valueEnumTypeProp);
+                    EditorGUILayout.PropertyField(_isExactAmountProp);
 
+                    switch (valueEnumType)
+                    {
+                        case NumericValueType.Integer:
+                            {
+                                EditorGUILayout.PropertyField(_currentIntegerAmountProp);
+                                EditorGUILayout.PropertyField(_goalIntegerAmountProp);
+                                break;
+                            }
+                        case NumericValueType.Float:
+                            {
+                                EditorGUILayout.PropertyField(_currentFloatAmountProp);
+                                EditorGUILayout.PropertyField(_goalFloatAmountProp);
+                                break;
+                            }
+                    }
+
+                    break;
+                }
             case CompletionRequirementType.CollectableRequirement:
-                EditorGUILayout.PropertyField(_collectableEnumRequirementProp);
-
-                switch (collectableEnumRequirement)
                 {
-                    case CollectableRequirementType.SingleCollectable:
-                        EditorGUILayout.PropertyField(_collectableReferenceProp);
-                        break;
-                    case CollectableRequirementType.AllCollectables:
-                        EditorGUILayout.PropertyField(_collectableListReferenceProp);
-                        break;
-                    case CollectableRequirementType.Custom:
-                        EditorGUILayout.PropertyField(_collectableListReferenceProp);
-                        EditorGUILayout.PropertyField(_minimumGoalAmountProp);
-                        break;
-                }
-                break;
+                    EditorGUILayout.PropertyField(_collectableEnumRequirementProp);
 
+                    switch (collectableEnumRequirement)
+                    {
+                        case CollectableRequirementType.SingleCollectable:
+                            {
+                                EditorGUILayout.PropertyField(_collectableReferenceProp);
+                                break;
+                            }
+                        case CollectableRequirementType.AllCollectables:
+                            {
+                                EditorGUILayout.PropertyField(_collectableListReferenceProp);
+                                break;
+                            }
+                        case CollectableRequirementType.Custom:
+                            {
+                                EditorGUILayout.PropertyField(_collectableListReferenceProp);
+                                EditorGUILayout.PropertyField(_minimumGoalAmountProp);
+                                break;
+                            }
+                    }
+
+                    break;
+                }
             case CompletionRequirementType.AchievementRequirement:
-                EditorGUILayout.PropertyField(_achievementListReferenceProp);
-                EditorGUILayout.PropertyField(_hasCustomGoalAmountProp);
-
-                if (_hasCustomGoalAmountProp.boolValue)
                 {
-                    EditorGUILayout.PropertyField(_goalAmountProp);
+                    EditorGUILayout.PropertyField(_achievementListReferenceProp);
+                    EditorGUILayout.PropertyField(_hasCustomGoalAmountProp);
+
+                    if (_hasCustomGoalAmountProp.boolValue)
+                    {
+                        EditorGUILayout.PropertyField(_goalAmountProp);
+                    }
+
+                    break;
                 }
-                break;
         }
 
         EditorGUILayout.Space();
