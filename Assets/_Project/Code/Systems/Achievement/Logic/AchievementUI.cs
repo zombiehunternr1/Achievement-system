@@ -19,9 +19,9 @@ public class AchievementUI : MonoBehaviour
 
     private readonly List<AchievementObject> _achievementObjects = new List<AchievementObject>();
     private readonly List<AchievementType> _queuedAchievements = new List<AchievementType>();
+    private Coroutine _popupCooldownCoroutine;
     private EventInstance _soundEffect;
 
-    // Receives List<AchievementType> — unchanged from original
     public void SetupAchievementDisplay(EventPayload payload)
     {
         List<AchievementType> allAchievements = EventReader.Get<List<AchievementType>>(payload);
@@ -51,13 +51,10 @@ public class AchievementUI : MonoBehaviour
                 achievementObject.DisableLock();
             }
 
-            // Initial state — locked. LoadAchievementDataFromGameData fires RaiseUIStatus
-            // for every achievement, which sends AchievementStatusPayload to UpdateAchievementStatus
             UpdateAchievementObject(i, achievement, false, string.Empty, achievement.IsHidden);
         }
     }
 
-    // Now receives AchievementStatusPayload — isUnlocked and progression come from runtime state
     public void UpdateAchievementStatus(EventPayload payload)
     {
         AchievementStatusPayload status = EventReader.Get<AchievementStatusPayload>(payload);
@@ -74,7 +71,6 @@ public class AchievementUI : MonoBehaviour
         UpdateAchievementObject(objectIndex, achievement, status.IsUnlocked, status.ProgressionDisplay, shouldDisplayAsHidden);
     }
 
-    // Now receives AchievementStatusPayload
     public void AchievementUnlocked(EventPayload payload)
     {
         AchievementStatusPayload status = EventReader.Get<AchievementStatusPayload>(payload);
@@ -89,11 +85,22 @@ public class AchievementUI : MonoBehaviour
 
     public void StartPopupCooldown()
     {
-        StartCoroutine(PopupCooldown());
+        if (_popupCooldownCoroutine != null)
+        {
+            StopCoroutine(_popupCooldownCoroutine);
+        }
+
+        _popupCooldownCoroutine = StartCoroutine(PopupCooldown());
     }
 
     public void ClearAchievementQueue()
     {
+        if (_popupCooldownCoroutine != null)
+        {
+            StopCoroutine(_popupCooldownCoroutine);
+            _popupCooldownCoroutine = null;
+        }
+
         _queuedAchievements.Clear();
     }
 
@@ -165,7 +172,7 @@ public class AchievementUI : MonoBehaviour
         }
         else
         {
-            StopAllCoroutines();
+            _popupCooldownCoroutine = null;
         }
     }
 }
