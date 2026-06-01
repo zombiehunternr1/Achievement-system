@@ -9,11 +9,31 @@ public class AchievementType : AchievementBase
     [SerializeField] private CompletionRequirementType _completionRequirement;
     [SerializeField] private ProgressionData _progressionData;
     [SerializeField] private AchievementData _achievementData;
-    [AchievementRequirementData]
-    [SerializeField] private CollectableData _collectableData;
     [SerializeField] private ValueData _valueData;
     [SerializeField] private bool _isUnlockedAfterAchievement;
     [SerializeField] private List<AchievementType> _unlockAfterAchievements;
+
+    // -----------------------------------------------------------------------
+    // COLLECTABLE EXTENSION
+    // This block is the only collectable reference in the core achievement system.
+    // To use this system in a project without collectables:
+    //   - Remove this block (the field and the property below)
+    //   - Remove CollectableData.cs and CollectableAchievementBridge.cs
+    //   - Everything else works without modification
+    // -----------------------------------------------------------------------
+    [AchievementRequirementData]
+    [SerializeField] private CollectableData _collectableData;
+
+    public CollectableData CollectableRequirementData
+    {
+        get
+        {
+            return _collectableData;
+        }
+    }
+    // -----------------------------------------------------------------------
+    // END COLLECTABLE EXTENSION
+    // -----------------------------------------------------------------------
 
     public List<AchievementType> UnlockAfterAchievements
     {
@@ -79,16 +99,6 @@ public class AchievementType : AchievementBase
         }
     }
 
-    // Exposed so the bridge can read collectable requirement data directly.
-    // AchievementType itself never references CollectableItem — the bridge handles that.
-    public CollectableData CollectableRequirementData
-    {
-        get
-        {
-            return _collectableData;
-        }
-    }
-
     public bool IsAchievementGoalReached(Func<string, bool> isUnlocked)
     {
         return _achievementData.IsRequirementMet(isUnlocked);
@@ -97,6 +107,14 @@ public class AchievementType : AchievementBase
     public void SetCurrentValue(object value)
     {
         _valueData.SetValue(value);
+    }
+
+    // Formats a current/goal pair using this achievement's own display settings.
+    // Used by CollectableAchievementBridge to produce the progression string
+    // without AchievementType needing to know about collectable types.
+    public string FormatProgressionDisplay(float currentAmount, float goalAmount)
+    {
+        return _progressionData.GetProgressionDisplayType(currentAmount, goalAmount);
     }
 
     public string GetProgressionDisplay(Func<string, bool> isUnlocked)
@@ -120,7 +138,9 @@ public class AchievementType : AchievementBase
                 }
             default:
                 {
-                    return GetCollectableProgression();
+                    // Collectable progression is computed by CollectableAchievementBridge
+                    // and passed via AchievementSystem.RaiseUIStatus(achievement, progressionDisplay)
+                    return string.Empty;
                 }
         }
     }
@@ -146,27 +166,5 @@ public class AchievementType : AchievementBase
             isUnlocked,
             CurrentAmount
         );
-    }
-
-    private string GetCollectableProgression()
-    {
-        switch (_collectableData.CollectableRequirement)
-        {
-            case CollectableRequirementType.SingleCollectable:
-                {
-                    (int currentAmount, int totalAmount) = _collectableData.GetSingleProgressionDisplay();
-                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-                }
-            case CollectableRequirementType.AllCollectables:
-                {
-                    (int currentAmount, int totalAmount) = _collectableData.GetAllProgressionDisplay();
-                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-                }
-            default:
-                {
-                    (int currentAmount, int totalAmount) = _collectableData.GetCustomAmountDisplay();
-                    return _progressionData.GetProgressionDisplayType(currentAmount, totalAmount);
-                }
-        }
     }
 }

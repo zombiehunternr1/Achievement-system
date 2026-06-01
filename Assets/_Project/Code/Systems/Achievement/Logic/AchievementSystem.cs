@@ -32,7 +32,6 @@ public class AchievementSystem : MonoBehaviour
         EventDispatcher.Raise(_setupAchievementUI, _allAchievementsListReference.AllAchievements);
     }
 
-    // Used by CollectableAchievementBridge to iterate achievements without exposing the field directly
     public List<AchievementType> GetAllAchievements()
     {
         return _allAchievementsListReference.AllAchievements;
@@ -52,8 +51,6 @@ public class AchievementSystem : MonoBehaviour
 
         EventDispatcher.Raise(_saveGame);
     }
-
-    // CheckCollectableRequest has moved to CollectableAchievementBridge
 
     public void UpdateReceivedAchievement(EventPayload payload)
     {
@@ -76,7 +73,6 @@ public class AchievementSystem : MonoBehaviour
         }
     }
 
-    // ProcessTriggeredAchievements — context parameter removed, confirmed list used to split logic
     public void ProcessTriggeredAchievements(List<AchievementType> confirmedAchievements)
     {
         List<AchievementType> allAchievements = _allAchievementsListReference.AllAchievements;
@@ -92,12 +88,10 @@ public class AchievementSystem : MonoBehaviour
 
             if (confirmedAchievements.Contains(achievement))
             {
-                // Eligibility already confirmed by the bridge — unlock directly
                 UnlockAchievement(achievement);
             }
             else
             {
-                // Chain dependent — check eligibility within the core system
                 if (IsEligibleForUnlock(achievement))
                 {
                     UnlockAchievement(achievement);
@@ -150,6 +144,7 @@ public class AchievementSystem : MonoBehaviour
         }
     }
 
+    // Core version — used for all requirement types the core handles natively
     public void RaiseUIStatus(AchievementType achievement)
     {
         EventDispatcher.Raise(_updateAchievementUIStatus,
@@ -159,11 +154,28 @@ public class AchievementSystem : MonoBehaviour
                 achievement.GetProgressionDisplay(IsUnlocked)));
     }
 
+    // Extension version — called by CollectableAchievementBridge with a
+    // pre-computed string for achievements the core cannot display on its own
+    public void RaiseUIStatus(AchievementType achievement, string progressionDisplay)
+    {
+        EventDispatcher.Raise(_updateAchievementUIStatus,
+            new AchievementStatusPayload(
+                achievement,
+                IsUnlocked(achievement.AchievementId),
+                progressionDisplay));
+    }
+
     #region Coroutines
 
     private IEnumerator DelayUpdateUnlockedStatus(AchievementType achievement)
     {
         yield return new WaitForSeconds(0.01f);
+
+        if (achievement.CompletionEnumRequirement == CompletionRequirementType.CollectableRequirement)
+        {
+            yield break;
+        }
+
         RaiseUIStatus(achievement);
     }
 
@@ -316,7 +328,6 @@ public class AchievementSystem : MonoBehaviour
         return dependencyGraph;
     }
 
-    // IsEligibleForUnlock — CollectableRequirement case removed, context now optional
     private bool IsEligibleForUnlock(AchievementType achievement, object context = null)
     {
         if (IsUnlocked(achievement.AchievementId))
@@ -343,7 +354,6 @@ public class AchievementSystem : MonoBehaviour
                 {
                     return achievement.IsAchievementGoalReached(IsUnlocked);
                 }
-                // CollectableRequirement removed — handled entirely by CollectableAchievementBridge
         }
 
         return false;
