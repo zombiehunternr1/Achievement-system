@@ -8,7 +8,13 @@ public class CollectableObject : CollectableObjectBase
     [Header("Collectable Reference")]
     [SerializeField] private CollectableItem _collectable;
 
-    public CollectableItem Collectable => _collectable;
+    public CollectableItem Collectable
+    {
+        get
+        {
+            return _collectable;
+        }
+    }
 
     public void EvaluateCollectionRequirement()
     {
@@ -28,7 +34,7 @@ public class CollectableObject : CollectableObjectBase
         {
             _collectable.AdvanceSingleProgress(Time.deltaTime);
 
-            if (!_collectable.IsGoalRequirementReached)
+            if (_collectable.IsGoalRequirementReached)
             {
                 SetAsCollected();
             }
